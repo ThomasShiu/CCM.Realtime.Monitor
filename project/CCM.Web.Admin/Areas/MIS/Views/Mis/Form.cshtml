@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/MIS/MisIpAddress/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/MIS/MisIpAddress/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+            <tr>
+                <th class="formTitle">SID</th>
+                <td class="formValue">
+                    <input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="SID" name="SID" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">IP_ADDR</th>
+                <td class="formValue">
+                    <input id="IP_ADDR" name="IP_ADDR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="IP_ADDR" name="IP_ADDR" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">MAC_ADDR</th>
+                <td class="formValue">
+                    <input id="MAC_ADDR" name="MAC_ADDR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="MAC_ADDR" name="MAC_ADDR" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">DEPT</th>
+                <td class="formValue">
+                    <input id="DEPT" name="DEPT" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="DEPT" name="DEPT" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">USER</th>
+                <td class="formValue">
+                    <input id="USER" name="USER" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="USER" name="USER" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">DEVICE</th>
+                <td class="formValue">
+                    <input id="DEVICE" name="DEVICE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="DEVICE" name="DEVICE" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">OS</th>
+                <td class="formValue">
+                    <input id="OS" name="OS" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="OS" name="OS" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">GROUP</th>
+                <td class="formValue">
+                    <input id="GROUP" name="GROUP" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="GROUP" name="GROUP" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">ANTIVIRUS</th>
+                <td class="formValue">
+                    <input id="ANTIVIRUS" name="ANTIVIRUS" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="ANTIVIRUS" name="ANTIVIRUS" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">REMARK</th>
+                <td class="formValue">
+                    <input id="REMARK" name="REMARK" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="REMARK" name="REMARK" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">OrganizeId</th>
+                <td class="formValue">
+                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="OrganizeId" name="OrganizeId" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CreatorTime</th>
+                <td class="formValue">
+                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="CreatorTime" name="CreatorTime" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CreatorUserId</th>
+                <td class="formValue">
+                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="CreatorUserId" name="CreatorUserId" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">LastModifyTime</th>
+                <td class="formValue">
+                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="LastModifyTime" name="LastModifyTime" class="form-control required"></select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">LastModifyUserId</th>
+                <td class="formValue">
+                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="LastModifyUserId" name="LastModifyUserId" class="form-control required"></select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

@@ -2,7 +2,7 @@
  * Copyright © 2016 CCM.Framework 版权所有
  * Author: CCM
  * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Code;
 using CCM.Domain.Entity.SystemSecurity;
@@ -88,7 +88,7 @@ namespace CCM.Application.SystemSecurity
         {
             logEntity.F_Id = Common.GuId();
             logEntity.F_Date = DateTime.Now;
-            logEntity.F_IPAddress = "117.81.192.182";
+            logEntity.F_IPAddress = Net.Ip;
             logEntity.F_IPAddressName = Net.GetLocation(logEntity.F_IPAddress);
             logEntity.Create();
             service.Insert(logEntity);

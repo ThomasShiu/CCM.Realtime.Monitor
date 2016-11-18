@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System.Collections.Generic;
 using System.Net;
@@ -14,13 +14,13 @@ using System.Web;
 namespace CCM.Code
 {
     /// <summary>
-    /// 网络操作
+    /// 網路操作
     /// </summary>
     public class Net
     {
-        #region Ip(获取Ip)
+        #region Ip(獲取Ip)
         /// <summary>
-        /// 获取Ip
+        /// 獲取Ip
         /// </summary>
         public static string Ip
         {
@@ -36,7 +36,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 获取Web客户端的Ip
+        /// 獲取Web用戶端的Ip
         /// </summary>
         private static string GetWebClientIp()
         {
@@ -50,7 +50,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 获取Web远程Ip
+        /// 獲取Web遠程Ip
         /// </summary>
         private static string GetWebRemoteIp()
         {
@@ -58,7 +58,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 获取局域网IP
+        /// 獲取局域網IP
         /// </summary>
         private static string GetLanIp()
         {
@@ -72,10 +72,10 @@ namespace CCM.Code
 
         #endregion
 
-        #region Host(获取主机名)
+        #region Host(獲取主機名稱)
 
         /// <summary>
-        /// 获取主机名
+        /// 獲取主機名稱
         /// </summary>
         public static string Host
         {
@@ -86,7 +86,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 获取Web客户端主机名
+        /// 獲取Web用戶端主機名稱
         /// </summary>
         private static string GetWebClientHostName()
         {
@@ -101,9 +101,9 @@ namespace CCM.Code
 
         #endregion
 
-        #region 获取mac地址
+        #region 獲取mac地址
         /// <summary>
-        /// 返回描述本地计算机上的网络接口的对象(网络接口也称为网络适配器)。
+        /// 返回描述本地電腦上的網路介面的物件(網路介面也稱為網路介面卡)。
         /// </summary>
         /// <returns></returns>
         public static NetworkInterface[] NetCardInfo()
@@ -111,7 +111,7 @@ namespace CCM.Code
             return NetworkInterface.GetAllNetworkInterfaces();
         }
         ///<summary>
-        /// 通过NetworkInterface读取网卡Mac
+        /// 通過NetworkInterface讀取網卡Mac
         ///</summary>
         ///<returns></returns>
         public static List<string> GetMacByNetworkInterface()
@@ -126,9 +126,9 @@ namespace CCM.Code
         }
         #endregion
 
-        #region Ip城市(获取Ip城市)
+        #region Ip城市(獲取Ip城市)
         /// <summary>
-        /// 获取IP地址信息
+        /// 獲取IP位址資訊
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
@@ -164,7 +164,7 @@ namespace CCM.Code
             return res;
         }
         /// <summary>
-        /// 百度接口
+        /// 百度介面
         /// </summary>
         public class obj
         {
@@ -175,7 +175,7 @@ namespace CCM.Code
             public string location { get; set; }
         }
         /// <summary>
-        /// 聚合数据
+        /// 聚合數據
         /// </summary>
         public class objex
         {
@@ -191,9 +191,9 @@ namespace CCM.Code
         }
         #endregion
 
-        #region Browser(获取浏览器信息)
+        #region Browser(獲取流覽器資訊)
         /// <summary>
-        /// 获取浏览器信息
+        /// 獲取流覽器資訊
         /// </summary>
         public static string Browser
         {
@@ -208,3 +208,4 @@ namespace CCM.Code
         #endregion
     }
 }
+

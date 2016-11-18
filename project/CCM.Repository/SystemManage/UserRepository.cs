@@ -2,7 +2,7 @@
  * Copyright © 2016 CCM.Framework 版权所有
  * Author: CCM
  * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Code;
 using CCM.Data;
@@ -18,8 +18,8 @@ namespace CCM.Repository.SystemManage
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
-                db.Delete<UserEntity>(t => t.F_Id == keyValue);
-                db.Delete<UserLogOnEntity>(t => t.F_UserId == keyValue);
+                db.Delete<UserEntity>(t => t.F_Id == keyValue);  // 帳號主檔
+                db.Delete<UserLogOnEntity>(t => t.F_UserId == keyValue);  // 帳號登入設定檔
                 db.Commit();
             }
         }

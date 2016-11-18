@@ -9046,7 +9046,7 @@ Pointer.prototype = {
 		this.zoomVert = (zoomY && !inverted) || (zoomX && inverted);
 
 		// Do we need to handle click on a touch device?
-		this.runChartClick = chartEvents && !!chartEvents.click;
+		this.rustringtClick = chartEvents && !!chartEvents.click;
 
 		this.pinchDown = [];
 		this.lastValidTouch = {};
@@ -9785,7 +9785,7 @@ extend(Highcharts.Pointer.prototype, {
 			selectionMarker = self.selectionMarker,
 			transform = {},
 			fireClickEvent = touchesLength === 1 && ((self.inClass(e.target, PREFIX + 'tracker') && 
-				chart.runTrackerClick) || chart.runChartClick),
+				chart.runTrackerClick) || chart.rustringtClick),
 			clip = {};
 
 		// On touch devices, only proceed to trigger click if a handler is defined
@@ -9859,7 +9859,7 @@ extend(Highcharts.Pointer.prototype, {
 			if (chart.isInsidePlot(e.chartX - chart.plotLeft, e.chartY - chart.plotTop)) {
 
 				// Prevent the click pseudo event from firing unless it is set in the options
-				/*if (!chart.runChartClick) {
+				/*if (!chart.rustringtClick) {
 					e.preventDefault();
 				}*/
 			
@@ -10763,7 +10763,7 @@ Chart.prototype = {
 
 		var chartEvents = optionsChart.events;
 
-		//this.runChartClick = chartEvents && !!chartEvents.click;
+		//this.rustringtClick = chartEvents && !!chartEvents.click;
 		this.bounds = { h: {}, v: {} }; // Pixel data bounds for touch zoom
 
 		this.callback = callback;
@@ -10905,12 +10905,12 @@ Chart.prototype = {
 			i = seriesLength,
 			serie,
 			renderer = chart.renderer,
-			isHiddenChart = renderer.isHidden(),
+			isHiddestringt = renderer.isHidden(),
 			afterRedraw = [];
 			
 		setAnimation(animation, chart);
 		
-		if (isHiddenChart) {
+		if (isHiddestringt) {
 			chart.cloneRenderTo();
 		}
 
@@ -11029,7 +11029,7 @@ Chart.prototype = {
 		// fire the event
 		fireEvent(chart, 'redraw'); // jQuery breaks this when calling it from addEvent. Overwrites chart.redraw
 		
-		if (isHiddenChart) {
+		if (isHiddestringt) {
 			chart.cloneRenderTo(true);
 		}
 		

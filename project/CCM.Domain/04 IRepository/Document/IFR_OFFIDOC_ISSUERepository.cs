@@ -1,10 +1,11 @@
 ﻿using CCM.Data;
-using CCM.Domain.Entity.Document;
+using CCM.Domain.Entity;
 
 
-namespace CCM.Domain._04_IRepository.Document
+namespace CCM.Domain
 {
-    public interface IFR_OFFIDOC_ISSUERepository : IRepositoryBase<FR_OFFIDOC_ISSUE_Entity>
+    public interface IFR_OFFIDOC_ISSUERepository : IRepositoryBase<FR_OFFIDOC_ISSUEEntity>
     {
+       
     }
 }

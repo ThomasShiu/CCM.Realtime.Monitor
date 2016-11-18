@@ -21,7 +21,7 @@
 x64/
 x86/
 bld/
-[Bb]in/
+#[Bb]in/
 [Oo]bj/
 [Ll]og/
 
@@ -259,10 +259,10 @@ paket-files/
 
 # 如果你想忽略壓縮檔或一些大檔案
  
-*.7z
+#*.7z
 *.gz
 *.iso
 *.jar
-*.rar
+#*.rar
 *.tar
-*.zip
+#*.zip

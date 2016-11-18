@@ -244,5 +244,5 @@ td.menu_text{width: auto;padding-left: 1px;white-space: nowrap;}
 .ui-jqgrid .ckbox input[type="checkbox"]:checked + label::after{font-family: 'FontAwesome';content: "\F00C";position: absolute;top: 4px;left:1px;display: inline-block;font-size: 11px;width: 15px;height: 15px;color: #fff;}
 .ui-jqgrid .ckbox input[type="checkbox"]:checked + label:before{border-color: #337ab7;background-color: #337ab7;}
 
-.ui-jqgrid tr.ui-row-ltr i.fa-toggle-on {color:#1ABC9C;font-size:13pt;vertical-align:middle;margin-top:-1px;margin-left: -3px;height:15px;}
+.ui-jqgrid tr.ui-row-ltr i.fa-toggle-on {color:#1ABC9c;font-size:13pt;vertical-align:middle;margin-top:-1px;margin-left: -3px;height:15px;}
 .ui-jqgrid tr.ui-row-ltr i.fa-toggle-off {color:#aaa;font-size:13pt;vertical-align: middle;margin-top:-1px;margin-left: -3px;height:15px;}

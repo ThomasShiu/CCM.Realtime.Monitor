@@ -1,0 +1,81 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.xml" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+
+using CCM.Data;
+using CCM.Domain.Entity;
+//todo: 請修改對應的namespace
+namespace CCM.Domain 
+{        
+		<#
+			//Param vpara = new Param();
+			//修改connection string
+			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
+			SqlConnection conn = new SqlConnection(connectionString); 
+			conn.Open(); 
+			
+			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
+			string[] restrictions = new string[4];
+			restrictions[1] = "dbo";
+			//修改table名稱
+			restrictions[2] = "FR_OFFIDOC_ISSUE"; 
+			DataTable schema = conn.GetSchema("Tables", restrictions);
+			
+			string selectQuery = "select * from  @tableName"; 
+			SqlCommand command = new SqlCommand(selectQuery,conn); 
+			SqlDataAdapter ad = new SqlDataAdapter(command); 
+			System.Data.DataSet ds = new DataSet(); 
+			
+			foreach(System.Data.DataRow row in schema.Rows) 
+			{ 				
+			#>             
+	 public List<<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity> GetList(Pagination pagination, string  keyword = "")
+        {
+            var expression = ExtLinq.True<<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
+                expression = expression.Or(t => t.SUBJECT.Contains(keyword));
+            }
+            //expression = expression.And(t => t.F_Category == 2);
+            //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
+            return service.FindList(expression, pagination);
+        }
+        public <#= row["TABLE_NAME"].ToString().Trim('s') #>Entity GetForm(string keyValue)
+        {
+            return service.FindEntity(keyValue);
+        }
+        public void DeleteForm(string keyValue)
+        {
+            if (service.IQueryable().Count(t => t.ISSUEID.Equals(keyValue)) > 0)
+            {
+                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+            }
+            else
+            {
+                service.Delete(t => t.ISSUEID == keyValue);
+            }
+        }
+        public void SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity tableEntity, string keyValue)
+        {
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                tableEntity.Modify(keyValue);
+                service.Update(tableEntity);
+            }
+            else
+            {
+                tableEntity.Create();
+                service.Insert(tableEntity);
+            }
+        }
+			 <#
+			 }
+			 #>
+		                               
+
+}

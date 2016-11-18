@@ -2,7 +2,7 @@
  * Copyright © 2016 CCM.Framework 版权所有
  * Author: CCM
  * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
 
@@ -22,5 +22,7 @@ namespace CCM.Code
         public string LoginToken { get; set; }
         public DateTime LoginTime { get; set; }
         public bool IsSystem { get; set; }
+        public string Language { get; set; }
+        public string Theme { get; set; }
     }
 }

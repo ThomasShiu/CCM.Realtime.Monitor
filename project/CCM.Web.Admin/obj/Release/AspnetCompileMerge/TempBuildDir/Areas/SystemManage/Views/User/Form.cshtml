@@ -56,31 +56,30 @@
 <form id="form1">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#">基本信息</a></li>
-            @*<li ><a href="#">扩展信息</a></li>*@
+            <li class="active"><a href="#">基本資訊</a></li>
+            @*<li ><a href="#">擴展資訊</a></li>*@
         </ul>
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
-                    <th class="formTitle">账户</th>
+                    <th class="formTitle">帳戶</th>
                     <td class="formValue">
-                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
+                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="請輸入帳戶" />
                     </td>
-                    <th class="formTitle">密码</th>
+                    <th class="formTitle">密碼</th>
                     <td class="formValue">
-                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
+                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="請輸入密碼" />
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">公司</th>
                     <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
-                        </select>
+                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
                     </td>
-                    <th class="formTitle">部门</th>
+                    <th class="formTitle">部門</th>
                     <td class="formValue">
                         <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
-                            <option value="">==请选择==</option>
+                            <option value="">==請選擇==</option>
                         </select>
                     </td>
                 </tr>
@@ -88,22 +87,22 @@
                     <th class="formTitle">角色</th>
                     <td class="formValue">
                         <select id="F_RoleId" name="F_RoleId" class="form-control required">
-                            <option value="">==请选择==</option>
+                            <option value="">==請選擇==</option>
                         </select>
                     </td>
-                    <th class="formTitle">岗位</th>
+                    <th class="formTitle">崗位</th>
                     <td class="formValue">
                         <select id="F_DutyId" name="F_DutyId" class="form-control required">
-                            <option value="">==请选择==</option>
+                            <option value="">==請選擇==</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">姓名</th>
                     <td class="formValue">
-                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名" />
+                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="請輸入姓名" />
                     </td>
-                    <th class="formTitle">性别</th>
+                    <th class="formTitle">性別</th>
                     <td class="formValue">
                         <select id="F_Gender" name="F_Gender" class="form-control required">
                             <option value="true">男</option>
@@ -112,7 +111,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">手机</th>
+                    <th class="formTitle">手機</th>
                     <td class="formValue">
                         <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
                     </td>
@@ -126,20 +125,20 @@
                     <td class="formValue">
                         <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" />
                     </td>
-                    <th class="formTitle">邮箱</th>
+                    <th class="formTitle">郵箱</th>
                     <td class="formValue">
                         <input id="F_Email" name="F_Email" type="text" class="form-control" />
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">类型</th>
+                    <th class="formTitle">類型</th>
                     <td class="formValue">
                         <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
-                            <option value="false">普通用户</option>
-                            <option value="true">系统管理员</option>
+                            <option value="false">普通用戶</option>
+                            <option value="true">系統管理員</option>
                         </select>
                     </td>
-                    <th class="formTitle">允许登录</th>
+                    <th class="formTitle">允許登錄</th>
                     <td class="formValue">
                         <select id="F_EnabledMark" name="F_EnabledMark" class="form-control">
                             <option value="true">是</option>
@@ -148,7 +147,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">备注
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        備註
                     </th>
                     <td class="formValue" colspan="3">
                         <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
@@ -158,3 +158,4 @@
         </div>
     </div>
 </form>
+

@@ -1,0 +1,153 @@
+﻿  
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/SystemManage/Duty/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+			            <tr>
+                <th class="formTitle">ISSUEID</th>
+                <td class="formValue">
+                    <select id="ISSUEID" name="ISSUEID" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">COMPANY</th>
+                <td class="formValue">
+                    <select id="COMPANY" name="COMPANY" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">ISSUEDATE</th>
+                <td class="formValue">
+                    <select id="ISSUEDATE" name="ISSUEDATE" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">OFFICIAL_NM</th>
+                <td class="formValue">
+                    <select id="OFFICIAL_NM" name="OFFICIAL_NM" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">SUBJECT</th>
+                <td class="formValue">
+                    <select id="SUBJECT" name="SUBJECT" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">DESCR</th>
+                <td class="formValue">
+                    <select id="DESCR" name="DESCR" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">AttachFIle</th>
+                <td class="formValue">
+                    <select id="AttachFIle" name="AttachFIle" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">EMPID</th>
+                <td class="formValue">
+                    <select id="EMPID" name="EMPID" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">DEPID</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">STATUS</th>
+                <td class="formValue">
+                    <select id="STATUS" name="STATUS" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">DOCTYPE</th>
+                <td class="formValue">
+                    <select id="DOCTYPE" name="DOCTYPE" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">CONTACT</th>
+                <td class="formValue">
+                    <select id="CONTACT" name="CONTACT" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">PHONEAREACODE</th>
+                <td class="formValue">
+                    <select id="PHONEAREACODE" name="PHONEAREACODE" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">PHONE</th>
+                <td class="formValue">
+                    <select id="PHONE" name="PHONE" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">PHONEEXTENSION</th>
+                <td class="formValue">
+                    <select id="PHONEEXTENSION" name="PHONEEXTENSION" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">FAX</th>
+                <td class="formValue">
+                    <select id="FAX" name="FAX" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">Original</th>
+                <td class="formValue">
+                    <select id="Original" name="Original" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">Duplicate</th>
+                <td class="formValue">
+                    <select id="Duplicate" name="Duplicate" class="form-control required"></select>
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">GUID</th>
+                <td class="formValue">
+                    <select id="GUID" name="GUID" class="form-control required"></select>
+                </td>
+            </tr>
+			           
+        </table>
+    </div>
+</form>
+
+
+

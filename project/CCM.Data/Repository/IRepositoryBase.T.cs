@@ -2,7 +2,7 @@
  * Copyright © 2016 CCM.Framework 版权所有
  * Author: CCM
  * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Code;
 using System;
@@ -16,7 +16,7 @@ namespace CCM.Data
     /// <summary>
     /// 仓储接口
     /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <typeparam name="TEntity">實體類型</typeparam>
     public interface IRepositoryBase<TEntity> where TEntity : class,new()
     {
         int Insert(TEntity entity);

@@ -30,4 +30,3 @@ D:\Git_Source\CCM.EIP.NFine\project\CCM.Code\bin\Debug\NPOI.OOXML.xml
 D:\Git_Source\CCM.EIP.NFine\project\CCM.Code\bin\Debug\NPOI.OpenXml4Net.xml
 D:\Git_Source\CCM.EIP.NFine\project\CCM.Code\obj\Debug\CCM.Code.dll
 D:\Git_Source\CCM.EIP.NFine\project\CCM.Code\obj\Debug\CCM.Code.pdb
-D:\Git_Source\CCM.EIP.NFine\project\CCM.Code\obj\Debug\CCM.Code.csprojResolveAssemblyReference.cache

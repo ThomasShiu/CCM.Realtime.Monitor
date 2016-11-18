@@ -14,14 +14,15 @@ namespace CCM.Web.Data
 {
     public class CCMDbContext : DbContext
     {
-        public CCMDbContext()
-            : base("IdentityConn")
+        private static string Conn = "CCMDbContext"; // CCMDbContext IdentityConn
+        public CCMDbContext() : base(Conn)
         {
             this.Configuration.AutoDetectChangesEnabled = false;
             this.Configuration.ValidateOnSaveEnabled = false;
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
         }
+     
         /// <summary>
         /// 自動映射實體
         /// </summary>

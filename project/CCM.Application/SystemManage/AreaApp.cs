@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Domain.Entity.SystemManage;
 using CCM.Domain.IRepository.SystemManage;
@@ -29,7 +29,7 @@ namespace CCM.Application.SystemManage
         {
             if (service.IQueryable().Count(t => t.F_ParentId.Equals(keyValue)) > 0)
             {
-                throw new Exception("删除失败！操作的对象包含了下级数据。");
+                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
@@ -51,3 +51,4 @@ namespace CCM.Application.SystemManage
         }
     }
 }
+

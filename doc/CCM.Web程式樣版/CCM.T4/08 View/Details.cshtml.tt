@@ -1,0 +1,86 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.xml" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+<#
+			//修改connection string
+			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
+			SqlConnection conn = new SqlConnection(connectionString); 
+			conn.Open(); 
+			
+			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
+			string[] restrictions = new string[4];
+			restrictions[1] = "dbo";
+			//修改table名稱
+			restrictions[2] = "FR_OFFIDOC_ISSUE"; //<<<修改這理
+			DataTable schema = conn.GetSchema("Tables", restrictions);
+
+			string areas = "Document";  //區域名稱
+			string controller = "DOC01";  //控制器
+
+			string selectQuery = "select * from  @tableName"; 
+			SqlCommand command = new SqlCommand(selectQuery,conn); 
+			SqlDataAdapter ad = new SqlDataAdapter(command); 
+			System.Data.DataSet ds = new DataSet(); 
+			
+			foreach(System.Data.DataRow row in schema.Rows) 
+			{ 				
+			#>  
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/SystemManage/Duty/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+			<#                 
+				command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString()); 
+				ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
+
+				foreach (DataColumn dc in ds.Tables[0].Columns)
+				{
+			#>
+            <tr>
+                <th class="formTitle"><#= dc.ColumnName #></th>
+                <td class="formValue">
+                    <select id="<#= dc.ColumnName #>" name="<#= dc.ColumnName #>" class="form-control required"></select>
+                </td>
+            </tr>
+			<# } #>
+           
+        </table>
+    </div>
+</form>
+
+
+
+<#
+            }
+#>

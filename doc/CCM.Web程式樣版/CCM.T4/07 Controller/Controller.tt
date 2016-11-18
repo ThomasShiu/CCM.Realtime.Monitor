@@ -1,0 +1,85 @@
+﻿<#@ template language="C#" debug="True" hostspecific="True" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.xml" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM,MIS 快速開發平臺
+ * Website：http://www.ccm3s.com
+*********************************************************************************/
+using CCM.Application.SystemManage;
+using CCM.Code;
+using CCM.Domain.Entity.SystemManage;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+ <#
+			//修改connection string
+			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
+			SqlConnection conn = new SqlConnection(connectionString); 
+			conn.Open(); 
+			
+			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
+			string[] restrictions = new string[4];
+			restrictions[1] = "dbo";
+			//修改table名稱
+			restrictions[2] = "FR_OFFIDOC_ISSUE"; 
+			DataTable schema = conn.GetSchema("Tables", restrictions);
+			
+			string selectQuery = "select * from  @tableName"; 
+			SqlCommand command = new SqlCommand(selectQuery,conn); 
+			SqlDataAdapter ad = new SqlDataAdapter(command); 
+			System.Data.DataSet ds = new DataSet(); 
+			
+			foreach(System.Data.DataRow row in schema.Rows) 
+			{ 				
+			#>            
+//todo: 請修改對應的namespace
+namespace CCM.Web.EIP.Areas.xxxx.Controllers
+{
+    public class <#= row["TABLE_NAME"].ToString().Trim('s') #>Controller : ControllerBase
+    {
+        private <#= row["TABLE_NAME"].ToString().Trim('s') #>App tableApp = new <#= row["TABLE_NAME"].ToString().Trim('s') #>App();
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(string keyword)
+        {
+            var data = tableApp.GetList(keyword);
+            return Content(data.ToJson());
+        }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetFormJson(string keyValue)
+        {
+            var data = tableApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity <#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, string keyValue)
+        {
+            tableAppApp.SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, keyValue);
+            return Success("操作成功。");
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteForm(string keyValue)
+        {
+            tableApp.DeleteForm(keyValue);
+            return Success("删除成功。");
+        }
+    }
+
+
+}
+	<#
+	}
+	#>

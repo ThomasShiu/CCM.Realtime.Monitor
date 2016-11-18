@@ -15,7 +15,7 @@
             return false;
         }
         $.submitForm({
-            loading: "正在备份数据...",
+            loading: "正在備份資料...",
             url: "/SystemSecurity/DbBackup/SubmitForm",
             param: $("#form1").formSerialize(),
             success: function () {
@@ -27,12 +27,12 @@
 
 <form id="form1">
     <div style="margin-bottom: 0px; border-radius: 0px;" class="alert alert-warning alert-dismissable">
-        <strong>注意：</strong>&nbsp;备份成功后，请将备份文件下载到本地保存！
+        <strong>注意：</strong>&nbsp;備份成功後，請將備份檔案下載到本地保存！
     </div>
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">数据库名</th>
+                <th class="formTitle">資料庫名</th>
                 <td class="formValue">
                     <select id="F_DbName" name="F_DbName" class="form-control required">
                         <option value="NFineBase">NFineBase</option>
@@ -41,22 +41,23 @@
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">备份名称</th>
+                <th class="formTitle">備份名稱</th>
                 <td class="formValue">
-                    <input id="F_FileName" name="F_FileName" type="text" class="form-control required"  value="@CCM.Code.Common.CreateNo()" placeholder="请输入备份名称" />
+                    <input id="F_FileName" name="F_FileName" type="text" class="form-control required" value="@CCM.Code.Common.CreateNo()" placeholder="請輸入備份名稱" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">备份模式</th>
+                <th class="formTitle">備份模式</th>
                 <td class="formValue">
                     <select id="F_BackupType" name="F_BackupType" class="form-control required">
-                        <option value="1">完整备份</option>
-                        <option value="2">差异备份</option>
+                        <option value="1">完整備份</option>
+                        <option value="2">差異備份</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle" valign="top" style="padding-top: 11px;">备份说明
+                <th class="formTitle" valign="top" style="padding-top: 11px;">
+                    備份說明
                 </th>
                 <td class="formValue">
                     <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
@@ -65,3 +66,4 @@
         </table>
     </div>
 </form>
+

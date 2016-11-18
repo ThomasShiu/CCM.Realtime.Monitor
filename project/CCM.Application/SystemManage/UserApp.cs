@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
- * Author: CCM
- * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Code;
 using CCM.Domain.Entity.SystemManage;
@@ -78,18 +78,19 @@ namespace CCM.Application.SystemManage
                     }
                     else
                     {
-                        throw new Exception("密码不正确，请重新输入");
+                        throw new Exception("密碼不正確，請重新輸入");
                     }
                 }
                 else
                 {
-                    throw new Exception("账户被系统锁定,请联系管理员");
+                    throw new Exception("帳戶被系統鎖定,請聯繫管理員");
                 }
             }
             else
             {
-                throw new Exception("账户不存在，请重新输入");
+                throw new Exception("帳戶不存在，請重新輸入");
             }
         }
     }
 }
+

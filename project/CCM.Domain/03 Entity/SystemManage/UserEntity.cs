@@ -2,13 +2,13 @@
  * Copyright © 2016 CCM.Framework 版权所有
  * Author: CCM
  * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
 
 namespace CCM.Domain.Entity.SystemManage
 {
-    public class UserEntity : IEntity<UserEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class UserEntity : IEntity<UserEntity> , ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
         public string F_Account { get; set; }

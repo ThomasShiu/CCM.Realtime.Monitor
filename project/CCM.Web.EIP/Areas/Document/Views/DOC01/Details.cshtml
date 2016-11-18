@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        // F_Id PK
+        $('input[name="F_Id"]').val(GetNow() +'-'+GetGuid());
+        //alert($('input[name="F_Id"]').val());
+    });
+
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        // 編輯模式
+        if (!!keyValue) {
+            $.ajax({
+                url: "/Document/DOC01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/Document/DOC01/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+
+</script>
+<form id="form1">
+
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+
+                <th class="formTitle">發文編號</th>
+                <td class="formValue">
+                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control required" placeholder="請輸入發文編號" />
+                    <input id="F_Id" name="F_Id" type="hidden" />
+                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                </td>
+                <th class="formTitle">發文公司</th>
+                <td class="formValue">
+                    <input id="COMPANY" name="COMPANY" type="text" class="form-control required" placeholder="請輸入發文公司" />
+                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">發文日期</th>
+                <td class="formValue">
+                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                </td>
+                <th class="formTitle">發文單位</th>
+                <td class="formValue">
+                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文單位" />
+                </td>
+            </tr>
+            <tr>
+
+                <th class="formTitle">標題</th>
+                <td class="formValue" colspan="3">
+                    <input id="SUBJECT" name="SUBJECT" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle" valign="top" style="padding-top: 5px;">
+                    內容
+                </th>
+                <td class="formValue" colspan="3">
+                    <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
+                </td>
+
+            </tr>
+            <tr></tr>
+            <tr>
+                <th class="formTitle">收文人員</th>
+                <td class="formValue">
+                    <input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入收文人員" />
+                </td>
+                <th class="formTitle">受文部門</th>
+                <td class="formValue">
+                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入受文部門" />
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th class="formTitle">'狀態</th>
+                <td class="formValue">
+                    <input id="STATUS" name="STATUS" type="text" class="form-control required" placeholder="請輸入狀態" />
+                </td>
+                <th class="formTitle">文件格式</th>
+                <td class="formValue">
+                    <input id="DEPID" name="DOCTYPE" type="text" class="form-control " placeholder="請輸入文件格式" />
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th class="formTitle">連絡人</th>
+                <td class="formValue">
+                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
+                </td>
+                <th class="formTitle">區碼</th>
+                <td class="formValue">
+                    <input id="PHONEAREACODE" name="PHONEAREACODE" type="text" class="form-control required" placeholder="請輸入區碼" />
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th class="formTitle">電話</th>
+                <td class="formValue">
+                    <input id="PHONE" name="PHONE" type="text" class="form-control required" placeholder="請輸入電話" />
+                </td>
+                <th class="formTitle">傳真</th>
+                <td class="formValue">
+                    <input id="FAX" name="FAX" type="text" class="form-control required" placeholder="請輸入傳真" />
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+
+                <th class="formTitle">發文組織</th>
+                <td class="formValue">
+                    <input id="Original" name="Original" type="text" class="form-control required" placeholder="請輸入發文組織" />
+                </td>
+                <th class="formTitle">附件</th>
+                <td class="formValue">
+                    <input id="AttachFIle" name="AttachFIle" type="text" class="form-control " placeholder="是否有附件" />
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th class="formTitle">副本</th>
+                <td class="formValue">
+                    <input id="Duplicate" name="Duplicate" type="text" class="form-control required" placeholder="請輸入副本" />
+                </td>
+
+            </tr>
+            <tr></tr>
+
+        </table>
+    </div>
+</form>
+
+
+

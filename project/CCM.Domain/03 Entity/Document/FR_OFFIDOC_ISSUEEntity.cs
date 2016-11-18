@@ -1,75 +1,59 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
+using System;
 
-namespace CCM.Domain.Entity.Document
+namespace CCM.Domain.Entity
 {
-    public class FR_OFFIDOC_ISSUE_Entity : IEntity<FR_OFFIDOC_ISSUE_Entity> //, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class FR_OFFIDOC_ISSUEEntity : IEntity<FR_OFFIDOC_ISSUEEntity> , ICreationAudited, IDeleteAudited, IModificationAudited
     {
+        public string F_Id { get; set; }
 
-        [Display(Name = "ISSUEID")]
         public string ISSUEID { get; set; }
 
-        [Display(Name = "COMPANY")]
         public string COMPANY { get; set; }
 
-        [Display(Name = "ISSUEDATE")]
         public DateTime ISSUEDATE { get; set; }
 
-
-        [Display(Name = "OFFICIAL_NM")]
         public string OFFICIAL_NM { get; set; }
 
-        [Display(Name = "SUBJECT")]
         public string SUBJECT { get; set; }
 
-        [Display(Name = "DESCR")]
         public string DESCR { get; set; }
 
-        [Display(Name = "AttachFIle")]
         public string AttachFIle { get; set; }
 
-        [Display(Name = "EMPID")]
         public string EMPID { get; set; }
 
-        [Display(Name = "DEPID")]
         public string DEPID { get; set; }
 
-        [Display(Name = "STATUS")]
         public string STATUS { get; set; }
 
-        [Display(Name = "DOCTYPE")]
         public string DOCTYPE { get; set; }
 
-        [Display(Name = "CONTACT")]
         public string CONTACT { get; set; }
-        [Display(Name = "PHONEAREACODE")]
+
         public string PHONEAREACODE { get; set; }
 
-        [Display(Name = "PHONE")]
         public string PHONE { get; set; }
 
-        [Display(Name = "PHONEEXTENSION")]
         public string PHONEEXTENSION { get; set; }
 
-        [Display(Name = "FAX")]
         public string FAX { get; set; }
 
-        [Display(Name = "Original")]
         public string Original { get; set; }
 
-        [Display(Name = "Duplicate")]
         public string Duplicate { get; set; }
 
-        [Display(Name = "GUID")]
-        public string GUID { get; set; }
-
-        //public string F_Id { get; set; }
-        //public DateTime? F_CreatorTime { get; set; }
-        //public string F_CreatorUserId { get; set; }
-        //public DateTime? F_LastModifyTime { get; set; }
-        //public string F_LastModifyUserId { get; set; }
-        //public bool? F_DeleteMark { get; set; }
-        //public DateTime? F_DeleteTime { get; set; }
-        //public string F_DeleteUserId { get; set; }
+        public DateTime? F_CreatorTime { get; set; }
+        public string F_CreatorUserId { get; set; }
+        public DateTime? F_LastModifyTime { get; set; }
+        public string F_LastModifyUserId { get; set; }
+        public bool? F_DeleteMark { get; set; }
+        public DateTime? F_DeleteTime { get; set; }
+        public string F_DeleteUserId { get; set; }
     }
 }
