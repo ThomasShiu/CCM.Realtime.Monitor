@@ -27,7 +27,7 @@ namespace CCM.Application.SystemManage
                 expression = expression.Or(t => t.F_RealName.Contains(keyword));
                 expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
-            expression = expression.And(t => t.F_Account != "admin");
+            //expression = expression.And(t => t.F_Account != "admin");
             return service.FindList(expression, pagination);
         }
         public UserEntity GetForm(string keyValue)

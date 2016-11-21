@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Description: CCM快速開發平臺
+ * Website：http://www.CCM3S.com
 *********************************************************************************/
 using CCM.Application.SystemManage;
 using CCM.Code;
@@ -97,10 +97,11 @@ namespace CCM.Web.Admin.Controllers
             }
             return dictionary;
         }
+        // 產生選單
         private object GetMenuList()
         {
             var roleId = OperatorProvider.Provider.GetCurrent().RoleId;
-            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId), "0");
+            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId).Where(t => t.F_Application == "ADMIN").ToList(), "0");
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
         {

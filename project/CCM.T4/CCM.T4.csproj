@@ -41,73 +41,73 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="06 Application\App.cs">
+    <Compile Include="05 Application\App.cs">
       <DependentUpon>App.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="04 Mapping\Map.cs">
+    <Compile Include="03 Mapping\Map.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Map.tt</DependentUpon>
     </Compile>
     <Compile Include="Content.cs" />
-    <Compile Include="07 Controller\Controller.cs">
+    <Compile Include="06 Controller\Controller.cs">
       <DependentUpon>Controller.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="02 Domain.Entity\Entity.cs">
+    <Compile Include="01 Domain.Entity\Entity.cs">
       <DependentUpon>Entity.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="03 Domain.IRepository\IRepository.cs">
+    <Compile Include="02 Domain.IRepository\IRepository.cs">
       <DependentUpon>IRepository.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="05 Repository\Repository.cs">
+    <Compile Include="04 Repository\Repository.cs">
       <DependentUpon>Repository.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="06 Application\App.tt">
+    <Content Include="05 Application\App.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>App.cs</LastGenOutput>
     </Content>
-    <Content Include="02 Domain.Entity\Entity.tt">
+    <Content Include="01 Domain.Entity\Entity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entity.cs</LastGenOutput>
     </Content>
-    <Content Include="03 Domain.IRepository\IRepository.tt">
+    <Content Include="02 Domain.IRepository\IRepository.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IRepository.cs</LastGenOutput>
     </Content>
-    <Content Include="04 Mapping\Map.tt">
+    <Content Include="03 Mapping\Map.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Map.cs</LastGenOutput>
     </Content>
-    <Content Include="05 Repository\Repository.tt">
+    <Content Include="04 Repository\Repository.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Repository.cs</LastGenOutput>
     </Content>
-    <Content Include="07 Controller\Controller.tt">
+    <Content Include="06 Controller\Controller.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Controller.cs</LastGenOutput>
     </Content>
-    <Content Include="08 View\Details.cshtml.tt">
+    <Content Include="07 View\Details.cshtml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Details.cshtml.cshtml</LastGenOutput>
     </Content>
-    <Content Include="08 View\Form.cshtml.tt">
+    <Content Include="07 View\Form.cshtml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Form.cshtml.cshtml</LastGenOutput>
     </Content>
-    <Content Include="08 View\Index.cshtml.tt">
+    <Content Include="07 View\Index.cshtml.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Index.cshtml.cshtml</LastGenOutput>
     </Content>
@@ -137,21 +137,19 @@
       <Name>CCM.Repository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="06 Model\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="08 View\Details.cshtml.cshtml">
+    <None Include="07 View\Details.cshtml.cshtml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Details.cshtml.tt</DependentUpon>
     </None>
-    <None Include="08 View\Form.cshtml.cshtml">
+    <None Include="07 View\Form.cshtml.cshtml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Form.cshtml.tt</DependentUpon>
     </None>
-    <None Include="08 View\Index.cshtml.cshtml">
+    <None Include="07 View\Index.cshtml.cshtml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml.tt</DependentUpon>

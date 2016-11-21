@@ -21,7 +21,7 @@ namespace CCM.Web.Admin.Areas.SystemManage.Controllers
 
         public ActionResult GetPermissionTree(string roleId)
         {
-            var moduledata = moduleApp.GetList();
+            var moduledata = moduleApp.GetList(); 
             var buttondata = moduleButtonApp.GetList();
             var authorizedata = new List<RoleAuthorizeEntity>();
             if (!string.IsNullOrEmpty(roleId))

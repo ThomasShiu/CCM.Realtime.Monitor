@@ -29,7 +29,7 @@ namespace CCM.Web.Admin
             if (!this.ActionAuthorize(filterContext))
             {
                 StringBuilder sbScript = new StringBuilder();
-                sbScript.Append("<script type='text/javascript'>alert('很抱歉！您的权限不足，访问被拒绝！');</script>");
+                sbScript.Append("<script type='text/javascript'>alert('很抱歉！您的許可權不足，訪問被拒絕！');</script>");
                 filterContext.Result = new ContentResult() { Content = sbScript.ToString() };
                 return;
             }

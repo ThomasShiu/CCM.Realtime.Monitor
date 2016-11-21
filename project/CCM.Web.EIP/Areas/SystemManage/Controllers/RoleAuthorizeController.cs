@@ -19,9 +19,10 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 
+        // 依照權限產生選單
         public ActionResult GetPermissionTree(string roleId)
         {
-            var moduledata = moduleApp.GetList();
+            var moduledata = moduleApp.GetList().Where(t=>t.F_Application=="EIP");  // 只列出EIP模組
             var buttondata = moduleButtonApp.GetList();
             var authorizedata = new List<RoleAuthorizeEntity>();
             if (!string.IsNullOrEmpty(roleId))
@@ -45,6 +46,7 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
                 tree.img = item.F_Icon == "" ? "" : item.F_Icon;
                 treeList.Add(tree);
             }
+            // 模組可用的按鈕
             foreach (ModuleButtonEntity item in buttondata)
             {
                 TreeViewModel tree = new TreeViewModel();

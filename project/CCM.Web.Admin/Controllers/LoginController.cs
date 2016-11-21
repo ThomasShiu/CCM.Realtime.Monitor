@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
- * Website：http://www.CCM.cn
+ * Description: CCM快速開發平臺
+ * Website：http://www.CCM3S.com
 *********************************************************************************/
 using CCM.Domain.Entity.SystemSecurity;
 using CCM.Application.SystemSecurity;
@@ -36,12 +36,12 @@ namespace CCM.Web.Admin.Controllers
         {
             new LogApp().WriteDbLog(new LogEntity
             {
-                F_ModuleName = "系统登录",
+                F_ModuleName = "系統登錄",
                 F_Type = DbLogType.Exit.ToString(),
                 F_Account = OperatorProvider.Provider.GetCurrent().UserCode,
                 F_NickName = OperatorProvider.Provider.GetCurrent().UserName,
                 F_Result = true,
-                F_Description = "安全退出系统",
+                F_Description = "安全退出系統",
             });
             Session.Abandon();
             Session.Clear();
@@ -53,13 +53,13 @@ namespace CCM.Web.Admin.Controllers
         public ActionResult CheckLogin(string username, string password, string code)
         {
             LogEntity logEntity = new LogEntity();
-            logEntity.F_ModuleName = "系统登录";
+            logEntity.F_ModuleName = "系統登錄";
             logEntity.F_Type = DbLogType.Login.ToString();
             try
             {
                 if (Session["ccm_session_verifycode"].IsEmpty() || Md5.md5(code.ToLower(), 16) != Session["ccm_session_verifycode"].ToString())
                 {
-                    throw new Exception("验证码错误，请重新输入");
+                    throw new Exception("驗證碼錯誤，請重新輸入");
                 }
 
                 UserEntity userEntity = new UserApp().CheckLogin(username, password);
@@ -88,20 +88,21 @@ namespace CCM.Web.Admin.Controllers
                     logEntity.F_Account = userEntity.F_Account;
                     logEntity.F_NickName = userEntity.F_RealName;
                     logEntity.F_Result = true;
-                    logEntity.F_Description = "登录成功";
+                    logEntity.F_Description = "登錄成功";
                     new LogApp().WriteDbLog(logEntity);
                 }
-                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登錄成功。" }.ToJson());
             }
             catch (Exception ex)
             {
                 logEntity.F_Account = username;
                 logEntity.F_NickName = username;
                 logEntity.F_Result = false;
-                logEntity.F_Description = "登录失败，" + ex.Message;
+                logEntity.F_Description = "登錄失敗，" + ex.Message;
                 new LogApp().WriteDbLog(logEntity);
                 return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
             }
         }
     }
 }
+
