@@ -7,25 +7,35 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
-using CCM.Web.Admin;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
 namespace CCM.Web.Admin.Areas.MIS.Controllers
 {
-    public class MisIpAddressController : ControllerBase
+    public class IFR01Controller : ControllerBase
     {
         private MisIpAddressApp tableApp = new MisIpAddressApp();
 
+
+        //public ActionResult GetGridJson(string keyword)
+        //{
+        //    var data = tableApp.GetList(keyword);
+        //    return Content(data.ToJson());
+        //}
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
-            var data = tableApp.GetList(keyword);
+            var data = new
+            {
+                rows = tableApp.GetList(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
             return Content(data.ToJson());
         }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)

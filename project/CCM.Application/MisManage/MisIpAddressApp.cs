@@ -42,14 +42,7 @@ namespace CCM.Application
     }
     public void DeleteForm(string keyValue)
     {
-        if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
-        {
-            throw new Exception("刪除失敗！操作的物件包含了下級資料。");
-        }
-        else
-        {
-            service.Delete(t => t.SID == keyValue);
-        }
+        service.Delete(t => t.SID == keyValue);
     }
     public void SubmitForm(MisIpAddressEntity tableEntity, string keyValue)
     {

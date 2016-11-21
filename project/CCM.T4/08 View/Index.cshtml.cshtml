@@ -13,41 +13,38 @@
             url: "/MIS/MisIpAddress/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-			                { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "IP_ADDR", name: "IP_ADDR", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "MAC_ADDR", name: "MAC_ADDR", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "DEPT", name: "DEPT", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "USER", name: "USER", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "DEVICE", name: "DEVICE", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "OS", name: "OS", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "GROUP", name: "GROUP", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "ANTIVIRUS", name: "ANTIVIRUS", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "REMARK", name: "REMARK", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "OrganizeId", name: "OrganizeId", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "CreatorTime", name: "CreatorTime", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "CreatorUserId", name: "CreatorUserId", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "LastModifyTime", name: "LastModifyTime", hidden: true, key: true, width: 80, align: 'left' },
-				                 { label: "LastModifyUserId", name: "LastModifyUserId", hidden: true, key: true, width: 80, align: 'left' },
-				 				//{ label: "主鍵", name: "F_Id", hidden: true, key: true },
-                //{ label: '資料名稱', name: 'F_FullName', width: 150, align: 'left' },
-                //{ label: '資料編號', name: 'F_EnCode', width: 150, align: 'left' },
-                //{
-                //    label: '歸屬機構', name: 'F_OrganizeId', width: 150, align: 'left',
-                //    formatter: function (cellvalue, options, rowObject) {
-                //        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
-                //    }
-                //},
-                //{
-                //    label: '創建時間', name: 'F_CreatorTime', width: 80, align: 'left',
-                //    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-                //},
-                //{
-                //    label: "有效", name: "F_EnabledMark", width: 60, align: "center",
-                //    formatter: function (cellvalue) {
-                //        return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
-                //    }
-                //},
-                //{ label: '備註', name: 'F_Description', width: 300, align: 'left' }*@
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+								
+                    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "IP_ADDR", name: "IP_ADDR", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "MAC_ADDR", name: "MAC_ADDR", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "DEPT", name: "DEPT", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "USER", name: "USER", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "DEVICE", name: "DEVICE", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "OS", name: "OS", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "GROUP", name: "GROUP", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "ANTIVIRUS", name: "ANTIVIRUS", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "REMARK", name: "REMARK", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "OrganizeId", name: "OrganizeId", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "CreatorTime", name: "CreatorTime", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "CreatorUserId", name: "CreatorUserId", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "LastModifyTime", name: "LastModifyTime", hidden: true, key: true, width: 80, align: 'left' },
+				 					
+                    { label: "LastModifyUserId", name: "LastModifyUserId", hidden: true, key: true, width: 80, align: 'left' },
+				 				
             ],
 			pager: "#gridPager",
             sortname: 'Id asc,CreatorTime desc',
@@ -72,7 +69,7 @@
         });
     }
     function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
             id: "Form",
             title: "修改資料",
@@ -87,14 +84,14 @@
     function btn_delete() {
         $.deleteForm({
             url: "/MIS/MisIpAddress/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
             id: "Details",
             title: "查看資料",

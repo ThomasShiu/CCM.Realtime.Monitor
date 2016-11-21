@@ -4,7 +4,7 @@
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
-using CCM.Application;
+using CCM.Application.SystemManage;
 using CCM.Code;
 using CCM.Domain.Entity.SystemManage;
 using System.Collections.Generic;
@@ -20,11 +20,24 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+		 public ActionResult GetGridJson(Pagination pagination, string keyword)
+        {
+            var data = new
+            {
+                rows = tableApp.GetList(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
         public ActionResult GetGridJson(string keyword)
         {
             var data = tableApp.GetList(keyword);
             return Content(data.ToJson());
         }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
