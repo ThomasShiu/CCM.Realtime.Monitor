@@ -19,7 +19,7 @@ $.loading = function (bool, text) {
     if (!!text) {
         $loadingtext.html(text);
     } else {
-        $loadingtext.html("數據載入中，請稍後…");
+        $loadingtext.html("資料載入中，請稍後…");
     }
     $loadingtext.css("left", (top.$('body').width() - $loadingtext.width()) / 2 - 50);
     $loadingtext.css("top", (top.$('body').height() - $loadingtext.height()) / 2);
@@ -174,7 +174,7 @@ $.submitForm = function (options) {
     var defaults = {
         url: "",
         param: [],
-        loading: "正在提交資料...",
+        loading: "正在送出資料...",
         success: null,
         close: true
     };

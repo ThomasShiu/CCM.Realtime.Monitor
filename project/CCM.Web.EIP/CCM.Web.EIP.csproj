@@ -558,6 +558,7 @@
     <Content Include="packages.config" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.map" />
     <None Include="Properties\PublishProfiles\CCM_ADMIN_207.pubxml" />
+    <None Include="Properties\PublishProfiles\CCM_EIP_13.pubxml" />
     <None Include="Properties\PublishProfiles\CCM_EIP_207.pubxml">
       <SubType>Designer</SubType>
     </None>
