@@ -11,11 +11,9 @@
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
-using CCM.Application.SystemManage;
+using CCM.Application;
 using CCM.Code;
-using CCM.Domain.Entity.SystemManage;
-using System.Collections.Generic;
-using System.Linq;
+using CCM.Domain.Entity;
 using System.Web.Mvc;
  <#
 			//修改connection string
@@ -27,7 +25,7 @@ using System.Web.Mvc;
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Mis_IpAddress"; 
+			restrictions[2] = "FR_OFFIDOC_ISSUE_ATTACH_FILE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 
@@ -77,7 +75,7 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity <#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, string keyValue)
         {
-            tableAppApp.SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, keyValue);
+            tableApp.SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

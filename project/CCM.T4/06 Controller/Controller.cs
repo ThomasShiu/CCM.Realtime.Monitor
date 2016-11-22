@@ -4,19 +4,17 @@
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
-using CCM.Application.SystemManage;
+using CCM.Application;
 using CCM.Code;
-using CCM.Domain.Entity.SystemManage;
-using System.Collections.Generic;
-using System.Linq;
+using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class Mis_IpAddreController : ControllerBase
+    public class FR_OFFIDOC_ISSUE_ATTACH_FILEController : ControllerBase
     {
-        private Mis_IpAddreApp tableApp = new Mis_IpAddreApp();
+        private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -48,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(Mis_IpAddreEntity Mis_IpAddreEntity, string keyValue)
+        public ActionResult SubmitForm(FR_OFFIDOC_ISSUE_ATTACH_FILEEntity FR_OFFIDOC_ISSUE_ATTACH_FILEEntity, string keyValue)
         {
-            tableAppApp.SubmitForm(Mis_IpAddreEntity, keyValue);
+            tableApp.SubmitForm(FR_OFFIDOC_ISSUE_ATTACH_FILEEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

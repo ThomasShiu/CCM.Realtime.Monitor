@@ -2,15 +2,189 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
-<script>
-    $(document).ready(function () {
-        // F_Id PK
-        $('input[name="F_Id"]').val(GetNow() +'-'+GetGuid());
-        //alert($('input[name="F_Id"]').val());
-    });
 
+<div class="widget-body">
+    <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
+        <ul class="steps">
+            <li data-target="#step-1" class="active"><span class="step">1</span>發文紀錄<span class="chevron"></span></li>
+            <li data-target="#step-2"><span class="step">2</span>附加檔案<span class="chevron"></span></li>
+        </ul>
+    </div>
+
+    <div class="step-content" id="wizard-steps" style="border-left: none; border-bottom: none; border-right: none;">
+        <form id="form1">
+            <div class="step-pane active" id="step-1" style="margin: 10px; margin-bottom: 0px;">
+                <div class="alert alert-danger" style="text-align: left; margin-bottom: 10px;">
+                    <i class="fa fa-warning alert-dismissible" style="position: relative; top: 1px; font-size: 15px; padding-right: 5px;"></i>
+                    請填寫發文紀錄，用於新建或修改發文資訊！
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">表單內容</h3>
+                    </div>
+                    <div class="panel-body" style="width: 98%;">
+                        <table class="form">
+                            <tr>
+                                <th class="formTitle">發文編號</th>
+                                <td class="formValue">
+                                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control required" placeholder="請輸入發文編號" />
+                                    <input id="GUID" name="GUID" type="hidden" value=""/>
+                                    <input id="STATUS" name="STATUS" type="hidden" value="Y" />
+                                    <input id="AttachFIle" name="AttachFIle" type="hidden" value=""/>
+                                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                                </td>
+                                <th class="formTitle">發文公司</th>
+                                <td class="formValue">
+                                    <input id="COMPANY" name="COMPANY" type="text" class="form-control required" placeholder="請輸入發文公司" />
+                                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">發文日期</th>
+                                <td class="formValue">
+                                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                                </td>
+                                <th class="formTitle">發文單位</th>
+                                <td class="formValue">
+                                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文單位" />
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <th class="formTitle">標題</th>
+                                <td class="formValue" colspan="3">
+                                    <input id="SUBJECT" name="SUBJECT" type="text" class="form-control required" placeholder="請輸入標題" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="formTitle" valign="top" style="padding-top: 5px;">
+                                    內容
+                                </th>
+                                <td class="formValue" colspan="3">
+                                    <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="formTitle">發文組織</th>
+                                <td class="formValue">
+                                    <input id="Original" name="Original" type="text" class="form-control required" placeholder="請輸入發文組織" />
+                                </td>
+                                <th class="formTitle">文件格式</th>
+                                <td class="formValue">
+                                    <input id="DOCTYPE" name="DOCTYPE" type="text" class="form-control " placeholder="請輸入文件格式" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">收文人員</th>
+                                <td class="formValue">
+                                    <input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入收文人員" />
+                                </td>
+                                <th class="formTitle">受文部門</th>
+                                <td class="formValue">
+                                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入受文部門" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">連絡人</th>
+                                <td class="formValue">
+                                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
+                                </td>
+                                <th class="formTitle">區碼</th>
+                                <td class="formValue">
+                                    <input id="PHONEAREACODE" name="PHONEAREACODE" type="text" class="form-control" placeholder="請輸入區碼" />
+                                </td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <th class="formTitle">電話</th>
+                                <td class="formValue">
+                                    <input id="PHONE" name="PHONE" type="text" class="form-control " placeholder="請輸入電話" />
+                                </td>
+                                <th class="formTitle">傳真</th>
+                                <td class="formValue">
+                                    <input id="FAX" name="FAX" type="text" class="form-control " placeholder="請輸入傳真" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">副本</th>
+                                <td class="formValue">
+                                    <input id="Duplicate" name="Duplicate" type="text" class="form-control " placeholder="請輸入副本" />
+                                </td>
+
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="step-content" id="wizard-steps" style="border-left: none; border-bottom: none; border-right: none;">
+        <div class="step-pane" id="step-2" style="margin: 10px; margin-bottom: 0px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">將圖片拖曳至底下方框</h3>
+                </div>
+                <div class="panel-body" style="width: 98%;">
+                    <h5>(同時可上傳50個檔案,各檔不可超過10mb,支援格式.pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif)</h5>
+                    <form action="/"
+                          class="dropzone needsclick formstyle"
+                          enctype="multipart/form-data"
+                          id="my-dropzone"
+                          method="post">
+                        <div class="dz-message data-dz-message"><span>拖拉檔案至此，或點擊此區塊開窗選擇檔案</span></div>
+                        <!--上傳圖片時，需要同時提交的數據，在這裡作設定-->
+                        @Html.Hidden("hidAlbumId")
+                    </form>
+                    <div>
+                        <!--上傳按鈕，提供多張圖片一次性上傳的功能-->
+                        <button type="submit" id="submit-all" disabled="disabled" class="btn btn-danger">上傳</button>
+                    </div>
+
+                    <!-- Dialog -->
+                    <div id="mydialog" title="上傳作業">
+                        <p id="message"> 上傳作業完成。</p>
+                    </div>
+
+                    
+                </div>
+
+            </div>
+
+            
+                @*<div class="gridPanel">
+                    <table id="gridList"></table>
+                    <div id="gridPager"></div>
+                </div>*@
+            <div id="toolbar" class="btn-group">
+            </div>
+            <table id="tb_bootstraptable"></table>
+            
+        </div>
+    </div>
+
+
+    <div class="form-button" id="wizard-actions">
+        <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
+        <a id="btn_next" class="btn btn-default btn-next">下一步</a>
+        <a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>
+    </div>
+</div>
+
+
+<link href="~/Content/js/dropzone/dropzone.css" rel="stylesheet" />
+<script src="~/Content/js/dropzone/dropzone.js"></script>
+<script src="~/Content/js/bootstrap-table/bootstrap-table.js"></script>
+<script src="~/Content/js/bootstrap-table/locale/bootstrap-table-zh-TW.js"></script>
+<script src="~/Content/js/bootstrap-table/extensions/export/bootstrap-table-export.min.js"></script>
+<script src="~/Content/js/bootstrap-table/extensions/export/tableExport.js"></script>
+<script>
+    var parentID = $('input[name=GUID]').val();
     var keyValue = $.request("keyValue");
     $(function () {
+
         initControl();
         // 編輯模式
         if (!!keyValue) {
@@ -23,14 +197,118 @@
                     $("#form1").formSerialize(data);
                 }
             });
+            parentID = $('input[name=GUID]').val();
+        } else {
+            // 新建模式,取得GUID作為附件檔案使用
+            $('input[name="GUID"]').val(GetNow() + '-' + GetGuid());
+            parentID = $('input[name=GUID]').val();
         }
+        //初始化DropZone
+        initDropZone();
+
+        //初始化BootstrapTable
+        var oTable = new TableInit();
+        oTable.Init();
+
     });
     function initControl() {
-       
+
         $("#F_OrganizeId").bindSelect({
             url: "/SystemManage/Organize/GetTreeSelectJson",
         });
+        $('#wizard').wizard().on('change', function (e, data) {
+            var $finish = $("#btn_finish");
+            var $next = $("#btn_next");
+            if (data.direction == "next") {
+                switch (data.step) {
+                    case 1:
+                        if (!$('#form1').formValid()) {
+                            return false;
+                        }
+                        $finish.show();
+                        $next.hide();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                $finish.hide();
+                $next.show();
+            }
+        });
+       
+        
     }
+
+    // 初始化上傳區塊
+    function initDropZone() {
+        //Dropzone的初始化，myDropzone為form的id
+        Dropzone.options.myDropzone = {
+
+            //指定上傳圖片的路徑
+            url: "/Document/DOC01/BatchUpload?guid=" + parentID,
+            maxFiles: 50,
+            acceptedFiles: ".pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif",
+            //添加上傳取消和刪除預覽圖片的鏈結，默認不添加
+            addRemoveLinks: true,
+
+            //關閉自動上傳功能，默認ture會自動上傳
+            //也就是添加一張圖片就像主機發出請求
+            autoProcessQueue: false,
+
+            //允許上傳多張照片
+            uploadMultiple: true,
+
+            //每次上傳的最多文件數，預設2 ，記得修改 web.config限制上傳文件大小的段落
+            parallelUploads: 10240,
+
+            init: function () {
+                var submitButton = document.querySelector("#submit-all")
+                myDropzone = this; // closure
+
+                //位上傳按鈕添加點擊事件
+                submitButton.addEventListener("click", function () {
+
+                    //手動上傳所有圖片
+                    myDropzone.processQueue();
+                });
+
+
+                //當添加圖片後的事件，上傳按鈕恢復可用
+                this.on("addedfile", function () {
+                    $("#submit-all").removeAttr("disabled");
+                });
+
+                //當上傳完成後的事件，接受JSON格式
+                this.on("complete", function (data) {
+                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                        //var res = eval('(' + data.xhr.responseText + ')');
+                        var res = JSON.parse(data.xhr.responseText);
+                        var msg;
+                        if (res.Result) {
+                            msg = "已成功上傳" + res.Count + "張照片！";
+                            window.setTimeout(function () {
+                                $.modalMsg(msg, "success");
+                            }, 500);
+                        }
+                        else {
+                            msg = "上傳失敗，原因：" + res.Message;
+                        }
+
+                        $("#tb_bootstraptable").bootstrapTable('refresh');
+                    }
+                });
+
+                //刪除圖片的事件，當上傳的圖片為空時，使上傳按鈕不可用
+                this.on("removedfile", function () {
+                    if (this.getAcceptedFiles().length === 0) {
+                        $("#submit-all").attr("disabled", true);
+                    }
+                });
+            }
+        };
+    }
+
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
@@ -44,136 +322,100 @@
         })
     }
 
-    
+     // 應用程式目錄
+     var vhost = '@Request.Url.Host';
+     if (vhost == 'localhost') {
+         var vroot = '@Request.ApplicationPath.Replace("/","")';
+     } else {
+         var vroot = '@Request.ApplicationPath';
+     }
+        var vArea = '@ViewContext.RouteData.DataTokens["area"]';   //若沒使用則為null
+        var vController = '@ViewContext.RouteData.Values["controller"]';
+        var vAction = '@ViewContext.RouteData.Values["action"]';
+
+        // 詳細內容的對話視窗
+        $(document).ready(function () {
+            $('#showDetails').click(function () {
+                var url = $('#detailsModal').data('url');
+
+                $.get(url, function (data) {
+                    $('#detailsContainer').html(data);
+
+                    $('#detailsModal').modal('show');
+                });
+            });
+        });
+
+        // bootstrap-table 自動高度
+        function getHeight() {
+            return $(window).height() - $('#navbar').outerHeight(true) - $('#formSearch').outerHeight(true) - $('#toolbar').outerHeight(true) - 450;
+        }
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+
+            oTableInit.Init = function () {
+                $('#tb_bootstraptable').bootstrapTable({
+                    url: '/Document/DOC02/GetGridJsonUpload?keyword=' + parentID,         //請求後臺的URL（*）
+                    method: 'get',                      //請求方式（*）
+                    //toolbar: '#toolbar',                //工具按鈕用哪個容器
+                    striped: true,                      //是否顯示行間隔色
+                    cache: false,                       //是否使用緩存，默認為true，所以一般情況下需要設置一下這個屬性（*）
+                    //pagination: true,                   //是否顯示分頁（*）
+                    sortable: true,                     //是否啟用排序
+                    sortOrder: "desc",                   //排序方式
+                    //queryParams: oTableInit.queryParams,//傳遞參數（*）
+                    sidePagination: "client",           //分頁方式：client用戶端分頁，server服務端分頁（*）
+                    pageNumber: 1,                       //初始化載入第一頁，默認第一頁
+                    pageSize: 100,                       //每頁的記錄行數（*）
+                    pageList: [10, 25, 50, 100],        //可供選擇的每頁的行數（*）
+                    //search: false,                       //是否顯示表格搜索，此搜索是用戶端搜索，不會進服務端，所以，個人感覺意義不大
+                    strictSearch: true,
+                    showColumns: true,                  //是否顯示所有的列
+                    showRefresh: true,                  //是否顯示刷新按鈕
+                    minimumCountColumns: 2,             //最少允許的列數
+                    clickToSelect: true,                //是否啟用點擊選中行
+                    height: getHeight(),                //行高，如果沒有設置height屬性，表格自動根據記錄條數覺得表格高度
+                    uniqueId: "SID",                     //每一行的唯一標識，一般為主鍵列
+                    //showToggle: true,                    //是否顯示詳細視圖和清單視圖的切換按鈕
+                    //cardView: false,                    //是否顯示詳細視圖
+                    detailView: false,                   //是否顯示父子表
+                    showExport: true,
+                    exportDataType: 'all',
+                    singleSelect: false,
+                    columns: [{
+                        field: 'SID',
+                        title: '序號',
+                        visible: false
+                    }, {
+                        field: 'Name',
+                        title: '檔案名稱'
+                    }, {
+                        field: 'UploadPath',
+                        title: '路徑',
+                        formatter: hyperLinkFormatter
+                    }]
+                });
+            };
+
+            //得到查詢的參數
+            oTableInit.queryParams = function (params) {
+                var temp = {   //這裡的鍵的名字和控制器的變數名必須一直，這邊改動，控制器也需要改成一樣的
+                    //limit: params.limit,   //頁面大小,只支援server分頁
+                    //offset: params.offset,  //頁碼,只支援server分頁
+                    //searchstr: $("#txt_search_str").val()  // 關鍵字
+                };
+                return temp;
+            };
+            return oTableInit;
+        };
+
+        function hyperLinkFormatter(value) {
+            return '<a class="like" href="' + value + '" title="" >Link</a>';
+        }
+        //function hyperLinkFormatter(value, row, index) {
+        //    return '<a class="like" href="'+value+'" title="" />';
+        //}
+
+
 </script>
-<form id="form1">
-    
-    <div style="padding-top: 20px; margin-right: 20px;">
-        <table class="form">
-            <tr>
-                
-                <th class="formTitle">發文編號</th>
-                <td class="formValue">
-                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control required" placeholder="請輸入發文編號" />
-                    <input id="F_Id" name="F_Id" type="hidden" />
-                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
-                </td>
-                <th class="formTitle">發文公司</th>
-                <td class="formValue">
-                    <input id="COMPANY" name="COMPANY" type="text" class="form-control required" placeholder="請輸入發文公司" />
-                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">發文日期</th>
-                <td class="formValue">
-                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
-                </td>
-                <th class="formTitle">發文單位</th>
-                <td class="formValue">
-                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文單位" />
-                </td>
-            </tr>
-            <tr>
-                
-                <th class="formTitle">標題</th>
-                <td class="formValue" colspan="3">
-                    <input id="SUBJECT" name="SUBJECT" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-
-            <tr>
-                <th class="formTitle" valign="top" style="padding-top: 5px;">
-                    內容 
-                </th>
-                <td class="formValue" colspan="3">
-                    <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
-                </td>
-
-            </tr>
-            <tr>
-                
-            </tr>
-            <tr>
-                <th class="formTitle">收文人員</th>
-                <td class="formValue">
-                    <input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入收文人員" />
-                </td>
-                <th class="formTitle">受文部門</th>
-                <td class="formValue">
-                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入受文部門" />
-                </td>
-            </tr>
-            <tr>
-               
-            </tr>
-            <tr>
-                <th class="formTitle">'狀態</th>
-                <td class="formValue">
-                    <input id="STATUS" name="STATUS" type="text" class="form-control required" placeholder="請輸入狀態" />
-                </td>
-                <th class="formTitle">文件格式</th>
-                <td class="formValue">
-                    <input id="DEPID" name="DOCTYPE" type="text" class="form-control " placeholder="請輸入文件格式" />
-                </td>
-            </tr>
-            <tr>
-               
-            </tr>
-            <tr>
-                <th class="formTitle">連絡人</th>
-                <td class="formValue">
-                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
-                </td>
-                <th class="formTitle">區碼</th>
-                <td class="formValue">
-                    <input id="PHONEAREACODE" name="PHONEAREACODE" type="text" class="form-control required" placeholder="請輸入區碼" />
-                </td>
-            </tr>
-            <tr>
-                
-            </tr>
-            <tr>
-                <th class="formTitle">電話</th>
-                <td class="formValue">
-                    <input id="PHONE" name="PHONE" type="text" class="form-control required" placeholder="請輸入電話" />
-                </td>
-                <th class="formTitle">傳真</th>
-                <td class="formValue">
-                    <input id="FAX" name="FAX" type="text" class="form-control required" placeholder="請輸入傳真" />
-                </td>
-            </tr>
-            <tr>
-               
-            </tr>
-            <tr>
-                
-                <th class="formTitle">發文組織</th>
-                <td class="formValue">
-                    <input id="Original" name="Original" type="text" class="form-control required" placeholder="請輸入發文組織" />
-                </td>
-                <th class="formTitle">附件</th>
-                <td class="formValue">
-                    <input id="AttachFIle" name="AttachFIle" type="text" class="form-control " placeholder="是否有附件" />
-                </td>
-            </tr>
-            <tr>
-               
-            </tr>
-            <tr>
-                <th class="formTitle">副本</th>
-                <td class="formValue">
-                    <input id="Duplicate" name="Duplicate" type="text" class="form-control required" placeholder="請輸入副本" />
-                </td>
-               
-            </tr>
-            <tr>
-                
-            </tr>
-
-        </table>
-    </div>
-</form>
-
-
-

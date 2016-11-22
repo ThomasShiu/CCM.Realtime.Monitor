@@ -49,6 +49,7 @@
     <Compile Include="01 Infrastructure\IModificationAuditedCcm.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
     <Compile Include="03 Entity\Document\FR_OFFIDOC_ISSUEEntity.cs" />
+    <Compile Include="03 Entity\Document\FR_OFFIDOC_ISSUE_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUERepository.cs" />
+    <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />

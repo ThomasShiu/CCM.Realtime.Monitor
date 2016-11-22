@@ -12,7 +12,7 @@
             url: "/Document/DOC01/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-                              { label: "F_Id", name: "F_Id", hidden: true, key: true, width: 80, align: 'left' },
+                              { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                  { label: "收文編號", name: "ISSUEID", width: 120, align: 'left' },
 				              { label: "受文公司", name: "COMPANY", width: 50, align: 'left' },
 				                {
@@ -20,15 +20,15 @@
 				                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				                },
 				                { label: "發文單位", name: "OFFICIAL_NM", width: 180, align: 'left' },
-				                { label: "標題", name: "SUBJECT", width: 600, align: 'left' },
+				                { label: "標題", name: "SUBJECT", width: 400, align: 'left' },
 				                { label: "附件", name: "AttachFIle", width: 50, align: 'left' },
-				                { label: "STATUS", name: "STATUS", width: 50, align: 'left' },
-				                { label: "DOCTYPE", name: "DOCTYPE", width: 50, align: 'left' },
+				                { label: "格式", name: "DOCTYPE", width: 50, align: 'left' },
 				                { label: "連絡人", name: "CONTACT", width: 50, align: 'left' },
 				                { label: "區碼", name: "PHONEAREACODE", width: 50, align: 'left' },
 				                { label: "電話", name: "PHONE", width: 50, align: 'left' },
 				                { label: "分機", name: "PHONEEXTENSION", width: 50, align: 'left' },
-				                { label: "傳真", name: "FAX", width: 50, align: 'left' }
+				                { label: "傳真", name: "FAX", width: 50, align: 'left' },
+                                 { label: "狀態", name: "STATUS", width: 50, align: 'left' },
             ],
             pager: "#gridPager",
             sortname: 'ISSUEID asc,ISSUEDATE desc',
@@ -43,23 +43,26 @@
     function btn_add() {
         $.modalOpen({
             id: "Form",
-            title: "新增資料",
+            title: "新增發文紀錄",
             url: "/Document/DOC01/Form",
             width: "640px",
-            height: "600px",
+            height: "700px",
+            btn: null, 
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
         });
     }
     function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var guid = $("#gridList").jqGridRowValue().GUID;
         $.modalOpen({
             id: "Form",
-            title: "修改資料",
+            title: "修改發文紀錄",
             url: "/Document/DOC01/Form?keyValue=" + keyValue,
             width: "640px",
-            height: "600px",
+            height: "700px",
+            btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -68,20 +71,20 @@
     function btn_delete() {
         $.deleteForm({
             url: "/Document/DOC01/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
             id: "Details",
-            title: "查看資料",
+            title: "查看發文紀錄",
             url: "/Document/DOC01/Details?keyValue=" + keyValue,
             width: "640px",
-            height: "600px",
+            height: "650px",
             btn: null,
         });
     }

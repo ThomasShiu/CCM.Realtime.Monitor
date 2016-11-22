@@ -5,55 +5,63 @@
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace CCM.Domain.Entity
+//todo: 請修改對應的namespace
+namespace CCM.Domain
 {
-    public class FR_OFFIDOC_ISSUEEntity : IEntity<FR_OFFIDOC_ISSUEEntity> , ICreationAudited, IDeleteAudited, IModificationAudited
+
+    //mapping table name: FR_OFFIDOC_ISSUE
+    public class FR_OFFIDOC_ISSUEEntity : IEntityCcm<FR_OFFIDOC_ISSUEEntity>, ICreationAuditedCcm , IModificationAuditedCcm
     {
-        public string F_Id { get; set; }
 
-        public string ISSUEID { get; set; }
-
-        public string COMPANY { get; set; }
+        public String SID { get; set; }
+        public String ISSUEID { get; set; }
+        public String COMPANY { get; set; }
 
         public DateTime ISSUEDATE { get; set; }
 
-        public string OFFICIAL_NM { get; set; }
+        public String OFFICIAL_NM { get; set; }
 
-        public string SUBJECT { get; set; }
+        public String SUBJECT { get; set; }
 
-        public string DESCR { get; set; }
+        public String DESCR { get; set; }
 
-        public string AttachFIle { get; set; }
+        public String AttachFIle { get; set; }
 
-        public string EMPID { get; set; }
+        public String EMPID { get; set; }
 
-        public string DEPID { get; set; }
+        public String DEPID { get; set; }
 
-        public string STATUS { get; set; }
+        public String STATUS { get; set; }
 
-        public string DOCTYPE { get; set; }
+        public String DOCTYPE { get; set; }
 
-        public string CONTACT { get; set; }
+        public String CONTACT { get; set; }
 
-        public string PHONEAREACODE { get; set; }
+        public String PHONEAREACODE { get; set; }
 
-        public string PHONE { get; set; }
+        public String PHONE { get; set; }
 
-        public string PHONEEXTENSION { get; set; }
+        public String PHONEEXTENSION { get; set; }
 
-        public string FAX { get; set; }
+        public String FAX { get; set; }
 
-        public string Original { get; set; }
+        public String Original { get; set; }
 
-        public string Duplicate { get; set; }
+        public String Duplicate { get; set; }
 
-        public DateTime? F_CreatorTime { get; set; }
-        public string F_CreatorUserId { get; set; }
-        public DateTime? F_LastModifyTime { get; set; }
-        public string F_LastModifyUserId { get; set; }
-        public bool? F_DeleteMark { get; set; }
-        public DateTime? F_DeleteTime { get; set; }
-        public string F_DeleteUserId { get; set; }
+        public String GUID { get; set; }
+
+        public String OrganizeId { get; set; }
+
+        public DateTime? CreatorTime { get; set; }
+
+        public String CreatorUserId { get; set; }
+
+        public DateTime? LastModifyTime { get; set; }
+
+        public String LastModifyUserId { get; set; }
+
     }
 }

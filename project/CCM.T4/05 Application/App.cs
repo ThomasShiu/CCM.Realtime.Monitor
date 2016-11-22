@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using CCM.Code;
@@ -8,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class Mis_IpAddressApp
+public class FR_OFFIDOC_ISSUE_ATTACH_FILEApp
     {
-        private IMis_IpAddressRepository service = new Mis_IpAddressRepository();     
+        private IFR_OFFIDOC_ISSUE_ATTACH_FILERepository service = new FR_OFFIDOC_ISSUE_ATTACH_FILERepository();     
 
-	public List<Mis_IpAddressEntity> GetList(string keyword = "")
+	public List<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<Mis_IpAddressEntity>();
+            var expression = ExtLinq.True<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -23,9 +29,9 @@ public class Mis_IpAddressApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<Mis_IpAddressEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<Mis_IpAddressEntity>();
+            var expression = ExtLinq.True<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -35,22 +41,22 @@ public class Mis_IpAddressApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public Mis_IpAddressEntity GetForm(string keyValue)
+        public FR_OFFIDOC_ISSUE_ATTACH_FILEEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)
+            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
             {
                 throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
-                service.Delete(t => t.ISSUEID == keyValue);
+                service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(Mis_IpAddressEntity tableEntity, string keyValue)
+        public void SubmitForm(FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

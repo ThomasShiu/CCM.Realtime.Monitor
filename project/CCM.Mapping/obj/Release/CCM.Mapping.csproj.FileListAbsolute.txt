@@ -42,6 +42,7 @@ D:\Git_Source\CCM.Admin.NFine\project\CCM.Mapping\bin\Release\NPOI.xml
 D:\Git_Source\CCM.Admin.NFine\project\CCM.Mapping\obj\Release\CCM.Mapping.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Admin.NFine\project\CCM.Mapping\obj\Release\CCM.Mapping.dll
 D:\Git_Source\CCM.Admin.NFine\project\CCM.Mapping\obj\Release\CCM.Mapping.pdb
+D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\CCM.Mapping.dll
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\CCM.Mapping.pdb
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\CCM.Domain.dll
@@ -61,6 +62,5 @@ D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\CCM.Data.pdb
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\Newtonsoft.Json.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\log4net.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\bin\Release\NPOI.xml
-D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.dll
 D:\Git_Source\CCM.Web.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.pdb

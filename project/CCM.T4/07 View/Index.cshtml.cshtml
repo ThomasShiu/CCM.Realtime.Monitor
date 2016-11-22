@@ -10,40 +10,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/MIS/MisIpAddress/GetGridJson",
+            url: "/Document/DOC02/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 								
-                    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "SID", name: "SID", width: 80, align: 'left' },
 				 					
-                    { label: "IP_ADDR", name: "IP_ADDR", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "ParentISSUEID", name: "ParentISSUEID", width: 80, align: 'left' },
 				 					
-                    { label: "MAC_ADDR", name: "MAC_ADDR", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "Name", name: "Name", width: 80, align: 'left' },
 				 					
-                    { label: "DEPT", name: "DEPT", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "UploadPath", name: "UploadPath", width: 80, align: 'left' },
 				 					
-                    { label: "USER", name: "USER", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				 					
-                    { label: "DEVICE", name: "DEVICE", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				 					
-                    { label: "OS", name: "OS", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
 				 					
-                    { label: "GROUP", name: "GROUP", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
 				 					
-                    { label: "ANTIVIRUS", name: "ANTIVIRUS", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "REMARK", name: "REMARK", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "OrganizeId", name: "OrganizeId", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "CreatorTime", name: "CreatorTime", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "CreatorUserId", name: "CreatorUserId", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "LastModifyTime", name: "LastModifyTime", hidden: true, key: true, width: 80, align: 'left' },
-				 					
-                    { label: "LastModifyUserId", name: "LastModifyUserId", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "LastModifyUserId", name: "LastModifyUserId", width: 80, align: 'left' },
 				 				
             ],
 			pager: "#gridPager",
@@ -60,9 +48,9 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/MIS/MisIpAddress/Form",
-            width: "450px",
-            height: "380px",
+            url: "/Document/DOC02/Form",
+            width: "640px",
+            height: "400px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -73,9 +61,9 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/MIS/MisIpAddress/Form?keyValue=" + keyValue,
-            width: "450px",
-            height: "380px",
+            url: "/Document/DOC02/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -83,7 +71,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/MIS/MisIpAddress/DeleteForm",
+            url: "/Document/DOC02/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -95,9 +83,9 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/MIS/MisIpAddress/Details?keyValue=" + keyValue,
-            width: "450px",
-            height: "500px",
+            url: "/Document/DOC02/Details?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
             btn: null,
         });
     }

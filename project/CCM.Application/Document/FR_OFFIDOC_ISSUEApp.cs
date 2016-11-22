@@ -1,27 +1,37 @@
-﻿using CCM.Code;
-using CCM.Domain;
-using CCM.Domain.Entity;
-using CCM.Repository.DocumentManage;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-
-namespace CCM.Application.Document
+using System.Collections.Generic;
+using CCM.Code;
+using CCM.Domain;
+using CCM.Repository;
+using CCM.Domain.Entity;
+//todo: 請修改對應的namespace
+namespace CCM.Application
 {
+
     public class FR_OFFIDOC_ISSUEApp
     {
         private IFR_OFFIDOC_ISSUERepository service = new FR_OFFIDOC_ISSUERepository();
 
-        //public List<FR_OFFIDOC_ISSUE_Entity> GetList()
-        //{
-        //    return service.IQueryable().ToList();
-        //}
-        public List<FR_OFFIDOC_ISSUEEntity> GetList(Pagination pagination, string  keyword = "")
+        public List<FR_OFFIDOC_ISSUEEntity> GetList(string keyword = "")
         {
             var expression = ExtLinq.True<FR_OFFIDOC_ISSUEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
+                expression = expression.And(t => t.ISSUEID.Contains(keyword));
+                expression = expression.Or(t => t.SUBJECT.Contains(keyword));
+                expression = expression.Or(t => t.DESCR.Contains(keyword));
+            }
+            //expression = expression.And(t => t.F_Category == 1);
+            return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
+        }
+        public List<FR_OFFIDOC_ISSUEEntity> GetList(Pagination pagination, string keyword = "")
+        {
+            var expression = ExtLinq.True<FR_OFFIDOC_ISSUEEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.ISSUEID.Contains(keyword));
+                expression = expression.Or(t => t.OFFICIAL_NM.Contains(keyword));
                 expression = expression.Or(t => t.SUBJECT.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
@@ -34,7 +44,14 @@ namespace CCM.Application.Document
         }
         public void DeleteForm(string keyValue)
         {
-            service.Delete(t => t.F_Id == keyValue);
+            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            {
+                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+            }
+            else
+            {
+                service.Delete(t => t.SID == keyValue);
+            }
         }
         public void SubmitForm(FR_OFFIDOC_ISSUEEntity tableEntity, string keyValue)
         {
@@ -49,6 +66,6 @@ namespace CCM.Application.Document
                 service.Insert(tableEntity);
             }
         }
+
     }
 }
-

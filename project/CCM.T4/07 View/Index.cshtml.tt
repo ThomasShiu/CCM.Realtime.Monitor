@@ -15,11 +15,11 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Mis_IpAddress"; //<<<修改這理
+			restrictions[2] = "FR_OFFIDOC_ISSUE_ATTACH_FILE"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
-			string areas = "MIS";  //區域名稱
-			string controller = "MisIpAddress";  //控制器
+			string areas = "Document";  //區域名稱
+			string controller = "DOC02";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 
@@ -51,7 +51,7 @@
 					{
 					#>
 					
-                    { label: "<#= dc.ColumnName #>", name: "<#= dc.ColumnName #>", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "<#= dc.ColumnName #>", name: "<#= dc.ColumnName #>", width: 80, align: 'left' },
 				 <# } #>
 				
             ],
@@ -70,8 +70,8 @@
             id: "Form",
             title: "新增資料",
             url: "/<#= areas #>/<#= controller #>/Form",
-            width: "450px",
-            height: "380px",
+            width: "640px",
+            height: "400px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -83,8 +83,8 @@
             id: "Form",
             title: "修改資料",
             url: "/<#= areas #>/<#= controller #>/Form?keyValue=" + keyValue,
-            width: "450px",
-            height: "380px",
+            width: "640px",
+            height: "400px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -105,8 +105,8 @@
             id: "Details",
             title: "查看資料",
             url: "/<#= areas #>/<#= controller #>/Details?keyValue=" + keyValue,
-            width: "450px",
-            height: "500px",
+            width: "640px",
+            height: "400px",
             btn: null,
         });
     }

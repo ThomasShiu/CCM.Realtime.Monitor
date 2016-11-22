@@ -5,6 +5,12 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -25,7 +31,7 @@ namespace CCM.Application
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Mis_IpAddress"; 
+			restrictions[2] = "FR_OFFIDOC_ISSUE_ATTACH_FILE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 
@@ -69,13 +75,13 @@ public class <#= row["TABLE_NAME"].ToString() #>App
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)
+            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
             {
                 throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
-                service.Delete(t => t.ISSUEID == keyValue);
+                service.Delete(t => t.SID == keyValue);
             }
         }
         public void SubmitForm(<#= row["TABLE_NAME"].ToString() #>Entity tableEntity, string keyValue)

@@ -1,19 +1,24 @@
-﻿using CCM.Data;
+﻿/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
 using CCM.Domain.Entity;
+using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Domain 
+namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: Mis_IpAddre
-	public class Mis_IpAddreMap : EntityTypeConfiguration<Mis_IpAddreEntity>
+	//mapping table name: FR_OFFIDOC_ISSUE_ATTACH_FILE
+	public class FR_OFFIDOC_ISSUE_ATTACH_FILEMap : EntityTypeConfiguration<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>
     {
-        public Mis_IpAddreMap()
+        public FR_OFFIDOC_ISSUE_ATTACH_FILEMap()
         {
-            this.ToTable("Mis_IpAddre");
+            this.ToTable("FR_OFFIDOC_ISSUE_ATTACH_FILE");
             this.HasKey(t => t.SID);
         }
     }
-			 		                               
-
+			                  
 }

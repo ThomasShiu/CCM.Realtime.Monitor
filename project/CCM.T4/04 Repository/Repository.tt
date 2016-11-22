@@ -5,6 +5,12 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
 using CCM.Data;
 using CCM.Domain;
 using CCM.Domain.Entity;
@@ -22,7 +28,7 @@ namespace CCM.Repository
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Mis_IpAddress"; 
+			restrictions[2] = "FR_OFFIDOC_ISSUE_ATTACH_FILE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 
@@ -37,9 +43,7 @@ namespace CCM.Repository
 	public class <#= row["TABLE_NAME"].ToString().Trim('s') #>Repository : RepositoryBase<<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity>, I<#= row["TABLE_NAME"].ToString().Trim('s') #>Repository
     {
     }
-			 <#
-			 }
-			 #>
-		                               
-
+<#
+}
+#>
 }

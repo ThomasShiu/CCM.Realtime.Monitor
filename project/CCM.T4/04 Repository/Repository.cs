@@ -1,4 +1,10 @@
-﻿using CCM.Data;
+﻿/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
+ * Website：http://www.ccm3s.com/
+*********************************************************************************/
+using CCM.Data;
 using CCM.Domain;
 using CCM.Domain.Entity;
 
@@ -6,10 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: Mis_IpAddre
-	public class Mis_IpAddreRepository : RepositoryBase<Mis_IpAddreEntity>, IMis_IpAddreRepository
+	//mapping table name: FR_OFFIDOC_ISSUE_ATTACH_FILE
+	public class FR_OFFIDOC_ISSUE_ATTACH_FILERepository : RepositoryBase<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>, IFR_OFFIDOC_ISSUE_ATTACH_FILERepository
     {
     }
-			 		                               
-
 }

@@ -4,9 +4,12 @@
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
-using CCM.Application.Document;
+using CCM.Application;
 using CCM.Code;
-using CCM.Domain.Entity;
+using CCM.Domain;
+using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -15,6 +18,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
     public class DOC01Controller : ControllerBase
     {
         private FR_OFFIDOC_ISSUEApp tableApp = new FR_OFFIDOC_ISSUEApp();
+        private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableFileApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -59,6 +63,87 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+        #region 批次上傳圖片
+        [HttpPost]
+        [HandlerAjaxOnly]
+        //[HandlerAuthorize]
+        public ActionResult BatchUpload(string guid)
+        {
+            //UploadItemViewModel vm = new UploadItemViewModel();
+            //PU_ALBUMS pa = db.PU_ALBUMS.Find(id);
+            FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
+
+            bool isSavedSuccessfully = true;
+            int count = 0;
+            string msg = "";
+
+            string fileName = "";
+            string fileExtension = "";
+            string filePath = "";
+            string fileNewName = "";
+
+            //这里是获取隐藏域中的数据
+            //int albumId = string.IsNullOrEmpty(Request.Params["hidAlbumId"]) ?
+            //    0 : int.Parse(Request.Params["hidAlbumId"]);
+
+            try
+            {
+                string directoryPath = Server.MapPath("~/EIPContent/FilesCabinet/UploadFiles/");
+                if (!Directory.Exists(directoryPath))
+                    Directory.CreateDirectory(directoryPath);
+
+                foreach (string f in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[f];
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        fileName = file.FileName;
+                        fileExtension = Path.GetExtension(fileName);
+                        fileNewName = Common.GuId() + fileExtension;
+                        filePath = Path.Combine(directoryPath, fileNewName);
+                        file.SaveAs(filePath);
+
+                        count++;
+
+                        //存放檔案路徑
+                        tableEntity.SID= Common.GuId(); 
+                        tableEntity.ParentISSUEID = guid;
+                        tableEntity.Name = fileName;
+                        tableEntity.UploadPath = "~/EIPContent/PublicShare/VibrationPlate/" + fileNewName; //圖檔路徑
+
+                        //pa.ImgPath = "~/EIPContent/Content/PublicShare/VibrationPlate/" + fileNewName; //圖檔路徑
+                        //pa.parentId = guid;
+                        //pa.FileName = pa.FileName;
+                        //pa.Descript = pa.Descript;
+                        //pa.KindType1 = pa.KindType1;
+
+                        //albumDBservice.InsertItemData(pa);
+
+                        //照片已在剛剛就上傳到Server
+                        //this.LogWrite(vm);
+
+                        tableFileApp.SubmitForm(tableEntity, null);
+
+                    }
+                }
+                msg = "success";
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                isSavedSuccessfully = false;
+            }
+
+            return Json(new
+            {
+                Result = isSavedSuccessfully,
+                Count = count,
+                Message = msg
+            });
+        }
+        #endregion
     }
 
 
