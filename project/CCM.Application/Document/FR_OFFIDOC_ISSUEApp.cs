@@ -5,6 +5,8 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Repository;
 using CCM.Domain.Entity;
+using CCM.Web.Data;
+using System.Data.SqlClient;
 //todo: 請修改對應的namespace
 namespace CCM.Application
 {
@@ -12,6 +14,9 @@ namespace CCM.Application
     public class FR_OFFIDOC_ISSUEApp
     {
         private IFR_OFFIDOC_ISSUERepository service = new FR_OFFIDOC_ISSUERepository();
+        private IFR_OFFIDOC_ISSUE_ATTACH_FILERepository service2 = new FR_OFFIDOC_ISSUE_ATTACH_FILERepository();
+
+        private StoreProcedure sp = new StoreProcedure();
 
         public List<FR_OFFIDOC_ISSUEEntity> GetList(string keyword = "")
         {
@@ -44,9 +49,11 @@ namespace CCM.Application
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            FR_OFFIDOC_ISSUEEntity entity = service.FindEntity(keyValue);
+            string v_guid = entity.GUID;
+            if (service2.IQueryable().Count(t => t.ParentISSUEID.Equals(v_guid)) > 0)
             {
-                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+                throw new Exception("刪除失敗！<br/>發文資料包含附件，請先刪除附件。");
             }
             else
             {
@@ -62,6 +69,7 @@ namespace CCM.Application
             }
             else
             {
+                tableEntity.ISSUEID = sp.GetOrdNo("DOC_ISSUE", (tableEntity.COMPANY=="0"?"精湛字第": (tableEntity.COMPANY == "1"?"全盈字第":"全盈(桃)字第")), 1);
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }

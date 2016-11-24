@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System.Text;
@@ -14,23 +14,23 @@ namespace CCM.Code
         private static Regex RegNumber = new Regex("^[0-9]+$");
         private static Regex RegNumberSign = new Regex("^[+-]?[0-9]+$");
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-        private static Regex RegDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$"); //等价于^[+-]?\d+[.]?\d+$
-        private static Regex RegEmail = new Regex(@"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
+        private static Regex RegDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$"); //等價於^[+-]?\d+[.]?\d+$
+        private static Regex RegEmail = new Regex(@"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$");//w 英文字母或數位的字串，和 [a-zA-Z0-9] 語法一樣 
         private static Regex RegCHZN = new Regex("[\u4e00-\u9fa5]");
 
-        #region 用户名密码格式
+        #region 用戶名密碼格式
 
         /// <summary>
-        /// 返回字符串真实长度, 1个汉字长度为2
+        /// 返回字串真實長度, 1個漢字長度為2
         /// </summary>
-        /// <returns>字符长度</returns>
+        /// <returns>字元長度</returns>
         public static int GetStringLength(string stringValue)
         {
             return Encoding.Default.GetBytes(stringValue).Length;
         }
 
         /// <summary>
-        /// 检测用户名格式是否有效
+        /// 檢測用戶名格式是否有效
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
@@ -38,7 +38,7 @@ namespace CCM.Code
         {
             int userNameLength = GetStringLength(userName);
             if (userNameLength >= 4 && userNameLength <= 20 && Regex.IsMatch(userName, @"^([\u4e00-\u9fa5A-Za-z_0-9]{0,})$"))
-            {   // 判断用户名的长度（4-20个字符）及内容（只能是汉字、字母、下划线、数字）是否合法
+            {   // 判斷用戶名的長度（4-20個字元）及內容（只能是漢字、字母、底線、數位）是否合法
                 return true;
             }
             else
@@ -48,7 +48,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 密码有效性
+        /// 密碼有效性
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
@@ -58,7 +58,7 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 数字字符串检查
+        #region 數位字串檢查
 
         /// <summary>
         /// int有效性
@@ -71,9 +71,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 是否数字字符串
+        /// 是否數位字串
         /// </summary>
-        /// <param name="inputData">输入字符串</param>
+        /// <param name="inputData">輸入字串</param>
         /// <returns></returns>
         public static bool IsNumber(string inputData)
         {
@@ -82,9 +82,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 是否数字字符串 可带正负号
+        /// 是否數位字串 可帶正負號
         /// </summary>
-        /// <param name="inputData">输入字符串</param>
+        /// <param name="inputData">輸入字串</param>
         /// <returns></returns>
         public static bool IsNumberSign(string inputData)
         {
@@ -93,9 +93,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 是否是浮点数
+        /// 是否是浮點數
         /// </summary>
-        /// <param name="inputData">输入字符串</param>
+        /// <param name="inputData">輸入字串</param>
         /// <returns></returns>
         public static bool IsDecimal(string inputData)
         {
@@ -104,9 +104,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 是否是浮点数 可带正负号
+        /// 是否是浮點數 可帶正負號
         /// </summary>
-        /// <param name="inputData">输入字符串</param>
+        /// <param name="inputData">輸入字串</param>
         /// <returns></returns>
         public static bool IsDecimalSign(string inputData)
         {
@@ -116,10 +116,10 @@ namespace CCM.Code
 
         #endregion
 
-        #region 中文检测
+        #region 中文檢測
 
         /// <summary>
-        /// 检测是否有中文字符
+        /// 檢測是否有中文字元
         /// </summary>
         /// <param name="inputData"></param>
         /// <returns></returns>
@@ -130,18 +130,18 @@ namespace CCM.Code
         }
 
         /// <summary> 
-        /// 检测含有中文字符串的实际长度 
+        /// 檢測含有中文字串的實際長度 
         /// </summary> 
-        /// <param name="str">字符串</param> 
+        /// <param name="str">字串</param> 
         public static int GetCHZNLength(string inputData)
         {
             System.Text.ASCIIEncoding n = new System.Text.ASCIIEncoding();
             byte[] bytes = n.GetBytes(inputData);
 
-            int length = 0; // l 为字符串之实际长度 
+            int length = 0; // l 為字串之實際長度 
             for (int i = 0; i <= bytes.Length - 1; i++)
             {
-                if (bytes[i] == 63) //判断是否为汉字或全脚符号 
+                if (bytes[i] == 63) //判斷是否為漢字或全腳符號 
                 {
                     length++;
                 }
@@ -156,9 +156,9 @@ namespace CCM.Code
         #region 常用格式
 
         /// <summary>
-        /// 验证身份证是否合法  15 和  18位两种
+        /// 驗證身份證是否合法  15 和  18位兩種
         /// </summary>
-        /// <param name="idCard">要验证的身份证</param>
+        /// <param name="idCard">要驗證的身份證</param>
         public static bool IsIdCard(string idCard)
         {
             if (string.IsNullOrEmpty(idCard))
@@ -181,9 +181,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 是否是邮件地址
+        /// 是否是郵寄地址
         /// </summary>
-        /// <param name="inputData">输入字符串</param>
+        /// <param name="inputData">輸入字串</param>
         /// <returns></returns>
         public static bool IsEmail(string inputData)
         {
@@ -192,7 +192,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 邮编有效性
+        /// 郵編有效性
         /// </summary>
         /// <param name="zip"></param>
         /// <returns></returns>
@@ -204,7 +204,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 固定电话有效性
+        /// 固定電話有效性
         /// </summary>
         /// <param name="phone"></param>
         /// <returns></returns>
@@ -216,7 +216,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 手机有效性
+        /// 手機有效性
         /// </summary>
         /// <param name="strMobile"></param>
         /// <returns></returns>
@@ -228,7 +228,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 电话有效性（固话和手机 ）
+        /// 電話有效性（固話和手機 ）
         /// </summary>
         /// <param name="strVla"></param>
         /// <returns></returns>
@@ -262,7 +262,7 @@ namespace CCM.Code
         /// <summary>
         /// domain 有效性
         /// </summary>
-        /// <param name="host">域名</param>
+        /// <param name="host">功能變數名稱</param>
         /// <returns></returns>
         public static bool IsValidDomain(string host)
         {
@@ -275,7 +275,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 判断是否为base64字符串
+        /// 判斷是否為base64字串
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -285,9 +285,9 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 验证字符串是否是GUID
+        /// 驗證字串是否是GUID
         /// </summary>
-        /// <param name="guid">字符串</param>
+        /// <param name="guid">字串</param>
         /// <returns></returns>
         public static bool IsGuid(string guid)
         {
@@ -299,10 +299,10 @@ namespace CCM.Code
 
         #endregion
 
-        #region 日期检查
+        #region 日期檢查
 
         /// <summary>
-        /// 判断输入的字符是否为日期
+        /// 判斷輸入的字元是否為日期
         /// </summary>
         /// <param name="strValue"></param>
         /// <returns></returns>
@@ -312,7 +312,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 判断输入的字符是否为日期,如2004-07-12 14:25|||1900-01-01 00:00|||9999-12-31 23:59
+        /// 判斷輸入的字元是否為日期,如2004-07-12 14:25|||1900-01-01 00:00|||9999-12-31 23:59
         /// </summary>
         /// <param name="strValue"></param>
         /// <returns></returns>
@@ -326,17 +326,17 @@ namespace CCM.Code
         #region 其他
 
         /// <summary>
-        /// 检查字符串最大长度，返回指定长度的串
+        /// 檢查字串最大長度，返回指定長度的串
         /// </summary>
-        /// <param name="sqlInput">输入字符串</param>
-        /// <param name="maxLength">最大长度</param>
+        /// <param name="sqlInput">輸入字串</param>
+        /// <param name="maxLength">最大長度</param>
         /// <returns></returns>			
         public static string CheckMathLength(string inputData, int maxLength)
         {
             if (inputData != null && inputData != string.Empty)
             {
                 inputData = inputData.Trim();
-                if (inputData.Length > maxLength)//按最大长度截取字符串
+                if (inputData.Length > maxLength)//按最大長度截取字串
                 {
                     inputData = inputData.Substring(0, maxLength);
                 }
@@ -345,7 +345,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 转换成 HTML code
+        /// 轉換成 HTML code
         /// </summary>
         /// <param name="str">string</param>
         /// <returns>string</returns>

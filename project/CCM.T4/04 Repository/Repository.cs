@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: FR_OFFIDOC_ISSUE_ATTACH_FILE
-	public class FR_OFFIDOC_ISSUE_ATTACH_FILERepository : RepositoryBase<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>, IFR_OFFIDOC_ISSUE_ATTACH_FILERepository
+	//mapping table name: HR_EMPLYM
+	public class HR_EMPLYMRepository : RepositoryBase<HR_EMPLYMEntity>, IHR_EMPLYMRepository
     {
     }
 }

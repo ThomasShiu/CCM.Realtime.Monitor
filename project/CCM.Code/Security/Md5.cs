@@ -26,18 +26,19 @@ namespace CCM.Code
             string strEncrypt = string.Empty;
             if (code == 16)
             {
-                strEncrypt = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5").Substring(8, 16);
 
-                //MD5 md5 = MD5.Create();
-                //strEncrypt = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(str))).Replace("-","").Substring(8, 16);
+                //strEncrypt = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5").Substring(8, 16);
+
+                MD5 md5 = MD5.Create();
+                strEncrypt = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(str))).Replace("-", "").Substring(8, 16);
             }
 
             if (code == 32)
             {
-                strEncrypt = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
+                //strEncrypt = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
 
-                //MD5 md5 = MD5.Create();
-                //strEncrypt = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(str))).Replace("-", "");
+                MD5 md5 = MD5.Create();
+                strEncrypt = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(str))).Replace("-", "");
             }
 
             return strEncrypt;

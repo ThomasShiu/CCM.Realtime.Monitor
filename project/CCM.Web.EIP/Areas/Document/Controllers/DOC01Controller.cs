@@ -19,6 +19,8 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
     {
         private FR_OFFIDOC_ISSUEApp tableApp = new FR_OFFIDOC_ISSUEApp();
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableFileApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
+        private FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
+        
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -64,15 +66,16 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             return Success("删除成功。");
         }
 
-        #region 批次上傳圖片
+        #region 批次上傳檔案
         [HttpPost]
         [HandlerAjaxOnly]
+        //[ValidateAntiForgeryToken]
         //[HandlerAuthorize]
         public ActionResult BatchUpload(string guid)
         {
             //UploadItemViewModel vm = new UploadItemViewModel();
             //PU_ALBUMS pa = db.PU_ALBUMS.Find(id);
-            FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
+            //FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
 
             bool isSavedSuccessfully = true;
             int count = 0;
@@ -89,7 +92,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
             try
             {
-                string directoryPath = Server.MapPath("~/EIPContent/FilesCabinet/UploadFiles/");
+                string directoryPath = Server.MapPath("~/EIPContent/Content/FilesCabinet/UploadFiles/");
                 if (!Directory.Exists(directoryPath))
                     Directory.CreateDirectory(directoryPath);
 
@@ -111,7 +114,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                         tableEntity.SID= Common.GuId(); 
                         tableEntity.ParentISSUEID = guid;
                         tableEntity.Name = fileName;
-                        tableEntity.UploadPath = "~/EIPContent/PublicShare/VibrationPlate/" + fileNewName; //圖檔路徑
+                        tableEntity.UploadPath = "EIPContent/Content/FilesCabinet/UploadFiles/" + fileNewName; //圖檔路徑
 
                         //pa.ImgPath = "~/EIPContent/Content/PublicShare/VibrationPlate/" + fileNewName; //圖檔路徑
                         //pa.parentId = guid;
@@ -128,6 +131,46 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
                     }
                 }
+                msg = "success";
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                isSavedSuccessfully = false;
+            }
+
+            return Json(new
+            {
+                Result = isSavedSuccessfully,
+                Count = count,
+                Message = msg
+            });
+        }
+        #endregion
+
+        #region  刪除檔案
+        [HttpPost]
+        [HandlerAjaxOnly]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteFile(string keyValue)
+        {
+            bool isSavedSuccessfully = true;
+            int count = 0;
+            string msg = "";
+
+            var data = tableFileApp.GetForm(keyValue);
+
+            //刪除主機端照片
+            string fullPath = Server.MapPath("~/"+data.UploadPath.ToString());
+            try
+            {
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                    count++;
+                }
+                //刪除資料庫資料列
+                tableFileApp.DeleteForm(keyValue);
                 msg = "success";
             }
             catch (Exception ex)

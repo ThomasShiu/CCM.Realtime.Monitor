@@ -22,7 +22,7 @@ namespace CCM.Web.Data
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
         }
-     
+
         /// <summary>
         /// 自動映射實體
         /// </summary>

@@ -13,22 +13,46 @@
             height: $(window).height() - 128,
             colModel: [
                               { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-			                  { label: "收文編號", name: "ISSUEID", width: 120, align: 'left' },
-				              { label: "受文公司", name: "COMPANY", width: 50, align: 'left' },
+			                  { label: "發文編號", name: "ISSUEID", width: 150, align: 'left' },
+				              {
+				                  label: "發文公司", name: "COMPANY", width: 80, align: 'left',
+				                  formatter: function (cellvalue, options, rowObject) {
+				                      return top.clients.dataItems["COMPANY"][cellvalue] == undefined ? "" : top.clients.dataItems["COMPANY"][cellvalue]
+				                  }
+				              },
 				                {
-				                    label: "收文日期", name: "ISSUEDATE", width: 80, align: 'left',
+				                    label: "發文日期", name: "ISSUEDATE", width: 80, align: 'left',
 				                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				                },
-				                { label: "發文單位", name: "OFFICIAL_NM", width: 180, align: 'left' },
-				                { label: "標題", name: "SUBJECT", width: 400, align: 'left' },
-				                { label: "附件", name: "AttachFIle", width: 50, align: 'left' },
-				                { label: "格式", name: "DOCTYPE", width: 50, align: 'left' },
+				                { label: "受文單位", name: "OFFICIAL_NM", width: 180, align: 'left' },
+                                {
+                                    label: "速別", name: "DOCTYPE", width: 50, align: 'left',
+                                    formatter: function (cellvalue) {
+                                        return top.clients.dataItems["DOCTYPE"][cellvalue] == undefined ? "" : top.clients.dataItems["DOCTYPE"][cellvalue]
+                                    }
+
+                                },
+                                {
+                                    label: "狀態", name: "STATUS", width: 80, align: 'left',
+                                    formatter: function (cellvalue) {
+                                        return top.clients.dataItems["DOCSTATUS"][cellvalue] == undefined ? "" : top.clients.dataItems["DOCSTATUS"][cellvalue]
+                                    }
+                                },
+				                { label: "標題", name: "SUBJECT", width: 300, align: 'left' },
+				                {
+				                    label: "附件", name: "AttachFIle", width: 50, align: 'center',
+				                    formatter: function (cellvalue) {
+				                        return cellvalue == 'Y' ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+				                    }
+				                },
+				                
 				                { label: "連絡人", name: "CONTACT", width: 50, align: 'left' },
-				                { label: "區碼", name: "PHONEAREACODE", width: 50, align: 'left' },
-				                { label: "電話", name: "PHONE", width: 50, align: 'left' },
+				                { label: "電話", name: "PHONE", width: 80, align: 'left' },
 				                { label: "分機", name: "PHONEEXTENSION", width: 50, align: 'left' },
-				                { label: "傳真", name: "FAX", width: 50, align: 'left' },
-                                 { label: "狀態", name: "STATUS", width: 50, align: 'left' },
+				                { label: "傳真", name: "FAX", width: 80, align: 'left' },
+                                { label: "正本", name: "Original", hidden: true, width: 100, align: 'left' },
+                                { label: "副本", name: "Duplicate", hidden: true, width: 100, align: 'left' },
+                                
             ],
             pager: "#gridPager",
             sortname: 'ISSUEID asc,ISSUEDATE desc',
@@ -45,8 +69,8 @@
             id: "Form",
             title: "新增發文紀錄",
             url: "/Document/DOC01/Form",
-            width: "640px",
-            height: "700px",
+            width: "800px",
+            height: "750px",
             btn: null, 
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
@@ -60,8 +84,8 @@
             id: "Form",
             title: "修改發文紀錄",
             url: "/Document/DOC01/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "700px",
+            width: "800px",
+            height: "750px",
             btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
@@ -83,8 +107,8 @@
             id: "Details",
             title: "查看發文紀錄",
             url: "/Document/DOC01/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "650px",
+            width: "800px",
+            height: "700px",
             btn: null,
         });
     }
@@ -96,14 +120,14 @@
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建公文發文</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
-                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
-                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
-                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改發文</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除發文</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看發文</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

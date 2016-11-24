@@ -4,19 +4,19 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
-using CCM.Domain.Entity;
+using CCM.Domain;
 using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: FR_OFFIDOC_ISSUE_ATTACH_FILE
-	public class FR_OFFIDOC_ISSUE_ATTACH_FILEMap : EntityTypeConfiguration<FR_OFFIDOC_ISSUE_ATTACH_FILEEntity>
+	//mapping table name: HR_EMPLYM
+	public class HR_EMPLYMMap : EntityTypeConfiguration<HR_EMPLYMEntity>
     {
-        public FR_OFFIDOC_ISSUE_ATTACH_FILEMap()
+        public HR_EMPLYMMap()
         {
-            this.ToTable("FR_OFFIDOC_ISSUE_ATTACH_FILE");
+            this.ToTable("HR_EMPLYM");
             this.HasKey(t => t.SID);
         }
     }

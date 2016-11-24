@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace CCM.Web.EIP.Areas.test
+namespace CCM.Web.EIP.Areas.Human
 {
-    public class testAreaRegistration : AreaRegistration
+    public class HumanAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "test";
+                return "Human";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "test_default",
-                "test/{controller}/{action}/{id}",
+                "Human_default",
+                "Human/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

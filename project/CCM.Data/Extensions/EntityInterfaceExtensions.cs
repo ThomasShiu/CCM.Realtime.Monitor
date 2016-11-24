@@ -1,17 +1,18 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 
 namespace CCM.Data.Extensions
 {
     /// <summary>
-    /// 实体接口相关扩展
+    /// 實體介面相關擴展
     /// </summary>
     public static class EntityInterfaceExtensions
     {
-        
+
     }
 }
+

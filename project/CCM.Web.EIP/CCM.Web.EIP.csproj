@@ -135,6 +135,8 @@
     <Compile Include="Areas\ExampleManage\Controllers\SendMessagesController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SignetController.cs" />
     <Compile Include="Areas\ExampleManage\ExampleManageAreaRegistration.cs" />
+    <Compile Include="Areas\Human\Controllers\HRS00Controller.cs" />
+    <Compile Include="Areas\Human\HumanAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
     <Compile Include="Areas\ReportManage\ReportManageAreaRegistration.cs" />
@@ -154,7 +156,6 @@
     <Compile Include="Areas\SystemSecurity\Controllers\LogController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\ServerMonitoringController.cs" />
     <Compile Include="Areas\SystemSecurity\SystemSecurityAreaRegistration.cs" />
-    <Compile Include="Areas\test\testAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -213,6 +214,12 @@
     <Content Include="Content\img\wechat.jpg" />
     <Content Include="Content\img\weipayimg.png" />
     <Content Include="Content\img\weixin_nfine.png" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.css" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.fa.js" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.fa.min.js" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.js" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.min.css" />
+    <Content Include="Content\js\bootgrid\jquery.bootgrid.min.js" />
     <Content Include="Content\js\bootstrap-table\bootstrap-table-locale-all.js" />
     <Content Include="Content\js\bootstrap-table\bootstrap-table-locale-all.min.js" />
     <Content Include="Content\js\bootstrap-table\bootstrap-table.css" />
@@ -516,7 +523,7 @@
     <Content Include="Areas\SystemSecurity\Views\Web.config" />
     <Content Include="Areas\Document\Views\DOC01\Form.cshtml" />
     <Content Include="Areas\Document\Views\DOC01\Details.cshtml" />
-    <Content Include="Areas\test\Views\Web.config" />
+    <Content Include="Areas\Human\Views\Web.config" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -537,6 +544,7 @@
     <Content Include="Content\js\simditor\js\uploader.js" />
     <Content Include="Content\js\simditor\js\uploader.min.js" />
     <Content Include="Content\js\validate\jquery.validate.min.js" />
+    <Content Include="Content\js\validate\jquery.validate.min.tw.js" />
     <Content Include="Content\js\wdtree\images\icons\add.png" />
     <Content Include="Content\js\wdtree\images\icons\addStep.gif" />
     <Content Include="Content\js\wdtree\images\icons\addStep_dsbl.gif" />
@@ -609,7 +617,8 @@
     <Content Include="Content\js\zsign\jquery.zsign.css" />
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
-    <Content Include="EIPContent\PublicShare\Family\超級管理員.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐世宇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Index.htm" />
     <Content Include="Web.config">
@@ -687,11 +696,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Document\Models\" />
     <Folder Include="Areas\Document\Views\Shared\" />
+    <Folder Include="Areas\Human\Models\" />
+    <Folder Include="Areas\Human\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
-    <Folder Include="Areas\test\Controllers\" />
-    <Folder Include="Areas\test\Models\" />
-    <Folder Include="Areas\test\Views\Shared\" />
-    <Folder Include="EIPContent\FilesCabinet\UploadFiles\" />
+    <Folder Include="EIPContent\Content\FilesCabinet\UploadFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Default.cshtml" />

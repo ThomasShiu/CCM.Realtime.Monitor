@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System.Data;
@@ -11,13 +11,13 @@ namespace CCM.Code
     public static class ExtTable
     {
         /// <summary>
-        /// 获取表里某页的数据
+        /// 獲取表裡某頁的資料
         /// </summary>
-        /// <param name="data">表数据</param>
-        /// <param name="pageIndex">当前页</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="allPage">返回总页数</param>
-        /// <returns>返回当页表数据</returns>
+        /// <param name="data">表數據</param>
+        /// <param name="pageIndex">當前頁</param>
+        /// <param name="pageSize">分頁大小</param>
+        /// <param name="allPage">返回總頁數</param>
+        /// <returns>返回當頁表資料</returns>
         public static DataTable GetPage(this DataTable data, int pageIndex, int pageSize, out int allPage)
         {
             allPage = data.Rows.Count / pageSize;
@@ -33,10 +33,10 @@ namespace CCM.Code
             return Ntable;
         }
         /// <summary>
-        /// 根据字段过滤表的内容
+        /// 根據欄位過濾表的內容
         /// </summary>
-        /// <param name="data">表数据</param>
-        /// <param name="condition">条件</param>
+        /// <param name="data">表數據</param>
+        /// <param name="condition">條件</param>
         /// <returns></returns>
         /// 
         public static DataTable GetDataFilter(DataTable data, string condition)
@@ -66,3 +66,4 @@ namespace CCM.Code
         }
     }
 }
+

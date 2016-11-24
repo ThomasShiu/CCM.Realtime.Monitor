@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 
@@ -10,38 +10,39 @@ namespace CCM.Code
     public class AjaxResult
     {
         /// <summary>
-        /// 操作结果类型
+        /// 操作結果類型
         /// </summary>
         public object state { get; set; }
         /// <summary>
-        /// 获取 消息内容
+        /// 獲取 消息內容
         /// </summary>
         public string message { get; set; }
         /// <summary>
-        /// 获取 返回数据
+        /// 獲取 返回資料
         /// </summary>
         public object data { get; set; }
     }
     /// <summary>
-    /// 表示 ajax 操作结果类型的枚举
+    /// 表示 ajax 操作結果類型的列舉
     /// </summary>
     public enum ResultType
     {
         /// <summary>
-        /// 消息结果类型
+        /// 消息結果類型
         /// </summary>
         info,
         /// <summary>
-        /// 成功结果类型
+        /// 成功結果類型
         /// </summary>
         success,
         /// <summary>
-        /// 警告结果类型
+        /// 警告結果類型
         /// </summary>
         warning,
         /// <summary>
-        /// 异常结果类型
+        /// 異常結果類型
         /// </summary>
         error
     }
 }
+

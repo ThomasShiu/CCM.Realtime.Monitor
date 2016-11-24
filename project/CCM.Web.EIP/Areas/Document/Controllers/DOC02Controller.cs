@@ -34,9 +34,17 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetGridJsonUpload(string keyword)
         {
-            var data = tableApp.GetList(keyword);  
+            //var data = tableApp.GetList(keyword); 
+            var data = new
+            {
+                current= 1,
+                rowCount= 10,
+                rows = tableApp.GetList(keyword),
+                total = tableApp.GetList(keyword).Count
+            };
             return Content(data.ToJson());
         }
+
 
         [HttpGet]
         [HandlerAjaxOnly]

@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class FR_OFFIDOC_ISSUE_ATTACH_FILEController : ControllerBase
+    public class HR_EMPLYMController : ControllerBase
     {
-        private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
+        private HR_EMPLYMApp tableApp = new HR_EMPLYMApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(FR_OFFIDOC_ISSUE_ATTACH_FILEEntity FR_OFFIDOC_ISSUE_ATTACH_FILEEntity, string keyValue)
+        public ActionResult SubmitForm(HR_EMPLYMEntity HR_EMPLYMEntity, string keyValue)
         {
-            tableApp.SubmitForm(FR_OFFIDOC_ISSUE_ATTACH_FILEEntity, keyValue);
+            tableApp.SubmitForm(HR_EMPLYMEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

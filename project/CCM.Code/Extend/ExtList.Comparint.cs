@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace CCM.Code
 {
     public class ExtList<T> : IEqualityComparer<T> where T : class, new()
     {
-         private string[] comparintFiledName = { };
+        private string[] comparintFiledName = { };
 
         public ExtList() { }
         public ExtList(params string[] comparintFiledName)
@@ -29,7 +29,7 @@ namespace CCM.Code
                 return x.Equals(y);
             }
             bool result = true;
-            var typeX = x.GetType();//获取类型
+            var typeX = x.GetType();//獲取類型
             var typeY = y.GetType();
             foreach (var filedName in comparintFiledName)
             {
@@ -48,3 +48,4 @@ namespace CCM.Code
         }
     }
 }
+

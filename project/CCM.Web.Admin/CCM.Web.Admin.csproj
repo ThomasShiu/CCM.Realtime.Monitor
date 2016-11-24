@@ -331,6 +331,7 @@
     <Content Include="Content\js\simditor\js\uploader.js" />
     <Content Include="Content\js\simditor\js\uploader.min.js" />
     <Content Include="Content\js\validate\jquery.validate.min.js" />
+    <Content Include="Content\js\validate\jquery.validate.min.tw.js" />
     <Content Include="Content\js\wdtree\images\icons\add.png" />
     <Content Include="Content\js\wdtree\images\icons\addStep.gif" />
     <Content Include="Content\js\wdtree\images\icons\addStep_dsbl.gif" />
@@ -403,6 +404,8 @@
     <Content Include="Content\js\zsign\jquery.zsign.css" />
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐世宇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Index.htm" />
     <Content Include="Web.config">
@@ -649,6 +652,7 @@
     <Content Include="Areas\SystemManage\Views\User\Info.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.map" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\e3862faf-e2b8-4930-b1a7-a0a92fdfd5c8.pdf" />
     <None Include="Properties\PublishProfiles\CCM_ADMIN_13.pubxml" />
     <None Include="Properties\PublishProfiles\CCM_ADMIN_207.pubxml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
@@ -671,7 +675,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1851/</IISUrl>
+          <IISUrl>http://localhost:8659/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

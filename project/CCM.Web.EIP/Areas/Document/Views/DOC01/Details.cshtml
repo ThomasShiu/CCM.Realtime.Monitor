@@ -82,19 +82,20 @@
                     <div class="panel-body" style="width: 98%;">
                         <table class="form">
                             <tr>
-
                                 <th class="formTitle">發文編號</th>
                                 <td class="formValue">
-                                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control required" placeholder="請輸入發文編號" />
-                                    <input id="GUID" name="GUID" type="hidden" />
-                                    <input id="STATUS" name="STATUS" type="hidden" value="Y" />
-                                    <input id="AttachFIle" name="AttachFIle" type="hidden" />
-                                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control" placeholder="自動產生發文編號" readonly="readonly" />
+                                    <input id="GUID" name="GUID" type="hidden" value="" />
+                                    <input id="AttachFIle" name="AttachFIle" type="hidden" value="" />
+
                                 </td>
                                 <th class="formTitle">發文公司</th>
                                 <td class="formValue">
-                                    <input id="COMPANY" name="COMPANY" type="text" class="form-control required" placeholder="請輸入發文公司" />
-                                    @*<input id="F_Id" name="F_Id" type="text" class="form-control required" placeholder="請輸入發文單位" />*@
+                                    <select id="COMPANY" name="COMPANY" class="form-control required">
+                                        <option value="0">精湛總廠</option>
+                                        <option value="1">全盈一廠</option>
+                                        <option value="2">桃園全盈</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -102,7 +103,58 @@
                                 <td class="formValue">
                                     <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
                                 </td>
-                                <th class="formTitle">發文單位</th>
+                                <th class="formTitle">發文部門</th>
+                                <td class="formValue">
+                                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入發文部門" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th class="formTitle">發文人員</th>
+                                <td class="formValue">
+                                    <input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入發文人員" />
+                                </td>
+                                <th class="formTitle">連絡人</th>
+                                <td class="formValue">
+                                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">電話</th>
+                                <td class="formValue">
+                                    <input id="PHONE" name="PHONE" type="text" class="form-control required" placeholder="請輸入電話" />
+                                </td>
+                                <th class="formTitle">分機</th>
+                                <td class="formValue">
+                                    <input id="PHONEEXTENSION" name="PHONEEXTENSION" type="text" class="form-control " placeholder="請輸入分機" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">傳真</th>
+                                <td class="formValue">
+                                    <input id="FAX" name="FAX" type="text" class="form-control " placeholder="請輸入傳真" />
+                                </td>
+                                <th class="formTitle">狀態</th>
+                                <td class="formValue">
+                                    <select id="STATUS" name="STATUS" class="form-control required">
+                                        <option value="FN">已發文</option>
+                                        <option value="NL">作廢</option>
+                                        <option value="SN">用印申請中</option>
+                                        <option value="OP">未申請</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <th class="formTitle">速別</th>
+                                <td class="formValue">
+                                    <select id="DOCTYPE" name="DOCTYPE" class="form-control required">
+                                        <option value="1">普通件</option>
+                                        <option value="2">速件</option>
+                                        <option value="3">最速件</option>
+                                    </select>
+                                </td>
+                                <th class="formTitle">受文者</th>
                                 <td class="formValue">
                                     <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文單位" />
                                 </td>
@@ -122,81 +174,157 @@
                                 <td class="formValue" colspan="3">
                                     <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
                                 </td>
-
                             </tr>
                             <tr>
-                                <th class="formTitle">發文組織</th>
-                                <td class="formValue">
-                                    <input id="Original" name="Original" type="text" class="form-control required" placeholder="請輸入發文組織" />
-                                </td>
-                                <th class="formTitle">文件格式</th>
-                                <td class="formValue">
-                                    <input id="DOCTYPE" name="DOCTYPE" type="text" class="form-control " placeholder="請輸入文件格式" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="formTitle">收文人員</th>
-                                <td class="formValue">
-                                    <input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入收文人員" />
-                                </td>
-                                <th class="formTitle">受文部門</th>
-                                <td class="formValue">
-                                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入受文部門" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="formTitle">連絡人</th>
-                                <td class="formValue">
-                                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
-                                </td>
-                                <th class="formTitle">區碼</th>
-                                <td class="formValue">
-                                    <input id="PHONEAREACODE" name="PHONEAREACODE" type="text" class="form-control required" placeholder="請輸入區碼" />
-                                </td>
-                            </tr>
-                            <tr></tr>
-                            <tr>
-                                <th class="formTitle">電話</th>
-                                <td class="formValue">
-                                    <input id="PHONE" name="PHONE" type="text" class="form-control required" placeholder="請輸入電話" />
-                                </td>
-                                <th class="formTitle">傳真</th>
-                                <td class="formValue">
-                                    <input id="FAX" name="FAX" type="text" class="form-control required" placeholder="請輸入傳真" />
+                                <th class="formTitle">正本</th>
+                                <td class="formValue"  colspan="3">
+                                    <input id="Original" name="Original" type="text" class="form-control required" placeholder="請輸入正本" />
                                 </td>
                             </tr>
                             <tr>
                                 <th class="formTitle">副本</th>
-                                <td class="formValue">
-                                    <input id="Duplicate" name="Duplicate" type="text" class="form-control required" placeholder="請輸入副本" />
+                                <td class="formValue"  colspan="3">
+                                    <input id="Duplicate" name="Duplicate" type="text" class="form-control " placeholder="請輸入副本" />
                                 </td>
 
                             </tr>
-                            <tr></tr>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="step-pane" id="step-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">表單內容</h3>
-                    </div>
-                    <div class="panel-body" style="width: 98%;">
-                        <h3 class="panel-title">表單內容</h3>
-                        <h3 class="panel-title">表單內容</h3>
-                    </div>
-                </div>
+                <table id="grid-data" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="SID" data-width="20%" data-visible="false">序號</th>
+                            <th data-column-id="Name" data-width="50%">檔名</th>
+                            <th data-column-id="commands" data-width="20%" data-formatter="commands" data-sortable="false">執行</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
+
         <div class="form-button" id="wizard-actions">
             <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
             <a id="btn_next" class="btn btn-default btn-next">下一步</a>
             @*<a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>*@
         </div>
-    </div>
+</div>
 
 </form>
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
+<script>
+    var parentID = $('input[name=GUID]').val();
+    var keyValue = $.request("keyValue");
+    $(function () {
+
+        initControl();
+        // 編輯模式
+        if (!!keyValue) {
+            $.ajax({
+                url: "/Document/DOC01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+            parentID = $('input[name=GUID]').val();
+        } else {
+            // 新建模式,取得GUID作為附件檔案使用
+            $('input[name="GUID"]').val(GetNow() + '-' + GetGuid());
+            parentID = $('input[name=GUID]').val();
+        }
+        //初始化BootGrid
+        InitBootGrid();
+    });
+
+    function initControl() {
+
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+        $('#wizard').wizard().on('change', function (e, data) {
+            var $finish = $("#btn_finish");
+            var $next = $("#btn_next");
+            if (data.direction == "next") {
+                switch (data.step) {
+                    case 1:
+                        if (!$('#form1').formValid()) {
+                            return false;
+                        }
+                        $finish.show();
+                        $next.hide();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                $finish.hide();
+                $next.show();
+            }
+        });
 
 
+    }
 
+
+    function InitBootGrid() {
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if(vport!=80){
+            vport=':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+        // BootGrid test
+        $("#grid-data").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何附件",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/Document/DOC02/GetGridJsonUpload?keyword=' + parentID,
+            formatters: {
+                "link": function (column, row) {
+                    return "<a href='" + pathlink + row.UploadPath + "' target='_blank'> Download : " + row.Name + "</a>";
+                },
+                "commands": function (column, row) {
+                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-link\" data-row-id=\"" + row.UploadPath + "\"><span class=\"fa fa-link\"></span></button> ";
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            //alert('after load data');
+            /* Executes after data is loaded and rendered */
+            $("#grid-data").find(".command-link").on("click", function (e)
+            {
+                //alert("You pressed link on row: " + $(this).data("row-id"));
+                window.open(pathlink + $(this).data("row-id"), '_blank');
+            }).end().find(".command-delete").on("click", function(e)
+            {
+                alert("You pressed delete on row: " + $(this).data("row-id"));
+            });
+        });
+
+    }
+</script>

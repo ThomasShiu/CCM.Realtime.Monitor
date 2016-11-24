@@ -1,5 +1,4 @@
-﻿@{ var v_pic = "~/EIPContent/PublicShare/Family/" + CCM.Code.OperatorProvider.Provider.GetCurrent().UserName + ".jpg"; }
-
+﻿@{ var v_pic = "~/EIPContent/Content/PublicShare/Family/" + CCM.Code.OperatorProvider.Provider.GetCurrent().UserName + ".jpg"; }
 <!DOCTYPE html>
 <html style="overflow: hidden;">
 <head>
@@ -16,6 +15,7 @@
     <script src="~/Content/js/cookie/jquery.cookie.js"></script>
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <script src="~/Content/js/framework-ui.js"></script>
+    @*  取得所屬角色的選單，預載 Id 對應的參數，職位、公司別等等...可修改ClientsDataController.js *@
     <script src="~/Content/js/framework-clientdata.js"></script>
 </head>
 <body style="overflow: hidden;">
@@ -100,7 +100,7 @@
                                 <img src="@Url.Content(v_pic)" alt="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName" />
                                 <div class="user-box">
                                     <span class="name">
-                                        @CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode;@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName
+                                        @CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode-@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName
                                     </span>
                                     <span class="status">
                                         <i class="fa fa-circle"></i>線上
