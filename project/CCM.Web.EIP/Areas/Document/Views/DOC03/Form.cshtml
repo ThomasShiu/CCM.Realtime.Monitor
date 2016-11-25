@@ -26,9 +26,9 @@
                     <form id="form1">
                         <table class="form">
                             <tr>
-                                <th class="formTitle">發文編號</th>
+                                <th class="formTitle">收文編號</th>
                                 <td class="formValue">
-                                    <input id="ISSUEID" name="ISSUEID" type="text" class="form-control" placeholder="自動產生發文編號" readonly="readonly" />
+                                    <input id="RECEIVEID" name="RECEIVEID" type="text" class="form-control" placeholder="自動產生收文編號" readonly="readonly" />
                                     <input id="GUID" name="GUID" type="hidden" value="" />
                                     <input id="AttachFIle" name="AttachFIle" type="hidden" value="" />
 
@@ -41,27 +41,27 @@
                                         <option value="2">桃園全盈</option>
                                     </select>
                                 </td>
-                                <th class="formTitle">發文日期</th>
+                                <th class="formTitle">收文日期</th>
                                 <td class="formValue">
                                     <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
                                 </td>
                             </tr>
                             <tr>
-                                <th class="formTitle">發文部門</th>
+                                <th class="formTitle">發文機關</th>
                                 <td class="formValue">
-                                    <select id="DEPID" name="DEPID" class="form-control required" />
+                                    <select id="OFFICIAL_NM" name="OFFICIAL_NM" class="form-control required" />
                                     @*<input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入發文部門" />*@
                                 </td>
-                                <th class="formTitle">發文人員</th>
+                                <th class="formTitle">發文字號</th>
                                 <td class="formValue">
-                                    <select id="EMPID" name="EMPID" class="form-control required">
+                                    <select id="OFFICIAL_DOCID" name="OFFICIAL_DOCID" class="form-control required">
                                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                                     </select>
                                     @*<input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入發文人員" />*@
                                 </td>
-                                <th class="formTitle">連絡人</th>
+                                <th class="formTitle">文別</th>
                                 <td class="formValue">
-                                    <input id="CONTACT" name="CONTACT" type="text" class="form-control required" placeholder="請輸入連絡人" />
+                                    <input id="OFFICIAL_DOCTYPE" name="OFFICIAL_DOCTYPE" type="text" class="form-control required" placeholder="請輸入連絡人" />
                                 </td>
                             </tr>
                             <tr>

@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: HR_EMPLYM
-	public class HR_EMPLYMMap : EntityTypeConfiguration<HR_EMPLYMEntity>
+	//mapping table name: FR_OFFIDOC_RECE
+	public class FR_OFFIDOC_RECEMap : EntityTypeConfiguration<FR_OFFIDOC_RECEEntity>
     {
-        public HR_EMPLYMMap()
+        public FR_OFFIDOC_RECEMap()
         {
-            this.ToTable("HR_EMPLYM");
+            this.ToTable("FR_OFFIDOC_RECE");
             this.HasKey(t => t.SID);
         }
     }

@@ -15,7 +15,7 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Mis_IpAddress"; //<<<修改這理
+			restrictions[2] = "FR_OFFIDOC_RECE"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
 			string areas = "MIS";  //區域名稱

@@ -41,6 +41,20 @@ namespace CCM.Application
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
+
+        public List<HR_DEPEntity> GetListActive(string keyword = "")
+        {
+            var expression = ExtLinq.True<HR_DEPEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.DEPID.Contains(keyword));
+                expression = expression.Or(t => t.DEPNM.Contains(keyword));
+            }
+            expression = expression.And(t => t.EMPLYID != null);
+            expression = expression.And(t => t.EMPLYID != "");
+            return service.IQueryable(expression).OrderBy(t => t.DEPID).ToList();
+        }
+
         public HR_DEPEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

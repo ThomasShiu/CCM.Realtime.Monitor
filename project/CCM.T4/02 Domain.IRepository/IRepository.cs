@@ -5,14 +5,14 @@
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Data;
-using CCM.Domain;
+using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: HR_EMPLYM
-	public interface IHR_EMPLYMRepository : IRepositoryBase<HR_EMPLYMEntity>
+	//mapping table name: FR_OFFIDOC_RECE
+	public interface IFR_OFFIDOC_RECERepository : IRepositoryBase<FR_OFFIDOC_RECEEntity>
     {
     }
 			 		                               

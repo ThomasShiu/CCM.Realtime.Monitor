@@ -33,7 +33,7 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
         public ActionResult GetHR_EMPLY(string keyword)
         {
             //var data = EmplyApp.GetList(keyword);
-            var data = EmplyApp.GetListActive(keyword);  // 在職員工 C_STA='A'  離職 C_STA='D'
+            var data = EmplyApp.GetListActive(keyword); 
             return Content(data.ToJson());
         }
     }

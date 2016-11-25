@@ -49,6 +49,7 @@
     <Compile Include="01 Infrastructure\DbLogType.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEApp.cs" />
+    <Compile Include="Document\FR_OFFIDOC_RECEApp.cs" />
     <Compile Include="Human\HR_DEPApp.cs" />
     <Compile Include="Human\HR_EMPLYMApp.cs" />
     <Compile Include="MisManage\MisIpAddressApp.cs" />

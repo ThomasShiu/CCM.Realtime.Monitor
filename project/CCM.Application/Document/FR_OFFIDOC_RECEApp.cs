@@ -11,34 +11,34 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Repository;
 //todo: 請修改對應的namespace
-namespace CCM.Application 
-{        
-		   
-public class FR_OFFIDOC_RECEApp
-    {
-        private IFR_OFFIDOC_RECERepository service = new FR_OFFIDOC_RECERepository();     
+namespace CCM.Application
+{
 
-	public List<FR_OFFIDOC_RECEEntity> GetList(string keyword = "")
-        {
-            var expression = ExtLinq.True<FR_OFFIDOC_RECEEntity>();
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-                expression = expression.Or(t => t.F_EnCode.Contains(keyword));
-            }
-            //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
-        }     
-	 public List<FR_OFFIDOC_RECEEntity> GetList(Pagination pagination, string  keyword = "")
+    public class FR_OFFIDOC_RECEApp
+    {
+        private IFR_OFFIDOC_RECERepository service = new FR_OFFIDOC_RECERepository();
+
+        public List<FR_OFFIDOC_RECEEntity> GetList(string keyword = "")
         {
             var expression = ExtLinq.True<FR_OFFIDOC_RECEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
-                expression = expression.Or(t => t.SUBJECT.Contains(keyword));
+                expression = expression.Or(t => t.OFFICIAL_DOCID.Contains(keyword));
+            }
+            //expression = expression.And(t => t.F_Category == 1);
+            return service.IQueryable(expression).OrderBy(t => t.RECEIVEID).ToList();
+        }
+        public List<FR_OFFIDOC_RECEEntity> GetList(Pagination pagination, string keyword = "")
+        {
+            var expression = ExtLinq.True<FR_OFFIDOC_RECEEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
+                expression = expression.Or(t => t.OFFICIAL_DOCID.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
-            //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
+            //return service.IQueryable(expression).OrderBy(t => t.RECEIVEID).ToList();
             return service.FindList(expression, pagination);
         }
         public FR_OFFIDOC_RECEEntity GetForm(string keyValue)
@@ -47,14 +47,14 @@ public class FR_OFFIDOC_RECEApp
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
-            {
-                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
-            }
-            else
-            {
+            //if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            //{
+            //    throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+            //}
+            //else
+            //{
                 service.Delete(t => t.SID == keyValue);
-            }
+            //}
         }
         public void SubmitForm(FR_OFFIDOC_RECEEntity tableEntity, string keyValue)
         {
@@ -69,6 +69,6 @@ public class FR_OFFIDOC_RECEApp
                 service.Insert(tableEntity);
             }
         }
-			 		                               
-}
+
+    }
 }

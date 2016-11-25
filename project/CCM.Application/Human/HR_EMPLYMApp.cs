@@ -38,7 +38,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }
-            expression = expression.And(t => t.C_STA == "A");
+            expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
         public List<HR_EMPLYMEntity> GetList(Pagination pagination, string keyword = "")

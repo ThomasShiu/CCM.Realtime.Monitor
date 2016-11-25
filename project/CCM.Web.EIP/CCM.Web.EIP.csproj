@@ -128,6 +128,7 @@
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="Areas\Document\Controllers\DOC01Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC02Controller.cs" />
+    <Compile Include="Areas\Document\Controllers\DOC03Controller.cs" />
     <Compile Include="Areas\Document\DocumentAreaRegistration.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
@@ -524,6 +525,9 @@
     <Content Include="Areas\Document\Views\DOC01\Form.cshtml" />
     <Content Include="Areas\Document\Views\DOC01\Details.cshtml" />
     <Content Include="Areas\Human\Views\Web.config" />
+    <Content Include="Areas\Document\Views\DOC03\Details.cshtml" />
+    <Content Include="Areas\Document\Views\DOC03\Form.cshtml" />
+    <Content Include="Areas\Document\Views\DOC03\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

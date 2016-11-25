@@ -15,11 +15,11 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "FR_OFFIDOC_ISSUE_ATTACH_FILE"; //<<<修改這理
+			restrictions[2] = "FR_OFFIDOC_RECE"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
 			string areas = "Document";  //區域名稱
-			string controller = "DOC02";  //控制器
+			string controller = "DOC03";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 
@@ -28,7 +28,7 @@
 			
 			foreach(System.Data.DataRow row in schema.Rows) 
 			{ 				
-			#>  
+			#>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
@@ -50,7 +50,6 @@
 					foreach (DataColumn dc in ds.Tables[0].Columns)
 					{
 					#>
-					
                     { label: "<#= dc.ColumnName #>", name: "<#= dc.ColumnName #>", width: 80, align: 'left' },
 				 <# } #>
 				

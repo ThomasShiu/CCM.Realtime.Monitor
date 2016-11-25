@@ -20,7 +20,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         private FR_OFFIDOC_ISSUEApp tableApp = new FR_OFFIDOC_ISSUEApp();
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableFileApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
         private FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
-        
+
 
         [HttpGet]
         [HandlerAjaxOnly]

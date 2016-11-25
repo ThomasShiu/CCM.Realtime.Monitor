@@ -6,19 +6,20 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
-             
+
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.xxxx.Controllers
+namespace CCM.Web.EIP.Areas.Document.Controllers
 {
-    public class FR_OFFIDOC_RECEController : ControllerBase
+    public class DOC03Controller : ControllerBase
     {
         private FR_OFFIDOC_RECEApp tableApp = new FR_OFFIDOC_RECEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
-		 public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new
             {
@@ -64,4 +65,3 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
 
 
 }
-	

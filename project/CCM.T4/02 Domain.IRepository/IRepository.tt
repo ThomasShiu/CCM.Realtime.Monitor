@@ -19,7 +19,7 @@ namespace CCM.Domain
 {        
 		<#
 			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=HRSDBR53;User ID=sa;Password=6937937"; 
+			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
 			SqlConnection conn = new SqlConnection(connectionString); 
 			conn.Open(); 
 			
@@ -27,7 +27,7 @@ namespace CCM.Domain
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "HR_EMPLYM"; 
+			restrictions[2] = "FR_OFFIDOC_RECE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 

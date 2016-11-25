@@ -4,8 +4,10 @@
  * Description: CCM快速开发平台
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+using CCM.Application;
 using CCM.Application.SystemManage;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,8 @@ namespace CCM.Web.EIP.Controllers
                 organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
-                user = "",
+                dept = this.GetDeptList(),
+                user = this.GetEmpList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
@@ -94,6 +97,39 @@ namespace CCM.Web.EIP.Controllers
                     fullname = item.F_FullName
                 };
                 dictionary.Add(item.F_Id, fieldItem);
+            }
+            return dictionary;
+        }
+        private object GetDeptList()
+        {
+             HR_DEPApp DepApp = new HR_DEPApp();
+            var data = DepApp.GetListActive("");
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (HR_DEPEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    chargeid = item.EMPLYID,  // 部門主管
+                    fullname = item.DEPNM
+                };
+                dictionary.Add(item.DEPID, fieldItem);
+            }
+            return dictionary;
+        }
+
+        private object GetEmpList()
+        {
+            HR_EMPLYMApp EmplyApp = new HR_EMPLYMApp();
+            var data = EmplyApp.GetList("");
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (HR_EMPLYMEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    depid = item.DEPID, 
+                    fullname = item.EMPLYNM
+                };
+                dictionary.Add(item.EMPLYID, fieldItem);
             }
             return dictionary;
         }

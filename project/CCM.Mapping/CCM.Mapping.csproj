@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Document\FR_OFFIDOC_ISSUEMap.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEMap.cs" />
+    <Compile Include="Document\FR_OFFIDOC_RECEMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />

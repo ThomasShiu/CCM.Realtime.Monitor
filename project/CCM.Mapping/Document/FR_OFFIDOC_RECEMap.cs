@@ -4,16 +4,21 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
-using CCM.Data;
 using CCM.Domain;
-using CCM.Domain.Entity;
+using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Repository
-{        
-		             
-	//mapping table name: FR_OFFIDOC_RECE
-	public class FR_OFFIDOC_RECERepository : RepositoryBase<FR_OFFIDOC_RECEEntity>, IFR_OFFIDOC_RECERepository
+namespace CCM.Mapping
+{
+
+    //mapping table name: FR_OFFIDOC_RECE
+    public class FR_OFFIDOC_RECEMap : EntityTypeConfiguration<FR_OFFIDOC_RECEEntity>
     {
+        public FR_OFFIDOC_RECEMap()
+        {
+            this.ToTable("FR_OFFIDOC_RECE");
+            this.HasKey(t => t.SID);
+        }
     }
+
 }
