@@ -115,20 +115,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                         tableEntity.ParentISSUEID = guid;
                         tableEntity.Name = fileName;
                         tableEntity.UploadPath = "EIPContent/Content/FilesCabinet/UploadFiles/" + fileNewName; //圖檔路徑
-
-                        //pa.ImgPath = "~/EIPContent/Content/PublicShare/VibrationPlate/" + fileNewName; //圖檔路徑
-                        //pa.parentId = guid;
-                        //pa.FileName = pa.FileName;
-                        //pa.Descript = pa.Descript;
-                        //pa.KindType1 = pa.KindType1;
-
-                        //albumDBservice.InsertItemData(pa);
-
-                        //照片已在剛剛就上傳到Server
-                        //this.LogWrite(vm);
-
                         tableFileApp.SubmitForm(tableEntity, null);
-
                     }
                 }
                 msg = "success";

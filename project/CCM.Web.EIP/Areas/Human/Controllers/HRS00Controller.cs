@@ -32,7 +32,8 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetHR_EMPLY(string keyword)
         {
-            var data = EmplyApp.GetListActive(keyword);
+            //var data = EmplyApp.GetList(keyword);
+            var data = EmplyApp.GetListActive(keyword);  // 在職員工
             return Content(data.ToJson());
         }
     }
