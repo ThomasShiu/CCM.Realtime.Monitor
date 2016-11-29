@@ -11,31 +11,31 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Repository;
 //todo: 請修改對應的namespace
-namespace CCM.Application 
-{        
-		   
-public class FR_OFFIDOC_RECE_ATTACH_FILEApp
-    {
-        private IFR_OFFIDOC_RECE_ATTACH_FILERepository service = new FR_OFFIDOC_RECE_ATTACH_FILERepository();     
+namespace CCM.Application
+{
 
-	public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(string keyword = "")
+    public class FR_OFFIDOC_RECE_ATTACH_FILEApp
+    {
+        private IFR_OFFIDOC_RECE_ATTACH_FILERepository service = new FR_OFFIDOC_RECE_ATTACH_FILERepository();
+
+        public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(string keyword = "")
         {
             var expression = ExtLinq.True<FR_OFFIDOC_RECE_ATTACH_FILEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-                expression = expression.Or(t => t.F_EnCode.Contains(keyword));
+                expression = expression.And(t => t.SID.Contains(keyword));
+                expression = expression.Or(t => t.ParentRECEIVEID.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
-        }     
-	 public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(Pagination pagination, string  keyword = "")
+        }
+        public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(Pagination pagination, string keyword = "")
         {
             var expression = ExtLinq.True<FR_OFFIDOC_RECE_ATTACH_FILEEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
-                expression = expression.Or(t => t.SUBJECT.Contains(keyword));
+                expression = expression.And(t => t.SID.Contains(keyword));
+                expression = expression.Or(t => t.ParentRECEIVEID.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
@@ -47,14 +47,14 @@ public class FR_OFFIDOC_RECE_ATTACH_FILEApp
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
-            {
-                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
-            }
-            else
-            {
+            //if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            //{
+            //    throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+            //}
+            //else
+            //{
                 service.Delete(t => t.SID == keyValue);
-            }
+            //}
         }
         public void SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity tableEntity, string keyValue)
         {
@@ -69,6 +69,6 @@ public class FR_OFFIDOC_RECE_ATTACH_FILEApp
                 service.Insert(tableEntity);
             }
         }
-			 		                               
-}
+
+    }
 }

@@ -11,35 +11,17 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: FR_OFFIDOC_RECE
-			public class FR_OFFIDOC_RECEEntity  : IEntityCcm<FR_OFFIDOC_RECEEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
+			public class FR_OFFIDOC_RECE_ATTACH_FILEEntity  : IEntityCcm<FR_OFFIDOC_RECE_ATTACH_FILEEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public String RECEIVEID  { get; set; }                                        
+				public String ParentRECEIVEID  { get; set; }                                        
 				          
-				public DateTime RECEDATE  { get; set; }                                        
+				public String Name  { get; set; }                                        
 				          
-				public String OFFICIAL_NM  { get; set; }                                        
-				          
-				public String OFFICIAL_DOCID  { get; set; }                                        
-				          
-				public String OFFICIAL_DOCTYPE  { get; set; }                                        
-				          
-				public String DESCR  { get; set; }                                        
-				          
-				public String AttachFIle  { get; set; }                                        
-				          
-				public String EMPID  { get; set; }                                        
-				          
-				public String COMID  { get; set; }                                        
-				          
-				public String DEPID  { get; set; }                                        
-				          
-				public String STATUS  { get; set; }                                        
-				          
-				public String GUID  { get; set; }                                        
+				public String UploadPath  { get; set; }                                        
 				          
 				public String OrganizeId  { get; set; }                                        
 				          

@@ -8,11 +8,11 @@ using CCM.Domain;
 using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Mapping 
-{        
-		             
-	//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
-	public class FR_OFFIDOC_RECE_ATTACH_FILEMap : EntityTypeConfiguration<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
+namespace CCM.Mapping
+{
+
+    //mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
+    public class FR_OFFIDOC_RECE_ATTACH_FILEMap : EntityTypeConfiguration<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
     {
         public FR_OFFIDOC_RECE_ATTACH_FILEMap()
         {
@@ -20,5 +20,5 @@ namespace CCM.Mapping
             this.HasKey(t => t.SID);
         }
     }
-			                  
+
 }

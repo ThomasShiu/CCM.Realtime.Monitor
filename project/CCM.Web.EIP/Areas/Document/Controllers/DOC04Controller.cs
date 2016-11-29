@@ -1,24 +1,23 @@
-﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
- * Description: CCM,MIS 快速開發平臺
- * Website：http://www.ccm3s.com
-*********************************************************************************/
-using CCM.Application;
+﻿using CCM.Application;
 using CCM.Code;
-using CCM.Domain.Entity;
+using CCM.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-             
-//todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.xxxx.Controllers
+
+namespace CCM.Web.EIP.Areas.Document.Controllers
 {
-    public class FR_OFFIDOC_RECE_ATTACH_FILEController : ControllerBase
+    public class DOC04Controller : ControllerBase
     {
+        //
+        // GET: /Document/DOC04/
         private FR_OFFIDOC_RECE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_RECE_ATTACH_FILEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
-		 public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new
             {
@@ -30,6 +29,24 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
             return Content(data.ToJson());
         }
 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJsonUpload(string keyword)
+        {
+            //var data = tableApp.GetList(keyword); 
+            var data = new
+            {
+                current = 1,
+                rowCount = 10,
+                rows = tableApp.GetList(keyword),
+                total = tableApp.GetList(keyword).Count
+            };
+            return Content(data.ToJson());
+        }
+
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetGridJson(string keyword)
         {
             var data = tableApp.GetList(keyword);
@@ -46,9 +63,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity FR_OFFIDOC_RECE_ATTACH_FILEEntity, string keyValue)
+        public ActionResult SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity entity, string keyValue)
         {
-            tableApp.SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity, keyValue);
+            tableApp.SubmitForm(entity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
@@ -60,8 +77,6 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
     }
-
-
 }
-	

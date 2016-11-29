@@ -6,7 +6,7 @@
 <div class="widget-body">
     <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
         <ul class="steps">
-            <li data-target="#step-1" class="active"><span class="step">1</span>發文紀錄<span class="chevron"></span></li>
+            <li data-target="#step-1" class="active"><span class="step">1</span>收文紀錄<span class="chevron"></span></li>
             <li data-target="#step-2"><span class="step">2</span>附加檔案<span class="chevron"></span></li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
         <div class="step-pane active" id="step-1" style="margin: 10px; margin-bottom: 0px;">
             <div class="alert alert-danger" style="text-align: left; margin-bottom: 10px;">
                 <i class="fa fa-warning alert-dismissible" style="position: relative; top: 1px; font-size: 15px; padding-right: 5px;"></i>
-                請填寫發文紀錄，用於新建或修改發文資訊！
+                請填寫收文紀錄，用於新建或修改收文資訊！
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -33,102 +33,66 @@
                                     <input id="AttachFIle" name="AttachFIle" type="hidden" value="" />
 
                                 </td>
-                                <th class="formTitle">發文公司</th>
-                                <td class="formValue">
-                                    <select id="COMPANY" name="COMPANY" class="form-control required">
-                                        <option value="0">精湛總廠</option>
-                                        <option value="1">全盈一廠</option>
-                                        <option value="2">桃園全盈</option>
-                                    </select>
-                                </td>
                                 <th class="formTitle">收文日期</th>
                                 <td class="formValue">
-                                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                                    <input id="RECEDATE" name="RECEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                                </td>
+                                <th class="formTitle">狀態</th>
+                                <td class="formValue">
+                                    <select id="STATUS" name="STATUS" class="form-control required">
+                                        <option value="CF">已登錄</option>
+                                        <option value="NL">作廢</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="formTitle">發文機關</th>
                                 <td class="formValue">
-                                    <select id="OFFICIAL_NM" name="OFFICIAL_NM" class="form-control required" />
-                                    @*<input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入發文部門" />*@
+                                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文部門" />
                                 </td>
                                 <th class="formTitle">發文字號</th>
                                 <td class="formValue">
-                                    <select id="OFFICIAL_DOCID" name="OFFICIAL_DOCID" class="form-control required">
-                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
-                                    </select>
-                                    @*<input id="EMPID" name="EMPID" type="text" class="form-control required" placeholder="請輸入發文人員" />*@
+                                    <input id="OFFICIAL_DOCID" name="OFFICIAL_DOCID" type="text" class="form-control required" placeholder="請輸入發文字號" />
                                 </td>
                                 <th class="formTitle">文別</th>
                                 <td class="formValue">
-                                    <input id="OFFICIAL_DOCTYPE" name="OFFICIAL_DOCTYPE" type="text" class="form-control required" placeholder="請輸入連絡人" />
+                                    <input id="OFFICIAL_DOCTYPE" name="OFFICIAL_DOCTYPE" type="text" class="form-control required" placeholder="請輸入文別" />
                                 </td>
                             </tr>
                             <tr>
-                                <th class="formTitle">電話</th>
+                                <th class="formTitle">簽收公司</th>
                                 <td class="formValue">
-                                    <input id="PHONE" name="PHONE" type="text" class="form-control required" placeholder="請輸入電話" />
-                                </td>
-                                <th class="formTitle">分機</th>
-                                <td class="formValue">
-                                    <input id="PHONEEXTENSION" name="PHONEEXTENSION" type="text" class="form-control " placeholder="請輸入分機" />
-                                </td>
-                                <th class="formTitle">傳真</th>
-                                <td class="formValue">
-                                    <input id="FAX" name="FAX" type="text" class="form-control " placeholder="請輸入傳真" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="formTitle">狀態</th>
-                                <td class="formValue">
-                                    <select id="STATUS" name="STATUS" class="form-control required">
-                                        <option value="FN">已發文</option>
-                                        <option value="NL">作廢</option>
-                                        <option value="SN">用印申請中</option>
-                                        <option value="OP">未申請</option>
+                                    <select id="COMID" name="COMID" class="form-control required">
+                                        <option value="CCM">精湛光學</option>
+                                        <option value="CPA">高雄全盈</option>
+                                        <option value="YPA">桃園全盈</option>
+                                        <option value="CCS">精準緊固件</option>
+                                        <option value="CCF">教育基金會</option>
                                     </select>
-                                </td>
-                                <th class="formTitle">受文者</th>
+                                    
+                                </td>  
+                                <th class="formTitle">簽收部門</th>
                                 <td class="formValue">
-                                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文單位" />
+                                    <select id="DEPID" name="DEPID" class="form-control required" />
                                 </td>
-                                <th class="formTitle">速別</th>
+                                <th class="formTitle">簽收人員</th>
                                 <td class="formValue">
-                                    <select id="DOCTYPE" name="DOCTYPE" class="form-control required">
-                                        <option value="1">普通件</option>
-                                        <option value="2">速件</option>
-                                        <option value="3">最速件</option>
+                                    <select id="EMPID" name="EMPID" class="form-control required">
+                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                                     </select>
+                                   
                                 </td>
-                            </tr>
-                            <tr>
-                                <th class="formTitle">標題</th>
-                                <td class="formValue" colspan="5">
-                                    <input id="SUBJECT" name="SUBJECT" type="text" class="form-control required" placeholder="請輸入標題" />
-                                </td>
-                            </tr>
 
+                            </tr>
                             <tr>
                                 <th class="formTitle" valign="top" style="padding-top: 5px;">
-                                    內容
+                                    事由
                                 </th>
                                 <td class="formValue" colspan="5">
                                     <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
                                 </td>
                             </tr>
-                            <tr>
-                                <th class="formTitle">正本</th>
-                                <td class="formValue" colspan="5">
-                                    <input id="Original" name="Original" type="text" class="form-control " placeholder="請輸入正本" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="formTitle">副本</th>
-                                <td class="formValue" colspan="5">
-                                    <input id="Duplicate" name="Duplicate" type="text" class="form-control " placeholder="請輸入副本" />
-                                </td>
-
-                            </tr>
+                            
                         </table>
                     </form>
                 </div>
@@ -200,7 +164,7 @@
         // 編輯模式
         if (!!keyValue) {
             $.ajax({
-                url: "/Document/DOC01/GetFormJson",
+                url: "/Document/DOC03/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -210,8 +174,7 @@
             });
             parentID = $('input[name=GUID]').val();
 
-            $("#ISSUEID").prop('disabled', true);
-            $("#COMPANY").prop('disabled', true);
+            $("#RECEIVEID").prop('disabled', true);
 
         } else {
             // 新建模式,取得GUID作為附件檔案使用
@@ -273,10 +236,9 @@
         }
         // 判斷是否有附件
         IfHasFile();
-        $("ISSUEID").prop("disabled", false);
-        $("COMPANY").prop("disabled", false);
+        $("RECEIVEID").prop("disabled", false);
         $.submitForm({
-            url: "/Document/DOC01/SubmitForm?keyValue=" + keyValue,
+            url: "/Document/DOC03/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -302,7 +264,7 @@
         Dropzone.options.myDropzone = {
 
             //指定上傳圖片的路徑
-            url: "/Document/DOC01/BatchUpload?guid=" + parentID,
+            url: "/Document/DOC03/BatchUpload?guid=" + parentID,
             maxFiles: 50,
             acceptedFiles: ".pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif",
             //添加上傳取消和刪除預覽圖片的鏈結，默認不添加
@@ -401,7 +363,7 @@
                     id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
                 };
             },
-            url: '/Document/DOC02/GetGridJsonUpload?keyword=' + parentID,
+            url: '/Document/DOC04/GetGridJsonUpload?keyword=' + parentID,
             formatters: {
                 "link": function (column, row) {
                     return "<a href='" + pathlink + row.UploadPath + "' target='_blank'> Download : " + row.Name + "</a>";
@@ -425,7 +387,7 @@
                 // 刪除檔案
                 $.ajax({
                     type: "POST",
-                    url: "/Document/DOC01/DeleteFile" ,
+                    url: "/Document/DOC03/DeleteFile" ,
                     data: { keyValue: $(this).data("row-id") },
                     dataType: "json",
                     async: true,

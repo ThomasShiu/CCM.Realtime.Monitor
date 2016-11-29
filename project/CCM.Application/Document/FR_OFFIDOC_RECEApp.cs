@@ -17,6 +17,8 @@ namespace CCM.Application
     public class FR_OFFIDOC_RECEApp
     {
         private IFR_OFFIDOC_RECERepository service = new FR_OFFIDOC_RECERepository();
+        private IFR_OFFIDOC_RECE_ATTACH_FILERepository service2 = new FR_OFFIDOC_RECE_ATTACH_FILERepository();
+        private StoreProcedure sp = new StoreProcedure();
 
         public List<FR_OFFIDOC_RECEEntity> GetList(string keyword = "")
         {
@@ -47,13 +49,23 @@ namespace CCM.Application
         }
         public void DeleteForm(string keyValue)
         {
+            FR_OFFIDOC_RECEEntity entity = service.FindEntity(keyValue);
+            string v_guid = entity.GUID;
+            if (service2.IQueryable().Count(t => t.ParentRECEIVEID.Equals(v_guid)) > 0)
+            {
+                throw new Exception("刪除失敗！<br/>收文文資料包含附件，請先刪除附件。");
+            }
+            else
+            {
+                service.Delete(t => t.SID == keyValue);
+            }
             //if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
             //{
             //    throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             //}
             //else
             //{
-                service.Delete(t => t.SID == keyValue);
+            service.Delete(t => t.SID == keyValue);
             //}
         }
         public void SubmitForm(FR_OFFIDOC_RECEEntity tableEntity, string keyValue)
@@ -65,6 +77,7 @@ namespace CCM.Application
             }
             else
             {
+                tableEntity.RECEIVEID = sp.GetOrdNo("DOC_RECEIVE", "", 1);
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }

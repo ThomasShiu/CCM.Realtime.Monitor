@@ -129,6 +129,7 @@
     <Compile Include="Areas\Document\Controllers\DOC01Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC02Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC03Controller.cs" />
+    <Compile Include="Areas\Document\Controllers\DOC04Controller.cs" />
     <Compile Include="Areas\Document\DocumentAreaRegistration.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />

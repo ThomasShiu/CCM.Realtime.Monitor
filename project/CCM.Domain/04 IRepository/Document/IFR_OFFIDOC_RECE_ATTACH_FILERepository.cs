@@ -8,13 +8,13 @@ using CCM.Data;
 using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
-namespace CCM.Domain 
-{        
-		             
-	//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
-	public interface IFR_OFFIDOC_RECE_ATTACH_FILERepository : IRepositoryBase<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
+namespace CCM.Domain
+{
+
+    //mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
+    public interface IFR_OFFIDOC_RECE_ATTACH_FILERepository : IRepositoryBase<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
     {
     }
-			 		                               
+
 
 }

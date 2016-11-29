@@ -42,6 +42,7 @@
     <Compile Include="Document\FR_OFFIDOC_ISSUERepository.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECERepository.cs" />
+    <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILERepository.cs" />
     <Compile Include="Human\HR_DEPRepository.cs" />
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
