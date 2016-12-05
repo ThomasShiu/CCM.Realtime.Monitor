@@ -26,6 +26,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.ISSUEID.Contains(keyword));
                 expression = expression.Or(t => t.SUBJECT.Contains(keyword));
                 expression = expression.Or(t => t.DESCR.Contains(keyword));
+                expression = expression.Or(t => t.SID.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();

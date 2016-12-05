@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
-	public interface IFR_OFFIDOC_RECE_ATTACH_FILERepository : IRepositoryBase<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
+	//mapping table name: CCM_Main_Employee
+	public interface ICCM_Main_EmployeeRepository : IRepositoryBase<CCM_Main_EmployeeEntity>
     {
     }
 			 		                               

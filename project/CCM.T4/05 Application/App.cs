@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class FR_OFFIDOC_RECE_ATTACH_FILEApp
+public class CCM_Main_EmployeeApp
     {
-        private IFR_OFFIDOC_RECE_ATTACH_FILERepository service = new FR_OFFIDOC_RECE_ATTACH_FILERepository();     
+        private ICCM_Main_EmployeeRepository service = new CCM_Main_EmployeeRepository();     
 
-	public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(string keyword = "")
+	public List<CCM_Main_EmployeeEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<FR_OFFIDOC_RECE_ATTACH_FILEEntity>();
+            var expression = ExtLinq.True<CCM_Main_EmployeeEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class FR_OFFIDOC_RECE_ATTACH_FILEApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<FR_OFFIDOC_RECE_ATTACH_FILEEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<CCM_Main_EmployeeEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<FR_OFFIDOC_RECE_ATTACH_FILEEntity>();
+            var expression = ExtLinq.True<CCM_Main_EmployeeEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class FR_OFFIDOC_RECE_ATTACH_FILEApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public FR_OFFIDOC_RECE_ATTACH_FILEEntity GetForm(string keyValue)
+        public CCM_Main_EmployeeEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class FR_OFFIDOC_RECE_ATTACH_FILEApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity tableEntity, string keyValue)
+        public void SubmitForm(CCM_Main_EmployeeEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

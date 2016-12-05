@@ -1,6 +1,7 @@
 ﻿using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
+using CCM.Web.EIP.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,13 @@ using System.Web.Mvc;
 
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
+
     public class DOC04Controller : ControllerBase
     {
         //
         // GET: /Document/DOC04/
         private FR_OFFIDOC_RECE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_RECE_ATTACH_FILEApp();
-
+        private FR_OFFIDOC_RECEApp App = new FR_OFFIDOC_RECEApp();
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
@@ -43,7 +45,25 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             };
             return Content(data.ToJson());
         }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSubGridJson(string keyword)
+        {
+            var master = App.GetList(keyword);
+            var guid = (from x in master
+                      where x.SID == keyword
+                      select new { guid = x.GUID }).First();
 
+            var data = tableApp.GetList(keyword); 
+            //var data = new
+            //{
+            //    current = 1,
+            //    rowCount = 10,
+            //    rows = tableApp.GetList(guid.ToString()),
+            //    total = tableApp.GetList(guid.ToString()).Count
+            //};
+            return Content(data.ToJson());
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]

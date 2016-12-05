@@ -8,6 +8,7 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start;
 using System;
 using System.IO;
 using System.Web;

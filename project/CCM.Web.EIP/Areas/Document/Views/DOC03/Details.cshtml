@@ -100,36 +100,6 @@
         </div>
 
         <div class="step-pane" id="step-2" style="margin: 5px; margin-bottom: 0px;">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">將圖片拖曳至底下方框</h3>
-                </div>
-                <div class="panel-body" style="width: 98%;">
-                    <h5>(同時可上傳50個檔案,各檔不可超過10mb,支援格式.pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif)</h5>
-                    <form action="/"
-                          class="dropzone needsclick formstyle"
-                          enctype="multipart/form-data"
-                          id="my-dropzone"
-                          method="post">
-                        <div class="dz-message data-dz-message"><span>拖拉檔案至此，或點擊此區塊開窗選擇檔案</span></div>
-                        <!--上傳圖片時，需要同時提交的數據，在這裡作設定-->
-                        @Html.Hidden("hidAlbumId")
-                    </form>
-                    <div>
-                        <!--上傳按鈕，提供多張圖片一次性上傳的功能-->
-                        <button type="submit" id="submit-all" disabled="disabled" class="btn btn-danger">上傳</button>
-                    </div>
-
-                    <!-- Dialog -->
-                    <div id="mydialog" title="上傳作業">
-                        <p id="message"> 上傳作業完成。</p>
-                    </div>
-
-
-                </div>
-
-            </div>
-
             <div>
                 <table id="grid-attachfile" class="table table-condensed table-hover table-striped">
                     <thead>
@@ -147,7 +117,7 @@
     <div class="form-button" id="wizard-actions">
         <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
         <a id="btn_next" class="btn btn-default btn-next">下一步</a>
-        <a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>
+        
     </div>
 </div>
 
@@ -164,7 +134,7 @@
         // 編輯模式
         if (!!keyValue) {
             $.ajax({
-                url: "/Document/DOC01/GetFormJson",
+                url: "/Document/DOC03/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -181,8 +151,6 @@
             $('input[name="GUID"]').val(GetNow() + '-' + GetGuid());
             parentID = $('input[name=GUID]').val();
         }
-        //初始化DropZone
-        initDropZone();
 
         //初始化BootGrid
         InitBootGrid();
@@ -258,78 +226,7 @@
         }
     }
 
-    // 初始化上傳區塊 dropzone
-    function initDropZone() {
-        //Dropzone的初始化，myDropzone為form的id
-        Dropzone.options.myDropzone = {
-
-            //指定上傳圖片的路徑
-            url: "/Document/DOC01/BatchUpload?guid=" + parentID,
-            maxFiles: 50,
-            acceptedFiles: ".pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif",
-            //添加上傳取消和刪除預覽圖片的鏈結，默認不添加
-            addRemoveLinks: true,
-
-            //關閉自動上傳功能，默認ture會自動上傳
-            //也就是添加一張圖片就像主機發出請求
-            autoProcessQueue: false,
-
-            //允許上傳多張照片
-            uploadMultiple: true,
-
-            //每次上傳的最多文件數，預設2 ，記得修改 web.config限制上傳文件大小的段落
-            parallelUploads: 10240,
-
-            init: function () {
-                var submitButton = document.querySelector("#submit-all")
-                myDropzone = this; // closure
-
-                //位上傳按鈕添加點擊事件
-                submitButton.addEventListener("click", function () {
-
-                    //手動上傳所有圖片
-                    myDropzone.processQueue();
-                });
-
-                //當添加圖片後的事件，上傳按鈕恢復可用
-                this.on("addedfile", function () {
-                    $("#submit-all").removeAttr("disabled");
-                });
-
-                //當上傳完成後的事件，接受JSON格式
-                this.on("complete", function (data) {
-                    if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-                        //var res = eval('(' + data.xhr.responseText + ')');
-                        var res = JSON.parse(data.xhr.responseText);
-                        var msg;
-                        if (res.Result) {
-                            msg = "已成功上傳" + res.Count + "個檔案！";
-                            window.setTimeout(function () {
-                                $.modalMsg(msg, "success");
-                            }, 500);
-
-                        }
-                        else {
-                            msg = "上傳失敗，原因：" + res.Message;
-                            window.setTimeout(function () {
-                                $.modalMsg(msg, "error");
-                            }, 500);
-                        }
-
-                        //重新整理附件列表
-                        $('#grid-attachfile').bootgrid('reload');
-                    }
-                });
-
-                //刪除圖片的事件，當上傳的圖片為空時，使上傳按鈕不可用
-                this.on("removedfile", function () {
-                    if (this.getAcceptedFiles().length === 0) {
-                        $("#submit-all").attr("disabled", true);
-                    }
-                });
-            }
-        };
-    }
+    
 
     // 初始化附件列表
     function InitBootGrid() {
@@ -369,8 +266,7 @@
                     return "<a href='" + pathlink + row.UploadPath + "' target='_blank'> Download : " + row.Name + "</a>";
                 },
                 "commands": function (column, row) {
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-link\" data-row-id=\"" + row.UploadPath + "\"><span class=\"fa fa-link\"></span></button> " +
-                        "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.SID + "\"><span class=\"fa fa-trash-o\"></span></button>";
+                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-link\" data-row-id=\"" + row.UploadPath + "\"><span class=\"fa fa-link\"></span></button> ";
                 }
             }
         }).on("loaded.rs.jquery.bootgrid", function()

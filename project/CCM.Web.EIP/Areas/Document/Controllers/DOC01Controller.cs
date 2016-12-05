@@ -7,6 +7,7 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
+using CCM.Web.EIP.App_Start;
 using System;
 using System.IO;
 using System.Web;
@@ -15,6 +16,7 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
+    
     public class DOC01Controller : ControllerBase
     {
         private FR_OFFIDOC_ISSUEApp tableApp = new FR_OFFIDOC_ISSUEApp();
@@ -24,6 +26,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        [UserTraceLog]
         //public ActionResult GetGridJson(string keyword)
         //{
         //    var data = tableApp.GetList(keyword);
@@ -43,11 +46,13 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        [UserTraceLog]
         public ActionResult GetFormJson(string keyValue)
         {
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -56,6 +61,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             tableApp.SubmitForm(FR_OFFIDOC_ISSUEEntity, keyValue);
             return Success("操作成功。");
         }
+        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
@@ -67,6 +73,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         }
 
         #region 批次上傳檔案
+        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         //[ValidateAntiForgeryToken]
@@ -136,6 +143,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         #endregion
 
         #region  刪除檔案
+        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         //[ValidateAntiForgeryToken]

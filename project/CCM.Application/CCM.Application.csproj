@@ -51,6 +51,7 @@
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILEApp.cs" />
+    <Compile Include="Human\CCM_Main_EmployeeApp.cs" />
     <Compile Include="Human\HR_DEPApp.cs" />
     <Compile Include="Human\HR_EMPLYMApp.cs" />
     <Compile Include="MisManage\MisIpAddressApp.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="SystemManage\UserLogOnApp.cs" />
     <Compile Include="SystemManage\DutyApp.cs" />
     <Compile Include="SystemManage\RoleAuthorizeApp.cs" />
+    <Compile Include="SystemSecurity\ActionLogApp.cs" />
     <Compile Include="SystemSecurity\DbBackupApp.cs" />
     <Compile Include="SystemSecurity\FilterIPApp.cs" />
     <Compile Include="SystemSecurity\LogApp.cs" />

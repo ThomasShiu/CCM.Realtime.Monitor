@@ -52,6 +52,7 @@
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEMap.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECEMap.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILEMap.cs" />
+    <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="SystemManage\OrganizeMap.cs" />
     <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
     <Compile Include="SystemManage\RoleMap.cs" />
+    <Compile Include="SystemSecurity\ActionLogMap.cs" />
     <Compile Include="SystemManage\UserLogOnMap.cs" />
     <Compile Include="SystemManage\UserMap.cs" />
     <Compile Include="SystemSecurity\DbBackupMap.cs" />

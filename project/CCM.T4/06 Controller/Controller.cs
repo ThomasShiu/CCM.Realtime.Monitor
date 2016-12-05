@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class FR_OFFIDOC_RECE_ATTACH_FILEController : ControllerBase
+    public class CCM_Main_EmployeeController : ControllerBase
     {
-        private FR_OFFIDOC_RECE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_RECE_ATTACH_FILEApp();
+        private CCM_Main_EmployeeApp tableApp = new CCM_Main_EmployeeApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity FR_OFFIDOC_RECE_ATTACH_FILEEntity, string keyValue)
+        public ActionResult SubmitForm(CCM_Main_EmployeeEntity CCM_Main_EmployeeEntity, string keyValue)
         {
-            tableApp.SubmitForm(FR_OFFIDOC_RECE_ATTACH_FILEEntity, keyValue);
+            tableApp.SubmitForm(CCM_Main_EmployeeEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

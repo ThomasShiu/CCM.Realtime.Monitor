@@ -11,27 +11,39 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
-			public class FR_OFFIDOC_RECE_ATTACH_FILEEntity  : IEntityCcm<FR_OFFIDOC_RECE_ATTACH_FILEEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: CCM_Main_Employee
+			public class CCM_Main_EmployeeEntity  : IEntityCcm<CCM_Main_EmployeeEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public String SID  { get; set; }                                        
+				public String EMP_NO  { get; set; }                                        
 				          
-				public String ParentRECEIVEID  { get; set; }                                        
+				public String EMP_NM  { get; set; }                                        
 				          
-				public String Name  { get; set; }                                        
+				public String BRD_DT  { get; set; }                                        
 				          
-				public String UploadPath  { get; set; }                                        
+				public String BRD_DT1  { get; set; }                                        
 				          
-				public String OrganizeId  { get; set; }                                        
+				public String ARV_DT  { get; set; }                                        
 				          
-				public DateTime CreatorTime  { get; set; }                                        
+				public String DEPM_NO  { get; set; }                                        
 				          
-				public String CreatorUserId  { get; set; }                                        
+				public String SEX  { get; set; }                                        
 				          
-				public DateTime LastModifyTime  { get; set; }                                        
+				public String ID_NO  { get; set; }                                        
 				          
-				public String LastModifyUserId  { get; set; }                                        
+				public String LEV_DT  { get; set; }                                        
+				          
+				public String JOB_NO  { get; set; }                                        
+				          
+				public String TEL_NO2  { get; set; }                                        
+				          
+				public String JOB_NM  { get; set; }                                        
+				          
+				public String DEPM_NM  { get; set; }                                        
+				          
+				public String DEPM_NM1  { get; set; }                                        
+				          
+				public String PhotoUrl  { get; set; }                                        
 				                                
 			}                            
 }

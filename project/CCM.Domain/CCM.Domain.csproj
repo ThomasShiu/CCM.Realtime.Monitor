@@ -52,6 +52,7 @@
     <Compile Include="03 Entity\Document\FR_OFFIDOC_ISSUE_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\Document\FR_OFFIDOC_RECEEntity.cs" />
     <Compile Include="03 Entity\Document\FR_OFFIDOC_RECE_ATTACH_FILEEntity.cs" />
+    <Compile Include="03 Entity\Human\CCM_Main_EmployeeEntity.cs" />
     <Compile Include="03 Entity\Human\HR_DEPEntity.cs" />
     <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
     <Compile Include="03 Entity\SystemManage\RoleAuthorizeEntity.cs" />
+    <Compile Include="03 Entity\SystemSecurity\ActionLogEntity.cs" />
     <Compile Include="03 Entity\SystemManage\UserLogOnEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\DbBackupEntity.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_RECERepository.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_RECE_ATTACH_FILERepository.cs" />
+    <Compile Include="04 IRepository\Human\ICCM_Main_EmployeeRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_DEPRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_EMPLYMRepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
+    <Compile Include="04 IRepository\SystemSecurity\IActionLogRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IDbBackupRepository.cs" />

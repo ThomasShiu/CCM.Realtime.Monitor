@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: FR_OFFIDOC_RECE_ATTACH_FILE
-	public class FR_OFFIDOC_RECE_ATTACH_FILEMap : EntityTypeConfiguration<FR_OFFIDOC_RECE_ATTACH_FILEEntity>
+	//mapping table name: CCM_Main_Employee
+	public class CCM_Main_EmployeeMap : EntityTypeConfiguration<CCM_Main_EmployeeEntity>
     {
-        public FR_OFFIDOC_RECE_ATTACH_FILEMap()
+        public CCM_Main_EmployeeMap()
         {
-            this.ToTable("FR_OFFIDOC_RECE_ATTACH_FILE");
+            this.ToTable("CCM_Main_Employee");
             this.HasKey(t => t.SID);
         }
     }

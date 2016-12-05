@@ -7,11 +7,13 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
+using CCM.Web.EIP.App_Start;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
+
     public class DOC02Controller : ControllerBase
     {
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();

@@ -13,6 +13,7 @@
             height: $(window).height() - 128,
             colModel: [
 					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                        { label: "GUID", name: "GUID", hidden: true, width: 80, align: 'left' },
 				        { label: "收文編號", name: "RECEIVEID", width: 80, align: 'left' },
 				        {
 				            label: "收文日期", name: "RECEDATE", width: 80, align: 'left',
@@ -57,7 +58,35 @@
             ],
 			pager: "#gridPager",
 			sortname: 'RECEIVEID asc,RECEDATE desc',
-            viewrecords: true
+			viewrecords: true,
+			//subGrid: true,
+			//subGridRowExpanded: function (subgrid_id, row_id) {
+			//    // we pass two parameters
+			//    // subgrid_id is a id of the div tag created within a table
+			//    // the row_id is the id of the row
+			//    // If we want to pass additional parameters to the url we can use
+			//    // the method getRowData(row_id) - which returns associative array in type name-value
+			//    // here we can easy construct the following
+			//    var subgrid_table_id;
+			//    var guid = $gridList.jqGrid('getCell', row_id, 'GUID'); //$gridList.dataGrid("getRowData", row_id);
+			//    subgrid_table_id = subgrid_id + "_t";
+			//    jQuery("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table>");
+			//    jQuery("#" + subgrid_table_id).jqGrid({
+			//        url: '/Document/DOC04/GetGridJsonUpload?keyword=' + guid,
+			//        datatype: "json",
+			//        colNames: ['SID','檔名', '連結'],
+			//        colModel: [
+            //          { name: "SID", index: "SID", width: 80, hidden: true, key: true },
+            //          { name: "Name", index: "Name", width: 80, sortable: false },
+            //          { name: "UploadPath", index: "UploadPath", width: 80, sortable: false }
+			//        ],
+			//        height: '100%',
+			//        weight: '50%',
+			//        rowNum: 20,
+			//        sortname: 'Name',
+			//        sortorder: "asc"
+			//    });
+			//}
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
@@ -108,7 +137,7 @@
             title: "查看資料",
             url: "/Document/DOC03/Details?keyValue=" + keyValue,
             width: "900px",
-            height: "650px",
+            height: "500px",
             btn: null,
         });
     }
