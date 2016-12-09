@@ -45,5 +45,7 @@ namespace CCM.Domain
 
         public String PhotoUrl { get; set; }
 
+        public DateTime? CreatorTime { get; set; }
+
     }
 }

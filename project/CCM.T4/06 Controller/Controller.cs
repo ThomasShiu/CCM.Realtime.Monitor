@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class CCM_Main_EmployeeController : ControllerBase
+    public class PO_PUBLIC_OBJECTController : ControllerBase
     {
-        private CCM_Main_EmployeeApp tableApp = new CCM_Main_EmployeeApp();
+        private PO_PUBLIC_OBJECTApp tableApp = new PO_PUBLIC_OBJECTApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(CCM_Main_EmployeeEntity CCM_Main_EmployeeEntity, string keyValue)
+        public ActionResult SubmitForm(PO_PUBLIC_OBJECTEntity PO_PUBLIC_OBJECTEntity, string keyValue)
         {
-            tableApp.SubmitForm(CCM_Main_EmployeeEntity, keyValue);
+            tableApp.SubmitForm(PO_PUBLIC_OBJECTEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

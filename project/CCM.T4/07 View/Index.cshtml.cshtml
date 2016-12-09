@@ -9,25 +9,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/Human/HRS01/GetGridJson",
+            url: "/PublicObject/PUB01/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-			                    { label: "EMP_NO", name: "EMP_NO", width: 80, align: 'left' },
-				                     { label: "EMP_NM", name: "EMP_NM", width: 80, align: 'left' },
-				                     { label: "BRD_DT", name: "BRD_DT", width: 80, align: 'left' },
-				                     { label: "BRD_DT1", name: "BRD_DT1", width: 80, align: 'left' },
-				                     { label: "ARV_DT", name: "ARV_DT", width: 80, align: 'left' },
-				                     { label: "DEPM_NO", name: "DEPM_NO", width: 80, align: 'left' },
-				                     { label: "SEX", name: "SEX", width: 80, align: 'left' },
-				                     { label: "ID_NO", name: "ID_NO", width: 80, align: 'left' },
-				                     { label: "LEV_DT", name: "LEV_DT", width: 80, align: 'left' },
-				                     { label: "JOB_NO", name: "JOB_NO", width: 80, align: 'left' },
-				                     { label: "TEL_NO2", name: "TEL_NO2", width: 80, align: 'left' },
-				                     { label: "JOB_NM", name: "JOB_NM", width: 80, align: 'left' },
-				                     { label: "DEPM_NM", name: "DEPM_NM", width: 80, align: 'left' },
-				                     { label: "DEPM_NM1", name: "DEPM_NM1", width: 80, align: 'left' },
+			                    { label: "SID", name: "SID", width: 80, align: 'left' },
+				                     { label: "ObjectType", name: "ObjectType", width: 80, align: 'left' },
+				                     { label: "ObjectNM", name: "ObjectNM", width: 80, align: 'left' },
+				                     { label: "Description", name: "Description", width: 80, align: 'left' },
+				                     { label: "Open_", name: "Open_", width: 80, align: 'left' },
 				                     { label: "PhotoUrl", name: "PhotoUrl", width: 80, align: 'left' },
+				                     { label: "EnableDate", name: "EnableDate", width: 80, align: 'left' },
+				                     { label: "Mileage", name: "Mileage", width: 80, align: 'left' },
+				                     { label: "MaintenanceMileage", name: "MaintenanceMileage", width: 80, align: 'left' },
+				                     { label: "MaintenanceDate", name: "MaintenanceDate", width: 80, align: 'left' },
+				                     { label: "RemindDate", name: "RemindDate", width: 80, align: 'left' },
+				                     { label: "DontMaintenance", name: "DontMaintenance", width: 80, align: 'left' },
+				                     { label: "Location", name: "Location", width: 80, align: 'left' },
+				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
+				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
+				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
+				                     { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
+				                     { label: "LastModifyUserId", name: "LastModifyUserId", width: 80, align: 'left' },
 				 				
             ],
 			pager: "#gridPager",
@@ -44,7 +47,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/Human/HRS01/Form",
+            url: "/PublicObject/PUB01/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -57,7 +60,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/Human/HRS01/Form?keyValue=" + keyValue,
+            url: "/PublicObject/PUB01/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -67,7 +70,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/Human/HRS01/DeleteForm",
+            url: "/PublicObject/PUB01/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -79,7 +82,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/Human/HRS01/Details?keyValue=" + keyValue,
+            url: "/PublicObject/PUB01/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

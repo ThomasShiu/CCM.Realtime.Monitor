@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/PublicObject/PUB01/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('div.ckbox label').attr('for', '');
+
+            }
+        });
+
+        var PhotoUrl = $('input[name=PhotoUrl]').val();
+        //PhotoUrl = PhotoUrl.replace("~/", "");
+        $("#ObjectPhotoUrl").attr("src", pathlink + PhotoUrl);
+
+    });
+    function initControl() {
+        
+    }
+</script>
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">類型</th>
+                <td class="formValue">
+                    <select id="ObjectType" name="ObjectType" class="form-control" disabled="disabled">
+                        <option value="公務車輛">公務車輛</option>
+                        <option value="會議室">會議室</option>
+                        <option value="其他物品">其他物品</option>
+                    </select>
+                    <input id="SID" name="SID" type="hidden" value="" />
+                </td>
+                <th class="formTitle">啟用</th>
+                <td class="formValue">
+                    <select id="Enable" name="Enable" class="form-control"  disabled="disabled">
+                        <option value="Y">啟用</option>
+                        <option value="N">停用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+
+                <th class="formTitle">啟用日期</th>
+                <td class="formValue">
+                    <input id="EnableDate" name="EnableDate" type="text" class="form-control" />
+                </td>
+                <th class="formTitle">(車)保養里程</th>
+                <td class="formValue">
+                    <input id="Mileage" name="Mileage" type="text" class="form-control" />
+                </td>
+            </tr>
+
+            <tr>
+
+                <th class="formTitle">(車)保養每公里數</th>
+                <td class="formValue">
+                    <input id="MaintenanceMileage" name="MaintenanceMileage" type="text" class="form-control"  />
+                </td>
+                <th class="formTitle">保養日</th>
+                <td class="formValue">
+                    <input id="MaintenanceDate" name="MaintenanceDate" type="text" class="form-control"  />
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle">名稱</th>
+                <td class="formValue" colspan="3">
+                    <input id="ObjectNM" name="ObjectNM" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle" valign="top" style="padding-top: 5px;">
+                    描述
+                </th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Description" name="Description" class="form-control" style="height: 50px;" placeholder="請輸入描述"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">照片</th>
+                <td class="formValue">
+                    <input id="PhotoUrl" name="PhotoUrl" type="hidden" value="" />
+                    <img src="" id="ObjectPhotoUrl" name="ObjectPhotoUrl" class="rounded" style="height:300px;" />
+                   
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

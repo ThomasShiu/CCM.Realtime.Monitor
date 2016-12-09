@@ -150,6 +150,9 @@
     <Compile Include="Areas\Human\Controllers\HRS00Controller.cs" />
     <Compile Include="Areas\Human\Controllers\HRS01Controller.cs" />
     <Compile Include="Areas\Human\HumanAreaRegistration.cs" />
+    <Compile Include="Areas\PublicObject\Controllers\PUB01Controller.cs" />
+    <Compile Include="Areas\PublicObject\Models\UploadItemViewModel.cs" />
+    <Compile Include="Areas\PublicObject\PublicObjectAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
     <Compile Include="Areas\ReportManage\ReportManageAreaRegistration.cs" />
@@ -180,11 +183,15 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\framework-font.css" />
     <Content Include="Content\css\framework-ui.css" />
     <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme.css" />
     <Content Include="Content\css\framework-about.css" />
+    <Content Include="Content\css\jquery.bootstrap-touchspin.css" />
+    <Content Include="Content\css\jquery.bootstrap-touchspin.min.css" />
     <Content Include="Content\css\shopitem.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -199,6 +206,8 @@
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\LOGOs-1.png" />
+    <Content Include="Content\img\nophotopath.png" />
+    <Content Include="Content\img\question_mark.png" />
     <Content Include="Content\img\radio1.jpg" />
     <Content Include="Content\img\radio2.jpg" />
     <Content Include="Content\img\samples\angelina-300.jpg" />
@@ -698,9 +707,15 @@
     <Content Include="Content\js\fancyBox\README.md" />
     <Content Include="Content\js\fancyBox\sprite.psd" />
     <Content Include="Content\js\fullcalendar\demos\json\events.json" />
+    <Content Include="Areas\PublicObject\Views\Web.config" />
+    <Content Include="Areas\PublicObject\Views\PUB01\Index.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB01\Form.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB01\Details.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
+    <Content Include="Content\js\jquery\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\js\jquery\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Content\js\layout\jquery.layout.js" />
     <Content Include="Content\js\loading\pace.min.js" />
     <Content Include="Content\js\md5\jquery.md5.js" />
@@ -873,6 +888,7 @@
     <Folder Include="Areas\Document\Views\Shared\" />
     <Folder Include="Areas\Human\Models\" />
     <Folder Include="Areas\Human\Views\Shared\" />
+    <Folder Include="Areas\PublicObject\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
     <Folder Include="EIPContent\Content\FilesCabinet\UploadFiles\" />
   </ItemGroup>

@@ -7,6 +7,7 @@
     <link href="~/Content/css/framework-font.css" rel="stylesheet" />
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/js/jquery/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Content/js/bootstrap/bootstrap.js"></script>
     <link href="~/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Content/js/wdtree/tree.js"></script>
@@ -53,10 +54,45 @@
             var now = yyyy + '' + mm + '' + dd + '' + hh + '' + mi + '' + ss;
             return now;
         }
+
+        // 本機位址
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+    function myformatter(date) {
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+
+        var s = date.getSeconds();
+        var mi = date.getMinutes();
+        var h = date.getHours();
+
+        return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+    }
+
+        function myparser(s) {
+            if (!s) return new Date();
+            var ss = (s.split('-'));
+            var y = parseInt(ss[0], 10);
+            var m = parseInt(ss[1], 10);
+            var d = parseInt(ss[2], 10);
+            if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+                return new Date(y, m - 1, d);
+            } else {
+                return new Date();
+            }
+        }
     </script>
+    @RenderSection("styles", required: false)
 </head>
 <body>
     @RenderBody()
     @Html.AntiForgeryToken()
 </body>
 </html>
+@RenderSection("scripts", required: false)

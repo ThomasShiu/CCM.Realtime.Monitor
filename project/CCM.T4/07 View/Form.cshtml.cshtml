@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/Human/HRS01/GetFormJson",
+                url: "/PublicObject/PUB01/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -29,7 +29,7 @@
             return false;
         }
         $.submitForm({
-            url: "/Human/HRS01/SubmitForm?keyValue=" + keyValue,
+            url: "/PublicObject/PUB01/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -50,93 +50,111 @@
                
             </tr>
 			            <tr>
-                <th class="formTitle">EMP_NO</th>
+                <th class="formTitle">SID</th>
                 <td class="formValue">
-					<input id="EMP_NO" name="EMP_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">EMP_NM</th>
+                <th class="formTitle">ObjectType</th>
                 <td class="formValue">
-					<input id="EMP_NM" name="EMP_NM" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="ObjectType" name="ObjectType" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">BRD_DT</th>
+                <th class="formTitle">ObjectNM</th>
                 <td class="formValue">
-					<input id="BRD_DT" name="BRD_DT" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="ObjectNM" name="ObjectNM" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">BRD_DT1</th>
+                <th class="formTitle">Description</th>
                 <td class="formValue">
-					<input id="BRD_DT1" name="BRD_DT1" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Description" name="Description" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">ARV_DT</th>
+                <th class="formTitle">Open_</th>
                 <td class="formValue">
-					<input id="ARV_DT" name="ARV_DT" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">DEPM_NO</th>
-                <td class="formValue">
-					<input id="DEPM_NO" name="DEPM_NO" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">SEX</th>
-                <td class="formValue">
-					<input id="SEX" name="SEX" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">ID_NO</th>
-                <td class="formValue">
-					<input id="ID_NO" name="ID_NO" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">LEV_DT</th>
-                <td class="formValue">
-					<input id="LEV_DT" name="LEV_DT" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">JOB_NO</th>
-                <td class="formValue">
-					<input id="JOB_NO" name="JOB_NO" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">TEL_NO2</th>
-                <td class="formValue">
-					<input id="TEL_NO2" name="TEL_NO2" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">JOB_NM</th>
-                <td class="formValue">
-					<input id="JOB_NM" name="JOB_NM" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">DEPM_NM</th>
-                <td class="formValue">
-					<input id="DEPM_NM" name="DEPM_NM" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">DEPM_NM1</th>
-                <td class="formValue">
-					<input id="DEPM_NM1" name="DEPM_NM1" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Open_" name="Open_" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
                 <th class="formTitle">PhotoUrl</th>
                 <td class="formValue">
 					<input id="PhotoUrl" name="PhotoUrl" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">EnableDate</th>
+                <td class="formValue">
+					<input id="EnableDate" name="EnableDate" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">Mileage</th>
+                <td class="formValue">
+					<input id="Mileage" name="Mileage" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">MaintenanceMileage</th>
+                <td class="formValue">
+					<input id="MaintenanceMileage" name="MaintenanceMileage" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">MaintenanceDate</th>
+                <td class="formValue">
+					<input id="MaintenanceDate" name="MaintenanceDate" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">RemindDate</th>
+                <td class="formValue">
+					<input id="RemindDate" name="RemindDate" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">DontMaintenance</th>
+                <td class="formValue">
+					<input id="DontMaintenance" name="DontMaintenance" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">Location</th>
+                <td class="formValue">
+					<input id="Location" name="Location" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">OrganizeId</th>
+                <td class="formValue">
+					<input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">CreatorTime</th>
+                <td class="formValue">
+					<input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">CreatorUserId</th>
+                <td class="formValue">
+					<input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">LastModifyTime</th>
+                <td class="formValue">
+					<input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">LastModifyUserId</th>
+                <td class="formValue">
+					<input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			           

@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: CCM_Main_Employee
-	public interface ICCM_Main_EmployeeRepository : IRepositoryBase<CCM_Main_EmployeeEntity>
+	//mapping table name: PO_PUBLIC_OBJECT
+	public interface IPO_PUBLIC_OBJECTRepository : IRepositoryBase<PO_PUBLIC_OBJECTEntity>
     {
     }
 			 		                               

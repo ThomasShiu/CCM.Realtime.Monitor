@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class CCM_Main_EmployeeApp
+public class PO_PUBLIC_OBJECTApp
     {
-        private ICCM_Main_EmployeeRepository service = new CCM_Main_EmployeeRepository();     
+        private IPO_PUBLIC_OBJECTRepository service = new PO_PUBLIC_OBJECTRepository();     
 
-	public List<CCM_Main_EmployeeEntity> GetList(string keyword = "")
+	public List<PO_PUBLIC_OBJECTEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<CCM_Main_EmployeeEntity>();
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class CCM_Main_EmployeeApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<CCM_Main_EmployeeEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<PO_PUBLIC_OBJECTEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<CCM_Main_EmployeeEntity>();
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class CCM_Main_EmployeeApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public CCM_Main_EmployeeEntity GetForm(string keyValue)
+        public PO_PUBLIC_OBJECTEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class CCM_Main_EmployeeApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(CCM_Main_EmployeeEntity tableEntity, string keyValue)
+        public void SubmitForm(PO_PUBLIC_OBJECTEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

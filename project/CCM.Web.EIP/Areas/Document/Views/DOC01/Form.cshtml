@@ -197,8 +197,7 @@
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
-        // 編輯模式
-        if (!!keyValue) {
+        if (!!keyValue) {// 編輯模式
             $.ajax({
                 url: "/Document/DOC01/GetFormJson",
                 data: { keyValue: keyValue },

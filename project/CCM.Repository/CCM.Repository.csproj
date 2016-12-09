@@ -49,6 +49,7 @@
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
     <Compile Include="OracleDbDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicObject\PO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />
     <Compile Include="SystemManage\ItemsRepository.cs" />
     <Compile Include="SystemManage\ModuleButtonRepository.cs" />

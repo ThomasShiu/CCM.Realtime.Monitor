@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: CCM_Main_Employee
-	public class CCM_Main_EmployeeMap : EntityTypeConfiguration<CCM_Main_EmployeeEntity>
+	//mapping table name: PO_PUBLIC_OBJECT
+	public class PO_PUBLIC_OBJECTMap : EntityTypeConfiguration<PO_PUBLIC_OBJECTEntity>
     {
-        public CCM_Main_EmployeeMap()
+        public PO_PUBLIC_OBJECTMap()
         {
-            this.ToTable("CCM_Main_Employee");
+            this.ToTable("PO_PUBLIC_OBJECT");
             this.HasKey(t => t.SID);
         }
     }

@@ -11,39 +11,45 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: CCM_Main_Employee
-			public class CCM_Main_EmployeeEntity  : IEntityCcm<CCM_Main_EmployeeEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: PO_PUBLIC_OBJECT
+			public class PO_PUBLIC_OBJECTEntity  : IEntityCcm<PO_PUBLIC_OBJECTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public String EMP_NO  { get; set; }                                        
+				public String SID  { get; set; }                                        
 				          
-				public String EMP_NM  { get; set; }                                        
+				public String ObjectType  { get; set; }                                        
 				          
-				public String BRD_DT  { get; set; }                                        
+				public String ObjectNM  { get; set; }                                        
 				          
-				public String BRD_DT1  { get; set; }                                        
+				public String Description  { get; set; }                                        
 				          
-				public String ARV_DT  { get; set; }                                        
-				          
-				public String DEPM_NO  { get; set; }                                        
-				          
-				public String SEX  { get; set; }                                        
-				          
-				public String ID_NO  { get; set; }                                        
-				          
-				public String LEV_DT  { get; set; }                                        
-				          
-				public String JOB_NO  { get; set; }                                        
-				          
-				public String TEL_NO2  { get; set; }                                        
-				          
-				public String JOB_NM  { get; set; }                                        
-				          
-				public String DEPM_NM  { get; set; }                                        
-				          
-				public String DEPM_NM1  { get; set; }                                        
+				public String Open_  { get; set; }                                        
 				          
 				public String PhotoUrl  { get; set; }                                        
+				          
+				public DateTime EnableDate  { get; set; }                                        
+				          
+				public Int32 Mileage  { get; set; }                                        
+				          
+				public Int32 MaintenanceMileage  { get; set; }                                        
+				          
+				public DateTime MaintenanceDate  { get; set; }                                        
+				          
+				public DateTime RemindDate  { get; set; }                                        
+				          
+				public String DontMaintenance  { get; set; }                                        
+				          
+				public String Location  { get; set; }                                        
+				          
+				public String OrganizeId  { get; set; }                                        
+				          
+				public DateTime CreatorTime  { get; set; }                                        
+				          
+				public String CreatorUserId  { get; set; }                                        
+				          
+				public DateTime LastModifyTime  { get; set; }                                        
+				          
+				public String LastModifyUserId  { get; set; }                                        
 				                                
 			}                            
 }
