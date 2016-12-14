@@ -8,11 +8,11 @@ using CCM.Domain;
 using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Mapping 
-{        
-		             
-	//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-	public class PO_PUBLIC_OBJECT_BOOKINGMap : EntityTypeConfiguration<PO_PUBLIC_OBJECT_BOOKINGEntity>
+namespace CCM.Mapping
+{
+
+    //mapping table name: PO_PUBLIC_OBJECT_BOOKING
+    public class PO_PUBLIC_OBJECT_BOOKINGMap : EntityTypeConfiguration<PO_PUBLIC_OBJECT_BOOKINGEntity>
     {
         public PO_PUBLIC_OBJECT_BOOKINGMap()
         {
@@ -20,5 +20,5 @@ namespace CCM.Mapping
             this.HasKey(t => t.SID);
         }
     }
-			                  
+
 }

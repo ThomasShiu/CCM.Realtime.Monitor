@@ -31,11 +31,13 @@ namespace CCM.Web.EIP.Controllers
                 duty = this.GetDutyList(),
                 dept = this.GetDeptList(),
                 user = this.GetEmpList(),
+                pubobject = this.GetPubObjectList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
             return Content(data.ToJson());
         }
+        // DATA Dictionary
         private object GetDataItemList()
         {
             var itemdata = new ItemsDetailApp().GetList();
@@ -52,6 +54,7 @@ namespace CCM.Web.EIP.Controllers
             }
             return dictionaryItem;
         }
+
         private object GetOrganizeList()
         {
             OrganizeApp organizeApp = new OrganizeApp();
@@ -130,6 +133,25 @@ namespace CCM.Web.EIP.Controllers
                     fullname = item.EMPLYNM
                 };
                 dictionary.Add(item.EMPLYID, fieldItem);
+            }
+            return dictionary;
+        }
+
+        private object GetPubObjectList()
+        {
+            PO_PUBLIC_OBJECTApp tableApp = new PO_PUBLIC_OBJECTApp();
+            var data = tableApp.GetListClient("");
+            
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (PO_PUBLIC_OBJECTEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    SID=item.SID,
+                    ObjectType = item.ObjectType,
+                    ObjectNM = item.ObjectNM
+                };
+                dictionary.Add(item.SID, fieldItem);
             }
             return dictionary;
         }

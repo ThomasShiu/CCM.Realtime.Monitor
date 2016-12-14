@@ -8,13 +8,13 @@ using CCM.Data;
 using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
-namespace CCM.Domain 
-{        
-		             
-	//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-	public interface IPO_PUBLIC_OBJECT_BOOKINGRepository : IRepositoryBase<PO_PUBLIC_OBJECT_BOOKINGEntity>
+namespace CCM.Domain
+{
+
+    //mapping table name: PO_PUBLIC_OBJECT_BOOKING
+    public interface IPO_PUBLIC_OBJECT_BOOKINGRepository : IRepositoryBase<PO_PUBLIC_OBJECT_BOOKINGEntity>
     {
     }
-			 		                               
+
 
 }

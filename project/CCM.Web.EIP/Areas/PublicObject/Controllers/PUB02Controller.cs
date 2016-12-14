@@ -6,23 +6,24 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
-             
-//todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.xxxx.Controllers
+
+//公務車預約
+namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 {
-    public class PO_PUBLIC_OBJECT_BOOKINGController : ControllerBase
+    public class PUB02Controller : ControllerBase
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
-		 public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetCarGridJson(Pagination pagination, string queryJson)
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = tableApp.GetList_BookingCar(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -64,4 +65,3 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
 
 
 }
-	

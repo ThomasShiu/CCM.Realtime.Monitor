@@ -5,16 +5,15 @@
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Data;
+using CCM.Domain;
 using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
-namespace CCM.Domain 
-{        
-		             
-	//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-	public interface IPO_PUBLIC_OBJECT_BOOKINGRepository : IRepositoryBase<PO_PUBLIC_OBJECT_BOOKINGEntity>
+namespace CCM.Repository
+{
+
+    //mapping table name: PO_PUBLIC_OBJECT_BOOKING
+    public class PO_PUBLIC_OBJECT_BOOKINGRepository : RepositoryBase<PO_PUBLIC_OBJECT_BOOKINGEntity>, IPO_PUBLIC_OBJECT_BOOKINGRepository
     {
     }
-			 		                               
-
 }

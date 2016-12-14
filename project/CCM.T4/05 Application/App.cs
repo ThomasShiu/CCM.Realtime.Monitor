@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class PO_PUBLIC_OBJECTApp
+public class PO_PUBLIC_OBJECT_BOOKINGApp
     {
-        private IPO_PUBLIC_OBJECTRepository service = new PO_PUBLIC_OBJECTRepository();     
+        private IPO_PUBLIC_OBJECT_BOOKINGRepository service = new PO_PUBLIC_OBJECT_BOOKINGRepository();     
 
-	public List<PO_PUBLIC_OBJECTEntity> GetList(string keyword = "")
+	public List<PO_PUBLIC_OBJECT_BOOKINGEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECT_BOOKINGEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class PO_PUBLIC_OBJECTApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<PO_PUBLIC_OBJECTEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<PO_PUBLIC_OBJECT_BOOKINGEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECT_BOOKINGEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class PO_PUBLIC_OBJECTApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public PO_PUBLIC_OBJECTEntity GetForm(string keyValue)
+        public PO_PUBLIC_OBJECT_BOOKINGEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class PO_PUBLIC_OBJECTApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(PO_PUBLIC_OBJECTEntity tableEntity, string keyValue)
+        public void SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

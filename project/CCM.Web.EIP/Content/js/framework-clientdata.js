@@ -25,6 +25,7 @@ $.clientsInit = function () {
                 dataJson.duty = data.duty;
                 dataJson.dept = data.dept;
                 dataJson.user = data.user;
+                dataJson.pubobject = data.pubobject;
                 dataJson.authorizeMenu = eval(data.authorizeMenu);
                 dataJson.authorizeButton = data.authorizeButton;
             }

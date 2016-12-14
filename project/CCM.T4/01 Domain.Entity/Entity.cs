@@ -11,45 +11,45 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: PO_PUBLIC_OBJECT
-			public class PO_PUBLIC_OBJECTEntity  : IEntityCcm<PO_PUBLIC_OBJECTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: PO_PUBLIC_OBJECT_BOOKING
+			public class PO_PUBLIC_OBJECT_BOOKINGEntity  : IEntityCcm<PO_PUBLIC_OBJECT_BOOKINGEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
 				public String ObjectType  { get; set; }                                        
 				          
-				public String ObjectNM  { get; set; }                                        
+				public String UseReason  { get; set; }                                        
+				          
+				public String Subject  { get; set; }                                        
 				          
 				public String Description  { get; set; }                                        
 				          
-				public String Open_  { get; set; }                                        
+				public String EmployeeID  { get; set; }                                        
 				          
-				public String PhotoUrl  { get; set; }                                        
+				public String DepartmentID  { get; set; }                                        
 				          
-				public DateTime EnableDate  { get; set; }                                        
+				public Int64 ObjectSID  { get; set; }                                        
+				          
+				public DateTime BookingStartTime  { get; set; }                                        
+				          
+				public DateTime BookingEndTime  { get; set; }                                        
+				          
+				public DateTime CreateTime  { get; set; }                                        
+				          
+				public Int64 ProjectSID  { get; set; }                                        
 				          
 				public Int32 Mileage  { get; set; }                                        
 				          
-				public Int32 MaintenanceMileage  { get; set; }                                        
+				public Int32 MileageLast  { get; set; }                                        
 				          
-				public DateTime MaintenanceDate  { get; set; }                                        
+				public String Status  { get; set; }                                        
 				          
-				public DateTime RemindDate  { get; set; }                                        
+				public String LeaveTime  { get; set; }                                        
 				          
-				public String DontMaintenance  { get; set; }                                        
+				public String BackTime  { get; set; }                                        
 				          
-				public String Location  { get; set; }                                        
-				          
-				public String OrganizeId  { get; set; }                                        
-				          
-				public DateTime CreatorTime  { get; set; }                                        
-				          
-				public String CreatorUserId  { get; set; }                                        
-				          
-				public DateTime LastModifyTime  { get; set; }                                        
-				          
-				public String LastModifyUserId  { get; set; }                                        
+				public String GuardEMPID  { get; set; }                                        
 				                                
 			}                            
 }

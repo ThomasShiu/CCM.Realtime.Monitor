@@ -57,6 +57,7 @@
     <Compile Include="MisManage\MisIpAddressApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />
+    <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />
     <Compile Include="SystemManage\ItemsApp.cs" />
     <Compile Include="SystemManage\ItemsDetailApp.cs" />

@@ -29,6 +29,17 @@ namespace CCM.Application
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.ObjectNM).ToList();
         }
+        public List<PO_PUBLIC_OBJECTEntity> GetListClient(string keyword = "")
+        {
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.ObjectNM.Contains(keyword));
+                expression = expression.Or(t => t.Description.Contains(keyword));
+            }
+            expression = expression.And(t => t.Enable == "Y");
+            return service.IQueryable(expression).OrderBy(t => t.ObjectNM).ToList();
+        }
         public List<PO_PUBLIC_OBJECTEntity> GetList(Pagination pagination, string queryJson = "")
         {
             var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
