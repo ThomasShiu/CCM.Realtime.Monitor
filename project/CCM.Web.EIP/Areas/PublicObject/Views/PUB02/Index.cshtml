@@ -56,7 +56,21 @@
             ],
 			pager: "#gridPager",
 			sortname: 'ObjectType asc,BookingStartTime desc',
-            viewrecords: true
+			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+
+			    var rowIds = $('#gridList').jqGrid('getDataIDs');
+			    for (i = 0; i < rowIds.length; i++) {//iterate over each row
+			        rowData = $('#gridList').jqGrid('getRowData', rowIds[i]);
+			        //set background style if ColValue === true\
+			        if (rowData['Status'] === "鎖定") {
+			            $('#gridList').jqGrid('setRowData', rowIds[i], false, "myAltRowClassLock");
+			        } //if
+			    } //for
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
         });
 
         $("#time_horizon a.btn-default").click(function () {
