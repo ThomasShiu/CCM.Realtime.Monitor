@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class PO_PUBLIC_OBJECT_BOOKINGController : ControllerBase
+    public class USRNOController : ControllerBase
     {
-        private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
+        private USRNOApp tableApp = new USRNOApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity PO_PUBLIC_OBJECT_BOOKINGEntity, string keyValue)
+        public ActionResult SubmitForm(USRNOEntity USRNOEntity, string keyValue)
         {
-            tableApp.SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity, keyValue);
+            tableApp.SubmitForm(USRNOEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

@@ -70,6 +70,7 @@
     <Compile Include="SystemManage\UserLogOnApp.cs" />
     <Compile Include="SystemManage\DutyApp.cs" />
     <Compile Include="SystemManage\RoleAuthorizeApp.cs" />
+    <Compile Include="SystemManage\USRNOApp.cs" />
     <Compile Include="SystemSecurity\ActionLogApp.cs" />
     <Compile Include="SystemSecurity\DbBackupApp.cs" />
     <Compile Include="SystemSecurity\FilterIPApp.cs" />

@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-	public class PO_PUBLIC_OBJECT_BOOKINGMap : EntityTypeConfiguration<PO_PUBLIC_OBJECT_BOOKINGEntity>
+	//mapping table name: USRNO
+	public class USRNOMap : EntityTypeConfiguration<USRNOEntity>
     {
-        public PO_PUBLIC_OBJECT_BOOKINGMap()
+        public USRNOMap()
         {
-            this.ToTable("PO_PUBLIC_OBJECT_BOOKING");
+            this.ToTable("USRNO");
             this.HasKey(t => t.SID);
         }
     }

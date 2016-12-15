@@ -150,6 +150,7 @@
     <Compile Include="Areas\SystemManage\Controllers\RoleController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ItemsTypeController.cs" />
+    <Compile Include="Areas\SystemManage\Controllers\USRNOController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\DbBackupController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\FilterIPController.cs" />
@@ -597,6 +598,7 @@
     <Folder Include="Areas\MIS\Models\" />
     <Folder Include="Areas\MIS\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
+    <Folder Include="Areas\SystemManage\Views\USRNO\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ReportManage\Views\Highcharts\Sample1.cshtml" />

@@ -153,7 +153,6 @@
     <Compile Include="Areas\PublicObject\Controllers\PUB01Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB03Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB02Controller.cs" />
-    <Compile Include="Areas\PublicObject\Models\UploadItemViewModel.cs" />
     <Compile Include="Areas\PublicObject\PublicObjectAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
@@ -892,6 +891,7 @@
     <Folder Include="Areas\Document\Views\Shared\" />
     <Folder Include="Areas\Human\Models\" />
     <Folder Include="Areas\Human\Views\Shared\" />
+    <Folder Include="Areas\PublicObject\Models\" />
     <Folder Include="Areas\PublicObject\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
     <Folder Include="EIPContent\Content\FilesCabinet\UploadFiles\" />

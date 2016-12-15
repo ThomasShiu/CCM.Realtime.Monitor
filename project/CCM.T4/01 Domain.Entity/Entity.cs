@@ -11,45 +11,39 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-			public class PO_PUBLIC_OBJECT_BOOKINGEntity  : IEntityCcm<PO_PUBLIC_OBJECT_BOOKINGEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: USRNO ERP使用者帳密
+			public class USRNOEntity  : IEntityCcm<USRNOEntity>                   
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public String ObjectType  { get; set; }                                        
+				public String USR_NO  { get; set; }                                        
 				          
-				public String UseReason  { get; set; }                                        
+				public String USR_NM  { get; set; }                                        
 				          
-				public String Subject  { get; set; }                                        
+				public String GRP_NO  { get; set; }                                        
 				          
-				public String Description  { get; set; }                                        
+				public String EMP_NO  { get; set; }                                        
 				          
-				public String EmployeeID  { get; set; }                                        
+				public String USR_PW  { get; set; }                                        
 				          
-				public String DepartmentID  { get; set; }                                        
+				public String C_SUPER  { get; set; }                                        
 				          
-				public Int64 ObjectSID  { get; set; }                                        
+				public String USR_DIR  { get; set; }                                        
 				          
-				public DateTime BookingStartTime  { get; set; }                                        
+				public String CUS_DW1  { get; set; }                                        
 				          
-				public DateTime BookingEndTime  { get; set; }                                        
+				public String CUS_DW2  { get; set; }                                        
 				          
-				public DateTime CreateTime  { get; set; }                                        
+				public String CUS_DW3  { get; set; }                                        
 				          
-				public Int64 ProjectSID  { get; set; }                                        
+				public DateTime EFF_DT  { get; set; }                                        
 				          
-				public Int32 Mileage  { get; set; }                                        
+				public DateTime EXP_DT  { get; set; }                                        
 				          
-				public Int32 MileageLast  { get; set; }                                        
+				public DateTime PW_DT  { get; set; }                                        
 				          
-				public String Status  { get; set; }                                        
-				          
-				public String LeaveTime  { get; set; }                                        
-				          
-				public String BackTime  { get; set; }                                        
-				          
-				public String GuardEMPID  { get; set; }                                        
+				public Int32 VLD_DAY  { get; set; }                                        
 				                                
 			}                            
 }

@@ -56,12 +56,14 @@
     <Compile Include="03 Entity\Human\HR_DEPEntity.cs" />
     <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
-    <Compile Include="03 Entity\PublicObject\PO_PUBLIC_OBJECTEntity.cs" />
-    <Compile Include="03 Entity\PublicObject\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\BU_BULLETINEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
     <Compile Include="03 Entity\SystemManage\RoleAuthorizeEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\USRNOEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\ActionLogEntity.cs" />
     <Compile Include="03 Entity\SystemManage\UserLogOnEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\IUSRNORepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IActionLogRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserRepository.cs" />

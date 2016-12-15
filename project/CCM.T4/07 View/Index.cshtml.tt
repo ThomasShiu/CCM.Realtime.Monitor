@@ -15,7 +15,7 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "PO_PUBLIC_OBJECT_BOOKING"; //<<<修改這理
+			restrictions[2] = "USRNO"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
 			string areas = "PublicObject";  //區域名稱

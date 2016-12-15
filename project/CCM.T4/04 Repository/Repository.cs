@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-	public class PO_PUBLIC_OBJECT_BOOKINGRepository : RepositoryBase<PO_PUBLIC_OBJECT_BOOKINGEntity>, IPO_PUBLIC_OBJECT_BOOKINGRepository
+	//mapping table name: USRNO
+	public class USRNORepository : RepositoryBase<USRNOEntity>, IUSRNORepository
     {
     }
 }

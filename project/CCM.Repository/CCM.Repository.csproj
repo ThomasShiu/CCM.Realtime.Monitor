@@ -61,6 +61,7 @@
     <Compile Include="SystemManage\UserLogOnRepository.cs" />
     <Compile Include="SystemManage\UserRepository.cs" />
     <Compile Include="SystemManage\RoleAuthorizeRepository.cs" />
+    <Compile Include="SystemManage\USRNORepository.cs" />
     <Compile Include="SystemSecurity\ActionLogRepository.cs" />
     <Compile Include="SystemSecurity\DbBackupRepository.cs" />
     <Compile Include="SystemSecurity\FilterIPRepository.cs" />

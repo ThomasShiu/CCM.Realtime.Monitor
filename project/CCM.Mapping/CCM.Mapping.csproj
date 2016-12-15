@@ -67,6 +67,7 @@
     <Compile Include="SystemManage\OrganizeMap.cs" />
     <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
     <Compile Include="SystemManage\RoleMap.cs" />
+    <Compile Include="SystemManage\USRNOMap.cs" />
     <Compile Include="SystemSecurity\ActionLogMap.cs" />
     <Compile Include="SystemManage\UserLogOnMap.cs" />
     <Compile Include="SystemManage\UserMap.cs" />
