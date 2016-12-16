@@ -25,7 +25,12 @@
                     }
                 },
                 { label: "備註", name: "F_Description", index: "F_Description", width: 200, align: "left" }
-            ]
+            ],
+            loadComplete: function () {
+                $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+            }
         });
     }
     function btn_add() {

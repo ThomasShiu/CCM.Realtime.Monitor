@@ -148,9 +148,10 @@
     <Compile Include="Areas\SystemManage\Controllers\OrganizeController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\RoleAuthorizeController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\RoleController.cs" />
+    <Compile Include="Areas\SystemManage\Controllers\TEMP_USRPMSController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ItemsTypeController.cs" />
-    <Compile Include="Areas\SystemManage\Controllers\USRNOController.cs" />
+    <Compile Include="Areas\SystemSecurity\Controllers\USRNOController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\DbBackupController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\FilterIPController.cs" />
@@ -312,6 +313,9 @@
     <Content Include="Areas\MIS\Views\IFR01\Details.cshtml" />
     <Content Include="Areas\MIS\Views\ErpSession\Index.cshtml" />
     <Content Include="Areas\MIS\Views\IpAddress\test.cshtml" />
+    <Content Include="Areas\SystemSecurity\Views\USRNO\Index.cshtml" />
+    <Content Include="Areas\SystemManage\Views\TEMP_USRPMS\Index.cshtml" />
+    <Content Include="Areas\SystemManage\Views\TEMP_USRPMS\Form.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -598,7 +602,6 @@
     <Folder Include="Areas\MIS\Models\" />
     <Folder Include="Areas\MIS\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
-    <Folder Include="Areas\SystemManage\Views\USRNO\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ReportManage\Views\Highcharts\Sample1.cshtml" />

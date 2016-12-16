@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class USRNOApp
+public class WF_DEPTMAPApp
     {
-        private IUSRNORepository service = new USRNORepository();     
+        private IWF_DEPTMAPRepository service = new WF_DEPTMAPRepository();     
 
-	public List<USRNOEntity> GetList(string keyword = "")
+	public List<WF_DEPTMAPEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<USRNOEntity>();
+            var expression = ExtLinq.True<WF_DEPTMAPEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class USRNOApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<USRNOEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<WF_DEPTMAPEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<USRNOEntity>();
+            var expression = ExtLinq.True<WF_DEPTMAPEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class USRNOApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public USRNOEntity GetForm(string keyValue)
+        public WF_DEPTMAPEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class USRNOApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(USRNOEntity tableEntity, string keyValue)
+        public void SubmitForm(WF_DEPTMAPEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: USRNO
-	public class USRNORepository : RepositoryBase<USRNOEntity>, IUSRNORepository
+	//mapping table name: WF_DEPTMAP
+	public class WF_DEPTMAPRepository : RepositoryBase<WF_DEPTMAPEntity>, IWF_DEPTMAPRepository
     {
     }
 }

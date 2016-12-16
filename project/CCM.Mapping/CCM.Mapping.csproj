@@ -67,13 +67,15 @@
     <Compile Include="SystemManage\OrganizeMap.cs" />
     <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
     <Compile Include="SystemManage\RoleMap.cs" />
-    <Compile Include="SystemManage\USRNOMap.cs" />
+    <Compile Include="SystemManage\TEMP_USRPMSMap.cs" />
+    <Compile Include="SystemSecurity\USRNOMap.cs" />
     <Compile Include="SystemSecurity\ActionLogMap.cs" />
     <Compile Include="SystemManage\UserLogOnMap.cs" />
     <Compile Include="SystemManage\UserMap.cs" />
     <Compile Include="SystemSecurity\DbBackupMap.cs" />
     <Compile Include="SystemSecurity\FilterIPMap.cs" />
     <Compile Include="SystemSecurity\LogMap.cs" />
+    <Compile Include="WorkflowManage\WF_DEPTMAPMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Domain\CCM.Domain.csproj">
@@ -81,6 +83,7 @@
       <Name>CCM.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

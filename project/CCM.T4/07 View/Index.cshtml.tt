@@ -15,11 +15,11 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "USRNO"; //<<<修改這理
+			restrictions[2] = "WF_DEPTMAP"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
-			string areas = "PublicObject";  //區域名稱
-			string controller = "PUB02";  //控制器
+			string areas = "WorkflowManage";  //區域名稱
+			string controller = "WFC01";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 

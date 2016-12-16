@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: USRNO
-	public class USRNOMap : EntityTypeConfiguration<USRNOEntity>
+	//mapping table name: WF_DEPTMAP
+	public class WF_DEPTMAPMap : EntityTypeConfiguration<WF_DEPTMAPEntity>
     {
-        public USRNOMap()
+        public WF_DEPTMAPMap()
         {
-            this.ToTable("USRNO");
+            this.ToTable("WF_DEPTMAP");
             this.HasKey(t => t.SID);
         }
     }

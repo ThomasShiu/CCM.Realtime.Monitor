@@ -63,7 +63,8 @@
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
     <Compile Include="03 Entity\SystemManage\RoleAuthorizeEntity.cs" />
-    <Compile Include="03 Entity\SystemManage\USRNOEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\TEMP_USRPMSEntity.cs" />
+    <Compile Include="03 Entity\SystemSecurity\USRNOEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\ActionLogEntity.cs" />
     <Compile Include="03 Entity\SystemManage\UserLogOnEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="03 Entity\WorkflowManage\WF_DEPTMAPEntity.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUERepository.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_RECERepository.cs" />
@@ -89,13 +91,15 @@
     <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IUSRNORepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\ITEMP_USRPMSRepository.cs" />
+    <Compile Include="04 IRepository\SystemSecurity\IUSRNORepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IActionLogRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IDbBackupRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IFilterIPRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\ILogRepository.cs" />
+    <Compile Include="04 IRepository\WorkflowManage\IWF_DEPTMAPRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

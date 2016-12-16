@@ -58,14 +58,16 @@
     <Compile Include="SystemManage\AreaRepository.cs" />
     <Compile Include="SystemManage\OrganizeRepository.cs" />
     <Compile Include="SystemManage\RoleRepository.cs" />
+    <Compile Include="SystemManage\TEMP_USRPMSRepository.cs" />
     <Compile Include="SystemManage\UserLogOnRepository.cs" />
     <Compile Include="SystemManage\UserRepository.cs" />
     <Compile Include="SystemManage\RoleAuthorizeRepository.cs" />
-    <Compile Include="SystemManage\USRNORepository.cs" />
+    <Compile Include="SystemSecurity\USRNORepository.cs" />
     <Compile Include="SystemSecurity\ActionLogRepository.cs" />
     <Compile Include="SystemSecurity\DbBackupRepository.cs" />
     <Compile Include="SystemSecurity\FilterIPRepository.cs" />
     <Compile Include="SystemSecurity\LogRepository.cs" />
+    <Compile Include="WorkflowManage\WF_DEPTMAPRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Code\CCM.Code.csproj">
@@ -84,6 +86,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

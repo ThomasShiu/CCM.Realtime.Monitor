@@ -83,3 +83,12 @@
 .wrapper .pop-list li h5{font-size: 12px;font-weight: bold;line-height: 24px;}
 .wrapper .pop-list label{line-height: 30px;display: block;float: left;min-width: 100px;height: 30px;padding: 5px 0;padding-right:15px;}
 .wrapper .pop-list li .form-control{float: left;width: 300px;margin-right: 5px;line-height: 30px;height: 30px;padding:0px;padding-left:5px;margin-top:3px;border-radius: 3px;box-shadow:none;resize: none;}
+
+.myAltRowClassEven { background: #e0e0eb; border-color: #79B7E7; color: #000000; }
+.myAltRowClassEven2 { background: #d6f5f5; border-color: #79B7E7; color: #000000; }
+.myAltRowClassOdd { background: DarkOrange; }
+.myAltRowClassLock { background: #ffcccc; }
+.ui-state-hover.myAltRowClassEven { color: Magenta; }
+.ui-state-hover.myAltRowClassOdd { color: RoyalBlue; }
+.ui-state-highlight.myAltRowClassEven { color: PaleGreen; }
+.ui-state-highlight.myAltRowClassOdd { color: Sienna; }

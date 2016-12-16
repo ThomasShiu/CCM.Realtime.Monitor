@@ -10,7 +10,7 @@ using System;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
-namespace CCM.Web.Admin.Areas.SystemManage.Controllers
+namespace CCM.Web.Admin.Areas.SystemSecurity.Controllers
 {
     public class USRNOController : ControllerBase
     {

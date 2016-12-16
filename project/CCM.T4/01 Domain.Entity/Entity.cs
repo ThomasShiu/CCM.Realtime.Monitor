@@ -11,39 +11,29 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: USRNO ERP使用者帳密
-			public class USRNOEntity  : IEntityCcm<USRNOEntity>                   
+			//mapping table name: WF_DEPTMAP
+			public class WF_DEPTMAPEntity  : IEntityCcm<WF_DEPTMAPEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public String USR_NO  { get; set; }                                        
+				public String DEPID  { get; set; }                                        
 				          
-				public String USR_NM  { get; set; }                                        
+				public String RULEID  { get; set; }                                        
 				          
-				public String GRP_NO  { get; set; }                                        
+				public String ORDID  { get; set; }                                        
 				          
-				public String EMP_NO  { get; set; }                                        
+				public String DECSR  { get; set; }                                        
 				          
-				public String USR_PW  { get; set; }                                        
+				public String OrganizeId  { get; set; }                                        
 				          
-				public String C_SUPER  { get; set; }                                        
+				public DateTime CreatorTime  { get; set; }                                        
 				          
-				public String USR_DIR  { get; set; }                                        
+				public String CreatorUserId  { get; set; }                                        
 				          
-				public String CUS_DW1  { get; set; }                                        
+				public DateTime LastModifyTime  { get; set; }                                        
 				          
-				public String CUS_DW2  { get; set; }                                        
-				          
-				public String CUS_DW3  { get; set; }                                        
-				          
-				public DateTime EFF_DT  { get; set; }                                        
-				          
-				public DateTime EXP_DT  { get; set; }                                        
-				          
-				public DateTime PW_DT  { get; set; }                                        
-				          
-				public Int32 VLD_DAY  { get; set; }                                        
+				public String LastModifyUserId  { get; set; }                                        
 				                                
 			}                            
 }

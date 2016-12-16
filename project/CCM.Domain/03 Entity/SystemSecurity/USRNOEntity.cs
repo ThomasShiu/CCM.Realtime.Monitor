@@ -37,13 +37,13 @@ namespace CCM.Domain
 
         public String CUS_DW3 { get; set; }
 
-        public DateTime EFF_DT { get; set; }
+        public DateTime? EFF_DT { get; set; }
 
-        public DateTime EXP_DT { get; set; }
+        public DateTime? EXP_DT { get; set; }
 
-        public DateTime PW_DT { get; set; }
+        public DateTime? PW_DT { get; set; }
 
-        public Int32 VLD_DAY { get; set; }
+        public Int32? VLD_DAY { get; set; }
 
     }
 }

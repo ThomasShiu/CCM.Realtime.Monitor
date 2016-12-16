@@ -173,6 +173,8 @@
     <Compile Include="Areas\SystemSecurity\Controllers\LogController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\ServerMonitoringController.cs" />
     <Compile Include="Areas\SystemSecurity\SystemSecurityAreaRegistration.cs" />
+    <Compile Include="Areas\WorkflowManage\Controllers\WF01Controller.cs" />
+    <Compile Include="Areas\WorkflowManage\WorkflowManageAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -714,6 +716,10 @@
     <Content Include="Areas\PublicObject\Views\PUB01\Details.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Index.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB03\Index.cshtml" />
+    <Content Include="Areas\WorkflowManage\Views\Web.config" />
+    <Content Include="Areas\WorkflowManage\Views\WF01\Index.cshtml" />
+    <Content Include="Areas\WorkflowManage\Views\WF01\Form.cshtml" />
+    <Content Include="Areas\WorkflowManage\Views\WF01\Details.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -894,6 +900,8 @@
     <Folder Include="Areas\PublicObject\Models\" />
     <Folder Include="Areas\PublicObject\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
+    <Folder Include="Areas\WorkflowManage\Models\" />
+    <Folder Include="Areas\WorkflowManage\Views\Shared\" />
     <Folder Include="EIPContent\Content\FilesCabinet\UploadFiles\" />
   </ItemGroup>
   <ItemGroup>

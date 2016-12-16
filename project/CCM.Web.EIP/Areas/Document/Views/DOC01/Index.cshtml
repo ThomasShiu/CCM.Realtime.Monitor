@@ -67,7 +67,12 @@
             ],
             pager: "#gridPager",
             sortname: 'ISSUEID asc,ISSUEDATE desc',
-            viewrecords: true
+            viewrecords: true,
+            loadComplete: function () {
+                $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+            }
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {

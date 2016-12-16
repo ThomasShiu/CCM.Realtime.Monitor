@@ -8,7 +8,6 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
-using CCM.Web.EIP.Areas.PublicObject.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,20 +74,20 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         /// </summary>
         /// <param name="vm"></param>
         /// <param name="myFile"></param>
-        private void UploadPhoto(UploadItemViewModel vm, HttpPostedFileBase myFile)
-        {
-            if (myFile != null && myFile.ContentLength > 0)//使用者有選擇照片檔案
-            {
-                //新的檔案名稱
-                string strFileName = Common.GuId().ToString() + Path.GetExtension(myFile.FileName);
-                //存放檔案路徑
-                string strFilePath = Server.MapPath("~/EIPContent/Content/PublicObject/UploadFiles/" + strFileName);
-                //檔案存放在Server
-                myFile.SaveAs(strFilePath);
-                //ViewModel的PhotoFileNames累加一張圖片名稱
-                vm.PhotoFileNames.Add(strFileName);
-            }
-        }
+        //private void UploadPhoto(UploadItemViewModel vm, HttpPostedFileBase myFile)
+        //{
+        //    if (myFile != null && myFile.ContentLength > 0)//使用者有選擇照片檔案
+        //    {
+        //        //新的檔案名稱
+        //        string strFileName = Common.GuId().ToString() + Path.GetExtension(myFile.FileName);
+        //        //存放檔案路徑
+        //        string strFilePath = Server.MapPath("~/EIPContent/Content/PublicObject/UploadFiles/" + strFileName);
+        //        //檔案存放在Server
+        //        myFile.SaveAs(strFilePath);
+        //        //ViewModel的PhotoFileNames累加一張圖片名稱
+        //        vm.PhotoFileNames.Add(strFileName);
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult UploadFiles()

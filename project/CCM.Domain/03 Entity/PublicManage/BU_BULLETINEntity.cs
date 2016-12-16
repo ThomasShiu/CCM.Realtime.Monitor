@@ -35,11 +35,11 @@ namespace CCM.Domain
 
         public String OrganizeId { get; set; }
 
-        public DateTime CreatorTime { get; set; }
+        public DateTime? CreatorTime { get; set; }
 
         public String CreatorUserId { get; set; }
 
-        public DateTime LastModifyTime { get; set; }
+        public DateTime? LastModifyTime { get; set; }
 
         public String LastModifyUserId { get; set; }
 

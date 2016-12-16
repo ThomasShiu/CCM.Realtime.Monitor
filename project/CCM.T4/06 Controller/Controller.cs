@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class USRNOController : ControllerBase
+    public class WF_DEPTMAPController : ControllerBase
     {
-        private USRNOApp tableApp = new USRNOApp();
+        private WF_DEPTMAPApp tableApp = new WF_DEPTMAPApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(USRNOEntity USRNOEntity, string keyValue)
+        public ActionResult SubmitForm(WF_DEPTMAPEntity WF_DEPTMAPEntity, string keyValue)
         {
-            tableApp.SubmitForm(USRNOEntity, keyValue);
+            tableApp.SubmitForm(WF_DEPTMAPEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
