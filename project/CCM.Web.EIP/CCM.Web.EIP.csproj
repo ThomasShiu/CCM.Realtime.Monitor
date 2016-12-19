@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 14.0\ReportViewer\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -178,6 +182,11 @@
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="App_Data\EIPDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EIPDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -892,7 +901,6 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Document\Models\" />
     <Folder Include="Areas\Document\Views\Shared\" />
     <Folder Include="Areas\Human\Models\" />
@@ -918,6 +926,17 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.map" />
+    <Content Include="App_Data\EIPDataSet.xsc">
+      <DependentUpon>EIPDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="App_Data\EIPDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EIPDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="App_Data\EIPDataSet.xss">
+      <DependentUpon>EIPDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CCM_ADMIN_207.pubxml" />
     <None Include="Properties\PublishProfiles\CCM_EIP_13.pubxml" />
     <None Include="Properties\PublishProfiles\CCM_EIP_207.pubxml">
@@ -925,6 +944,9 @@
     </None>
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\DOC01_R01.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

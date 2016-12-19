@@ -2,6 +2,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+<script src="~/Content/js/jqprint/jquery.jqprint-0.3.js"></script>
+<link media="print" href="~/Content/js/jqprint/jquery.jqprint.css" rel="stylesheet" />
 <script>
     $(function () {
         gridList();
@@ -52,6 +54,9 @@
 				                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
 				                    }
 				                },
+                                 {
+                                     label: "發文人員", name: "CONTACT", width: 80, align: 'left'
+                                 },
                                 {
                                     label: "發文部門", name: "DEPID", width: 120, align: 'left',
                                     formatter: function (cellvalue) {
@@ -79,6 +84,7 @@
                 postData: { keyword: $("#txt_keyword").val() },
             }).trigger('reloadGrid');
         });
+
     }
     function btn_add() {
         $.modalOpen({
@@ -128,6 +134,32 @@
             btn: null,
         });
     }
+   
+
+    function btn_print() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var contact = $("#gridList").jqGridRowValue().CONTACT;
+        var username = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName'
+        //var guid = $("#gridList").jqGridRowValue().GUID;
+        if (contact == username | username == '超級管理員') {
+            $.modalOpen({
+                id: "Form",
+                title: "列印",
+                url: "/Document/DOC01/Print?keyValue=" + keyValue,
+                width: "900px",
+                height: "680px",
+                btn: null,
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        } else {
+            msg = "只可列印自己建立的單據!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+    }
 </script>
 
 <div class="topPanel">
@@ -138,12 +170,16 @@
         <div class="btn-group">
             <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建公文發文</a>
         </div>
+        @*<div class="btn-group">
+            <a id="NF-export" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_export()"><i class="fa fa-file-pdf-o"></i>匯出</a>
+        </div>*@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改發文</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除發文</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看發文</a></li>
+                <li><a id="NF-print" authorize="yes" onclick="btn_print()"><i class="fa fa-print"></i>列印</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

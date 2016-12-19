@@ -8,7 +8,9 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Web.EIP.App_Start;
+using Microsoft.Reporting.WebForms;
 using System;
+using System.Data;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -23,6 +25,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableFileApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
         private FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
 
+        private CcmServices ccmService = new CcmServices();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -52,7 +55,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
-        [UserTraceLog]
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -61,7 +64,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             tableApp.SubmitForm(FR_OFFIDOC_ISSUEEntity, keyValue);
             return Success("操作成功。");
         }
-        [UserTraceLog]
+
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
@@ -73,7 +76,6 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         }
 
         #region 批次上傳檔案
-        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         //[ValidateAntiForgeryToken]
@@ -180,6 +182,81 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                 Count = count,
                 Message = msg
             });
+        }
+        #endregion
+
+        #region 發文報表列印
+        [UserTraceLog]
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Print(string keyValue, string type = "PDF")
+        {
+            string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
+                              " FROM FR_OFFIDOC_ISSUE " +
+                              " WHERE  SID = '" + keyValue + "' ";
+
+            var path = Server.MapPath("~/Reports/DOC01_R01.rdlc");
+            string paper = "A4";
+
+
+            //資料集
+            DataTable dt = ccmService.GetDataSet(v_sqlstr);
+
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = path;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);
+            localReport.DataSources.Add(reportDataSource);
+            localReport.EnableExternalImages = true;
+
+            //var url = "http://" + Request.Url.Authority;
+            //宣告要傳入報表的參數 p_ImgPath，並指定照片路徑 , http://xxx.xxx.xxx.xx:1234
+            //ReportParameter p_ImgPath = new ReportParameter("ImgPath", url);
+            //把參數傳給報表
+            //localReport.SetParameters(new ReportParameter[] { p_ImgPath });
+
+            string reportType = type;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+            string deviceInfo =
+                "<DeviceInfo>" +
+                "<OutPutFormat>" + type + "</OutPutFormat>";
+            switch (paper)
+            {
+                case "Letter":// 中一刀
+                    deviceInfo +=
+                    "<PageWidth>9in</PageWidth>" +
+                    "<PageHeight>6in</PageHeight>";
+                    break;
+                case "A4":// A4
+                    deviceInfo +=
+                    "<PageWidth>8.2in</PageWidth>" +
+                    "<PageHeight>11.6in</PageHeight>";
+                    break;
+            }
+            deviceInfo +=
+                "<MarginTop>0.2in</MarginTop>" +
+                "<MarginLeft>0.2in</MarginLeft>" +
+                "<MarginRight>0.2in</MarginRight>" +
+                "<MarginBottom>0.2in</MarginBottom>" +
+                "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+            renderedBytes = localReport.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                        out encoding,
+                        out fileNameExtension,
+                        out streams,
+                        out warnings
+                        );
+            return File(renderedBytes, mimeType);
+
         }
         #endregion
     }

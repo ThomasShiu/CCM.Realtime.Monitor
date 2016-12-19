@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="01 Infrastructure\DbLogType.cs" />
+    <Compile Include="02 Services\CcmServices.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECEApp.cs" />
