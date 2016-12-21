@@ -29,13 +29,11 @@ namespace CCM.Domain
 
         public String DepartmentID { get; set; }
 
-        public Int64 ObjectSID { get; set; }
+        public String ObjectSID { get; set; }
 
-        public DateTime? BookingStartTime { get; set; }
+        public DateTime BookingStartTime { get; set; }
 
-        public DateTime? BookingEndTime { get; set; }
-
-        public DateTime? CreateTime { get; set; }
+        public DateTime BookingEndTime { get; set; }
 
         public int? ProjectSID { get; set; }
 

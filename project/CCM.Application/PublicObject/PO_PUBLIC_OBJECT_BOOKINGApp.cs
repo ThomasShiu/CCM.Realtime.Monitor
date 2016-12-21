@@ -27,7 +27,7 @@ namespace CCM.Application
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.CreateTime).ToList();
+            return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }
 
         // 公務車
@@ -126,14 +126,14 @@ namespace CCM.Application
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
-            {
-                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
-            }
-            else
-            {
+            //if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            //{
+            //    throw new Exception("刪除失敗！操作的物件包含了下級資料。");
+            //}
+            //else
+            //{
                 service.Delete(t => t.SID == keyValue);
-            }
+            //}
         }
         public void SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
@@ -144,6 +144,7 @@ namespace CCM.Application
             }
             else
             {
+                tableEntity.Status = "鎖定";
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }

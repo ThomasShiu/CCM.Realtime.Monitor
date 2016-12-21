@@ -33,7 +33,18 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
         public ActionResult GetHR_EMPLY(string keyword)
         {
             //var data = EmplyApp.GetList(keyword);
-            var data = EmplyApp.GetListActive(keyword); 
+            var data = EmplyApp.GetListActDep(keyword); 
+            return Content(data.ToJson());
+        }
+
+        CCM_Main_EmployeeApp CCM_EmpApp = new CCM_Main_EmployeeApp();
+        // 員工
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCCM_EMP(string keyword)
+        {
+            //var data = EmplyApp.GetList(keyword);
+            var data = CCM_EmpApp.GetList(keyword);
             return Content(data.ToJson());
         }
     }

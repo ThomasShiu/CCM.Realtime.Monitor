@@ -15,11 +15,11 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "WF_DEPTMAP"; //<<<修改這理
+			restrictions[2] = "PO_PUBLIC_OBJECT_BOOKING"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
-			string areas = "WorkflowManage";  //區域名稱
-			string controller = "WFC01";  //控制器
+			string areas = "PublicObject";  //區域名稱
+			string controller = "PUB02";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 
@@ -58,7 +58,15 @@
 <form id="form1">
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
-
+		<tr>
+                <th class="formTitle">COL_SAMPLE</th>
+                <td class="formValue">
+                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
+					<select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
+					<input id="GUID" name="GUID" type="hidden" value="" />
+                </td>
+               
+            </tr>
 			<#                 
 				command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString()); 
 				ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
@@ -69,7 +77,7 @@
             <tr>
                 <th class="formTitle"><#= dc.ColumnName #></th>
                 <td class="formValue">
-                    <select id="<#= dc.ColumnName #>" name="<#= dc.ColumnName #>" class="form-control required"></select>
+				    <input id="<#= dc.ColumnName #>" name="<#= dc.ColumnName #>" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			<# } #>

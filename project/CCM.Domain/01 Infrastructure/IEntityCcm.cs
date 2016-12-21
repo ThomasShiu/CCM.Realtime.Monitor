@@ -19,7 +19,7 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.CreatorUserId = LoginInfo.UserId;
+                entity.CreatorUserId = LoginInfo.UserCode;
             }
             entity.CreatorTime = DateTime.Now;
         }
@@ -30,7 +30,7 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.LastModifyUserId = LoginInfo.UserId;
+                entity.LastModifyUserId = LoginInfo.UserCode;
             }
             entity.LastModifyTime = DateTime.Now;
         }
@@ -40,7 +40,7 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.DeleteUserId = LoginInfo.UserId;
+                entity.DeleteUserId = LoginInfo.UserCode;
             }
             entity.DeleteTime = DateTime.Now;
             entity.DeleteMark = true;

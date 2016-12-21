@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+   
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/PublicObject/PUB02/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+      
+
+        // 部門
+        $("#DepartmentID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 員工
+        $("#EmployeeID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 公共物件
+        $("#ObjectSID").bindSelect({
+            url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
+            id: "SID",
+            text: "ObjectNM"
+        });
+
+        
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/PublicObject/PUB02/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    function leavetime() {
+        var leavetime = $('#BookingStartTime').val();
+        $('#LeaveTime').val(leavetime);
+    }
+    function backtime() {
+        var backtime = $('#BookingEndTime').val();
+        $('#BackTime').val(backtime);
+    }
+
+    $(document).ready(function () {
+        if (!keyValue) {
+            // 新建模式
+            $('#DepartmentID').change(function () {
+                // 員工 by 部門
+                $("#EmployeeID").empty().bindSelect({
+                    url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                    id: "EMPLYID",
+                    text: "EMPLYNM"
+                });
+
+            });
+
+        }
+        else {
+            // 編輯模式
+            $('#DepartmentID').change(function () {
+                // 員工 by 部門
+                $("#EmployeeID").empty().bindSelect({
+                    url: "/Human/HRS00/GetHR_EMPLY",
+                    id: "EMPLYID",
+                    text: "EMPLYNM"
+                });
+
+            });
+            $("#DepartmentID").attr("disabled", "disabled");
+            $("#EmployeeID").attr("disabled", "disabled");
+
+        }
+        $("#ObjectType").attr("disabled", "disabled");
+    });
+    
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="MileageLast" name="MileageLast" type="hidden" value="0" />
+    <input id="Mileage" name="Mileage" type="hidden"  value="0" />
+    <input id="LeaveTime" name="Mileage" type="hidden" value="" />
+    <input id="BackTime" name="Mileage" type="hidden" value="" />
+    <input id="Status" name="Status" type="hidden" value=""/>
+    <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
+    @*<input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛"  />*@
+
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">預約對象</th>
+                <td class="formValue">
+                    @*<input id="UseReason" name="UseReason" type="text" class="form-control required" placeholder="請輸入標題" />*@
+                    <select id="ObjectType" name="ObjectType" class="form-control required">
+                        <option value="會議室">會議室</option>
+                        <option value="公務車輛" selected="selected">公務車輛</option>
+                        <option value="其他物品">其他物品</option>
+                    </select>
+                </td>
+                <th class="formTitle">預約原因</th>
+                <td class="formValue">
+                    <select id="UseReason" name="UseReason" class="form-control required">
+                        <option >內部需求</option>
+                        <option >客戶來訪</option>
+                        <option >廠商來訪</option>
+                        <option >訪問客戶</option>
+                        <option >訪問廠商</option>
+                        <option >廠區觀摩</option>
+                        <option >私人需求</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">申請部門</th>
+                <td class="formValue">
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required"></select>
+                </td>
+                <th class="formTitle">申請人員</th>
+                <td class="formValue">
+                    <select id="EmployeeID" name="EmployeeID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">車輛編號</th>
+                <td class="formValue" colspan="3">
+                    <select id="ObjectSID" name="ObjectSID" class="form-control required">
+                        <option >請選擇</option>
+                    </select>
+                </td>
+                
+            </tr>
+
+            <tr>
+                <th class="formTitle">預約時間起</th>
+                <td class="formValue">
+                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control required"  onchange="leavetime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
+                </td>
+                <th class="formTitle">預約時間迄</th>
+                <td class="formValue">
+                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control required"   onchange="backtime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">用途說明</th>
+                <td class="formValue" colspan="3">
+                    <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入用途說明" />
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">詳細說明</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Description" name="Description" class="form-control" style="height: 50px;"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

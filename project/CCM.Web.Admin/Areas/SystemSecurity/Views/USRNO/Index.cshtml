@@ -24,9 +24,18 @@
 				                return cellvalue == "Y" ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
 				            }
 				        },
-				        { label: "生效日", name: "EFF_DT", width: 150, align: 'left' },
-				        { label: "失效日", name: "EXP_DT", width: 150, align: 'left' },
-				        { label: "密碼設定日期", name: "PW_DT", width: 150, align: 'left' },
+				        {
+				            label: "生效日", name: "EFF_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
+				        {
+				            label: "失效日", name: "EXP_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
+				        {
+				            label: "密碼設定日期", name: "PW_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
 				        { label: "密碼有效天數", name: "VLD_DAY", width: 80, align: 'left' },
 
             ],

@@ -24,6 +24,7 @@ namespace CCM.Application
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.ObjectNM.Contains(keyword));
+                expression = expression.Or(t => t.ObjectType.Contains(keyword));
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
