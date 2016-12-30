@@ -55,6 +55,7 @@
     <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
+    <Compile Include="Human\HR_OVRTM_TESTMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
@@ -67,8 +68,10 @@
     <Compile Include="SystemManage\OrganizeMap.cs" />
     <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
     <Compile Include="SystemManage\RoleMap.cs" />
-    <Compile Include="SystemManage\TEMP_USRPMSMap.cs" />
-    <Compile Include="SystemSecurity\USRNOMap.cs" />
+    <Compile Include="ERPManage\USRPMSMap.cs" />
+    <Compile Include="ERPManage\SS_CONNECT_COUNTMap.cs" />
+    <Compile Include="ERPManage\USRNOMap.cs" />
+    <Compile Include="SystemManage\OrderSeqMap.cs" />
     <Compile Include="SystemSecurity\ActionLogMap.cs" />
     <Compile Include="SystemManage\UserLogOnMap.cs" />
     <Compile Include="SystemManage\UserMap.cs" />
@@ -76,6 +79,8 @@
     <Compile Include="SystemSecurity\FilterIPMap.cs" />
     <Compile Include="SystemSecurity\LogMap.cs" />
     <Compile Include="WorkflowManage\WF_DEPTMAPMap.cs" />
+    <Compile Include="WorkflowManage\WF_RULEMMap.cs" />
+    <Compile Include="WorkflowManage\WF_SIGNERMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Domain\CCM.Domain.csproj">

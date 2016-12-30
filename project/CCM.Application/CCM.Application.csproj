@@ -55,6 +55,7 @@
     <Compile Include="Human\CCM_Main_EmployeeApp.cs" />
     <Compile Include="Human\HR_DEPApp.cs" />
     <Compile Include="Human\HR_EMPLYMApp.cs" />
+    <Compile Include="Human\HR_OVRTM_TESTApp.cs" />
     <Compile Include="MisManage\MisIpAddressApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />
@@ -67,17 +68,21 @@
     <Compile Include="SystemManage\AreaApp.cs" />
     <Compile Include="SystemManage\OrganizeApp.cs" />
     <Compile Include="SystemManage\RoleApp.cs" />
-    <Compile Include="SystemManage\TEMP_USRPMSApp.cs" />
+    <Compile Include="ERPManage\USRPMSApp.cs" />
+    <Compile Include="SystemManage\Order_SeqApp.cs" />
     <Compile Include="SystemManage\UserApp.cs" />
     <Compile Include="SystemManage\UserLogOnApp.cs" />
     <Compile Include="SystemManage\DutyApp.cs" />
     <Compile Include="SystemManage\RoleAuthorizeApp.cs" />
-    <Compile Include="SystemSecurity\USRNOApp.cs" />
+    <Compile Include="ERPManage\SS_CONNECT_COUNTApp.cs" />
+    <Compile Include="ERPManage\USRNOApp.cs" />
     <Compile Include="SystemSecurity\ActionLogApp.cs" />
     <Compile Include="SystemSecurity\DbBackupApp.cs" />
     <Compile Include="SystemSecurity\FilterIPApp.cs" />
     <Compile Include="SystemSecurity\LogApp.cs" />
     <Compile Include="WorkflowManage\WF_DEPTMAPApp.cs" />
+    <Compile Include="WorkflowManage\WF_RULEMApp.cs" />
+    <Compile Include="WorkflowManage\WF_SIGNERApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Code\CCM.Code.csproj">

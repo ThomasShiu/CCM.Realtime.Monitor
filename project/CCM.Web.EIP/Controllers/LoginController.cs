@@ -20,6 +20,8 @@ namespace CCM.Web.EIP.Controllers
 {
     public class LoginController : Controller
     {
+        private StoreProcedure sp = new StoreProcedure();
+
         [HttpGet]
         public virtual ActionResult Index()
         {
@@ -74,6 +76,8 @@ namespace CCM.Web.EIP.Controllers
                     operatorModel.UserName = userEntity.F_RealName;
                     operatorModel.CompanyId = userEntity.F_OrganizeId;
                     operatorModel.DepartmentId = userEntity.F_DepartmentId;
+                    operatorModel.DeptId = sp.GetDeptByEmplyid(userEntity.F_Account, "DEPID");
+                    operatorModel.DeptName = sp.GetDeptByEmplyid(userEntity.F_Account, "DEPNM");
                     operatorModel.RoleId = userEntity.F_RoleId;
                     operatorModel.LoginIPAddress = Net.Ip;
                     operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
@@ -81,6 +85,7 @@ namespace CCM.Web.EIP.Controllers
                     operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
                     operatorModel.Language = userLogOnEntity.F_Language;
                     operatorModel.Theme = userLogOnEntity.F_Theme;
+                    //operatorModel.IsSystem = true;
 
                     if (userEntity.F_Account == "admin")
                     {

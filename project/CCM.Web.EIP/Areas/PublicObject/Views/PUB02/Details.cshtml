@@ -8,17 +8,39 @@
     $(function () {
         initControl();
         $.ajax({
-            url: "/PublicObject/PUB02/GetFormJson",
+            url: "/PublicObject/PUB03/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
             success: function (data) {
                 $("#form1").formSerialize(data);
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
                 $("#form1").find('div.ckbox label').attr('for', '');
+
+                // 顯示公共物件資料
+                showPublicObject($('#ObjectSID').children('option:selected').val());
+                var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
+                if (ttlmileage <= 0) { ttlmileage = 0; }
+                $("#ttlkm").text(ttlmileage);
             }
         });
     });
+    function showPublicObject(keyword) {
+        // 顯示公共物件資料
+        $.ajax({
+            url: "/PublicObject/PUB00/GetPublicObjectSID",
+            data: { keyword: keyword },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var PhotoUrl = data[0].PhotoUrl;
+                //PhotoUrl = PhotoUrl.replace("~/", "");
+                $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
+                $("#ObjectNM").text(data[0].ObjectNM);
+                $("#ObjectDescr").text(data[0].Description);
+            }
+        });
+    }
     function initControl() {
         // 部門
         $("#DepartmentID").bindSelect({
@@ -39,12 +61,18 @@
             id: "SID",
             text: "ObjectNM"
         });
+        // 警衛名單
+        $("#GuardEMPID").bindSelect({
+            url: "/PublicObject/PUB00/GetGuardList",
+            id: "USR_NO",
+            text: "USR_NM"
+        });
     }
 </script>
 
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
-    <input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛" />
+    @*<input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛"  />*@
 
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
@@ -52,7 +80,7 @@
                 <th class="formTitle">預約對象</th>
                 <td class="formValue">
                     @*<input id="UseReason" name="UseReason" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <select id="COMPANY" name="COMPANY" class="form-control required" disabled="disabled">
+                    <select id="ObjectType" name="ObjectType" class="form-control required" disabled="disabled">
                         <option value="會議室">會議室</option>
                         <option value="公務車輛" selected="selected">公務車輛</option>
                         <option value="其他物品">其他物品</option>
@@ -60,7 +88,7 @@
                 </td>
                 <th class="formTitle">預約原因</th>
                 <td class="formValue">
-                    <select id="UseReason" name="UseReason" class="form-control required" disabled="disabled">
+                    <select id="UseReason" name="UseReason" class="form-control required">
                         <option>內部需求</option>
                         <option>客戶來訪</option>
                         <option>廠商來訪</option>
@@ -74,11 +102,11 @@
             <tr>
                 <th class="formTitle">申請部門</th>
                 <td class="formValue">
-                    <select id="DepartmentID" name="DepartmentID" class="form-control required" disabled="disabled"></select>
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required"></select>
                 </td>
-                <th class="formTitle">外出人員</th>
+                <th class="formTitle">申請人員</th>
                 <td class="formValue">
-                    <select id="EmployeeID" name="EmployeeID" class="form-control required" disabled="disabled">
+                    <select id="EmployeeID" name="EmployeeID" class="form-control required">
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
@@ -87,7 +115,9 @@
             <tr>
                 <th class="formTitle">車輛編號</th>
                 <td class="formValue" colspan="3">
-                    <select id="ObjectSID" name="ObjectSID" class="form-control required" disabled="disabled"></select>
+                    <select id="ObjectSID" name="ObjectSID" class="form-control required">
+                        <option value="">請選擇</option>
+                    </select>
                 </td>
 
             </tr>
@@ -95,11 +125,13 @@
             <tr>
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
-                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control required" placeholder="請輸入開始時間" />
+                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
-                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control required"  placeholder="請輸入結束時間" />
+                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control required" 
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
                 </td>
 
             </tr>
@@ -113,7 +145,51 @@
             <tr>
                 <th class="formTitle">詳細說明</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Description" name="Description" class="form-control required" style="height: 100px;"></textarea>
+                    <textarea id="Description" name="Description" class="form-control" style="height: 50px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出廠時間</th>
+                <td class="formValue">
+                    @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
+                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入出廠時間" />
+                </td>
+                <th class="formTitle">回廠時間</th>
+                <td class="formValue">
+                    @*<input id="BackTime" name="BackTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
+                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入回廠時間" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出廠里程</th>
+                <td class="formValue">
+                    <input id="MileageLast" name="MileageLast" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()" />
+                </td>
+                <th class="formTitle">回廠里程</th>
+                <td class="formValue">
+                    <input id="Mileage" name="Mileage" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()" />
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle">守衛人員</th>
+                <td class="formValue">
+                    <select id="GuardEMPID" name="GuardEMPID" class="form-control required"></select>
+                </td>
+                <th class="formTitle">總公里數</th>
+                <td class="formValue">
+                    <span id="ttlkm" name="ttlkm" style="font-size:20px;color:red"></span>
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:150px;" /></th>
+                <td class="formValue" colspan="2">
+                    <span id="ObjectNM" name="ObjectNM"></span>
+                    <br /><br /><br />
+                    <span id="ObjectDescr" name="ObjectDescr"></span>
                 </td>
             </tr>
         </table>

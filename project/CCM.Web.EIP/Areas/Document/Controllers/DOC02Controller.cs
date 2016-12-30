@@ -18,6 +18,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
     {
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
 
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)

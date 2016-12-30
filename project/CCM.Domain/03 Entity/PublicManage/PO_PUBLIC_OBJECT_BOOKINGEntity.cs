@@ -28,12 +28,14 @@ namespace CCM.Domain
         public String EmployeeID { get; set; }
 
         public String DepartmentID { get; set; }
-
+        
         public String ObjectSID { get; set; }
 
         public DateTime BookingStartTime { get; set; }
 
         public DateTime BookingEndTime { get; set; }
+
+        public String AttendEmp { get; set; }
 
         public int? ProjectSID { get; set; }
 
@@ -48,6 +50,7 @@ namespace CCM.Domain
         public String BackTime { get; set; }
 
         public String GuardEMPID { get; set; }
+
         public String OrganizeId { get; set; }
 
         public DateTime? CreatorTime { get; set; }

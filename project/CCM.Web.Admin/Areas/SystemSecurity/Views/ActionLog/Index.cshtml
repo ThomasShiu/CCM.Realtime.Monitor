@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/SystemSecurity/ActionLog/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				    { label: "操作人員", name: "Operator", width: 80, align: 'left' },
+				    { label: "起始頁面", name: "Refer", width: 200, align: 'left' },
+				    { label: "目標頁面", name: "Destination", width: 200, align: 'left' },
+				    { label: "方式", name: "Method", width: 60, align: 'left' },
+				    { label: "行動設備", name: "MobleDevices", width: 60, align: 'left' },
+				    { label: "瀏覽器", name: "Browser", width: 60, align: 'left' },
+				    { label: "位址", name: "IPAddress", width: 100, align: 'left' },
+				    { label: "回應時間", name: "RequestTime", width: 120, align: 'left' },
+				    { label: "", name: "", width: 80, align: 'left' },
+				    
+
+            ],
+			pager: "#gridPager",
+            sortname: 'SID asc,CreatorTime desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/SystemSecurity/ActionLog/Form",
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/SystemSecurity/ActionLog/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/SystemSecurity/ActionLog/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/SystemSecurity/ActionLog/Details?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            btn: null,
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

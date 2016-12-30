@@ -20,11 +20,11 @@ using System.Text.RegularExpressions;
 namespace CCM.Data
 {
     /// <summary>
-    /// 仓储实现
+    /// 倉儲實線
     /// </summary>
     public class RepositoryBase : IRepositoryBase, IDisposable
     {
-        private CCMDbContext dbcontext = new CCMDbContext();
+        private EIPContext dbcontext = new EIPContext();
         private DbTransaction dbTransaction { get; set; }
         public IRepositoryBase BeginTrans()
         {

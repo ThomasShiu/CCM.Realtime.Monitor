@@ -49,16 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBContext\EIP01Context.cs" />
+    <Compile Include="DBContext\HRSContext.cs" />
     <Compile Include="DBContext\EIPContext.cs" />
-    <Compile Include="DBContext\CCMDbContext.cs" />
     <Compile Include="Extensions\DbHelper.cs" />
     <Compile Include="Extensions\EntityInterfaceExtensions.cs" />
+    <Compile Include="Repository\IHrsRepositoryBase.cs" />
     <Compile Include="Repository\IRepositoryBase.cs" />
+    <Compile Include="Repository\IHrsRepositoryBase.T.cs" />
     <Compile Include="Repository\IRepositoryBase.T.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\EipRepositoryBase .cs" />
+    <Compile Include="Repository\HrsRepositoryBase .cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
-    <Compile Include="Repository\EipRepositoryBase.T.cs" />
+    <Compile Include="Repository\HrsRepositoryBase.T.cs" />
     <Compile Include="Repository\RepositoryBase.T.cs" />
   </ItemGroup>
   <ItemGroup>

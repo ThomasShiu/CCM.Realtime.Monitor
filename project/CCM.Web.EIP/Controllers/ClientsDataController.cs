@@ -112,7 +112,8 @@ namespace CCM.Web.EIP.Controllers
             {
                 var fieldItem = new
                 {
-                    chargeid = item.EMPLYID,  // 部門主管
+                    //chargeid = item.EMPLYID,  // 部門主管
+                    encode = item.DEPID,
                     fullname = item.DEPNM
                 };
                 dictionary.Add(item.DEPID, fieldItem);
@@ -147,7 +148,6 @@ namespace CCM.Web.EIP.Controllers
             {
                 var fieldItem = new
                 {
-                    SID=item.SID,
                     ObjectType = item.ObjectType,
                     ObjectNM = item.ObjectNM
                 };

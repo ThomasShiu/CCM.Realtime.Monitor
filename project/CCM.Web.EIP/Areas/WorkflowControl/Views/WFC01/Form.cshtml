@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WorkflowControl/WFC01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/WorkflowControl/WFC01/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+            <tr>
+                <th class="formTitle">規則編號</th>
+                <td class="formValue">
+                    <input id="RULEID" name="RULEID" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">規則名稱</th>
+                <td class="formValue">
+                    <input id="RULENM" name="RULENM" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">途程數</th>
+                <td class="formValue">
+                    <input id="SITE" name="SITE" type="number" class="form-control required"  />
+                </td>
+                <th class="formTitle">說明</th>
+                <td class="formValue">
+                    <input id="DECSR" name="DECSR" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

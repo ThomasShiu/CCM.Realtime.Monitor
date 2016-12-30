@@ -103,6 +103,7 @@ namespace CCM.Application.SystemManage
                 if (!string.IsNullOrEmpty(item.F_UrlAddress))
                 {
                     string[] url = item.F_UrlAddress.Split('?');
+
                     if (item.F_Id == moduleId && url[0] == action)
                     {
                         return true;

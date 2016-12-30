@@ -50,8 +50,8 @@ namespace CCM.Application
                 expression = expression.And(t => t.DEPID.Contains(keyword));
                 expression = expression.Or(t => t.DEPNM.Contains(keyword));
             }
-            expression = expression.And(t => t.EMPLYID != null);
-            expression = expression.And(t => t.EMPLYID != "");
+            //expression = expression.And(t => t.EMPLYID != null);
+            //expression = expression.And(t => t.EMPLYID != "");
             return service.IQueryable(expression).OrderBy(t => t.DEPID).ToList();
         }
 

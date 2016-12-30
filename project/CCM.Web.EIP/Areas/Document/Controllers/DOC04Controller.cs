@@ -17,6 +17,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         // GET: /Document/DOC04/
         private FR_OFFIDOC_RECE_ATTACH_FILEApp tableApp = new FR_OFFIDOC_RECE_ATTACH_FILEApp();
         private FR_OFFIDOC_RECEApp App = new FR_OFFIDOC_RECEApp();
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)

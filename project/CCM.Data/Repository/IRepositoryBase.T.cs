@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 namespace CCM.Data
 {
     /// <summary>
-    /// 仓储接口
+    /// 倉儲階口
     /// </summary>
     /// <typeparam name="TEntity">實體類型</typeparam>
     public interface IRepositoryBase<TEntity> where TEntity : class,new()

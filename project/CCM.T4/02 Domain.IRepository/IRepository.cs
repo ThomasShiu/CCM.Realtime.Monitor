@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: WF_DEPTMAP
-	public interface IWF_DEPTMAPRepository : IRepositoryBase<WF_DEPTMAPEntity>
+	//mapping table name: Sys_Order_Seq
+	public interface ISys_Order_SeqRepository : IRepositoryBase<Sys_Order_SeqEntity>
     {
     }
 			 		                               

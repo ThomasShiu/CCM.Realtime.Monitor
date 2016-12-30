@@ -28,6 +28,21 @@ namespace CCM.Application
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
+            expression = expression.And(t => t.Enable == "Y");
+            return service.IQueryable(expression).OrderBy(t => t.ObjectNM).ToList();
+        }
+        public List<PO_PUBLIC_OBJECTEntity> GetListSID(string keyword = "")
+        {
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECTEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {//有關鍵字，就顯示所有公共物件
+                expression = expression.And(t => t.SID.Equals(keyword));
+            }else
+            {//無關鍵字就只顯示啟用中的公共物件
+                expression = expression.And(t => t.Enable == "Y");
+            }
+            //expression = expression.And(t => t.F_Category == 1);
+            
             return service.IQueryable(expression).OrderBy(t => t.ObjectNM).ToList();
         }
         public List<PO_PUBLIC_OBJECTEntity> GetListClient(string keyword = "")
@@ -38,7 +53,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.ObjectNM.Contains(keyword));
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
-            expression = expression.And(t => t.Enable == "Y");
+            
             return service.IQueryable(expression).OrderBy(t => t.ObjectNM).ToList();
         }
         public List<PO_PUBLIC_OBJECTEntity> GetList(Pagination pagination, string queryJson = "")

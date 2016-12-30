@@ -9,12 +9,14 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/PublicObject/PUB02/GetFormJson",
+                url: "/PublicObject/PUB03/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
+                    // 顯示公共物件資料
+                    showPublicObject($('#ObjectSID').children('option:selected').val());
                 }
             });
         }
@@ -42,26 +44,57 @@
             text: "ObjectNM"
         });
 
-        
+        // 警衛名單
+        $("#GuardEMPID").bindSelect({
+            url: "/PublicObject/PUB00/GetGuardList",
+            id: "USR_NO",
+            text: "USR_NM"
+        });
+ 
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: "/PublicObject/PUB02/SubmitForm2?keyValue=" + keyValue,
+            url: "/PublicObject/PUB03/SubmitForm2?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
+
+    function calmileage() {
+        var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
+        if (ttlmileage <= 0) { ttlmileage = 0; }
+        $("#ttlkm").text(ttlmileage);
+    }
+
+    function showPublicObject(keyword) {
+        // 顯示公共物件資料
+        $.ajax({
+            url: "/PublicObject/PUB00/GetPublicObjectSID",
+            data: { keyword: keyword },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var PhotoUrl = data[0].PhotoUrl;
+                //PhotoUrl = PhotoUrl.replace("~/", "");
+                $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
+                $("#ObjectNM").text(data[0].ObjectNM);
+                $("#ObjectDescr").text(data[0].Description);
+            }
+        });
+    }
     $(document).ready(function () {
         if (!!keyValue) {
             // 編輯模式
             $("#DepartmentID").attr("disabled", "disabled");
             $("#EmployeeID").attr("disabled", "disabled");
-            $("#ttlkm").text($("#Mileage").val() - $("#MileageLast").val());
+            var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
+            if (ttlmileage <= 0) { ttlmileage = 0; }
+            $("#ttlkm").text(ttlmileage);
 
             //alert($("#Mileage").val() - $("#MileageLast").val());
         }
@@ -139,35 +172,44 @@
                 <th class="formTitle">出廠時間</th>
                 <td class="formValue">
                     @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control required"
-                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入出廠時間" />
+                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入出廠時間" />
                 </td>
                 <th class="formTitle">回廠時間</th>
                 <td class="formValue">
                     @*<input id="BackTime" name="BackTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control required"
-                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入回廠時間" />
+                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control  input-wdatepickerrequired"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入回廠時間" />
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">出廠里程</th>
                 <td class="formValue">
-                    <input id="MileageLast" name="MileageLast" type="text" class="form-control required" data-bind="value:replyNumber"/>
+                    <input id="MileageLast" name="MileageLast" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()"/>
                 </td>
                 <th class="formTitle">回廠里程</th>
                 <td class="formValue">
-                    <input id="Mileage" name="Mileage" type="text" class="form-control required" data-bind="value:replyNumber"/>
+                    <input id="Mileage" name="Mileage" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()"/>
                 </td>
             </tr>
 
             <tr>
-                <th class="formTitle">總公里數</th>
-                <td class="formValue">
-                    <span id="ttlkm" name="ttlkm" ></span> 
-                </td>
                 <th class="formTitle">守衛人員</th>
                 <td class="formValue">
-                    <input id="GuardEMPID" name="GuardEMPID" type="text" class="form-control required"  />
+                    <select id="GuardEMPID" name="GuardEMPID" class="form-control required"></select>
+                </td>
+                <th class="formTitle">總公里數</th>
+                <td class="formValue">
+                    <span id="ttlkm" name="ttlkm" style="font-size:20px;color:red"></span> 
+                </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:200px;" /></th>
+                <td class="formValue" colspan="2">
+                    <span id="ObjectNM" name="ObjectNM"></span>
+                    <br /><br /><br />
+                    <span id="ObjectDescr" name="ObjectDescr"></span>
                 </td>
             </tr>
         </table>

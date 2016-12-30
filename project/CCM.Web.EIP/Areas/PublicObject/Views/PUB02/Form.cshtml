@@ -2,39 +2,40 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
 <script>
-   
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/PublicObject/PUB02/GetFormJson",
+                url: "/PublicObject/PUB03/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
+                    // 顯示公共物件資料
+                    showPublicObject($('#ObjectSID').children('option:selected').val());
                 }
             });
         }
     });
     function initControl() {
-      
-
         // 部門
         $("#DepartmentID").bindSelect({
             url: "/Human/HRS00/GetHR_DEP",
             id: "DEPID",
             text: "DEPNM"
         });
-        // 員工
+
+        // 員工 by 部門
         $("#EmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
             id: "EMPLYID",
             text: "EMPLYNM"
         });
-
         // 公共物件
         $("#ObjectSID").bindSelect({
             url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
@@ -42,7 +43,19 @@
             text: "ObjectNM"
         });
 
-        
+        // 同行部門
+        $("#AttendDeptID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 同行員工 by 部門
+        $("#AttendEmplyID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#AttendDeptID').children('option:selected').val(),
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -57,13 +70,32 @@
         })
     }
 
-    function leavetime() {
+    function setleavetime() {
         var leavetime = $('#BookingStartTime').val();
         $('#LeaveTime').val(leavetime);
+        //alert(leavetime);
     }
-    function backtime() {
+    function setbacktime() {
         var backtime = $('#BookingEndTime').val();
         $('#BackTime').val(backtime);
+        //alert(backtime);
+    }
+
+    function showPublicObject(keyword) {
+        // 顯示公共物件資料
+        $.ajax({
+            url: "/PublicObject/PUB00/GetPublicObjectSID",
+            data: { keyword: keyword },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var PhotoUrl = data[0].PhotoUrl;
+                //PhotoUrl = PhotoUrl.replace("~/", "");
+                $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
+                $("#ObjectNM").text(data[0].ObjectNM);
+                $("#ObjectDescr").text(data[0].Description);
+            }
+        });
     }
 
     $(document).ready(function () {
@@ -82,20 +114,56 @@
         }
         else {
             // 編輯模式
-            $('#DepartmentID').change(function () {
-                // 員工 by 部門
-                $("#EmployeeID").empty().bindSelect({
-                    url: "/Human/HRS00/GetHR_EMPLY",
-                    id: "EMPLYID",
-                    text: "EMPLYNM"
-                });
-
-            });
             $("#DepartmentID").attr("disabled", "disabled");
             $("#EmployeeID").attr("disabled", "disabled");
-
         }
+
+        // 外出人員部門
+        $('#AttendDeptID').change(function () {
+            $("#AttendEmplyID").empty();
+            $("#AttendEmplyID").prepend("<option value='' selected='selected'></option>");
+            // 員工 by 部門
+            $("#AttendEmplyID").bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+
+        });
+        // 外出人員
+        $('#AttendEmplyID').change(function () {
+            var empId = $("#AttendEmplyID").val();
+            var empNm = $("#AttendEmplyID option:selected").html();
+            var attendEmp = $("#AttendEmp").val();
+            if (!!empId) {
+                if (!!attendEmp) {
+                    $("#AttendEmp").val(attendEmp + '\r\n' + empId + '-' + empNm);
+                } else {
+                    $("#AttendEmp").val(empId + '-' + empNm);
+                }
+            }
+        });
+
         $("#ObjectType").attr("disabled", "disabled");
+
+        $('#ObjectSID').change(function () {
+            // 顯示公共物件資料
+            showPublicObject($('#ObjectSID').children('option:selected').val());
+          
+        });
+        // 預計出廠時間
+        $('#BookingStartTime').change(function () {
+            var leavetime = $('#BookingStartTime').val();
+            $('#LeaveTime').val(leavetime);
+
+        });
+        // 預計回廠時間
+        $('#BookingEndTime').change(function () {
+            var backtime = $('#BookingEndTime').val();
+            $('#BackTime').val(backtime);
+
+        });
+        
     });
     
 </script>
@@ -104,8 +172,8 @@
     <input id="SID" name="SID" type="hidden" value="" />
     <input id="MileageLast" name="MileageLast" type="hidden" value="0" />
     <input id="Mileage" name="Mileage" type="hidden"  value="0" />
-    <input id="LeaveTime" name="Mileage" type="hidden" value="" />
-    <input id="BackTime" name="Mileage" type="hidden" value="" />
+    <input id="LeaveTime" name="LeaveTime" type="hidden" value="" />
+    <input id="BackTime" name="BackTime" type="hidden" value="" />
     <input id="Status" name="Status" type="hidden" value=""/>
     <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
     @*<input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛"  />*@
@@ -125,56 +193,75 @@
                 <th class="formTitle">預約原因</th>
                 <td class="formValue">
                     <select id="UseReason" name="UseReason" class="form-control required">
-                        <option >內部需求</option>
-                        <option >客戶來訪</option>
-                        <option >廠商來訪</option>
-                        <option >訪問客戶</option>
-                        <option >訪問廠商</option>
-                        <option >廠區觀摩</option>
-                        <option >私人需求</option>
+                        <option>內部需求</option>
+                        <option>客戶來訪</option>
+                        <option>廠商來訪</option>
+                        <option>訪問客戶</option>
+                        <option>訪問廠商</option>
+                        <option>廠區觀摩</option>
+                        <option>私人需求</option>
+                    </select>
+                </td>
+                <th class="formTitle">外出人員部門</th>
+                <td class="formValue">
+                    <select id="AttendDeptID" name="AttendDeptID" class="form-control required">
+                        <option></option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">申請部門</th>
                 <td class="formValue">
-                    <select id="DepartmentID" name="DepartmentID" class="form-control required"></select>
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required">
+                        <option></option>
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
                 </td>
                 <th class="formTitle">申請人員</th>
                 <td class="formValue">
                     <select id="EmployeeID" name="EmployeeID" class="form-control required">
+                        <option></option>
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
-                
+                <th class="formTitle">外出人員</th>
+                <td class="formValue">
+                    <select id="AttendEmplyID" name="AttendEmplyID" class="form-control required">
+                        <option></option>
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th class="formTitle">車輛編號</th>
                 <td class="formValue" colspan="3">
-                    <select id="ObjectSID" name="ObjectSID" class="form-control required">
-                        <option >請選擇</option>
+                    <select id="ObjectSID" name="ObjectSID" class="form-control required" >
+                        <option value=""></option>
                     </select>
                 </td>
-                
+
+                <td class="formValue" colspan="2" rowspan="3">
+                    <textarea id="AttendEmp" name="AttendEmp" class="form-control" style="height: 100px;"></textarea>
+                </td>
             </tr>
 
             <tr>
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
-                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control required"  onchange="leavetime()"
-                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
+                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"  onchange="setleavetime()"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
-                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control required"   onchange="backtime()"
-                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
+                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"   onchange="setbacktime()"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
                 </td>
 
             </tr>
             <tr>
                 <th class="formTitle">用途說明</th>
                 <td class="formValue" colspan="3">
-                    <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入用途說明" />
+                    <input id="Subject" name="Subject" type="text" class="form-control required" />
                 </td>
 
             </tr>
@@ -184,6 +271,15 @@
                     <textarea id="Description" name="Description" class="form-control" style="height: 50px;"></textarea>
                 </td>
             </tr>
+            <tr>
+                <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;"/></th>
+                <td class="formValue" colspan="2">
+                    <span id="ObjectNM" name="ObjectNM"></span>
+                    <br /><br /><br />
+                    <span id="ObjectDescr" name="ObjectDescr"></span>
+                </td>
+            </tr>
+
         </table>
     </div>
 </form>

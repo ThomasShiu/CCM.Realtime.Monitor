@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
@@ -20,16 +20,16 @@ namespace CCM.Code
     {
         #region POST
         /// <summary>
-        /// HTTP POST方式请求数据
+        /// HTTP POST方式請求資料
         /// </summary>
         /// <param name="url">URL.</param>
-        /// <param name="param">POST的数据</param>
+        /// <param name="param">POST的數據</param>
         /// <returns></returns>
         public static string HttpPost(string url, string param = null)
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -84,30 +84,30 @@ namespace CCM.Code
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            return true; //总是接受  
+            return true; //總是接受  
         }
         public static string BuildRequest(string strUrl, Dictionary<string, string> dicPara, string fileName)
         {
             string contentType = "image/jpeg";
-            //待请求参数数组
+            //待請求參數陣列
             FileStream Pic = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             byte[] PicByte = new byte[Pic.Length];
             Pic.Read(PicByte, 0, PicByte.Length);
             int lengthFile = PicByte.Length;
 
-            //构造请求地址
+            //構造請求位址
 
-            //设置HttpWebRequest基本信息
+            //設置HttpWebRequest基本資訊
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(strUrl);
-            //设置请求方式：get、post
+            //設置請求方式：get、post
             request.Method = "POST";
-            //设置boundaryValue
+            //設置boundaryValue
             string boundaryValue = DateTime.Now.Ticks.ToString("x");
             string boundary = "--" + boundaryValue;
             request.ContentType = "\r\nmultipart/form-data; boundary=" + boundaryValue;
-            //设置KeepAlive
+            //設置KeepAlive
             request.KeepAlive = true;
-            //设置请求数据，拼接成字符串
+            //設置請求資料，拼接成字串
             StringBuilder sbHtml = new StringBuilder();
             foreach (KeyValuePair<string, string> key in dicPara)
             {
@@ -117,20 +117,20 @@ namespace CCM.Code
             sbHtml.Append(fileName);
             sbHtml.Append("\"\r\nContent-Type: " + contentType + "\r\n\r\n");
             string postHeader = sbHtml.ToString();
-            //将请求数据字符串类型根据编码格式转换成字节流
+            //將請求資料字串類型根據編碼格式轉換成位元組流
             Encoding code = Encoding.GetEncoding("UTF-8");
             byte[] postHeaderBytes = code.GetBytes(postHeader);
             byte[] boundayBytes = Encoding.ASCII.GetBytes("\r\n" + boundary + "--\r\n");
-            //设置长度
+            //設置長度
             long length = postHeaderBytes.Length + lengthFile + boundayBytes.Length;
             request.ContentLength = length;
 
-            //请求远程HTTP
+            //請求遠程HTTP
             Stream requestStream = request.GetRequestStream();
             Stream myStream = null;
             try
             {
-                //发送数据请求服务器
+                //發送資料請求伺服器
                 requestStream.Write(postHeaderBytes, 0, postHeaderBytes.Length);
                 requestStream.Write(PicByte, 0, lengthFile);
                 requestStream.Write(boundayBytes, 0, boundayBytes.Length);
@@ -150,7 +150,7 @@ namespace CCM.Code
                 }
             }
 
-            //读取处理结果
+            //讀取處理結果
             StreamReader reader = new StreamReader(myStream, code);
             StringBuilder responseData = new StringBuilder();
 
@@ -168,7 +168,7 @@ namespace CCM.Code
 
         #region Put
         /// <summary>
-        /// HTTP Put方式请求数据.
+        /// HTTP Put方式請求資料.
         /// </summary>
         /// <param name="url">URL.</param>
         /// <returns></returns>
@@ -176,7 +176,7 @@ namespace CCM.Code
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -228,7 +228,7 @@ namespace CCM.Code
 
         #region Delete
         /// <summary>
-        /// HTTP Delete方式请求数据.
+        /// HTTP Delete方式請求資料.
         /// </summary>
         /// <param name="url">URL.</param>
         /// <returns></returns>
@@ -236,7 +236,7 @@ namespace CCM.Code
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -281,7 +281,7 @@ namespace CCM.Code
 
         #region Get
         /// <summary>
-        /// HTTP GET方式请求数据.
+        /// HTTP GET方式請求資料.
         /// </summary>
         /// <param name="url">URL.</param>
         /// <returns></returns>
@@ -289,7 +289,7 @@ namespace CCM.Code
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -336,7 +336,7 @@ namespace CCM.Code
         {
             HttpWebRequest request;
 
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -449,11 +449,11 @@ namespace CCM.Code
 
         #region Post With Pic
         /// <summary>
-        /// HTTP POST方式请求数据(带图片)
+        /// HTTP POST方式請求資料(帶圖片)
         /// </summary>
         /// <param name="url">URL</param>        
-        /// <param name="param">POST的数据</param>
-        /// <param name="fileByte">图片</param>
+        /// <param name="param">POST的數據</param>
+        /// <param name="fileByte">圖片</param>
         /// <returns></returns>
         public static string HttpPost(string url, IDictionary<object, object> param, byte[] fileByte)
         {
@@ -515,13 +515,13 @@ namespace CCM.Code
 
         #region HttpsClient
         /// <summary>
-        /// 创建HttpClient
+        /// 創建HttpClient
         /// </summary>
         /// <returns></returns>
         public static HttpClient CreateHttpClient(string url)
         {
             HttpClient httpclient;
-            //如果是发送HTTPS请求  
+            //如果是發送HTTPS請求  
             if (url.StartsWith("https", StringComparison.OrdinalIgnoreCase))
             {
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;

@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class WF_DEPTMAPController : ControllerBase
+    public class Sys_Order_SeqController : ControllerBase
     {
-        private WF_DEPTMAPApp tableApp = new WF_DEPTMAPApp();
+        private Sys_Order_SeqApp tableApp = new Sys_Order_SeqApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(WF_DEPTMAPEntity WF_DEPTMAPEntity, string keyValue)
+        public ActionResult SubmitForm(Sys_Order_SeqEntity Sys_Order_SeqEntity, string keyValue)
         {
-            tableApp.SubmitForm(WF_DEPTMAPEntity, keyValue);
+            tableApp.SubmitForm(Sys_Order_SeqEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

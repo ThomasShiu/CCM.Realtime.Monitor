@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/SystemManage/OrderSeq/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">名稱</th>
+                <td class="formValue">
+                    <input id="NAME" name="NAME" type="text" class="form-control required" placeholder="請輸入名稱" />
+                </td>
+                <th class="formTitle">類別</th>
+                <td class="formValue">
+                    <input id="TYPE" name="TYPE" type="text" class="form-control required" placeholder="請輸入分類說明" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">前置碼</th>
+                <td class="formValue">
+                    <input id="PREFIX" name="PREFIX" type="text" class="form-control required" placeholder="請輸入前置碼" />
+                </td>
+                <th class="formTitle">編碼原則</th>
+                <td class="formValue">
+                    <select id="CODEFORMAT" name="CODEFORMAT" class="form-control required">
+                        <option value="YYMM">西元年月</option>
+                        <option value="YYMMDD">西元年月日</option>
+                        <option value="YYYMM">民國年月</option>
+                        <option value="YYYMMDD">民國年月日</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">流水號長度</th>
+                <td class="formValue">
+                    <input id="NO_LENGTH" name="NO_LENGTH" type="number" class="form-control required" />
+                </td>
+                <th class="formTitle">目前號碼</th>
+                <td class="formValue">
+                    <input id="CURRENT_NO" name="CURRENT_NO" type="number" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">目前單號</th>
+                <td class="formValue">
+                    <input id="CURRENT_ORDNO" name="CURRENT_ORDNO" type="text" class="form-control" placeholder="請輸入單號" />
+                </td>
+                <th class="formTitle">目前年月</th>
+                <td class="formValue">
+                    <input id="CURRENT_YM" name="CURRENT_YM" type="number" class="form-control required" placeholder="YYYYMM" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">重置碼</th>
+                <td class="formValue">
+                    <select id="RESETFLAG" name="RESETFLAG" class="form-control required">
+                        <option value="Y">年</option>
+                        <option value="M">月</option>
+                    </select>
+                </td>
+                <th class="formTitle">狀態</th>
+                <td class="formValue">
+                    <select id="STATUS" name="STATUS" class="form-control required">
+                        <option value="Y">啟用</option>
+                        <option value="N">停用</option>
+                    </select>
+
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

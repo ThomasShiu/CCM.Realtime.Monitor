@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/SystemSecurity/OrderSeq/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">COL_SAMPLE</th>
+                <td class="formValue">
+                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
+                    <input id="GUID" name="GUID" type="hidden" value="" />
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">SID</th>
+                <td class="formValue">
+                    <input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">NAME</th>
+                <td class="formValue">
+                    <input id="NAME" name="NAME" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">TYPE</th>
+                <td class="formValue">
+                    <input id="TYPE" name="TYPE" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">PREFIX</th>
+                <td class="formValue">
+                    <input id="PREFIX" name="PREFIX" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CODEFORMAT</th>
+                <td class="formValue">
+                    <input id="CODEFORMAT" name="CODEFORMAT" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">NO_LENGTH</th>
+                <td class="formValue">
+                    <input id="NO_LENGTH" name="NO_LENGTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CURRENT_NO</th>
+                <td class="formValue">
+                    <input id="CURRENT_NO" name="CURRENT_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CURRENT_ORDNO</th>
+                <td class="formValue">
+                    <input id="CURRENT_ORDNO" name="CURRENT_ORDNO" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CURRENT_YM</th>
+                <td class="formValue">
+                    <input id="CURRENT_YM" name="CURRENT_YM" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">RESETFLAG</th>
+                <td class="formValue">
+                    <input id="RESETFLAG" name="RESETFLAG" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">STATUS</th>
+                <td class="formValue">
+                    <input id="STATUS" name="STATUS" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">OrganizeId</th>
+                <td class="formValue">
+                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CreatorTime</th>
+                <td class="formValue">
+                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CreatorUserId</th>
+                <td class="formValue">
+                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">LastModifyTime</th>
+                <td class="formValue">
+                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">LastModifyUserId</th>
+                <td class="formValue">
+                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

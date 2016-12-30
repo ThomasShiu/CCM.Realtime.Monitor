@@ -23,7 +23,7 @@ namespace CCM.Code
         {
             get
             {
-                string connection = System.Configuration.ConfigurationManager.ConnectionStrings["CCMDbContext"].ConnectionString;
+                string connection = System.Configuration.ConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString;
                 if (Encrypt == true)
                 {
                     return DESEncrypt.Decrypt(connection);

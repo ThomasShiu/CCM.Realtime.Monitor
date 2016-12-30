@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/ERPManage/SS04/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				        { label: "帳號", name: "USR_NO", width: 80, align: 'left' },
+				        { label: "姓名", name: "USR_NM", width: 80, align: 'left' },
+				        { label: "群祖", name: "GRP_NO", width: 80, align: 'left' },
+				        { label: "工號", name: "EMP_NO", width: 80, align: 'left' },
+				        { label: "密碼", name: "USR_PW", width: 80, align: 'left' },
+				        {
+				            label: "超級使用者", name: "C_SUPER", width: 80, align: 'center',
+				            formatter: function (cellvalue) {
+				                return cellvalue == "Y" ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+				            }
+				        },
+				        {
+				            label: "生效日", name: "EFF_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
+				        {
+				            label: "失效日", name: "EXP_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
+				        {
+				            label: "密碼設定日期", name: "PW_DT", width: 150, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				        },
+				        { label: "密碼有效天數", name: "VLD_DAY", width: 80, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+			sortname: 'USR_NO asc',
+			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/ERPManage/SS04/Form",
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/ERPManage/SS04/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/ERPManage/SS04/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/ERPManage/SS04/Details?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            btn: null,
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="帳號/姓名" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

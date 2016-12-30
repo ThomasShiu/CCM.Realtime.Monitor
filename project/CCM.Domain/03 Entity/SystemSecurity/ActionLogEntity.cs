@@ -12,7 +12,7 @@ namespace CCM.Domain.Entity.SystemSecurity
 {
 
     //mapping table name: SS_ACTIONLOG
-    public class ActionLogEntity : IEntityCcm<ActionLogEntity>, ICreationAuditedCcm
+    public class ActionLogEntity : IEntityCcm<ActionLogEntity>, ICreationAuditedCcm , IModificationAuditedCcm
     {
         public String SID { get; set; }
 

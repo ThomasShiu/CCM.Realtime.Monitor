@@ -82,6 +82,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Razor">
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
@@ -134,12 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\01 Handler\ActionLogHandler.cs" />
+    <Compile Include="App_Start\01 Handler\ActionTraceLog.cs" />
+    <Compile Include="App_Start\01 Handler\ControllerCCM.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAjaxOnlyAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAuthorizeAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
-    <Compile Include="App_Start\UserTraceLog.cs" />
     <Compile Include="Areas\Document\Controllers\DOC01Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC02Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC03Controller.cs" />
@@ -153,6 +158,7 @@
     <Compile Include="Areas\ExampleManage\ExampleManageAreaRegistration.cs" />
     <Compile Include="Areas\Human\Controllers\HRS00Controller.cs" />
     <Compile Include="Areas\Human\Controllers\HRS01Controller.cs" />
+    <Compile Include="Areas\Human\Controllers\HRS02Controller.cs" />
     <Compile Include="Areas\Human\HumanAreaRegistration.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB00Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB01Controller.cs" />
@@ -171,6 +177,7 @@
     <Compile Include="Areas\SystemManage\Controllers\OrganizeController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\RoleAuthorizeController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\RoleController.cs" />
+    <Compile Include="Areas\SystemManage\Controllers\OrderSeqController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\UserController.cs" />
     <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\DbBackupController.cs" />
@@ -178,8 +185,14 @@
     <Compile Include="Areas\SystemSecurity\Controllers\LogController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\ServerMonitoringController.cs" />
     <Compile Include="Areas\SystemSecurity\SystemSecurityAreaRegistration.cs" />
-    <Compile Include="Areas\WorkflowManage\Controllers\WF01Controller.cs" />
-    <Compile Include="Areas\WorkflowManage\WorkflowManageAreaRegistration.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC00Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC02Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC01Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC03Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC04Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC05Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC06Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\WorkflowControlAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -409,13 +422,30 @@
     <Content Include="Content\js\datepicker\lang\en.js" />
     <Content Include="Content\js\datepicker\lang\zh-cn.js" />
     <Content Include="Content\js\datepicker\lang\zh-tw.js" />
+    <Content Include="Content\js\datepicker\OLD\calendar.js" />
+    <Content Include="Content\js\datepicker\OLD\DatePicker.js" />
+    <Content Include="Content\js\datepicker\OLD\lang\en.js" />
+    <Content Include="Content\js\datepicker\OLD\lang\zh-cn.js" />
+    <Content Include="Content\js\datepicker\OLD\lang\zh-tw.js" />
+    <Content Include="Content\js\datepicker\OLD\skin\datePicker.gif" />
+    <Content Include="Content\js\datepicker\OLD\skin\datePicker.png" />
+    <Content Include="Content\js\datepicker\OLD\skin\datepicker_icon.png" />
+    <Content Include="Content\js\datepicker\OLD\skin\default\datepicker-dev.css" />
+    <Content Include="Content\js\datepicker\OLD\skin\default\datepicker.css" />
+    <Content Include="Content\js\datepicker\OLD\skin\default\img.gif" />
+    <Content Include="Content\js\datepicker\OLD\skin\default\img.png" />
+    <Content Include="Content\js\datepicker\OLD\skin\WdatePicker.css" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyBlue\bg.jpg" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyBlue\bg1.jpg" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyBlue\datepicker.css" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyBlue\img.gif" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\js\datepicker\OLD\skin\whyGreen\img.gif" />
+    <Content Include="Content\js\datepicker\OLD\WdatePicker.js" />
     <Content Include="Content\js\datepicker\skin\datePicker.gif" />
-    <Content Include="Content\js\datepicker\skin\datePicker.png" />
-    <Content Include="Content\js\datepicker\skin\datepicker_icon.png" />
-    <Content Include="Content\js\datepicker\skin\default\datepicker-dev.css" />
     <Content Include="Content\js\datepicker\skin\default\datepicker.css" />
     <Content Include="Content\js\datepicker\skin\default\img.gif" />
-    <Content Include="Content\js\datepicker\skin\default\img.png" />
     <Content Include="Content\js\datepicker\skin\WdatePicker.css" />
     <Content Include="Content\js\datepicker\skin\whyGreen\bg.jpg" />
     <Content Include="Content\js\datepicker\skin\whyGreen\datepicker.css" />
@@ -726,15 +756,28 @@
     <Content Include="Areas\PublicObject\Views\PUB01\Details.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Index.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB03\Index.cshtml" />
-    <Content Include="Areas\WorkflowManage\Views\Web.config" />
-    <Content Include="Areas\WorkflowManage\Views\WF01\Index.cshtml" />
-    <Content Include="Areas\WorkflowManage\Views\WF01\Form.cshtml" />
-    <Content Include="Areas\WorkflowManage\Views\WF01\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\Web.config" />
+    <Content Include="Areas\WorkflowControl\Views\WFC02\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC02\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC02\Details.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Form.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Details.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB03\Form.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB03\Details.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Form2.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC01\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC01\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC01\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC00\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\IndexEmp.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\Index_all.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\Index_manager.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\Index.cshtml" />
+    <Content Include="Areas\SystemManage\Views\OrderSeq\Index.cshtml" />
+    <Content Include="Areas\SystemManage\Views\OrderSeq\Form.cshtml" />
+    <Content Include="Areas\SystemManage\Views\OrderSeq\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\Details.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -894,6 +937,10 @@
       <Project>{4e642cbe-f6c5-4cb9-9474-6b349652fe77}</Project>
       <Name>CCM.Mapping</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CCM.Repository\CCM.Repository.csproj">
+      <Project>{875233BF-EA15-49E0-9A9C-77884A897FF6}</Project>
+      <Name>CCM.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Form.cshtml" />
@@ -914,8 +961,8 @@
     <Folder Include="Areas\PublicObject\Models\" />
     <Folder Include="Areas\PublicObject\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
-    <Folder Include="Areas\WorkflowManage\Models\" />
-    <Folder Include="Areas\WorkflowManage\Views\Shared\" />
+    <Folder Include="Areas\WorkflowControl\Models\" />
+    <Folder Include="Areas\WorkflowControl\Views\Shared\" />
     <Folder Include="EIPContent\Content\FilesCabinet\UploadFiles\" />
   </ItemGroup>
   <ItemGroup>

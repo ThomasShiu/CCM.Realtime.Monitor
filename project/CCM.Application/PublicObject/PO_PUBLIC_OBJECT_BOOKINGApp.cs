@@ -96,26 +96,30 @@ namespace CCM.Application
                 switch (timeType)
                 {
                     case "1":  //今日內
-                        startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddHours(-12);
+                        startTime = (DateTime.Now.ToString("yyyy-MM-dd")+" 01:00").ToDate();
+                        expression = expression.And(t => t.BookingStartTime >= startTime);
                         break;
                     case "2": //一周內
                         startTime = DateTime.Now.AddDays(-7);
+                        expression = expression.And(t => t.BookingStartTime >= startTime && t.BookingEndTime <= endTime);
                         break;
                     case "3": //一月內
                         startTime = DateTime.Now.AddMonths(-1);
+                        expression = expression.And(t => t.BookingStartTime >= startTime && t.BookingEndTime <= endTime);
                         break;
                     default:
                         startTime = DateTime.Now.AddYears(-100);
+                        expression = expression.And(t => t.BookingStartTime >= startTime && t.BookingEndTime <= endTime);
                         break;
                 }
-                expression = expression.And(t => t.BookingEndTime >= startTime && t.BookingEndTime <= endTime);
+               
             }
             else
-            {
-                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddHours(-12);
+            {  // 預設:今日內
+                DateTime startTime = (DateTime.Now.ToString("yyyy-MM-dd") + " 01:00").ToDate();
                 DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
                 //startTime = DateTime.Now.AddDays(-1);
-                expression = expression.And(t => t.BookingEndTime >= startTime);
+                expression = expression.And(t => t.BookingStartTime >= startTime);
             }
             expression = expression.And(t => t.ObjectType == "會議室");
             return service.FindList(expression, pagination);
@@ -138,12 +142,12 @@ namespace CCM.Application
         public void SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
-            {
+            {//編輯
                 tableEntity.Modify(keyValue);
                 service.Update(tableEntity);
             }
             else
-            {
+            {//新建
                 tableEntity.Status = "鎖定";
                 tableEntity.Create();
                 service.Insert(tableEntity);

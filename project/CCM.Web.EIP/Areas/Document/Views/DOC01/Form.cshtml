@@ -49,7 +49,9 @@
                             <tr>
                                 <th class="formTitle">發文部門</th>
                                 <td class="formValue">
-                                    <select id="DEPID" name="DEPID" class="form-control required" />
+                                    <select id="DEPID" name="DEPID" class="form-control required" >
+                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                                    </select>
                                     @*<input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入發文部門" />*@
                                 </td>
                                 <th class="formTitle">發文人員</th>
@@ -233,9 +235,9 @@
             id: "DEPID",
             text: "DEPNM"
         });
-        // 員工
+        // 員工 
         $("#EMPID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -369,8 +371,8 @@
     function InitBootGrid() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
-        if(vport!=80){
-            vport=':@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
         }
         var pathlink = 'http://' + vhost + vport + '/';
 
@@ -407,21 +409,18 @@
                         "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.SID + "\"><span class=\"fa fa-trash-o\"></span></button>";
                 }
             }
-        }).on("loaded.rs.jquery.bootgrid", function()
-        {
+        }).on("loaded.rs.jquery.bootgrid", function () {
 
             //alert('after load data');
             /* Executes after data is loaded and rendered */
-            $("#grid-attachfile").find(".command-link").on("click", function (e)
-            {
+            $("#grid-attachfile").find(".command-link").on("click", function (e) {
                 // 開啟檔案連結
                 window.open(pathlink + $(this).data("row-id"), '_blank');
-            }).end().find(".command-delete").on("click", function(e)
-            {
+            }).end().find(".command-delete").on("click", function (e) {
                 // 刪除檔案
                 $.ajax({
                     type: "POST",
-                    url: "/Document/DOC01/DeleteFile" ,
+                    url: "/Document/DOC01/DeleteFile",
                     data: { keyValue: $(this).data("row-id") },
                     dataType: "json",
                     async: true,
@@ -436,7 +435,7 @@
                             }, 500);
                             //重新整理附件列表
                             $('#grid-attachfile').bootgrid('reload');
-                            
+
                         }
                         else {
                             msg = "刪除失敗，原因：" + res.Message;
@@ -458,4 +457,17 @@
 
     }
 
+    $(document).ready(function () {
+
+        $('#DEPID').change(function () {
+            // 員工 by 部門
+            $("#EMPID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+
+
+    });
 </script>

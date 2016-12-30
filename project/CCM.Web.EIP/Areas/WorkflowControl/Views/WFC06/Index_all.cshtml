@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/WorkflowControl/WFC06/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+				    { label: "加班單號", name: "OVRTNO", width: 80, align: 'left' },
+				    {
+				        label: "送單日", name: "APPDATE", width: 80, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				    },
+				    {
+				        label: "加班日", name: "MRDT", width: 80, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				    },
+				    {
+				        label: "預計加班-起", name: "FETB", width: 120, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+
+				    },
+				    {
+				        label: "預計加班-迄", name: "FETE", width: 120, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				    },
+				    { label: "DETB", name: "DETB", hidden: true, width: 80, align: 'left' },
+				    { label: "DETE", name: "DETE", hidden: true, width: 80, align: 'left' },
+				    { label: "總時數", name: "DEMIN", width: 80, align: 'left' },
+				    { label: "REHRS", name: "REHRS", hidden: true, width: 80, align: 'left' },
+				    { label: "OVRTP", name: "OVRTP", hidden: true, width: 80, align: 'left' },
+				    { label: "加班原因", name: "DEREASON", width: 150, align: 'left' },
+				    { label: "狀態", name: "STATUS", width: 50, align: 'left' },
+				    { label: "部門", name: "DEPID", width: 60, align: 'left' },
+                    {
+                        label: "部門", name: "", width: 150, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
+                        }
+                    },
+                     {label: "工號", name: "EMPLYID", width: 80, align: 'left'},
+				    {
+				        label: "加單人員", name: "", width: 80, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+				        }
+				    },
+				    { label: "OWMON", name: "OWMON", hidden: true, width: 80, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+			sortname: 'OVRTNO asc,APPDATE desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/WorkflowControl/WFC06/Form",
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/WorkflowControl/WFC06/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/WorkflowControl/WFC06/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/WorkflowControl/WFC06/Details?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            btn: null,
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

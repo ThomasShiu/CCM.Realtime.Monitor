@@ -14,7 +14,7 @@ namespace CCM.Web.Data
 {
     public class EIPContext : DbContext
     {
-        private static string Conn = "EIPContext"; // EIPContext CCMDbContext IdentityConn
+        private static string Conn = "EIPContext"; // CCMDbContext IdentityConn
         public EIPContext() : base(Conn)
         {
             this.Configuration.AutoDetectChangesEnabled = false;

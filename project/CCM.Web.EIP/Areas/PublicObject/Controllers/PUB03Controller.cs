@@ -7,7 +7,7 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
-using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start;
 using System.Web.Mvc;
 
 //公務車預約
@@ -16,6 +16,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     public class PUB03Controller : ControllerBase
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
+        private CcmServices ccmService = new CcmServices();
+
+      
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -44,12 +47,20 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity PO_PUBLIC_OBJECT_BOOKINGEntity, string keyValue)
+        public ActionResult SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
-            tableApp.SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity, keyValue);
+            // 判斷該時段是否已有預約
+            string v_message = ccmService.chkPubObjExistBooking(tableEntity);
+            if (!string.IsNullOrEmpty(v_message))
+            {
+                return Error(v_message);
+            }
+
+            tableApp.SubmitForm(tableEntity , keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

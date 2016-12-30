@@ -73,7 +73,9 @@
                                 </td>  
                                 <th class="formTitle">簽收部門</th>
                                 <td class="formValue">
-                                    <select id="DEPID" name="DEPID" class="form-control required" />
+                                    <select id="DEPID" name="DEPID" class="form-control required" >
+                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                                    </select>
                                 </td>
                                 <th class="formTitle">簽收人員</th>
                                 <td class="formValue">

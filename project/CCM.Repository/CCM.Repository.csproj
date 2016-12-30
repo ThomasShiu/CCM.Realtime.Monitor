@@ -46,6 +46,7 @@
     <Compile Include="Human\CCM_Main_EmployeeRepository.cs" />
     <Compile Include="Human\HR_DEPRepository.cs" />
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
+    <Compile Include="Human\HR_OVRTM_TESTRepository.cs" />
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
     <Compile Include="OracleDbDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,16 +59,20 @@
     <Compile Include="SystemManage\AreaRepository.cs" />
     <Compile Include="SystemManage\OrganizeRepository.cs" />
     <Compile Include="SystemManage\RoleRepository.cs" />
-    <Compile Include="SystemManage\TEMP_USRPMSRepository.cs" />
+    <Compile Include="ERPManage\USRPMSRepository.cs" />
+    <Compile Include="SystemManage\OrderSeqRepository.cs" />
     <Compile Include="SystemManage\UserLogOnRepository.cs" />
     <Compile Include="SystemManage\UserRepository.cs" />
     <Compile Include="SystemManage\RoleAuthorizeRepository.cs" />
-    <Compile Include="SystemSecurity\USRNORepository.cs" />
+    <Compile Include="ERPManage\SS_CONNECT_COUNTRepository.cs" />
+    <Compile Include="ERPManage\USRNORepository.cs" />
     <Compile Include="SystemSecurity\ActionLogRepository.cs" />
     <Compile Include="SystemSecurity\DbBackupRepository.cs" />
     <Compile Include="SystemSecurity\FilterIPRepository.cs" />
     <Compile Include="SystemSecurity\LogRepository.cs" />
     <Compile Include="WorkflowManage\WF_DEPTMAPRepository.cs" />
+    <Compile Include="WorkflowManage\WF_RULEMRepository.cs" />
+    <Compile Include="WorkflowManage\WF_SIGNERRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Code\CCM.Code.csproj">

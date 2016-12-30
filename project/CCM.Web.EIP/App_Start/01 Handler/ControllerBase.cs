@@ -1,5 +1,6 @@
 ﻿using CCM.Code;
 using CCM.Web.EIP.App_Start;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 namespace CCM.Web.EIP
@@ -11,28 +12,30 @@ namespace CCM.Web.EIP
         {
             get { return LogFactory.GetLogger(this.GetType().ToString()); }
         }
-
-        [UserTraceLog]
         [HttpGet]
         [HandlerAuthorize]
+        [ActionTraceLog]
         public virtual ActionResult Index()
         {
             return View();
         }
-        [UserTraceLog]
+
         [HttpGet]
         [HandlerAuthorize]
+        [ActionTraceLog]
         public virtual ActionResult Form()
         {
             return View();
         }
-        [UserTraceLog]
+        
         [HttpGet]
         [HandlerAuthorize]
+        [ActionTraceLog]
         public virtual ActionResult Details()
         {
             return View();
         }
+
         protected virtual ActionResult Success(string message)
         {
             return Content(new AjaxResult { state = ResultType.success.ToString(), message = message }.ToJson());

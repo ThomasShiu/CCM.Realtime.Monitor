@@ -9,15 +9,21 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/WorkflowManage/WFC01/GetGridJson",
+            url: "/SystemSecurity/OrderSeq/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "DEPID", name: "DEPID", width: 80, align: 'left' },
-				                     { label: "RULEID", name: "RULEID", width: 80, align: 'left' },
-				                     { label: "ORDID", name: "ORDID", width: 80, align: 'left' },
-				                     { label: "DECSR", name: "DECSR", width: 80, align: 'left' },
+				                     { label: "NAME", name: "NAME", width: 80, align: 'left' },
+				                     { label: "TYPE", name: "TYPE", width: 80, align: 'left' },
+				                     { label: "PREFIX", name: "PREFIX", width: 80, align: 'left' },
+				                     { label: "CODEFORMAT", name: "CODEFORMAT", width: 80, align: 'left' },
+				                     { label: "NO_LENGTH", name: "NO_LENGTH", width: 80, align: 'left' },
+				                     { label: "CURRENT_NO", name: "CURRENT_NO", width: 80, align: 'left' },
+				                     { label: "CURRENT_ORDNO", name: "CURRENT_ORDNO", width: 80, align: 'left' },
+				                     { label: "CURRENT_YM", name: "CURRENT_YM", width: 80, align: 'left' },
+				                     { label: "RESETFLAG", name: "RESETFLAG", width: 80, align: 'left' },
+				                     { label: "STATUS", name: "STATUS", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -26,7 +32,7 @@
 				 				
             ],
 			pager: "#gridPager",
-            sortname: 'Id asc,CreatorTime desc',
+            sortname: 'SID asc,CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -39,7 +45,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/WorkflowManage/WFC01/Form",
+            url: "/SystemSecurity/OrderSeq/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -52,7 +58,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/WorkflowManage/WFC01/Form?keyValue=" + keyValue,
+            url: "/SystemSecurity/OrderSeq/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -62,7 +68,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/WorkflowManage/WFC01/DeleteForm",
+            url: "/SystemSecurity/OrderSeq/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -74,7 +80,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/WorkflowManage/WFC01/Details?keyValue=" + keyValue,
+            url: "/SystemSecurity/OrderSeq/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

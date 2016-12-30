@@ -47,5 +47,14 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
             var data = CCM_EmpApp.GetList(keyword);
             return Content(data.ToJson());
         }
+
+        WF_RULEMApp rulemApp = new WF_RULEMApp();
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetRULEM(string keyword)
+        {
+            var data = rulemApp.GetList(keyword);
+            return Content(data.ToJson());
+        }
     }
 }

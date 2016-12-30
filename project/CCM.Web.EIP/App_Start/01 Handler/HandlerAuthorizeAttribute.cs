@@ -1,5 +1,8 @@
 ﻿using CCM.Application.SystemManage;
+using CCM.Application.SystemSecurity;
 using CCM.Code;
+using CCM.Domain.Entity.SystemSecurity;
+using System;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +21,8 @@ namespace CCM.Web.EIP
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            //ActionLog(filterContext);
+            // admin 系統用戶，不檢查
             if (OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 return;
@@ -29,11 +34,32 @@ namespace CCM.Web.EIP
             if (!this.ActionAuthorize(filterContext))
             {
                 StringBuilder sbScript = new StringBuilder();
-                sbScript.Append("<script type='text/javascript'>alert('很抱歉！您的权限不足，访问被拒绝！');</script>");
+                sbScript.Append("<script type='text/javascript'>alert('很抱歉！您的許可權不足，訪問被拒絕');</script>");
                 filterContext.Result = new ContentResult() { Content = sbScript.ToString() };
                 return;
             }
         }
+
+       private void ActionLog(ActionExecutingContext filterContext)
+        {
+            if (filterContext.HttpContext.Request.UrlReferrer == null)
+                return;
+
+            var LoginInfo = OperatorProvider.Provider.GetCurrent(); // 登陸資訊
+            ActionLogEntity NewLog = new ActionLogEntity()
+            {
+                Refer = filterContext.HttpContext.Request.UrlReferrer.AbsolutePath,
+                Destination = filterContext.HttpContext.Request.Url.AbsolutePath,
+                Method = filterContext.HttpContext.Request.HttpMethod,
+                RequestTime = DateTime.Now,
+                IPAddress = filterContext.HttpContext.Request.UserHostAddress,
+                Operator = LoginInfo.UserCode,  // 工號
+                Browser = filterContext.HttpContext.Request.Browser.Browser
+            };
+            ActionLogApp app = new ActionLogApp();
+            app.SubmitForm(NewLog, "");
+        }
+
         private bool ActionAuthorize(ActionExecutingContext filterContext)
         {
             var operatorProvider = OperatorProvider.Provider.GetCurrent();

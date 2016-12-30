@@ -27,7 +27,7 @@
 				                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				                },
 				                { label: "受文單位", name: "OFFICIAL_NM", width: 180, align: 'left' },
-                                
+
 				                { label: "標題", name: "SUBJECT", width: 300, align: 'left' },
 				                {
 				                    label: "附件", name: "AttachFIle", width: 50, align: 'center',
@@ -48,27 +48,29 @@
                                         return top.clients.dataItems["DOCSTATUS"][cellvalue] == undefined ? "" : top.clients.dataItems["DOCSTATUS"][cellvalue]
                                     }
                                 },
-				                {
-				                    label: "發文人員", name: "EMPID", width: 80, align: 'left',
-				                    formatter: function (cellvalue) {
-				                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
-				                    }
-				                },
-                                 {
-                                     label: "發文人員", name: "CONTACT", width: 80, align: 'left'
-                                 },
                                 {
                                     label: "發文部門", name: "DEPID", width: 120, align: 'left',
                                     formatter: function (cellvalue) {
                                         return top.clients.dept[cellvalue] == null ? "" : top.clients.dept[cellvalue].fullname;
                                     }
                                 },
+                                 { label: "EMPID", name: "EMPID", hidden: true, width: 80, align: 'left', },
+				                {
+				                    label: "發文人員", name: "", width: 80, align: 'left',
+				                    formatter: function (cellvalue, options, rowObject) {
+				                        return top.clients.user[rowObject.EMPID] == null ? "" : top.clients.user[rowObject.EMPID].fullname;
+				                    }
+				                },
+                                 {
+                                     label: "連絡人", name: "CONTACT", hidden: true, width: 80, align: 'left'
+                                 },
+
 				                { label: "電話", name: "PHONE", hidden: true, width: 80, align: 'left' },
 				                { label: "分機", name: "PHONEEXTENSION", hidden: true, width: 50, align: 'left' },
 				                { label: "傳真", name: "FAX", hidden: true, width: 80, align: 'left' },
                                 { label: "正本", name: "Original", hidden: true, width: 100, align: 'left' },
                                 { label: "副本", name: "Duplicate", hidden: true, width: 100, align: 'left' },
-                                
+
             ],
             pager: "#gridPager",
             sortname: 'ISSUEID asc,ISSUEDATE desc',
@@ -93,7 +95,7 @@
             url: "/Document/DOC01/Form",
             width: "900px",
             height: "680px",
-            btn: null, 
+            btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -134,14 +136,15 @@
             btn: null,
         });
     }
-   
+
 
     function btn_print() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
-        var contact = $("#gridList").jqGridRowValue().CONTACT;
-        var username = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName'
+        var empid = $("#gridList").jqGridRowValue().EMPID;
+        var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+        
         //var guid = $("#gridList").jqGridRowValue().GUID;
-        if (contact == username | username == '超級管理員') {
+        if (empid == usercode | usercode == 'admin') {
             $.modalOpen({
                 id: "Form",
                 title: "列印",

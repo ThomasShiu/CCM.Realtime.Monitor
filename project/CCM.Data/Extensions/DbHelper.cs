@@ -13,7 +13,7 @@ namespace CCM.Data.Extensions
 {
     public class DbHelper
     {
-        private static string connstring = ConfigurationManager.ConnectionStrings["CCMDbContext"].ConnectionString;
+        private static string connstring = ConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString;
         public static int ExecuteSqlCommand(string cmdText)
         {
             using (DbConnection conn = new SqlConnection(connstring))

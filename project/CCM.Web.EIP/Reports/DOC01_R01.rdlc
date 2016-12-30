@@ -1135,7 +1135,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>EIPDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\Git_Source\CCM.Web.Manage\project\CCM.Web.EIP\EIPDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Git_Source\CCM.Web.Manage\project\CCM.Web.EIP\App_Data\EIPDataSet.xsd</rd:SchemaPath>
         <rd:TableName>FR_OFFIDOC_ISSUE</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

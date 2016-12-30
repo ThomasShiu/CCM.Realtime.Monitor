@@ -27,9 +27,9 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
         private CcmServices ccmService = new CcmServices();
 
+
         [HttpGet]
         [HandlerAjaxOnly]
-        [UserTraceLog]
         //public ActionResult GetGridJson(string keyword)
         //{
         //    var data = tableApp.GetList(keyword);
@@ -49,7 +49,6 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        [UserTraceLog]
         public ActionResult GetFormJson(string keyValue)
         {
             var data = tableApp.GetForm(keyValue);
@@ -145,7 +144,6 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         #endregion
 
         #region  刪除檔案
-        [UserTraceLog]
         [HttpPost]
         [HandlerAjaxOnly]
         //[ValidateAntiForgeryToken]
@@ -186,7 +184,6 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         #endregion
 
         #region 發文報表列印
-        [UserTraceLog]
         [HttpGet]
         [HandlerAuthorize]
         public ActionResult Print(string keyValue, string type = "PDF")

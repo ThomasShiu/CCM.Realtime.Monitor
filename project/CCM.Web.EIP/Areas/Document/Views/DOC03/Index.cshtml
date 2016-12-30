@@ -36,10 +36,11 @@
                                 return top.clients.dataItems["DOCSTATUS"][cellvalue] == undefined ? cellvalue : top.clients.dataItems["DOCSTATUS"][cellvalue]
                             }
                         },
+                        { label: "EMPID", name: "EMPID", hidden: true, width: 80, align: 'left'},
 				        {
-				            label: "簽收人員", name: "EMPID", width: 80, align: 'left',
-				            formatter: function (cellvalue) {
-				                return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+				            label: "簽收人員", name: "", width: 80, align: 'left',
+				            formatter: function (cellvalue, options, rowObject) {
+				                return top.clients.user[rowObject.EMPID] == null ? "" : top.clients.user[rowObject.EMPID].fullname;
 				            }
 				        },
 				        {

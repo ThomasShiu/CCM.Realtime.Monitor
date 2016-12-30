@@ -81,7 +81,7 @@ $.modalOpen = function (options) {
     var defaults = {
         id: null,
         title: '系統視窗',
-        width: "100px",
+        width: "300px",
         height: "100px",
         url: '',
         shade: 0.3,
@@ -135,6 +135,8 @@ $.modalAlert = function (content, type) {
     top.layer.alert(content, {
         icon: icon,
         title: "系統提示",
+        area: ['auto', 'auto'],
+        maxWidth : 500,
         btn: ['確認'],
         btnclass: ['btn btn-primary'],
     });
@@ -356,7 +358,7 @@ $.fn.bindSelect = function (options) {
     var defaults = {
         id: "id",
         text: "text",
-        search: false,
+        search: true,
         url: "",
         param: [],
         change: null

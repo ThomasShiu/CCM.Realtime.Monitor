@@ -19,17 +19,53 @@ using System.Web.Mvc;
 namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 {
 
-    public class PUB00Controller : ControllerBase
+    public class PUB00Controller : Controller
     {
         private PO_PUBLIC_OBJECTApp tableApp = new PO_PUBLIC_OBJECTApp();
+        private CcmServices ccmService = new CcmServices();
+        private StoreProcedure sp = new StoreProcedure();
 
         // 公共物件
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetPublicObject(string keyword)
         {
             var data = tableApp.GetList(keyword);
             return Content(data.ToJson());
         }
 
+        // 公共物件 by SID
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetPublicObjectSID(string keyword)
+        {
+            var data = tableApp.GetListSID(keyword);
+            return Content(data.ToJson());
+        }
+
+        // 判斷 平日/工作日
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSFT_NO(string queryJson)
+        {
+            bool v_YN = sp.GetSFT_NO(queryJson);
+            string result = v_YN ? "Y":"N";
+
+            //var data = tableApp.GetList(keyword);
+            return Content(result);
+        }
+
+        // 警衛名單
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGuardList(string keyword)
+        {
+            string v_sql = "SELECT USR_NO, USR_NM, USR_PW, DEPM_NO, DEPM_NM, E_MAIL  FROM PO_GUARDNO";
+            string result = ccmService.GetJson(v_sql);
+
+            //var data = tableApp.GetList(keyword);
+            return Content(result);
+        }
     }
 
 

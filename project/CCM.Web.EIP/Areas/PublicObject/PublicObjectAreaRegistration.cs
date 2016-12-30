@@ -15,9 +15,10 @@ namespace CCM.Web.EIP.Areas.PublicObject
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "PublicObject_default",
-                "PublicObject/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+               this.AreaName + "_Default",
+                this.AreaName + "/{controller}/{action}/{id}",
+                new { area = this.AreaName, controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new string[] { "CCM.Web.EIP.Areas." + this.AreaName + ".Controllers" }
             );
         }
     }

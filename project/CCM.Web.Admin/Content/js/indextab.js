@@ -31,6 +31,9 @@
         },
         activeTab: function () {
             var currentId = $(this).data('id');
+            if (currentId != "") {
+                top.$.cookie('nfine_currentmoduleid', currentId, { path: "/" });
+            }
             if (!$(this).hasClass('active')) {
                 $('.mainContent .NFine_iframe').each(function () {
                     if ($(this).data('id') == currentId) {
@@ -41,6 +44,8 @@
                 $(this).addClass('active').siblings('.menuTab').removeClass('active');
                 $.nfinetab.scrollToTab(this);
             }
+
+
         },
         closeOtherTabs: function () {
             $('.page-tabs-content').children("[data-id]").find('.fa-remove').parents('a').not(".active").each(function () {
@@ -119,12 +124,12 @@
                 return false;
             }
             $('.menuTab').each(function () {
-                if ($(this).data('id') == dataUrl) {
+                if ($(this).data('id') == dataId) {
                     if (!$(this).hasClass('active')) {
                         $(this).addClass('active').siblings('.menuTab').removeClass('active');
                         $.nfinetab.scrollToTab(this);
                         $('.mainContent .NFine_iframe').each(function () {
-                            if ($(this).data('id') == dataUrl) {
+                            if ($(this).data('id') == dataId) {
                                 $(this).show().siblings('.NFine_iframe').hide();
                                 return false;
                             }
@@ -135,9 +140,9 @@
                 }
             });
             if (flag) {
-                var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
+                var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataId + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
                 $('.menuTab').removeClass('active');
-                var str1 = '<iframe class="NFine_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+                var str1 = '<iframe class="NFine_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataId + '" seamless></iframe>';
                 $('.mainContent').find('iframe.NFine_iframe').hide();
                 $('.mainContent').append(str1);
                 $.loading(true);

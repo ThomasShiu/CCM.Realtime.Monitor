@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: WF_DEPTMAP
-	public class WF_DEPTMAPMap : EntityTypeConfiguration<WF_DEPTMAPEntity>
+	//mapping table name: Sys_Order_Seq
+	public class Sys_Order_SeqMap : EntityTypeConfiguration<Sys_Order_SeqEntity>
     {
-        public WF_DEPTMAPMap()
+        public Sys_Order_SeqMap()
         {
-            this.ToTable("WF_DEPTMAP");
+            this.ToTable("Sys_Order_Seq");
             this.HasKey(t => t.SID);
         }
     }

@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class WF_DEPTMAPApp
+public class Sys_Order_SeqApp
     {
-        private IWF_DEPTMAPRepository service = new WF_DEPTMAPRepository();     
+        private ISys_Order_SeqRepository service = new Sys_Order_SeqRepository();     
 
-	public List<WF_DEPTMAPEntity> GetList(string keyword = "")
+	public List<Sys_Order_SeqEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<WF_DEPTMAPEntity>();
+            var expression = ExtLinq.True<Sys_Order_SeqEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class WF_DEPTMAPApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<WF_DEPTMAPEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<Sys_Order_SeqEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<WF_DEPTMAPEntity>();
+            var expression = ExtLinq.True<Sys_Order_SeqEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class WF_DEPTMAPApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public WF_DEPTMAPEntity GetForm(string keyValue)
+        public Sys_Order_SeqEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class WF_DEPTMAPApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(WF_DEPTMAPEntity tableEntity, string keyValue)
+        public void SubmitForm(Sys_Order_SeqEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
