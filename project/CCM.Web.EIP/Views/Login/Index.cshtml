@@ -31,7 +31,7 @@
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="row">
-                    <input id="txt_password" type="password" placeholder="登錄密碼">
+                    <input id="txt_password" type="password" placeholder="登入密碼">
                     <i class="fa fa-key"></i>
                 </div>
                 <div class="row">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button id="login_button" type="button"><span>登錄</span></button>
+                    <button id="login_button" type="button"><span>登入</span></button>
                 </div>
                 <div class="row">
                 </div>
@@ -101,7 +101,7 @@
                         $.login.formMessage('請輸入驗證碼。');
                         return false;
                     } else {
-                        $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
+                        $("#login_button").attr('disabled', 'disabled').find('span').html("載入中...");
                         $.ajax({
                             url: "/Login/CheckLogin",
                             data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
@@ -109,7 +109,7 @@
                             dataType: "json",
                             success: function (data) {
                                 if (data.state == "success") {
-                                    $("#login_button").find('span').html("登錄成功，正在跳轉...");
+                                    $("#login_button").find('span').html("登入成功，正在跳轉...");
                                     window.setTimeout(function () {
                                         window.location.href = "/Home/Index";
                                     }, 500);

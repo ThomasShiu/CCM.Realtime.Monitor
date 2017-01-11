@@ -14,7 +14,8 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
     public class WFC00Controller : ControllerBase
     {
         private WF_SIGNERApp tableApp = new WF_SIGNERApp();
-
+        private StoreProcedure sp = new StoreProcedure();
+        
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
@@ -42,7 +43,44 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
-       
+
+        #region 送簽
+        [HttpGet]
+        //[HandlerAuthorize]
+        [HandlerAjaxOnly]
+        public ActionResult SendSign(string keyValue)
+        {
+            var data=  sp.GenSign(keyValue);
+            if (data == "success") { 
+                return Success("送簽成功。");
+            }
+            else
+            {
+                return Error("送簽失敗。");
+            }
+            //return Content(data.ToJson());
+        }
+        #endregion
+
+        #region 撤簽
+        [HttpGet]
+        //[HandlerAuthorize]
+        [HandlerAjaxOnly]
+        public ActionResult RejectSign(string keyValue,string act)
+        {
+            var data = sp.SetSign(keyValue, act);
+            if (data == "success")
+            {
+                return Success("撤簽成功。");
+            }
+            else
+            {
+                return Error("撤簽失敗。");
+            }
+            //return Content(data.ToJson());
+        }
+        #endregion
+
     }
 
 

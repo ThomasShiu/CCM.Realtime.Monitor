@@ -101,7 +101,7 @@
                         $.login.formMessage('請輸入驗證碼。');
                         return false;
                     } else {
-                        $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
+                        $("#login_button").attr('disabled', 'disabled').find('span').html("載入中...");
                         $.ajax({
                             url: "/Login/CheckLogin",
                             data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
@@ -109,7 +109,7 @@
                             dataType: "json",
                             success: function (data) {
                                 if (data.state == "success") {
-                                    $("#login_button").find('span').html("登錄成功，正在跳轉...");
+                                    $("#login_button").find('span').html("登入成功，正在跳轉...");
                                     window.setTimeout(function () {
                                         window.location.href = "/Home/Index";
                                     }, 500);

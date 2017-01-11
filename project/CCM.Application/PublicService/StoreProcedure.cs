@@ -13,30 +13,25 @@ namespace CCM.Application
     public class StoreProcedure
     {
         #region 產生簽核途程
-        public string GenSign(string v_type, string v_prefix, int v_count = 1)
+        public string GenSign(string v_ovrtno)
         {
-            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString);
+            int routeLevel = 0;
 
-            SqlCommand cmd = new SqlCommand("SP_GEN_ORDNO", db);
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString);
+            SqlCommand cmd = new SqlCommand("SP_GEN_SIGNROUTE_TEST", db);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@TYPE", SqlDbType.VarChar, 12);
-            cmd.Parameters["@TYPE"].Value = v_type;
-            cmd.Parameters.Add("@PREFIX", SqlDbType.VarChar, 20);
-            cmd.Parameters["@PREFIX"].Value = v_prefix;
-            cmd.Parameters.Add("@COUNT", SqlDbType.Int);
-            cmd.Parameters["@COUNT"].Value = v_count;
-            DataTable dt = new DataTable();
-            string v_orderNo = "";
-            //SqlParameter retValParam = cmd.Parameters.Add("@OutputData", SqlDbType.VarChar, 250);
+            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
+            cmd.Parameters["@OVRTNO"].Value = v_ovrtno; 
+            cmd.Parameters.Add("@_j", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            //DataTable dt = new DataTable();
+            //SqlParameter retValParam = cmd.Parameters.Add("@OutputData", SqlDbType.VarChar,250);
             //retValParam.Direction = ParameterDirection.Output;
-
             try
             {
                 db.Open();
-                dt.Load(cmd.ExecuteReader());
-                v_orderNo = dt.Rows[0]["FROM_NO"].ToString();
-                //cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+                routeLevel = (int)cmd.Parameters["@_j"].Value;
 
             }
             catch (Exception ex)
@@ -47,8 +42,55 @@ namespace CCM.Application
             {
                 db.Close();
             }
+            if (routeLevel > 0)
+            {
+                return "success";
+            }
+            else {
+                return "error";
+            }
+        }
+        #endregion
 
-            return v_orderNo;
+        #region 簽核作業
+        public string SetSign(string v_ovrtno,string v_action)
+        {
+            string routeLevel = "";
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString);
+            SqlCommand cmd = new SqlCommand("SP_SET_SIGNROUTE_TEST", db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@ACTION", SqlDbType.VarChar, 20);
+            cmd.Parameters["@ACTION"].Value = v_action;
+            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
+            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
+            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar,50).Direction = System.Data.ParameterDirection.ReturnValue;
+
+            try
+            {
+                db.Open();
+                cmd.ExecuteNonQuery();
+                routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                //dt.Load(cmd.ExecuteReader());
+                //routeLevel = int.Parse(dt.Rows[0].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (!routeLevel.Equals(""))
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
         }
         #endregion
 

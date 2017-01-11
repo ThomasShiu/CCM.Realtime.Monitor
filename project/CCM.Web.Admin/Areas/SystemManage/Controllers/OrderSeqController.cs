@@ -6,11 +6,12 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.SystemManage.Controllers
+namespace CCM.Web.Admin.Areas.SystemManage.Controllers
 {
     public class OrderSeqController : ControllerBase
     {
@@ -46,9 +47,9 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(Sys_Order_SeqEntity Sys_Order_SeqEntity, string keyValue)
+        public ActionResult SubmitForm(OrderSeqEntity entity, string keyValue)
         {
-            tableApp.SubmitForm(Sys_Order_SeqEntity, keyValue);
+            tableApp.SubmitForm(entity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

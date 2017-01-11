@@ -42,6 +42,13 @@ namespace CCM.Application
                 expression = expression.And(t => t.Subject.Contains(keyword));
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
+
+            // 關鍵字2
+            if (!queryParam["keyword2"].IsEmpty())
+            {
+                string keyword = queryParam["keyword2"].ToString();
+                expression = expression.And(t => t.ObjectSID.Contains(keyword));
+            }
             // 日期條件
             if (!queryParam["timeType"].IsEmpty())
             {

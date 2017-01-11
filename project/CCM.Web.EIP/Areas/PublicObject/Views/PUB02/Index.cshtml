@@ -7,6 +7,13 @@
     var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
     $(function () {
         gridList();
+
+        // 公共物件
+        $("#ObjectSID").bindSelect({
+            url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
+            id: "SID",
+            text: "ObjectNM"
+        });
     })
     function gridList() {
         var $gridList = $("#gridList");
@@ -101,6 +108,7 @@
             var timeType = $("#time_horizon a.active").attr('data-value');
             var queryJson = {
                 keyword: $("#txt_keyword").val(),
+                keyword2: $('#ObjectSID').val(),
                 timeType: $("#time_horizon a.active").attr('data-value'),
             }
             $gridList.jqGrid('setGridParam', {
@@ -242,7 +250,10 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="說明" style="width: 100px;">
+                        <select id="ObjectSID" name="ObjectSID" class="form-control "  style="width: 200px;">
+                            <option value=""></option>
+                        </select>
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>
