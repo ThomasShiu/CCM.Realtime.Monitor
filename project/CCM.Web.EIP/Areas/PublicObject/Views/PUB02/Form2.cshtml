@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/PublicObject/PUB03/GetFormJson",
+                url: "/PublicObject/PUB02/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -57,7 +57,7 @@
             return false;
         }
         $.submitForm({
-            url: "/PublicObject/PUB03/SubmitForm2?keyValue=" + keyValue,
+            url: "/PublicObject/PUB02/SubmitForm2?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

@@ -31,7 +31,7 @@ namespace CCM.Application
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "Sys_Order_Seq"; 
+			restrictions[2] = "BU_ORDERS_SOTRE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 

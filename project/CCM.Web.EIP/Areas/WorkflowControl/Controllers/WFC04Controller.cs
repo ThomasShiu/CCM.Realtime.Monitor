@@ -8,7 +8,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 {
     public class WFC04Controller : Controller
     {
-        //
+        // 預留
         // GET: /WorkflowControl/WFC04/
 
         public ActionResult Index()

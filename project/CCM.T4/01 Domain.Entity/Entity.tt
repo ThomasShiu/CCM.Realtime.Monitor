@@ -27,7 +27,7 @@ namespace CCM.Domain
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "PO_PUBLIC_OBJECT_BOOKING"; 
+			restrictions[2] = "BU_ORDERS_SOTRE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 

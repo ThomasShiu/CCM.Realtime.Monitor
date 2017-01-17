@@ -4,6 +4,7 @@
  * Description: CCM快速开发平台
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+using CCM.Application;
 using CCM.Application.SystemManage;
 using CCM.Code;
 using CCM.Domain.Entity.SystemManage;
@@ -16,6 +17,8 @@ namespace CCM.Web.EIP.Controllers
     [HandlerLogin]
     public class HomeController : Controller
     {
+        private CcmServices cs = new CcmServices();
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -36,6 +39,31 @@ namespace CCM.Web.EIP.Controllers
         public ActionResult About()
         {
             return View();
+        }
+        // 特約廠商
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetVendor() {
+            var result = cs.GetVendorList();
+            var data = new
+            {
+                Vendors = result
+            };
+
+            return Content(data.ToJson());
+        }
+        // 公佈欄
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetBulletin()
+        {
+            var result = cs.GetBulletinList();
+            var data = new
+            {
+                Bulletin = result
+            };
+
+            return Content(data.ToJson());
         }
     }
 }

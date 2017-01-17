@@ -11,47 +11,33 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: PO_PUBLIC_OBJECT_BOOKING
-			public class PO_PUBLIC_OBJECT_BOOKINGEntity  : IEntityCcm<PO_PUBLIC_OBJECT_BOOKINGEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: BU_ORDERS_SOTRE
+			public class BU_ORDERS_SOTREEntity  : IEntityCcm<BU_ORDERS_SOTREEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public String ObjectType  { get; set; }                                        
+				public String Name  { get; set; }                                        
 				          
-				public String UseReason  { get; set; }                                        
+				public String Phone  { get; set; }                                        
 				          
-				public String Subject  { get; set; }                                        
+				public String Fax  { get; set; }                                        
 				          
-				public String Description  { get; set; }                                        
+				public String Address  { get; set; }                                        
 				          
-				public String EmployeeID  { get; set; }                                        
+				public String Contact  { get; set; }                                        
 				          
-				public String DepartmentID  { get; set; }                                        
+				public Int32 SubsidizeAmount  { get; set; }                                        
 				          
-				public String ObjectSID  { get; set; }                                        
+				public String ContributingVendor  { get; set; }                                        
 				          
-				public DateTime BookingStartTime  { get; set; }                                        
+				public String WebSiteURL  { get; set; }                                        
 				          
-				public DateTime BookingEndTime  { get; set; }                                        
+				public String Offer  { get; set; }                                        
 				          
-				public DateTime CreateTime  { get; set; }                                        
+				public String Remark  { get; set; }                                        
 				          
-				public String AttendEmp  { get; set; }                                        
-				          
-				public Int64 ProjectSID  { get; set; }                                        
-				          
-				public Int32 Mileage  { get; set; }                                        
-				          
-				public Int32 MileageLast  { get; set; }                                        
-				          
-				public String Status  { get; set; }                                        
-				          
-				public String LeaveTime  { get; set; }                                        
-				          
-				public String BackTime  { get; set; }                                        
-				          
-				public String GuardEMPID  { get; set; }                                        
+				public Int32 SortCode  { get; set; }                                        
 				          
 				public String OrganizeId  { get; set; }                                        
 				          

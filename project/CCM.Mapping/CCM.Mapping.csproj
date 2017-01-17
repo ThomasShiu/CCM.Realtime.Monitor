@@ -55,9 +55,10 @@
     <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
-    <Compile Include="Human\HR_OVRTM_TESTMap.cs" />
+    <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicObject\BU_ORDERS_SOTREMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />

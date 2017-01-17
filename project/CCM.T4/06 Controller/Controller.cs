@@ -12,9 +12,9 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.xxxx.Controllers
 {
-    public class Sys_Order_SeqController : ControllerBase
+    public class BU_ORDERS_SOTREController : ControllerBase
     {
-        private Sys_Order_SeqApp tableApp = new Sys_Order_SeqApp();
+        private BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +46,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(Sys_Order_SeqEntity Sys_Order_SeqEntity, string keyValue)
+        public ActionResult SubmitForm(BU_ORDERS_SOTREEntity BU_ORDERS_SOTREEntity, string keyValue)
         {
-            tableApp.SubmitForm(Sys_Order_SeqEntity, keyValue);
+            tableApp.SubmitForm(BU_ORDERS_SOTREEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

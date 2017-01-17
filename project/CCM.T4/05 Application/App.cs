@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class Sys_Order_SeqApp
+public class BU_ORDERS_SOTREApp
     {
-        private ISys_Order_SeqRepository service = new Sys_Order_SeqRepository();     
+        private IBU_ORDERS_SOTRERepository service = new BU_ORDERS_SOTRERepository();     
 
-	public List<Sys_Order_SeqEntity> GetList(string keyword = "")
+	public List<BU_ORDERS_SOTREEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<Sys_Order_SeqEntity>();
+            var expression = ExtLinq.True<BU_ORDERS_SOTREEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class Sys_Order_SeqApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<Sys_Order_SeqEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<BU_ORDERS_SOTREEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<Sys_Order_SeqEntity>();
+            var expression = ExtLinq.True<BU_ORDERS_SOTREEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class Sys_Order_SeqApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public Sys_Order_SeqEntity GetForm(string keyValue)
+        public BU_ORDERS_SOTREEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class Sys_Order_SeqApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(Sys_Order_SeqEntity tableEntity, string keyValue)
+        public void SubmitForm(BU_ORDERS_SOTREEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

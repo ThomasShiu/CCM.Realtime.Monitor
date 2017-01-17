@@ -20,6 +20,15 @@
                     showPublicObject($('#ObjectSID').children('option:selected').val());
                 }
             });
+            //$('#AttendDeptID').removeAttr('required');
+            //$('#AttendEmplyID').removeAttr('required');
+            //$("#AttendDeptID").prop('required', false);
+            //$("#AttendEmplyID").prop('required', false);
+        } else {
+           
+            $("#AttendDeptID").attr("required", "true");
+            $("#AttendEmplyID").attr("required", "true");
+            
         }
     });
     function initControl() {
@@ -204,7 +213,7 @@
                 </td>
                 <th class="formTitle">外出人員部門</th>
                 <td class="formValue">
-                    <select id="AttendDeptID" name="AttendDeptID" class="form-control required">
+                    <select id="AttendDeptID" name="AttendDeptID" class="form-control ">
                         <option></option>
                     </select>
                 </td>
@@ -226,7 +235,7 @@
                 </td>
                 <th class="formTitle">外出人員</th>
                 <td class="formValue">
-                    <select id="AttendEmplyID" name="AttendEmplyID" class="form-control required">
+                    <select id="AttendEmplyID" name="AttendEmplyID" class="form-control ">
                         <option></option>
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
@@ -268,12 +277,12 @@
             <tr>
                 <th class="formTitle">詳細說明</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Description" name="Description" class="form-control" style="height: 50px;"></textarea>
+                    <textarea id="Description" name="Description" class="form-control required" style="height: 50px;"></textarea>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;"/></th>
-                <td class="formValue" colspan="2">
+                <th class="formTitle" colspan="3"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;"/></th>
+                <td class="formValue" colspan="3">
                     <span id="ObjectNM" name="ObjectNM"></span>
                     <br /><br /><br />
                     <span id="ObjectDescr" name="ObjectDescr"></span>

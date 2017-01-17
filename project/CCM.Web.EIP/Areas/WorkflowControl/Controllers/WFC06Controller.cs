@@ -16,8 +16,8 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 {
     public class WFC06Controller : ControllerBase
     {
-        private HR_OVRTM_TESTApp tableApp = new HR_OVRTM_TESTApp();
-        private CcmServices ccmService = new CcmServices();
+        private HR_OVRTMApp tableApp = new HR_OVRTMApp();
+        private CcmServices cs = new CcmServices();
 
         [HttpGet]
         [HandlerAuthorize]
@@ -70,15 +70,22 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(HR_OVRTM_TESTEntity tableEntity, string keyValue)
+        public ActionResult SubmitForm(HR_OVRTMEntity tableEntity, string keyValue)
         {
-            if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
+            var chkovrtm = cs.chkOverTime(tableEntity);
+            // 加班規則檢查
+            if (chkovrtm.Length > 0) {
+                return Error("錯誤碼:"+chkovrtm[0]+" : "+ chkovrtm[1]);
+            }
+            // 新建模式才判斷時段是否重複
+            if (string.IsNullOrEmpty(keyValue)) 
             {
                 // 判斷該加班時段是否已有預約
-                string v_message = ccmService.chkOverTimeDup(tableEntity);
+                string v_message = cs.chkOverTimeDup(tableEntity);
                 if (!string.IsNullOrEmpty(v_message))
                 {
                     return Error(v_message);
@@ -87,6 +94,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             tableApp.SubmitForm(tableEntity, keyValue);
             return Success("操作成功。");
         }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
@@ -97,16 +105,9 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             return Success("删除成功。");
         }
 
-        [HttpPost]
-        [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult SubmitSign(string keyValue)
-        {
-            // todo 呼叫Store Procedure
+        
 
-            //sp.GetDeptByEmplyid(tableEntity.EMPLYID, "DEPID");
-            return Success("送簽成功。");
-        }
+       
     }
 
 

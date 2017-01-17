@@ -4,16 +4,21 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
-using CCM.Data;
 using CCM.Domain;
-using CCM.Domain.Entity;
+using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Repository
+namespace CCM.Mapping
 {
 
     //mapping table name: HR_OVRTM_TEST
-    public class HR_OVRTM_TESTRepository : HrsRepositoryBase<HR_OVRTM_TESTEntity>, IHR_OVRTM_TESTRepository
+    public class HR_OVRTMMap : EntityTypeConfiguration<HR_OVRTMEntity>
     {
+        public HR_OVRTMMap()
+        {
+            this.ToTable("HR_OVRTM_TEST");
+            this.HasKey(t => t.OVRTNO);
+        }
     }
+
 }

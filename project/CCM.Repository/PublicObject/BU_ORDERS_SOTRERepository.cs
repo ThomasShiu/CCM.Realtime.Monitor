@@ -5,16 +5,15 @@
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Data;
+using CCM.Domain;
 using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
-namespace CCM.Domain
+namespace CCM.Repository
 {
 
-    //mapping table name: HR_OVRTM_TEST
-    public interface IHR_OVRTM_TESTRepository : IHrsRepositoryBase<HR_OVRTM_TESTEntity>
+    //mapping table name: BU_ORDERS_SOTRE
+    public class BU_ORDERS_SOTRERepository : RepositoryBase<BU_ORDERS_SOTREEntity>, IBU_ORDERS_SOTRERepository
     {
     }
-
-
 }

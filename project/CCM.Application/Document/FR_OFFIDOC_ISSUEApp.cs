@@ -15,8 +15,9 @@ namespace CCM.Application
     {
         private IFR_OFFIDOC_ISSUERepository service = new FR_OFFIDOC_ISSUERepository();
         private IFR_OFFIDOC_ISSUE_ATTACH_FILERepository service2 = new FR_OFFIDOC_ISSUE_ATTACH_FILERepository();
+        private CcmServices cs = new CcmServices();
 
-        private StoreProcedure sp = new StoreProcedure();
+        //private StoreProcedure sp = new StoreProcedure();
 
         public List<FR_OFFIDOC_ISSUEEntity> GetList(string keyword = "")
         {
@@ -70,7 +71,7 @@ namespace CCM.Application
             }
             else
             {
-                tableEntity.ISSUEID = sp.GetOrdNo("DOC_ISSUE", (tableEntity.COMPANY=="0"?"精湛字第": (tableEntity.COMPANY == "1"?"全盈字第":"全盈(桃)字第")), 1);
+                tableEntity.ISSUEID = cs.GetOrdNo("DOC_ISSUE", (tableEntity.COMPANY=="0"?"精湛字第": (tableEntity.COMPANY == "1"?"全盈字第":"全盈(桃)字第")), 1);
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }

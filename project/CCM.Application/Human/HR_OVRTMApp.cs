@@ -14,14 +14,14 @@ using CCM.Repository;
 namespace CCM.Application
 {
 
-    public class HR_OVRTM_TESTApp
+    public class HR_OVRTMApp
     {
-        private IHR_OVRTM_TESTRepository service = new HR_OVRTM_TESTRepository();
-        private StoreProcedure sp = new StoreProcedure();
+        private IHR_OVRTMRepository service = new HR_OVRTMRepository();
+        private CcmServices cs = new CcmServices();
 
-        public List<HR_OVRTM_TESTEntity> GetList(string keyword = "")
+        public List<HR_OVRTMEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<HR_OVRTM_TESTEntity>();
+            var expression = ExtLinq.True<HR_OVRTMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OVRTNO.Contains(keyword));
@@ -30,9 +30,9 @@ namespace CCM.Application
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.OVRTNO).ToList();
         }
-        public List<HR_OVRTM_TESTEntity> GetList(Pagination pagination, string keyword = "")
+        public List<HR_OVRTMEntity> GetList(Pagination pagination, string keyword = "")
         {
-            var expression = ExtLinq.True<HR_OVRTM_TESTEntity>();
+            var expression = ExtLinq.True<HR_OVRTMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OVRTNO.Contains(keyword));
@@ -43,11 +43,13 @@ namespace CCM.Application
             return service.FindList(expression, pagination);
         }
 
+ 
+
         // 個人加班單
-        public List<HR_OVRTM_TESTEntity> GetListEmp(Pagination pagination, string keyword = "")
+        public List<HR_OVRTMEntity> GetListEmp(Pagination pagination, string keyword = "")
         {
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            var expression = ExtLinq.True<HR_OVRTM_TESTEntity>();
+            var expression = ExtLinq.True<HR_OVRTMEntity>();
             expression = expression.And(t => t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
 
             if (!string.IsNullOrEmpty(keyword))
@@ -59,7 +61,7 @@ namespace CCM.Application
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public HR_OVRTM_TESTEntity GetForm(string keyValue)
+        public HR_OVRTMEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -69,7 +71,7 @@ namespace CCM.Application
             service.Delete(t => t.OVRTNO == keyValue);
 
         }
-        public void SubmitForm(HR_OVRTM_TESTEntity tableEntity, string keyValue)
+        public void SubmitForm(HR_OVRTMEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -79,8 +81,8 @@ namespace CCM.Application
             else
             {
                 // todo 判斷平日、假日  ， 取得部門代碼、部門名稱
-                tableEntity.OVRTNO = sp.GetOrdNo("OVERTIME", "OT", 1);
-                tableEntity.DEPID = sp.GetDeptByEmplyid(tableEntity.EMPLYID, "DEPID");
+                tableEntity.OVRTNO = cs.GetOrdNo("OVERTIME", "OT", 1);
+                tableEntity.DEPID = cs.GetDeptByEmplyid(tableEntity.EMPLYID, "DEPID");
                 tableEntity.APPDATE = DateTime.Now;
                 tableEntity.EXC_INSDATE= DateTime.Now;
 

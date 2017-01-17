@@ -6,6 +6,9 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -14,8 +17,9 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
     public class WFC00Controller : ControllerBase
     {
         private WF_SIGNERApp tableApp = new WF_SIGNERApp();
-        private StoreProcedure sp = new StoreProcedure();
-        
+        //private StoreProcedure sp = new StoreProcedure();
+        private CcmServices cs = new CcmServices();
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
@@ -46,12 +50,12 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         #region 送簽
         [HttpGet]
-        //[HandlerAuthorize]
         [HandlerAjaxOnly]
         public ActionResult SendSign(string keyValue)
         {
-            var data=  sp.GenSign(keyValue);
-            if (data == "success") { 
+            var data = cs.GenSign(keyValue);
+            if (data == "success")
+            {
                 return Success("送簽成功。");
             }
             else
@@ -64,11 +68,10 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         #region 撤簽
         [HttpGet]
-        //[HandlerAuthorize]
         [HandlerAjaxOnly]
-        public ActionResult RejectSign(string keyValue,string act)
+        public ActionResult RejectSign(string keyValue, string act)
         {
-            var data = sp.SetSign(keyValue, act);
+            var data = cs.SetSign(keyValue, act);
             if (data == "success")
             {
                 return Success("撤簽成功。");
@@ -78,6 +81,25 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
                 return Error("撤簽失敗。");
             }
             //return Content(data.ToJson());
+        }
+        #endregion
+
+        #region 簽核途程
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult getSignList(string keyValue)
+        {
+            var rows = cs.getSignList(keyValue);
+            //rows = rows.Replace("\r\n", "").Replace(" ", "").Replace("\\", "\"").Trim();
+
+            var data = new
+            {
+                current = 1,
+                rowCount = 10,
+                rows = rows,
+                total = rows.Count
+            };
+            return Content(data.ToJson());
         }
         #endregion
 

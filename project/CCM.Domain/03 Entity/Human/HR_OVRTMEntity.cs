@@ -12,7 +12,7 @@ namespace CCM.Domain
 {
 
     //mapping table name: HR_OVRTM_TEST
-    public class HR_OVRTM_TESTEntity : IEntityHrs<HR_OVRTM_TESTEntity> ,ICreationAuditedHrs, IModificationAuditedHrs
+    public class HR_OVRTMEntity : IEntityHrs<HR_OVRTMEntity> ,ICreationAuditedHrs, IModificationAuditedHrs
     {
 
         public String OVRTNO { get; set; }

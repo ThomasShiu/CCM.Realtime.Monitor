@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: Sys_Order_Seq
-	public interface ISys_Order_SeqRepository : IRepositoryBase<Sys_Order_SeqEntity>
+	//mapping table name: BU_ORDERS_SOTRE
+	public interface IBU_ORDERS_SOTRERepository : IRepositoryBase<BU_ORDERS_SOTREEntity>
     {
     }
 			 		                               

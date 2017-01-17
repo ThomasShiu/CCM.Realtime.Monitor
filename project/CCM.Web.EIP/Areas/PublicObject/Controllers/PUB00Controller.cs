@@ -22,8 +22,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     public class PUB00Controller : Controller
     {
         private PO_PUBLIC_OBJECTApp tableApp = new PO_PUBLIC_OBJECTApp();
-        private CcmServices ccmService = new CcmServices();
-        private StoreProcedure sp = new StoreProcedure();
+        private CcmServices cs = new CcmServices();
 
         // 公共物件
         [HttpGet]
@@ -43,25 +42,14 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             return Content(data.ToJson());
         }
 
-        // 判斷 平日/工作日
-        [HttpGet]
-        [HandlerAjaxOnly]
-        public ActionResult GetSFT_NO(string queryJson)
-        {
-            bool v_YN = sp.GetSFT_NO(queryJson);
-            string result = v_YN ? "Y":"N";
-
-            //var data = tableApp.GetList(keyword);
-            return Content(result);
-        }
-
         // 警衛名單
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGuardList(string keyword)
         {
-            string v_sql = "SELECT USR_NO, USR_NM, USR_PW, DEPM_NO, DEPM_NM, E_MAIL  FROM PO_GUARDNO";
-            string result = ccmService.GetJson(v_sql);
+            //string v_sql = "SELECT USR_NO, USR_NM, USR_PW, DEPM_NO, DEPM_NM, E_MAIL  FROM PO_GUARDNO";
+            //string result = ccmService.GetJson(v_sql);
+            string result = cs.getGuardList();
 
             //var data = tableApp.GetList(keyword);
             return Content(result);

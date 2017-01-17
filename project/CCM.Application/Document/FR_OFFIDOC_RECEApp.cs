@@ -18,7 +18,7 @@ namespace CCM.Application
     {
         private IFR_OFFIDOC_RECERepository service = new FR_OFFIDOC_RECERepository();
         private IFR_OFFIDOC_RECE_ATTACH_FILERepository service2 = new FR_OFFIDOC_RECE_ATTACH_FILERepository();
-        private StoreProcedure sp = new StoreProcedure();
+        private CcmServices cs = new CcmServices();
 
         public List<FR_OFFIDOC_RECEEntity> GetList(string keyword = "")
         {
@@ -79,7 +79,7 @@ namespace CCM.Application
             }
             else
             {
-                tableEntity.RECEIVEID = sp.GetOrdNo("DOC_RECEIVE", "", 1);
+                tableEntity.RECEIVEID = cs.GetOrdNo("DOC_RECEIVE", "", 1);
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }

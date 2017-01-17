@@ -261,6 +261,52 @@ $.deleteForm = function (options) {
     });
 
 }
+$.confirmForm = function (options) {
+    var defaults = {
+        prompt: "注：您確定要刪除該項資料嗎？",
+        url: "",
+        param: [],
+        loading: "正在刪除資料...",
+        success: null,
+        close: true
+    };
+    var options = $.extend(defaults, options);
+    if ($('[name=__RequestVerificationToken]').length > 0) {
+        options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+    }
+    $.modalConfirm(options.prompt, function (r) {
+        if (r) {
+            $.loading(true, options.loading);
+            window.setTimeout(function () {
+                $.ajax({
+                    url: options.url,
+                    data: options.param,
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.state == "success") {
+                            options.success(data);
+                            $.modalMsg(data.message, data.state);
+                        } else {
+                            $.modalAlert(data.message, data.state);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $.loading(false);
+                        $.modalMsg(errorThrown, "error");
+                    },
+                    beforeSend: function () {
+                        $.loading(true, options.loading);
+                    },
+                    complete: function () {
+                        $.loading(false);
+                    }
+                });
+            }, 500);
+        }
+    });
+
+}
 $.jsonWhere = function (data, action) {
     if (action == null) return;
     var reval = new Array();

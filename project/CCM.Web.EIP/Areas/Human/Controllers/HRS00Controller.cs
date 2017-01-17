@@ -16,6 +16,7 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
         // GET: /Human/HRS00/
 
         private HR_DEPApp DepApp = new HR_DEPApp();
+        private CcmServices cs = new CcmServices();
 
         // 部門
         [HttpGet]
@@ -55,6 +56,18 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
         {
             var data = rulemApp.GetList(keyword);
             return Content(data.ToJson());
+        }
+
+        // 判斷 平日/工作日
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSFT_NO(string queryJson)
+        {
+            bool v_YN = cs.GetSFT_NO(queryJson);
+            string result = v_YN ? "Y" : "N";
+
+            //var data = tableApp.GetList(keyword);
+            return Content(result);
         }
     }
 }

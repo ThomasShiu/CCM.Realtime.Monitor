@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: Sys_Order_Seq
-	public class Sys_Order_SeqMap : EntityTypeConfiguration<Sys_Order_SeqEntity>
+	//mapping table name: BU_ORDERS_SOTRE
+	public class BU_ORDERS_SOTREMap : EntityTypeConfiguration<BU_ORDERS_SOTREEntity>
     {
-        public Sys_Order_SeqMap()
+        public BU_ORDERS_SOTREMap()
         {
-            this.ToTable("Sys_Order_Seq");
+            this.ToTable("BU_ORDERS_SOTRE");
             this.HasKey(t => t.SID);
         }
     }

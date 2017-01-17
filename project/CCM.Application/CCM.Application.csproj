@@ -55,9 +55,10 @@
     <Compile Include="Human\CCM_Main_EmployeeApp.cs" />
     <Compile Include="Human\HR_DEPApp.cs" />
     <Compile Include="Human\HR_EMPLYMApp.cs" />
-    <Compile Include="Human\HR_OVRTM_TESTApp.cs" />
+    <Compile Include="Human\HR_OVRTMApp.cs" />
     <Compile Include="MisManage\MisIpAddressApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicObject\BU_ORDERS_SOTREApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />

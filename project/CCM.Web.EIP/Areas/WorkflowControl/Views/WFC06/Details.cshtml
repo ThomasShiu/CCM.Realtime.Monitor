@@ -1,8 +1,9 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
@@ -18,11 +19,81 @@
                 $("#form1").find('div.ckbox label').attr('for', '');
             }
         });
+        // 初始化簽核途程列表
+        InitBootGrid();
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
         });
+        // 部門
+        $("#DEPIDAPP").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 員工
+        //$("#EMPLYID").bindSelect({
+        //    url: "/Human/HRS00/GetHR_EMPLY",
+        //    id: "EMPLYID",
+        //    text: "EMPLYNM"
+        //});
+        // 員工
+        $("#EXC_INSDBID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+    }
+
+    // 初始化簽核途程列表
+    function InitBootGrid() {
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+        // BootGrid test
+        $("#grid-signroute").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/WorkflowControl/WFC00/getSignList?keyValue=' + keyValue,
+            formatters: {
+
+            }
+        })
+
     }
 </script>
 
@@ -43,10 +114,11 @@
                 <td class="formValue">
                     <select id="STATUS" name="STATUS" class="form-control required" disabled="disabled">
                         <option value="OP">未送簽</option>
-                        <option value="SN" selected="selected">簽核中</option>
+                        <option value="SN">簽核中</option>
                         <option value="CF">已核准</option>
                         <option value="CL">已退回</option>
                         <option value="NL">已作廢</option>
+                        <option value="PB">已撤簽</option>
                     </select>
                 </td>
                 <th class="formTitle"><span style="color:red">是否用餐?</span></th>
@@ -135,7 +207,7 @@
             <tr>
                 <th class="formTitle">加班原因</th>
                 <td class="formValue" colspan="5">
-                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 100px;"></textarea>
+                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 60px;"></textarea>
                 </td>
 
             </tr>
@@ -152,6 +224,23 @@
                     </select>
                 </td>
 
+            </tr>
+            <tr>
+                <th class="formTitle">簽核途程</th>
+                <td colspan="5">
+                    <table id="grid-signroute" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="SITEID" data-width="7%" >站點</th>
+                                <th data-column-id="DEPTNM" data-width="15%">簽核者部門</th>
+                                <th data-column-id="EMPLYNM" data-width="15%">簽核者名稱</th>
+                                <th data-column-id="SIGN_STATUS" data-width="10%">簽核</th>
+                                <th data-column-id="SIGNDATE" data-width="15%">簽核日</th>
+                                <th data-column-id="REPLY" data-width="20%">批示</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
             </tr>
         </table>
     </div>

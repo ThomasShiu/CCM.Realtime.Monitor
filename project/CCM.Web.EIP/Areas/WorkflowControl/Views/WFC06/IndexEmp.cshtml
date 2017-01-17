@@ -2,9 +2,16 @@
     ViewBag.Title = "IndexEmp";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+
 <script>
+    //AddAntiForgeryToken = function (data) {
+    //    data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+    //    return data;
+    //};
+
     $(function () {
         gridList();
+        
     })
     function gridList() {
         var $gridList = $("#gridList");
@@ -29,8 +36,8 @@
                     },
                      { label: "加班原因", name: "DEREASON", width: 150, align: 'left' },
                      { label: "STATUS", name: "STATUS", hidden: true, width: 50, align: 'left' },
-                   
-				    
+
+
 				    {
 				        label: "預計加班-起", name: "FETB", width: 120, align: 'left',
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
@@ -121,12 +128,21 @@
     }
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        var status = $("#gridList").jqGridRowValue().STATUS;
+        if (status == 'SN' | status == 'NL' | status == 'CF' ) {
+            msg = "此單據不可修改。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+            return;
+        }
+
         $.modalOpen({
             id: "Form",
             title: "修改資料",
             url: "/WorkflowControl/WFC06/Form?keyValue=" + keyValue,
             width: "900px",
-            height: "600px",
+            height: "640px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -148,15 +164,16 @@
             title: "查看資料",
             url: "/WorkflowControl/WFC06/Details?keyValue=" + keyValue,
             width: "800px",
-            height: "480px",
+            height: "600px",
             btn: null,
         });
     }
     function submitSN() {
-        alert('加班單號:'+arguments[0]);
+        //alert('加班單號:'+arguments[0]);
         $.ajax({
             url: "/WorkflowControl/WFC00/SendSign",
             data: { keyValue: arguments[0] },
+            //headers: { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
             dataType: "json",
             async: false,
             success: function (data) {
@@ -166,7 +183,7 @@
                     $.modalMsg(msg, "success");
                 }, 500);
             },
-            error: function () {
+            error: function (data) {
                 msg = "送簽發生異常!";
                 window.setTimeout(function () {
                     $.modalMsg(msg, "warning");
@@ -176,7 +193,7 @@
     }
 
     function rejectSN() {
-        alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
         $.ajax({
             url: "/WorkflowControl/WFC00/RejectSign",
             data: { keyValue: arguments[0], act: arguments[1] },
@@ -189,7 +206,7 @@
                     $.modalMsg(msg, "success");
                 }, 500);
             },
-            error: function () {
+            error: function (data) {
                 msg = "撤簽發生異常!";
                 window.setTimeout(function () {
                     $.modalMsg(msg, "warning");
@@ -199,29 +216,35 @@
     }
 
     function invalidSN() {
-        alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/RejectSign",
-            data: { keyValue: arguments[0], act: arguments[1] },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "作廢成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function () {
-                msg = "作廢發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
-            }
-        });
-    }
-</script>
+        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        if (confirm('確定要作廢此筆加班單嗎?\r\n加班單號:'+ arguments[0])) {
+            $.ajax({
+                url: "/WorkflowControl/WFC00/RejectSign",
+                data: { keyValue: arguments[0], act: arguments[1] },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    msg = "作廢成功!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "success");
+                    }, 500);
+                },
+                error: function (data) {
+                    msg = "作廢發生異常!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+                }
+            });
+        } else {
+            // Do nothing!
+        }
 
+    }
+
+   
+</script>
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">

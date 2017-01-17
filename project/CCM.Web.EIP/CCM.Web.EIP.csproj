@@ -164,6 +164,7 @@
     <Compile Include="Areas\PublicObject\Controllers\PUB01Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB03Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB02Controller.cs" />
+    <Compile Include="Areas\PublicObject\Controllers\PUB04Controller.cs" />
     <Compile Include="Areas\PublicObject\PublicObjectAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Areas\WorkflowControl\Controllers\WFC04Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC05Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC06Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC07Controller.cs" />
     <Compile Include="Areas\WorkflowControl\WorkflowControlAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -778,6 +780,15 @@
     <Content Include="Areas\SystemManage\Views\OrderSeq\Form.cshtml" />
     <Content Include="Areas\SystemManage\Views\OrderSeq\Details.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC06\Details.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB04\Index.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB04\Details.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB04\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC07\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC07\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC07\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC05\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC05\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC05\Details.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

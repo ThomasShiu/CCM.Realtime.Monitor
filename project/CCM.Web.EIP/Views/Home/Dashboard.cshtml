@@ -13,6 +13,8 @@
         $(function () {
             GetSalaryChart();
             GetLeaveChart();
+            GenVendor();
+            GenBulletin();
         });
         function GetSalaryChart() {
             var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
@@ -85,6 +87,69 @@
             $("#b_value").html(b_value + "小時");
             $("#c_value").html(c_value + "小時");
             $("#d_value").html(d_value + "小時");
+        }
+
+        // 特約廠商
+        function GenVendor() {
+            $.ajax({
+                    type: "GET",
+                    url: "/Home/GetVendor",
+                    data: {},
+                    dataType: "json",
+                    cache :false,
+                    async: false,
+                    success: function (data) {
+                        var trHTML = '';
+                        $.each(data.Vendors, function (i, item) {
+                            trHTML += '<li><a class="menuItem" href="#">【通知】' + data.Vendors[i].NAME + '</a><span class="time">' + data.Vendors[i].PHONE + '</span></li>';
+                        });
+                        $('#vendorlist').append(trHTML);
+                    },
+
+                    error: function (msg) {
+                        //alert(msg.responseText);
+                        window.setTimeout(function () {
+                            $.modalMsg(msg.responseText, "warning");
+                        }, 500);
+                    }
+                });
+        }
+
+        // 公佈欄
+        function GenBulletin() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetBulletin",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.Bulletin, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="#">【公告】' + data.Bulletin[i].BUSubject + '</a><span class="time">' + data.Bulletin[i].Showdate +'</span></li>';
+                    });
+                    $('#bulletinlist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+
+        function btn_Vendor() {
+            var keyValue = $("#gridList").jqGridRowValue().SID;
+            $.modalOpen({
+                id: "Details",
+                title: "查看資料",
+                url: "/PublicObject/PUB04/Details?keyValue=" + keyValue,
+                width: "640px",
+                height: "400px",
+                btn: null,
+            });
         }
     </script>
 </head>
@@ -206,15 +271,16 @@
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>特約廠商</div>
                         <div class="panel-body">
-                            <ul>
-                                <li><a href="#">【通知】藍屋日本料理-台南南紡店</a><span class="time">2016-07-21</span></li>
+                            <ul id="vendorlist">
+                                @*<li><a href="#">【通知】藍屋日本料理-台南南紡店</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】多那之-台南民族店</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】月見溪行館</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】王品餐飲股份有限公司-西提牛排台南仁德中山店</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】王品餐飲股份有限公司-品田台南安平家樂福店</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】王品餐飲股份有限公司-西提安平家樂福店</a><span class="time">2016-07-21</span></li>
                                 <li><a href="#">【通知】九倷早午餐</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】好樂迪KTV</a><span class="time">2016-07-21</span></li>
+                                <li><a href="#">【通知】好樂迪KTV</a><span class="time">2016-07-21</span></li>*@
+                                
                             </ul>
                         </div>
                       
@@ -226,15 +292,15 @@
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</div>
                         <div class="panel-body">
-                            <ul>
-                                <li><a href="#">【公告】11/14(一)晨會名單</a><span class="time">2016-11-08 </span></li>
+                            <ul id="bulletinlist">
+                                @*<li><a href="#">【公告】11/14(一)晨會名單</a><span class="time">2016-11-08 </span></li>
                                 <li><a href="#">【公告】2016/1~10福利金收支明細表</a><span class="time">2016-07-20</span></li>
                                 <li><a href="#">【公告】2016/1~10慈善基金收支明細表</a><span class="time">2016-07-19</span></li>
                                 <li><a href="#">【公告】人事異動公告</a><span class="time">2016-07-17</span></li>
                                 <li><a href="#">【公告】11月生日名單 </a><span class="time">2016-07-17</span></li>
                                 <li><a href="#">【公告】新制定-性騷擾防治措施、申訴及懲戒辦法</a><span class="time">2016-07-13</span></li>
                                 <li><a href="#">【公告】AED(自動體外心臟去顫器)裝設位置</a><span class="time">2016-07-12</span></li>
-                                <li><a href="#">【公告】郭綜合醫院-特約服務</a><span class="time">2016-07-12</span></li>
+                                <li><a href="#">【公告】郭綜合醫院-特約服務</a><span class="time">2016-07-12</span></li>*@
                             </ul>
                         </div>
                     </div>
