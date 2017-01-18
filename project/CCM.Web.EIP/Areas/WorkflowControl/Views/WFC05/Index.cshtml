@@ -30,13 +30,13 @@
 				        label: "預計加班-迄", name: "FETE", width: 120, align: 'left',
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				    },
-				    { label: "DETB", name: "DETB", hidden: true, width: 80, align: 'left' },
-				    { label: "DETE", name: "DETE", hidden: true, width: 80, align: 'left' },
-				    { label: "總時數", name: "DEMIN", width: 80, align: 'left' },
+				    { label: "實際加班-起", name: "DETB", hidden: true, width: 80, align: 'left' },
+				    { label: "實際加班-迄", name: "DETE", hidden: true, width: 80, align: 'left' },
+				    { label: "總時數", name: "DEMIN", width: 80, align: 'center' },
 				    { label: "REHRS", name: "REHRS", hidden: true, width: 80, align: 'left' },
 				    { label: "OVRTP", name: "OVRTP", hidden: true, width: 80, align: 'left' },
 				    { label: "加班原因", name: "DEREASON", width: 150, align: 'left' },
-				    { label: "狀態", name: "STATUS", width: 50, align: 'left' },
+				    
 				    { label: "部門", name: "DEPID", width: 60, align: 'left' },
                     {
                         label: "部門", name: "", width: 150, align: 'left',
@@ -44,19 +44,43 @@
                             return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
                         }
                     },
-                     {label: "工號", name: "EMPLYID", width: 80, align: 'left'},
-				    {
-				        label: "加班人員", name: "", width: 80, align: 'left',
-				        formatter: function (cellvalue, options, rowObject) {
-				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
-				        }
-				    },
+                     { label: "工號", name: "EMPLYID", width: 80, align: 'left' },
+                     { label: "加班人員", name: "EMPLYNM", width: 80, align: 'left' },
+				    //{
+				    //    label: "加班人員", name: "", width: 80, align: 'left',
+				    //    formatter: function (cellvalue, options, rowObject) {
+				    //        return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+				    //    }
+				    //},
 				    { label: "OWMON", name: "OWMON", hidden: true, width: 80, align: 'left' },
-
+                    {
+                        label: "狀態", name: "STATUS", width: 50, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                            if (rowObject.STATUS == 'OP') {
+                                return '<span class=\"label label-default\">未送簽</span>';
+                            } else if (rowObject.STATUS == 'SN') {
+                                return '<span class=\"label label-primary\">簽核中</span>';
+                            } else if (rowObject.STATUS == 'CF') {
+                                return '<span class=\"label label-success\">已核准</span>';
+                            } else if (rowObject.STATUS == 'CL') {
+                                return '<span class=\"label label-warning\">已退回</span>';
+                            } else if (rowObject.STATUS == 'NL') {
+                                return '<span class=\"label label-danger\">已作廢</span>';
+                            } else if (rowObject.STATUS == 'PB') {
+                                return '<span class=\"label label-default\">已撤簽</span>';
+                            }
+                        }
+                    },
             ],
 			pager: "#gridPager",
 			sortname: 'OVRTNO asc,APPDATE desc',
-            viewrecords: true
+			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
@@ -135,7 +159,7 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="單號/原因/工號/姓名" style="width: 200px;">
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>

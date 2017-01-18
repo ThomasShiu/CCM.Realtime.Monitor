@@ -59,6 +59,7 @@
     <Compile Include="03 Entity\Human\CCM_Main_EmployeeEntity.cs" />
     <Compile Include="03 Entity\Human\HR_DEPEntity.cs" />
     <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
+    <Compile Include="03 Entity\Human\V_HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_BULLETINEntity.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="04 IRepository\Human\ICCM_Main_EmployeeRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_DEPRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_EMPLYMRepository.cs" />
+    <Compile Include="04 IRepository\Human\IV_HR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_ORDERS_SOTRERepository.cs" />

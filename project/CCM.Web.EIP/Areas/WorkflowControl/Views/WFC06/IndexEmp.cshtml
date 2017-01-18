@@ -79,7 +79,6 @@
                               } else if (rowObject.STATUS == 'PB') {
                                   return '<span class=\"label label-default\">已撤簽</span>';
                               }
-
                           }
                       },
                     {
@@ -170,49 +169,53 @@
     }
     function submitSN() {
         //alert('加班單號:'+arguments[0]);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/SendSign",
-            data: { keyValue: arguments[0] },
-            //headers: { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "送簽成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function (data) {
-                msg = "送簽發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
-            }
-        });
+        if (confirm('確定要送簽此筆加班單嗎?\r\n加班單號:' + arguments[0])) {
+            $.ajax({
+                url: "/WorkflowControl/WFC00/SendSign",
+                data: { keyValue: arguments[0] },
+                //headers: { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    msg = "送簽成功!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "success");
+                    }, 500);
+                },
+                error: function (data) {
+                    msg = "送簽發生異常!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+                }
+            });
+        }
     }
 
     function rejectSN() {
         //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/RejectSign",
-            data: { keyValue: arguments[0], act: arguments[1] },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "撤簽成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function (data) {
-                msg = "撤簽發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
-            }
-        });
+        if (confirm('確定要撤簽此筆加班單嗎?\r\n加班單號:' + arguments[0])) {
+            $.ajax({
+                url: "/WorkflowControl/WFC00/RejectSign",
+                data: { keyValue: arguments[0], act: arguments[1] },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    msg = "撤簽成功!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "success");
+                    }, 500);
+                },
+                error: function (data) {
+                    msg = "撤簽發生異常!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+                }
+            });
+        }
     }
 
     function invalidSN() {

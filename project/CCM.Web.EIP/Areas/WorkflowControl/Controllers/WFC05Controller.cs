@@ -17,7 +17,8 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
     // 查詢所有加班單
     public class WFC05Controller : ControllerBase
     {
-        private HR_OVRTMApp tableApp = new HR_OVRTMApp();
+        private HR_OVRTMApp tableApp = new HR_OVRTMApp(); 
+            private V_HR_OVRTMApp vtableApp = new V_HR_OVRTMApp(); 
         private CcmServices cs = new CcmServices();
 
         [HttpGet]
@@ -34,7 +35,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = vtableApp.GetList(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records

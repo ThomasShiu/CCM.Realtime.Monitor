@@ -45,5 +45,6 @@ D:\Git_Source\CCM.Web.Manage\project\CCM.Code\bin\Release\Newtonsoft.Json.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Code\bin\Release\NPOI.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Code\bin\Release\NPOI.OOXML.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Code\bin\Release\NPOI.OpenXml4Net.xml
+D:\Git_Source\CCM.Web.Manage\project\CCM.Code\obj\Release\CCM.Code.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Web.Manage\project\CCM.Code\obj\Release\CCM.Code.dll
 D:\Git_Source\CCM.Web.Manage\project\CCM.Code\obj\Release\CCM.Code.pdb

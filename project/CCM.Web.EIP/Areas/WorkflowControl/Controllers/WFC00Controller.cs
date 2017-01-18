@@ -48,6 +48,8 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             return Content(data.ToJson());
         }
 
+       
+
         #region 送簽
         [HttpGet]
         [HandlerAjaxOnly]
@@ -79,6 +81,24 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             else
             {
                 return Error("撤簽失敗。");
+            }
+            //return Content(data.ToJson());
+        }
+        #endregion
+
+        #region 簽核
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult ConfirmSign(string signids,string emplyid)
+        {
+            var data = cs.ConfirmSign(signids, emplyid);
+            if (data == "success")
+            {
+                return Success("簽核成功。");
+            }
+            else
+            {
+                return Error("簽核失敗。");
             }
             //return Content(data.ToJson());
         }

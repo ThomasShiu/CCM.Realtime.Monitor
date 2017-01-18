@@ -55,6 +55,7 @@
     <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
+    <Compile Include="Human\V_HR_OVRTMMap.cs" />
     <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

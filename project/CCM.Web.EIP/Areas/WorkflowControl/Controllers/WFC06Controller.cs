@@ -78,7 +78,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         {
             var chkovrtm = cs.chkOverTime(tableEntity);
             // 加班規則檢查
-            if (chkovrtm.Length > 0) {
+            if (chkovrtm.Length > 0 & chkovrtm[0] != null) {
                 return Error("錯誤碼:"+chkovrtm[0]+" : "+ chkovrtm[1]);
             }
             // 新建模式才判斷時段是否重複

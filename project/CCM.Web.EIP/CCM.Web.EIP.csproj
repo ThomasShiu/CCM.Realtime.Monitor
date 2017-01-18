@@ -773,8 +773,6 @@
     <Content Include="Areas\WorkflowControl\Views\WFC00\Index.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC06\IndexEmp.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC06\Form.cshtml" />
-    <Content Include="Areas\WorkflowControl\Views\WFC06\Index_all.cshtml" />
-    <Content Include="Areas\WorkflowControl\Views\WFC06\Index_manager.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC06\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\OrderSeq\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\OrderSeq\Form.cshtml" />

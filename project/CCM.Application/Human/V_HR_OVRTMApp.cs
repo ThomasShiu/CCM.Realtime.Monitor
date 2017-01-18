@@ -14,30 +14,32 @@ using CCM.Repository;
 namespace CCM.Application
 {
 
-    public class HR_OVRTMApp
+    public class V_HR_OVRTMApp
     {
-        private IHR_OVRTMRepository service = new HR_OVRTMRepository();
+        private IV_HR_OVRTMRepository service = new V_HR_OVRTMRepository();
         private CcmServices cs = new CcmServices();
 
-        public List<HR_OVRTMEntity> GetList(string keyword = "")
+        public List<V_HR_OVRTMEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<HR_OVRTMEntity>();
+            var expression = ExtLinq.True<V_HR_OVRTMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OVRTNO.Contains(keyword));
+                expression = expression.Or(t => t.EMPLYID.Contains(keyword));
+                expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEREASON.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.OVRTNO).ToList();
         }
-        public List<HR_OVRTMEntity> GetList(Pagination pagination, string keyword = "")
+        public List<V_HR_OVRTMEntity> GetList(Pagination pagination, string keyword = "")
         {
-            var expression = ExtLinq.True<HR_OVRTMEntity>();
+            var expression = ExtLinq.True<V_HR_OVRTMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OVRTNO.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
-                //expression = expression.Or(t => t.EMPLYID.Contains(keyword));
+                expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEREASON.Contains(keyword));
             }
             expression = expression.And(t => t.STATUS == "SN");
@@ -48,10 +50,10 @@ namespace CCM.Application
  
 
         // 個人加班單
-        public List<HR_OVRTMEntity> GetListEmp(Pagination pagination, string keyword = "")
+        public List<V_HR_OVRTMEntity> GetListEmp(Pagination pagination, string keyword = "")
         {
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            var expression = ExtLinq.True<HR_OVRTMEntity>();
+            var expression = ExtLinq.True<V_HR_OVRTMEntity>();
             expression = expression.And(t => t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
 
             if (!string.IsNullOrEmpty(keyword))
@@ -63,35 +65,11 @@ namespace CCM.Application
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public HR_OVRTMEntity GetForm(string keyValue)
+        public V_HR_OVRTMEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
-        public void DeleteForm(string keyValue)
-        {
-
-            service.Delete(t => t.OVRTNO == keyValue);
-
-        }
-        public void SubmitForm(HR_OVRTMEntity tableEntity, string keyValue)
-        {
-            if (!string.IsNullOrEmpty(keyValue))
-            {
-                tableEntity.Modify(keyValue);
-                service.Update(tableEntity);
-            }
-            else
-            {
-                
-                tableEntity.OVRTNO = cs.GetOrdNo("OVERTIME", "OT", 1);
-                tableEntity.DEPID = cs.GetDeptByEmplyid(tableEntity.EMPLYID, "DEPID");
-                tableEntity.APPDATE = DateTime.Now;
-                tableEntity.EXC_INSDATE= DateTime.Now;
-
-                tableEntity.Create();
-                service.Insert(tableEntity);
-            }
-        }
+       
 
     }
 }

@@ -46,6 +46,7 @@
     <Compile Include="Human\CCM_Main_EmployeeRepository.cs" />
     <Compile Include="Human\HR_DEPRepository.cs" />
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
+    <Compile Include="Human\V_HR_OVRTMRepository.cs" />
     <Compile Include="Human\HR_OVRTMRepository.cs" />
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
     <Compile Include="OracleDbDAL.cs" />

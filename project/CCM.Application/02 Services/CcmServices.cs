@@ -18,9 +18,13 @@ namespace CCM.Application
     {
         public static string v_EIPContext = "EIPContext";
         public static string v_HRSContext = "HRSContext";
-        public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM_TEST";  // 測試用
+        public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM_TEST";    // 測試用，轉正式時將_TEST拿掉 
+        public static string v_V_WF_SIGNROUTE = "V_WF_SIGNROUTE_TEST";     // 簽核途程清單
+        public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE_TEST"; // 產生簽核途程
+        public static string v_SP_SET_SIGNROUTE = "SP_SET_SIGNROUTE_TEST"; // 設定簽核狀態:撤簽、作廢、退回
+        public static string v_SP_SET_SIGN = "SP_SET_SIGN_TEST";           // 主管簽核
 
-        // 產生資料集 , Report 報表使用
+        #region 產生資料集 , Report 報表使用
         public DataTable GetDataSet(string SQL)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
@@ -39,6 +43,7 @@ namespace CCM.Application
 
             return dt;
         }
+        #endregion
 
         #region 檢查公共物件是否被預約
         // 檢查公共物件是否被預約
@@ -80,107 +85,6 @@ namespace CCM.Application
             }
             return v_message;
         }
-        #endregion
-
-        #region 檢查加班單時段是否有重複
-        // 檢查加班單時段是否有重複
-        public string chkOverTimeDup(HR_OVRTMEntity tableEntity)
-        {
-            string SQL = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
-                          + " FROM "+ v_HR_OVRTM + " A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
-                          + " WHERE A.EMPLYID = @EMPLYID  AND((@StartTime  BETWEEN  FETB AND FETE) OR(@EndTime  BETWEEN FETB AND FETE)) ";
-            //string SQL2 = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
-            //              + " FROM dbo.HR_OVRTM_TEST A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
-            //              + " WHERE A.EMPLYID = '" + tableEntity.EMPLYID + "'  AND(('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB) + "'  BETWEEN  FETB AND FETE) OR('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETE) + "'  BETWEEN FETB AND FETE)) ";
-            string v_message = "";
-            //1.引用SqlConnection物件連接資料庫
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_HRSContext].ConnectionString))
-            {
-                //2.開啟資料庫
-                conn.Open();
-                //3.引用SqlCommand物件
-                using (SqlCommand command = new SqlCommand(SQL, conn))
-                {
-                    command.Parameters.AddWithValue("@EMPLYID", tableEntity.EMPLYID);
-                    command.Parameters.AddWithValue("@StartTime", String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB) );
-                    command.Parameters.AddWithValue("@EndTime"  , String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETE) );
-                    //4.搭配SqlCommand物件使用SqlDataReader
-                    using (SqlDataReader dr = command.ExecuteReader())
-                    {
-                        if (dr.HasRows)
-                        {
-                            while (dr.Read())
-                            {
-                                v_message = "加班時段重疊，已有加班單!!<br/> 人員:[" + dr["EMPLYNM"].ToString() + "] <br/>申請時間從 [" +
-                                             String.Format("{0:yyyy/MM/dd HH:mm}", dr["FETB"].ToDate()) + "]至[" + String.Format("{0:yyyy/MM/dd HH:mm}", dr["FETE"].ToDate()) + "]<br/>請重新確認加班時間再存檔。";
-                            }
-                            return v_message;
-                        }
-                    }
-
-                }
-
-            }
-            return v_message;
-        }
-        #endregion
-
-        #region 檢查加班單是否合法
-        // 檢查加班單時段是否有重複
-        #region 產生簽核途程
-        public string[] chkOverTime(HR_OVRTMEntity tableEntity)
-        {
-            int routeLevel = 0;
-            string outputval = "", outputval_1 = "";
-
-            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
-            SqlCommand cmd = new SqlCommand("SP_CHK_OVRTM", db);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
-            cmd.Parameters["@EMPLYID"].Value = tableEntity.EMPLYID;
-            cmd.Parameters.Add("@FETB", SqlDbType.DateTime);
-            cmd.Parameters["@FETB"].Value = tableEntity.FETB;
-            cmd.Parameters.Add("@FETE", SqlDbType.DateTime);
-            cmd.Parameters["@FETE"].Value = tableEntity.FETE;
-            //DataTable dt = new DataTable();
-            string v_CODE = "",v_MESSAGE="";
-            string[] param={ null,null};
-            //cmd.Parameters.Add("@MESSAGE", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
-            //DataTable dt = new DataTable();
-            //SqlParameter retValParam = cmd.Parameters.Add("@OutputData", SqlDbType.VarChar,250);
-            //retValParam.Direction = ParameterDirection.Output;
-
-            
-            try
-            {
-                db.Open();
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
-                if (dr.HasRows)
-                {
-                    dr.Read();
-                    param[0]= dr["CODE"].ToString();
-                    param[1] = dr["MESSAGE"].ToString();
-
-                }
-
-                
-                //dt.Load(cmd.ExecuteReader());
-                //v_CODE = dt.Rows[0]["CODE"].ToString();
-                //v_MESSAGE = dt.Rows[0]["MESSAGE"].ToString();
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                db.Close();
-            }
-            return param;
-           
-        }
-        #endregion
         #endregion
 
         #region 取得特約廠商，只取前8筆
@@ -246,47 +150,6 @@ namespace CCM.Application
         }
         #endregion
 
-
-        #region 取得簽核途程列表
-        public JArray getSignList(string keyValue) {
-            string v_sql = " SELECT OVRTNO,SITEID, DEPID, DEPTNM, EMPLYID, EMPLYNM, SIGN_STATUS, SIGNDATE,REPLY "+
-                           " FROM V_WF_SIGNROUTE WHERE OVRTNO = '" + keyValue + "' ORDER BY SITEID";
-            //得到一個DataTable物件
-            DataTable dt = this.queryDataTable(v_sql);
-
-            JArray MixArray = new JArray();
-            var detail = from p in dt.AsEnumerable()
-                         select new
-                         {
-                             OVRTNO = p.Field<string>("OVRTNO"),
-                             SITEID = p.Field<int>("SITEID"),
-                             DEPTNM = p.Field<string>("DEPTNM"),
-                             EMPLYNM = p.Field<string>("EMPLYNM"),
-                             SIGN_STATUS = p.Field<string>("SIGN_STATUS"),
-                             SIGNDATE = p.Field<string>("SIGNDATE"),
-                             REPLY = p.Field<string>("REPLY")
-                         };
-
-            int totalCount = detail.Count();
-            foreach (var col in detail)
-            {
-
-                var colObject = new JObject
-                {
-                    {"OVRTNO",col.OVRTNO },
-                    {"SITEID",col.SITEID },
-                    {"DEPTNM",col.DEPTNM},
-                    {"EMPLYNM",col.EMPLYNM },
-                    {"SIGN_STATUS",col.SIGN_STATUS },
-                    {"SIGNDATE",col.SIGNDATE },
-                    {"REPLY" ,col.REPLY}
-                };
-                MixArray.Add(colObject);
-            }
-            return MixArray;
-        }
-        #endregion
-
         #region 取得守衛清單
         public string getGuardList()
         {
@@ -344,89 +207,6 @@ namespace CCM.Application
             //GridView1顯示DataTable的資料
             //GridView1.DataSource = jArray; GridView1.DataBind();
             //GridView1.DataSource = dt; GridView1.DataBind();
-        }
-        #endregion
-
-        #region 產生簽核途程
-        public string GenSign(string v_ovrtno)
-        {
-            int routeLevel = 0;
-
-            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
-            SqlCommand cmd = new SqlCommand("SP_GEN_SIGNROUTE_TEST", db);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
-            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
-            cmd.Parameters.Add("@_j", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
-            //DataTable dt = new DataTable();
-            //SqlParameter retValParam = cmd.Parameters.Add("@OutputData", SqlDbType.VarChar,250);
-            //retValParam.Direction = ParameterDirection.Output;
-            try
-            {
-                db.Open();
-                cmd.ExecuteNonQuery();
-                routeLevel = (int)cmd.Parameters["@_j"].Value;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                db.Close();
-            }
-            if (routeLevel > 0)
-            {
-                return "success";
-            }
-            else
-            {
-                return "error";
-            }
-        }
-        #endregion
-
-        #region 簽核作業
-        public string SetSign(string v_ovrtno, string v_action)
-        {
-            string routeLevel = "";
-
-            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
-            SqlCommand cmd = new SqlCommand("SP_SET_SIGNROUTE_TEST", db);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@ACTION", SqlDbType.VarChar, 20);
-            cmd.Parameters["@ACTION"].Value = v_action;
-            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
-            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
-            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
-
-            try
-            {
-                db.Open();
-                cmd.ExecuteNonQuery();
-                routeLevel = (string)cmd.Parameters["@returnval"].Value;
-                //dt.Load(cmd.ExecuteReader());
-                //routeLevel = int.Parse(dt.Rows[0].ToString());
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-            finally
-            {
-                db.Close();
-            }
-            if (!routeLevel.Equals(""))
-            {
-                return "success";
-            }
-            else
-            {
-                return "error";
-            }
         }
         #endregion
 
@@ -564,23 +344,109 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 檢查加班單時段是否有重複
+        // 檢查加班單時段是否有重複
+        public string chkOverTimeDup(HR_OVRTMEntity tableEntity)
+        {
+            string SQL = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
+                          + " FROM " + v_HR_OVRTM + " A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
+                          + " WHERE A.EMPLYID = @EMPLYID  AND((@StartTime  BETWEEN  FETB AND FETE) OR(@EndTime  BETWEEN FETB AND FETE)) ";
+            //string SQL2 = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
+            //              + " FROM dbo.HR_OVRTM_TEST A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
+            //              + " WHERE A.EMPLYID = '" + tableEntity.EMPLYID + "'  AND(('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB) + "'  BETWEEN  FETB AND FETE) OR('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETE) + "'  BETWEEN FETB AND FETE)) ";
+            string v_message = "";
+            //1.引用SqlConnection物件連接資料庫
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_HRSContext].ConnectionString))
+            {
+                //2.開啟資料庫
+                conn.Open();
+                //3.引用SqlCommand物件
+                using (SqlCommand command = new SqlCommand(SQL, conn))
+                {
+                    command.Parameters.AddWithValue("@EMPLYID", tableEntity.EMPLYID);
+                    command.Parameters.AddWithValue("@StartTime", String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB));
+                    command.Parameters.AddWithValue("@EndTime", String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETE));
+                    //4.搭配SqlCommand物件使用SqlDataReader
+                    using (SqlDataReader dr = command.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                v_message = "加班時段重疊，已有加班單!!<br/> 人員:[" + dr["EMPLYNM"].ToString() + "] <br/>申請時間從 [" +
+                                             String.Format("{0:yyyy/MM/dd HH:mm}", dr["FETB"].ToDate()) + "]至[" + String.Format("{0:yyyy/MM/dd HH:mm}", dr["FETE"].ToDate()) + "]<br/>請重新確認加班時間再存檔。";
+                            }
+                            return v_message;
+                        }
+                    }
+
+                }
+
+            }
+            return v_message;
+        }
+        #endregion
+
+        #region 檢查加班單是否合法
+        public string[] chkOverTime(HR_OVRTMEntity tableEntity)
+        {
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand("SP_CHK_OVRTM", db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
+            cmd.Parameters["@EMPLYID"].Value = tableEntity.EMPLYID;
+            cmd.Parameters.Add("@FETB", SqlDbType.DateTime);
+            cmd.Parameters["@FETB"].Value = tableEntity.FETB;
+            cmd.Parameters.Add("@FETE", SqlDbType.DateTime);
+            cmd.Parameters["@FETE"].Value = tableEntity.FETE;
+            string[] param = { null, null };
+
+            try
+            {
+                db.Open();
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    param[0] = dr["CODE"].ToString();
+                    param[1] = dr["MESSAGE"].ToString();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            return param;
+
+        }
+        #endregion
+
         #region 取得待簽核清單
-        public JArray getWaitSignList(string keyValue)
+        public JArray getWaitSignList(string keyword)
         {
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            var UserId = "A970701";//LoginInfo.UserCode;
-            var UserDep = "H00"; //LoginInfo.DeptId;
+            var UserId = LoginInfo.UserCode; //A970701
+            var UserDep = LoginInfo.DeptId; // H00
 
             var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, "+
-                          " A.STATUS,A.SENDDATE,B.SIGNDATE,B.EMPLYID,M.MRDT " +
+                          " A.STATUS,A.SENDDATE,B.SITEID,B.SIGNDATE,B.EMPLYID,M.MRDT,M.DEMIN,A.OVRT46 " +
                           " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID " +
                           " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          " WHERE A.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "' OR B.EMPLYID IN ( " +
+                          " WHERE A.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%"+ keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') "+
+                          "AND B.SITEID = ( SELECT MIN(SITEID)FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) "+
+                          " OR B.EMPLYID IN ( " +
                           "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R " +
                           "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  " +
-                          " AND A.STATUS = 'SN' " +
+                          " AND A.STATUS = 'SN' " + 
                           " ORDER BY M.MRDT,A.STATUS DESC ";
 
             //得到一個DataTable物件
@@ -602,7 +468,9 @@ namespace CCM.Application
                              EMPLYID = p.Field<string>("EMPLYID"), // 簽核人員
                              MRDT = p.Field<DateTime?>("MRDT"), // 加班日
                              SENDDATE = p.Field<DateTime?>("SENDDATE"), //送簽日
-                             SIGNDATE = p.Field<DateTime?>("SIGNDATE") // 簽核日
+                             SIGNDATE = p.Field<DateTime?>("SIGNDATE"), // 簽核日
+                             DEMIN = p.Field<decimal?>("DEMIN"), // 預計加班
+                             OVRT46 = p.Field<string>("OVRT46") // 超過46小時
                          };
 
             int totalCount = detail.Count();
@@ -624,10 +492,179 @@ namespace CCM.Application
                     {"SENDDATE" ,col.SENDDATE},
                     {"MRDT" ,col.MRDT},
                     {"SIGNDATE" ,col.SIGNDATE},
+                    {"DEMIN" ,col.DEMIN},
+                    {"OVRT46" ,col.OVRT46},
                 };
                 MixArray.Add(colObject);
             }
             return MixArray;
+        }
+        #endregion
+
+        #region 產生簽核途程
+        public string GenSign(string v_ovrtno)
+        {
+            int routeLevel = 0;
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand(v_SP_GEN_SIGNROUTE , db);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
+            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
+            cmd.Parameters.Add("@_j", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            //DataTable dt = new DataTable();
+            //SqlParameter retValParam = cmd.Parameters.Add("@OutputData", SqlDbType.VarChar,250);
+            //retValParam.Direction = ParameterDirection.Output;
+            try
+            {
+                db.Open();
+                cmd.ExecuteNonQuery();
+                routeLevel = (int)cmd.Parameters["@_j"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (routeLevel > 0)
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        #endregion
+       
+        #region 取得簽核途程列表
+        public JArray getSignList(string keyValue)
+        {
+            string v_sql = " SELECT OVRTNO,SITEID, DEPID, DEPTNM, EMPLYID, EMPLYNM, SIGN_STATUS, SIGNDATE,REPLY " +
+                           " FROM "+ v_V_WF_SIGNROUTE + "  WHERE OVRTNO = '" + keyValue + "' ORDER BY SITEID";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             OVRTNO = p.Field<string>("OVRTNO"),
+                             SITEID = p.Field<int?>("SITEID"),
+                             DEPTNM = p.Field<string>("DEPTNM"),
+                             EMPLYNM = p.Field<string>("EMPLYNM"),
+                             SIGN_STATUS = p.Field<string>("SIGN_STATUS"),
+                             SIGNDATE = p.Field<string>("SIGNDATE"),
+                             REPLY = p.Field<string>("REPLY")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"OVRTNO",col.OVRTNO },
+                    {"SITEID",col.SITEID },
+                    {"DEPTNM",col.DEPTNM},
+                    {"EMPLYNM",col.EMPLYNM },
+                    {"SIGN_STATUS",col.SIGN_STATUS },
+                    {"SIGNDATE",col.SIGNDATE },
+                    {"REPLY" ,col.REPLY}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 送出簽核作業
+        public string SetSign(string v_ovrtno, string v_action)
+        {
+            string routeLevel = "";
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand(v_SP_SET_SIGNROUTE, db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@ACTION", SqlDbType.VarChar, 20);
+            cmd.Parameters["@ACTION"].Value = v_action;
+            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
+            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
+            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+
+            try
+            {
+                db.Open();
+                cmd.ExecuteNonQuery();
+                routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                //dt.Load(cmd.ExecuteReader());
+                //routeLevel = int.Parse(dt.Rows[0].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (!routeLevel.Equals(""))
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        #endregion
+
+        #region 主管核准作業
+        public string ConfirmSign(string v_signid, string v_emplyid)
+        {
+            string routeLevel = "";
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand(v_SP_SET_SIGN, db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@SIGNID", SqlDbType.VarChar, 500);
+            cmd.Parameters["@SIGNID"].Value = v_signid;
+            cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
+            cmd.Parameters["@EMPLYID"].Value = v_emplyid;
+            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+
+            try
+            {
+                db.Open();
+                cmd.ExecuteNonQuery();
+                routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                //dt.Load(cmd.ExecuteReader());
+                //routeLevel = int.Parse(dt.Rows[0].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (!routeLevel.Equals(""))
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
         }
         #endregion
     }

@@ -27,7 +27,7 @@ namespace CCM.Domain
 
         public String Contact { get; set; }
 
-        public Int32 SubsidizeAmount { get; set; }
+        public Int32? SubsidizeAmount { get; set; }
 
         public String ContributingVendor { get; set; }
 
