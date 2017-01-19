@@ -9,7 +9,7 @@
         gridList();
 
         // 公共物件
-        $("#ObjectSID").bindSelect({
+        $("#PublicObject").bindSelect({
             url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
             id: "SID",
             text: "ObjectNM"
@@ -108,8 +108,8 @@
             var timeType = $("#time_horizon a.active").attr('data-value');
             var queryJson = {
                 keyword: $("#txt_keyword").val(),
-                keyword2: $('#ObjectSID').val(),
-                timeType: $("#time_horizon a.active").attr('data-value'),
+                keyword2: $('#PublicObject').val(),
+                timeType: timeType,
             }
             $gridList.jqGrid('setGridParam', {
                 postData: { queryJson: JSON.stringify(queryJson) },
@@ -251,7 +251,7 @@
                 <td>
                     <div class="input-group">
                         <input id="txt_keyword" type="text" class="form-control" placeholder="說明" style="width: 100px;">
-                        <select id="ObjectSID" name="ObjectSID" class="form-control "  style="width: 250px;">
+                        <select id="PublicObject" name="PublicObject" class="form-control "  style="width: 250px;">
                             <option value=""></option>
                         </select>
                         <span class="input-group-btn">

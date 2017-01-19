@@ -63,6 +63,7 @@
     <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_BULLETINEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\BU_FEEDBACKEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_ORDERS_SOTREEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="04 IRepository\Human\IV_HR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
+    <Compile Include="04 IRepository\PublicObject\IBU_BULLETINRepository.cs" />
+    <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_ORDERS_SOTRERepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
@@ -145,7 +148,10 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="03 Entity\OrderManage\" />
+    <Folder Include="04 IRepository\OrderManage\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,10 +11,10 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.PublicObject.Controllers
+namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 {
     // 特約廠商
-    public class PUB04Controller : ControllerBase
+    public class ORD01Controller : ControllerBase
     {
         private BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
 

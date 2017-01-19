@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: BU_ORDERS_SOTRE
-	public class BU_ORDERS_SOTREMap : EntityTypeConfiguration<BU_ORDERS_SOTREEntity>
+	//mapping table name: BU_BULLETIN
+	public class BU_BULLETINMap : EntityTypeConfiguration<BU_BULLETINEntity>
     {
-        public BU_ORDERS_SOTREMap()
+        public BU_BULLETINMap()
         {
-            this.ToTable("BU_ORDERS_SOTRE");
+            this.ToTable("BU_BULLETIN");
             this.HasKey(t => t.SID);
         }
     }

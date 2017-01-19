@@ -20,6 +20,15 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         private HR_OVRTMApp tableApp = new HR_OVRTMApp();
         private CcmServices cs = new CcmServices();
 
+
+        [HttpGet]
+        //[HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult Form2()
+        {
+            return View();
+        }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
@@ -96,7 +105,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         }
 
 
-
+        
 
     }
 

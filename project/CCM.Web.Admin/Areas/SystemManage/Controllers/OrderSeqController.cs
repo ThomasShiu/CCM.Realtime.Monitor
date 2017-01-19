@@ -47,9 +47,9 @@ namespace CCM.Web.Admin.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(OrderSeqEntity entity, string keyValue)
+        public ActionResult SubmitForm(OrderSeqEntity Sys_Order_SeqEntity, string keyValue)
         {
-            tableApp.SubmitForm(entity, keyValue);
+            tableApp.SubmitForm(Sys_Order_SeqEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

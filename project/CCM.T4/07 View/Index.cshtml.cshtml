@@ -9,21 +9,20 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/PublicObject/PUB04/GetGridJson",
+            url: "/PublicObject/PUB05/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "Name", name: "Name", width: 80, align: 'left' },
-				                     { label: "Phone", name: "Phone", width: 80, align: 'left' },
-				                     { label: "Fax", name: "Fax", width: 80, align: 'left' },
-				                     { label: "Address", name: "Address", width: 80, align: 'left' },
-				                     { label: "Contact", name: "Contact", width: 80, align: 'left' },
-				                     { label: "SubsidizeAmount", name: "SubsidizeAmount", width: 80, align: 'left' },
-				                     { label: "ContributingVendor", name: "ContributingVendor", width: 80, align: 'left' },
-				                     { label: "WebSiteURL", name: "WebSiteURL", width: 80, align: 'left' },
-				                     { label: "Offer", name: "Offer", width: 80, align: 'left' },
-				                     { label: "Remark", name: "Remark", width: 80, align: 'left' },
+				                     { label: "BUSubject", name: "BUSubject", width: 80, align: 'left' },
+				                     { label: "BUContent", name: "BUContent", width: 80, align: 'left' },
+				                     { label: "StartDate", name: "StartDate", width: 80, align: 'left' },
+				                     { label: "EndDate", name: "EndDate", width: 80, align: 'left' },
+				                     { label: "WhoCanSee", name: "WhoCanSee", width: 80, align: 'left' },
+				                     { label: "DepartmentID", name: "DepartmentID", width: 80, align: 'left' },
+				                     { label: "EmployeeID", name: "EmployeeID", width: 80, align: 'left' },
+				                     { label: "GUID", name: "GUID", width: 80, align: 'left' },
+				                     { label: "SortCode", name: "SortCode", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -45,7 +44,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/PublicObject/PUB04/Form",
+            url: "/PublicObject/PUB05/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -58,7 +57,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/PublicObject/PUB04/Form?keyValue=" + keyValue,
+            url: "/PublicObject/PUB05/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -68,7 +67,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/PublicObject/PUB04/DeleteForm",
+            url: "/PublicObject/PUB05/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -80,7 +79,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/PublicObject/PUB04/Details?keyValue=" + keyValue,
+            url: "/PublicObject/PUB05/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

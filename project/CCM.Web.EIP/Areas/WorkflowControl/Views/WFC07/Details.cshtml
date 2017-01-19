@@ -143,7 +143,13 @@
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
-
+                <th class="formTitle">加班轉補休</th>
+                <td class="formValue">
+                    <select id="FILFRL" name="FILFRL" class="form-control required" disabled="disabled">
+                        <option value="N">N</option>
+                        <option value="Y">Y</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th class="formTitle">出勤人員部門</th>
@@ -212,20 +218,7 @@
                 </td>
 
             </tr>
-            <tr>
-                @*<th class="formTitle">計薪年月</th>
-                    <td class="formValue">
-                        <input id="OWMON" name="OWMON" type="text" class="form-control required" placeholder="請輸入標題" />
-                    </td>*@
-                <th class="formTitle">加班轉補休</th>
-                <td class="formValue">
-                    <select id="FILFRL" name="FILFRL" class="form-control required" disabled="disabled">
-                        <option value="N">N</option>
-                        <option value="Y">Y</option>
-                    </select>
-                </td>
-
-            </tr>
+           
             <tr>
                 <th class="formTitle">簽核途程</th>
                 <td colspan="5">

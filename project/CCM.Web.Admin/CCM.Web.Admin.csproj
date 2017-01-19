@@ -334,7 +334,7 @@
     <Content Include="Areas\SystemSecurity\Views\ActionLog\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\OrderSeq\Details.cshtml" />
     <Content Include="Areas\SystemManage\Views\OrderSeq\Form.cshtml" />
-    <Content Include="Areas\SystemManage\Views\OrderSeq\iNDEX.cshtml" />
+    <Content Include="Areas\SystemManage\Views\OrderSeq\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -432,6 +432,7 @@
     <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Index.htm" />
+    <Content Include="LoginEip.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

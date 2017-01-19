@@ -9,30 +9,29 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/SystemSecurity/OrderSeq/GetGridJson",
+            url: "/SystemManage/OrderSeq/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "NAME", name: "NAME", width: 80, align: 'left' },
-				                     { label: "TYPE", name: "TYPE", width: 80, align: 'left' },
-				                     { label: "PREFIX", name: "PREFIX", width: 80, align: 'left' },
-				                     { label: "CODEFORMAT", name: "CODEFORMAT", width: 80, align: 'left' },
-				                     { label: "NO_LENGTH", name: "NO_LENGTH", width: 80, align: 'left' },
-				                     { label: "CURRENT_NO", name: "CURRENT_NO", width: 80, align: 'left' },
-				                     { label: "CURRENT_ORDNO", name: "CURRENT_ORDNO", width: 80, align: 'left' },
-				                     { label: "CURRENT_YM", name: "CURRENT_YM", width: 80, align: 'left' },
-				                     { label: "RESETFLAG", name: "RESETFLAG", width: 80, align: 'left' },
-				                     { label: "STATUS", name: "STATUS", width: 80, align: 'left' },
-				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
-				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
-				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
-				                     { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
-				                     { label: "LastModifyUserId", name: "LastModifyUserId", width: 80, align: 'left' },
-
+				    { label: "名稱", name: "NAME", width: 120, align: 'left' },
+				    { label: "分類", name: "TYPE", width: 120, align: 'left' },
+				    { label: "前置碼", name: "PREFIX", width: 120, align: 'left' },
+				    { label: "編碼", name: "CODEFORMAT", width: 80, align: 'left' },
+				    { label: "流水號長度", name: "NO_LENGTH", width: 60, align: 'center' },
+				    { label: "目前流水號", name: "CURRENT_NO", width: 80, align: 'center' },
+				    { label: "目前單號", name: "CURRENT_ORDNO", width: 130, align: 'left' },
+				    { label: "目前年月", name: "CURRENT_YM", width: 70, align: 'left' },
+				    { label: "重置碼", name: "RESETFLAG", width: 70, align: 'left' },
+				    {
+				        label: "狀態", name: "STATUS", width: 80, align: 'left',
+				        formatter: function (cellvalue) {
+				            return cellvalue == "Y" ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+				        }
+				    },
+				   
             ],
 			pager: "#gridPager",
-            sortname: 'SID asc,CreatorTime desc',
+			sortname: 'NAME asc,CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -45,7 +44,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/SystemSecurity/OrderSeq/Form",
+            url: "/SystemManage/OrderSeq/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -58,7 +57,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/SystemSecurity/OrderSeq/Form?keyValue=" + keyValue,
+            url: "/SystemManage/OrderSeq/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -68,7 +67,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/SystemSecurity/OrderSeq/DeleteForm",
+            url: "/SystemManage/OrderSeq/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -80,7 +79,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/SystemSecurity/OrderSeq/Details?keyValue=" + keyValue,
+            url: "/SystemManage/OrderSeq/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

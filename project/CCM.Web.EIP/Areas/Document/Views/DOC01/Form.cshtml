@@ -43,7 +43,7 @@
                                 </td>
                                 <th class="formTitle">發文日期</th>
                                 <td class="formValue">
-                                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                                    <input id="ISSUEDATE" name="ISSUEDATE" type="text" class="form-control required input-wdatepicker" onfocus="WdatePicker()" />
                                 </td>
                             </tr>
                             <tr>
@@ -237,7 +237,7 @@
         });
         // 員工 
         $("#EMPID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
+            url: "/Human/HRS00/GetHR_EMPLY" ,
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -302,7 +302,7 @@
             //指定上傳圖片的路徑
             url: "/Document/DOC01/BatchUpload?guid=" + parentID,
             maxFiles: 50,
-            acceptedFiles: ".pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif",
+            acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.gif,.bmp,.tif",
             //添加上傳取消和刪除預覽圖片的鏈結，默認不添加
             addRemoveLinks: true,
 

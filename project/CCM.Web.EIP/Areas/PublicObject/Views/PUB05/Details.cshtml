@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/PublicObject/PUB05/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                    $("#form1").find('div.ckbox label').attr('for', '');
+                }
+            });
+        }
+    });
+    function initControl() {
+        // 部門
+        $("#DepartmentID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#EmployeeID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DepartmentID').children('option:selected').val(),
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/PublicObject/PUB05/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    $(document).ready(function () {
+
+        $('#DepartmentID').change(function () {
+            // 員工 by 部門
+            $("#EmployeeID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+    });
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="SortCode" name="SortCode" type="hidden" value="" />
+    <input id="WhoCanSee" name="WhoCanSee" type="hidden" value="全部" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+            <tr>
+                <th class="formTitle">發佈部門</th>
+                <td class="formValue">
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+                <th class="formTitle">發佈人員</th>
+                <td class="formValue">
+                    <select id="EmployeeID" name="EmployeeID" class="form-control required" onchange="getSFTNO()">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">開始日期</th>
+                <td class="formValue">
+                    <input id="StartDate" name="StartDate" type="text" class="form-control input-wdatepicker required" onchange="setbacktime()"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
+                </td>
+                <th class="formTitle">結束日期</th>
+                <td class="formValue">
+                    <input id="EndDate" name="EndDate" type="text" class="form-control input-wdatepicker required" onchange="setbacktime()"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">標題</th>
+                <td class="formValue" colspan="3">
+                    <input id="BUSubject" name="BUSubject" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">公佈內容</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="BUContent" name="BUContent" class="form-control required" style="height: 50px;"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

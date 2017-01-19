@@ -104,6 +104,23 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         }
         #endregion
 
+        #region
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult SignWith(string keyValue, string emplyid, string emplyidwith)
+        {
+            var data = cs.SetSignWith(keyValue, emplyid, emplyidwith);
+            if (data == "success")
+            {
+                return Success("會簽成功。");
+            }
+            else
+            {
+                return Error("會簽失敗。");
+            }
+        }
+        #endregion
+
         #region 簽核途程
         [HttpGet]
         [HandlerAjaxOnly]

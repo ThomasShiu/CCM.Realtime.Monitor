@@ -10,20 +10,18 @@ using System.ComponentModel.DataAnnotations;
 //todo: 請修改對應的namespace
 namespace CCM.Domain
 {
-
     //mapping table name: BU_BULLETIN
     public class BU_BULLETINEntity : IEntityCcm<BU_BULLETINEntity>, ICreationAuditedCcm, IModificationAuditedCcm
     {
-
         public String SID { get; set; }
 
         public String BUSubject { get; set; }
 
         public String BUContent { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public String WhoCanSee { get; set; }
 
@@ -32,6 +30,8 @@ namespace CCM.Domain
         public String EmployeeID { get; set; }
 
         public String GUID { get; set; }
+
+        //public Int64 SortCode { get; set; }
 
         public String OrganizeId { get; set; }
 

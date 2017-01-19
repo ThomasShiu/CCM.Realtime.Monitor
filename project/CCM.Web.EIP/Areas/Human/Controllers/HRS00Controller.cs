@@ -58,6 +58,17 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
             return Content(data.ToJson());
         }
 
+        // 部門主管 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetHeads(string queryJson)
+        {
+            var data = cs.getHeadsList();
+           
+            //var data = tableApp.GetList(keyword);
+            return Content(data);
+        }
+
         // 判斷 平日/工作日
         [HttpGet]
         [HandlerAjaxOnly]

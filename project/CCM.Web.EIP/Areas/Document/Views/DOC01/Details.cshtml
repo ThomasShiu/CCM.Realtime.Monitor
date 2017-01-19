@@ -2,71 +2,8 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
-<script>
-    var keyValue = $.request("keyValue");
-    $(function () {
-        initControl();
-        // 編輯模式
-        if (!!keyValue) {
-            $.ajax({
-                url: "/Document/DOC01/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                    $("#form1").find('div.ckbox label').attr('for', '');
-                }
-            });
-        } else {
-            // 新建模式
-            $('input[name="F_Id"]').val(GetNow() + '-' + GetGuid());
-        }
 
-    });
-    function initControl() {
-
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
-
-        $('#wizard').wizard().on('change', function (e, data) {
-            var $finish = $("#btn_finish");
-            var $next = $("#btn_next");
-            if (data.direction == "next") {
-                switch (data.step) {
-                    case 1:
-                        if (!$('#form1').formValid()) {
-                            return false;
-                        }
-                        $finish.show();
-                        $next.hide();
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                $finish.hide();
-                $next.show();
-            }
-        });
-    }
-    function submitForm() {
-        if (!$('#form1').formValid()) {
-            return false;
-        }
-        $.submitForm({
-            url: "/Document/DOC01/SubmitForm?keyValue=" + keyValue,
-            param: $("#form1").formSerialize(),
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
-    }
-
-
-</script><div class="widget-body">
+<div class="widget-body">
     <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
         <ul class="steps">
             <li data-target="#step-1" class="active"><span class="step">1</span>發文紀錄<span class="chevron"></span></li>
@@ -212,7 +149,7 @@
     <div class="form-button" id="wizard-actions">
         <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
         <a id="btn_next" class="btn btn-default btn-next">下一步</a>
-        <a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>
+        @*<a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>*@
     </div>
 </div>
 <link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
@@ -246,9 +183,6 @@
 
     function initControl() {
 
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
         // 部門
         $("#DEPID").bindSelect({
             url: "/Human/HRS00/GetHR_DEP",

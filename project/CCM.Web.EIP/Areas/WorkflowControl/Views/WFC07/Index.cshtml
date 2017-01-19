@@ -64,7 +64,7 @@
                               var sid = rowObject.SID;
                               var signdate = rowObject.SIGNDATE;
                               //alert(signdate);
-                              var v_button = '<button class=\'btn btn-default btn-xs\' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';                             
+                              var v_button = '<button class=\'btn btn-default btn-xs\' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';
                               return v_button;
                           }
                      },
@@ -82,7 +82,7 @@
                                  return ' <button class=\'btn btn-info btn-xs\' onclick=\'btn_sign(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>簽核</button>';
                              } else {
                                  return ''
-                             } 
+                             }
                          }
                      },
                       {
@@ -138,8 +138,8 @@
                     //set background style if ColValue === true\
                     if (rowData['OVRT46'] === "Y") {
                         $('#gridList').jqGrid('setRowData', rowIds[i], false, "myAltRowClassLock");
-                    } 
-                } 
+                    }
+                }
             },
             rowattr: function (item, rd, rowid) {
                 //$('.cbox').attr('checked', true);
@@ -173,7 +173,7 @@
             $('#choiceCount').text(count);
             //alert(result);
         }, 200);
-       
+
     }
     // 批次簽核功能
     function batchSign() {
@@ -196,29 +196,32 @@
                 count += 1;
             }
             $('#choiceCount').text(count);
-            alert(result + ',' + '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode');
+            //alert(result + ',' + '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode');
 
-            if (confirm('確定要批次核准加班單嗎?')) {
-                $.ajax({
-                    url: "/WorkflowControl/WFC00/ConfirmSign",
-                    data: { signids: result, emplyid: '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode' },
-                    dataType: "json",
-                    async: false,
-                    success: function (data) {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
-                        msg = "簽核成功!";
-                        window.setTimeout(function () {
-                            $.modalMsg(msg, "success");
-                        }, 500);
-                    },
-                    error: function (data) {
-                        msg = "簽核發生異常!";
-                        window.setTimeout(function () {
-                            $.modalMsg(msg, "warning");
-                        }, 500);
-                    }
-                });
-            }
+            $.modalConfirm("注：您確定要批次核准加班單嗎？", function (r) {
+                if (r) {
+                    $.ajax({
+                        url: "/WorkflowControl/WFC00/ConfirmSign",
+                        data: { signids: result, emplyid: '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode' },
+                        dataType: "json",
+                        async: false,
+                        success: function (data) { 
+                            msg = "簽核成功!";
+                            window.setTimeout(function () {
+                                $.modalMsg(msg, "success");
+                            }, 500);
+                            $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        },
+                        error: function (data) {
+                            msg = "簽核發生異常!";
+                            window.setTimeout(function () {
+                                $.modalMsg(msg, "warning");
+                            }, 500);
+                        }
+                    });
+                }
+            });
+
         }
     }
 
@@ -231,20 +234,21 @@
         var keyValue = arguments[0];  // 加班單號
         var keyValue1 = arguments[1]; // 簽核途程明細 SID
         var keyValue2 = arguments[2]; // 簽核人員工號
-        alert(keyValue + ',' + keyValue1 + ',' + keyValue2);
+        //alert(keyValue + ',' + keyValue1 + ',' + keyValue2);
 
-        if (confirm('確定要核准加班單嗎?')) {
-            $.ajax({
+        $.modalConfirm("注：您確定要單筆核准加班單嗎？", function (r) {
+            if (r) {
+               $.ajax({
                 url: "/WorkflowControl/WFC00/ConfirmSign",
                 data: { signids: keyValue1, emplyid: keyValue2 },
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
                     msg = "簽核成功!";
                     window.setTimeout(function () {
                         $.modalMsg(msg, "success");
                     }, 500);
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
                 },
                 error: function (data) {
                     msg = "簽核發生異常!";
@@ -253,34 +257,60 @@
                     }, 500);
                 }
             });
-        }
+            }
+        });
     }
-
+   
     // 退回加班單
     function rejectSN() {
         var keyValue = arguments[0];  // 加班單號
         var keyValue1 = arguments[1]; // 退回 : CL
-        alert('加班單號:' + keyValue + ',ACT:' + keyValue1);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/RejectSign",
-            data: { keyValue: keyValue, act: keyValue1 },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "退回成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function (data) {
-                msg = "退回加班單發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
+        //alert('加班單號:' + keyValue + ',ACT:' + keyValue1);
+        $.modalConfirm("注：您確定要退回此加班單嗎？", function (r) {
+            if (r) {
+                $.ajax({
+                    url: "/WorkflowControl/WFC00/RejectSign",
+                    data: { keyValue: keyValue, act: keyValue1 },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        msg = "退回成功!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    },
+                    error: function (data) {
+                        msg = "退回加班單發生異常!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "warning");
+                        }, 500);
+                    }
+                });
             }
         });
+
+        
     }
+
+    // 會簽
+    function btn_signwith() {
+        var keyValue = arguments[0];  // 加班單號
+        var keyValue1 = arguments[1]; // 簽核途程明細 SID
+        var keyValue2 = arguments[2]; // 簽核人員工號
+
+        //alert(keyValue);
+        $.modalOpen({
+            id: "Form2",
+            title: "會簽",
+            url: "/WorkflowControl/WFC07/Form2?keyValue=" + keyValue,
+            width: "840px",
+            height: "600px",
+            btn: null,
+        });
+    }
+
+    // 查看
     function btn_details() {
         //var keyValue = $("#gridList").jqGridRowValue().SID;
         var keyValue = arguments[0];

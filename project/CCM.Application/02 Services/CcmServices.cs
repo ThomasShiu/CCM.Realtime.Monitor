@@ -159,6 +159,15 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得部門主管清單
+        public string getHeadsList()
+        {
+            string v_sql = "SELECT DEPID,DEPNM,EMPLYID,EMPLYNM,(DEPNM+'/'+EMPLYNM) AS REMARK  FROM V_HR_DEP WHERE EMPLYID <> '' ";
+            string result = GetJson(v_sql);
+            return result;
+        }
+        #endregion
+        
         #region 把DataTable轉成JSON字串
         //把DataTable轉成JSON字串
         public string GetJson(string sql)
@@ -440,13 +449,14 @@ namespace CCM.Application
                           " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID " +
                           " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          " WHERE A.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%"+ keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') "+
-                          "AND B.SITEID = ( SELECT MIN(SITEID)FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) "+
+                          " WHERE B.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%"+ keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') "+
+                          " AND A.STATUS = 'SN' " +
+                          " AND B.SITEID = ( SELECT MIN(SITEID)FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) " +
                           " OR B.EMPLYID IN ( " +
                           "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R " +
                           "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  " +
-                          " AND A.STATUS = 'SN' " + 
+                          " AND B.STATUS = 'SN' " + 
                           " ORDER BY M.MRDT,A.STATUS DESC ";
 
             //得到一個DataTable物件
@@ -597,15 +607,19 @@ namespace CCM.Application
             cmd.Parameters["@ACTION"].Value = v_action;
             cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
             cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
-            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+            //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
 
             try
             {
                 db.Open();
-                cmd.ExecuteNonQuery();
-                routeLevel = (string)cmd.Parameters["@returnval"].Value;
-                //dt.Load(cmd.ExecuteReader());
-                //routeLevel = int.Parse(dt.Rows[0].ToString());
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                //cmd.ExecuteNonQuery();
+                //routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    routeLevel = dr["outparam"].ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -639,15 +653,69 @@ namespace CCM.Application
             cmd.Parameters["@SIGNID"].Value = v_signid;
             cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
             cmd.Parameters["@EMPLYID"].Value = v_emplyid;
-            cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+            //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
 
             try
             {
                 db.Open();
-                cmd.ExecuteNonQuery();
-                routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                //cmd.ExecuteNonQuery();
+                //routeLevel = (string)cmd.Parameters["@returnval"].Value;
                 //dt.Load(cmd.ExecuteReader());
                 //routeLevel = int.Parse(dt.Rows[0].ToString());
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    routeLevel = dr["outparam"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (!routeLevel.Equals(""))
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        #endregion
+
+        #region 送出會簽作業
+        public string SetSignWith(string v_ovrtno, string v_emplyid, string v_emplyidwith)
+        {
+            string routeLevel = "";
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand("SP_SET_SIGNWITH", db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@OVRTNO", SqlDbType.VarChar, 20);
+            cmd.Parameters["@OVRTNO"].Value = v_ovrtno;
+            cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
+            cmd.Parameters["@EMPLYID"].Value = v_emplyid;
+            cmd.Parameters.Add("@EMPLYIDWITH", SqlDbType.VarChar, 20);
+            cmd.Parameters["@EMPLYIDWITH"].Value = v_emplyidwith;
+            //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+
+            try
+            {
+                db.Open();
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                //cmd.ExecuteNonQuery();
+                //routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    routeLevel = dr["outparam"].ToString();
+                }
             }
             catch (Exception ex)
             {

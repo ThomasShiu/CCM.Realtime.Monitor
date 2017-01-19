@@ -31,11 +31,11 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string queryJson)
         {
             var data = new
             {
-                rows = vtableApp.GetList(pagination, keyword),
+                rows = vtableApp.GetList(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records

@@ -82,6 +82,22 @@
 			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
 			}
         });
+        $("#status_horizon a.btn-default").click(function () {
+            $("#status_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
+        $("#btn_search").click(function () {
+            var statusType = $("#status_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                statusType: statusType,
+            }
+            $gridList.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+            }).trigger('reloadGrid');
+        });
+
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
                 postData: { keyword: $("#txt_keyword").val() },
@@ -163,6 +179,17 @@
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>
+                    </div>
+                </td>
+                <td style="padding-left: 10px;">
+                    <div id="status_horizon" class="btn-group">
+                        <a class="btn btn-default active" data-value="SN">簽核中</a>
+                        <a class="btn btn-default" data-value="OP">未送簽</a>
+                        <a class="btn btn-default" data-value="CL">已退回</a>
+                        <a class="btn btn-default" data-value="NL">已作廢</a>
+                        <a class="btn btn-default" data-value="PB">已撤簽</a>
+                        <a class="btn btn-default" data-value="CF">已核准</a>
+                        <a class="btn btn-default" data-value="ALL">全部</a>
                     </div>
                 </td>
             </tr>

@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class BU_ORDERS_SOTREApp
+public class BU_BULLETINApp
     {
-        private IBU_ORDERS_SOTRERepository service = new BU_ORDERS_SOTRERepository();     
+        private IBU_BULLETINRepository service = new BU_BULLETINRepository();     
 
-	public List<BU_ORDERS_SOTREEntity> GetList(string keyword = "")
+	public List<BU_BULLETINEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<BU_ORDERS_SOTREEntity>();
+            var expression = ExtLinq.True<BU_BULLETINEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class BU_ORDERS_SOTREApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<BU_ORDERS_SOTREEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<BU_BULLETINEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<BU_ORDERS_SOTREEntity>();
+            var expression = ExtLinq.True<BU_BULLETINEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class BU_ORDERS_SOTREApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public BU_ORDERS_SOTREEntity GetForm(string keyValue)
+        public BU_BULLETINEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class BU_ORDERS_SOTREApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(BU_ORDERS_SOTREEntity tableEntity, string keyValue)
+        public void SubmitForm(BU_BULLETINEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

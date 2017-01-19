@@ -13,6 +13,7 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
  <#
@@ -25,9 +26,12 @@ using System.Web.Mvc;
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "BU_ORDERS_SOTRE"; 
+			restrictions[2] = "BU_BULLETIN"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
-			
+
+			string areas = "PublicObject";  //區域名稱
+			string controller = "PUB05";  //控制器
+
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 
 			SqlDataAdapter ad = new SqlDataAdapter(command); 
@@ -37,9 +41,9 @@ using System.Web.Mvc;
 			{ 				
 			#>            
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.xxxx.Controllers
+namespace CCM.Web.EIP.Areas.<#= areas #>.Controllers
 {
-    public class <#= row["TABLE_NAME"].ToString().Trim('s') #>Controller : ControllerBase
+    public class <#= controller #>Controller : ControllerBase
     {
         private <#= row["TABLE_NAME"].ToString().Trim('s') #>App tableApp = new <#= row["TABLE_NAME"].ToString().Trim('s') #>App();
 

@@ -32,22 +32,65 @@ namespace CCM.Application
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.OVRTNO).ToList();
         }
-        public List<V_HR_OVRTMEntity> GetList(Pagination pagination, string keyword = "")
+        public List<V_HR_OVRTMEntity> GetList(Pagination pagination, string queryJson = "")
         {
             var expression = ExtLinq.True<V_HR_OVRTMEntity>();
-            if (!string.IsNullOrEmpty(keyword))
+            var queryParam = queryJson.ToJObject();
+
+            if (!queryParam["keyword"].IsEmpty())
             {
+                string keyword = queryParam["keyword"].ToString();
                 expression = expression.And(t => t.OVRTNO.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEREASON.Contains(keyword));
             }
-            expression = expression.And(t => t.STATUS == "SN");
+            //< a class="btn btn-default active" data-value="SN">簽核中</a>
+            //            <a class="btn btn-default" data-value="OP">未送簽</a>
+            //            <a class="btn btn-default" data-value="CL">已退回</a>
+            //            <a class="btn btn-default" data-value="NL">已作廢</a>
+            //            <a class="btn btn-default" data-value="PB">已撤簽</a>
+            //            <a class="btn btn-default" data-value="CF">已核准</a>
+            //            <a class="btn btn-default" data-value="ALL">全部</a>
+            // 日期條件
+            if (!queryParam["statusType"].IsEmpty())
+            {
+                string statusType = queryParam["statusType"].ToString();
+                switch (statusType)
+                {
+                    case "SN":  
+                        expression = expression.And(t => t.STATUS == "SN");
+                        break;
+                    case "OP":
+                        expression = expression.And(t => t.STATUS == "OP");
+                        break;
+                    case "CL":
+                        expression = expression.And(t => t.STATUS == "CL");
+                        break;
+                    case "NL": 
+                        expression = expression.And(t => t.STATUS == "NL");
+                        break;
+                    case "PB": 
+                        expression = expression.And(t => t.STATUS == "PB");
+                        break;
+                    case "CF": 
+                        expression = expression.And(t => t.STATUS == "CF");
+                        break;
+                    case "ALL":
+                        expression = expression.And(t => t.STATUS != "");
+                        break;
+                    default:
+                        
+                        break;
+                }
+            }else {
+                expression = expression.And(t => t.STATUS == "SN");
+            }
+
+            //expression = expression.And(t => t.STATUS == "SN");
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-
- 
 
         // 個人加班單
         public List<V_HR_OVRTMEntity> GetListEmp(Pagination pagination, string keyword = "")

@@ -6,15 +6,16 @@
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
+using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.xxxx.Controllers
+namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 {
-    public class BU_ORDERS_SOTREController : ControllerBase
+    public class PUB05Controller : ControllerBase
     {
-        private BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
+        private BU_BULLETINApp tableApp = new BU_BULLETINApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,9 +47,9 @@ namespace CCM.Web.EIP.Areas.xxxx.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(BU_ORDERS_SOTREEntity BU_ORDERS_SOTREEntity, string keyValue)
+        public ActionResult SubmitForm(BU_BULLETINEntity BU_BULLETINEntity, string keyValue)
         {
-            tableApp.SubmitForm(BU_ORDERS_SOTREEntity, keyValue);
+            tableApp.SubmitForm(BU_BULLETINEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
