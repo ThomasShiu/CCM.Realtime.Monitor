@@ -1,0 +1,406 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
+<script>
+    var keyValue = $.request("keyValue");
+    var parentID = $.request("SID");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/OrderManage/ORD02/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                    $("#form1").find('div.ckbox label').attr('for', '');
+                }
+            });
+        } else {
+            // 新增模式
+            blockDisable();
+        }
+
+        // 初始化訂便當明細列表
+        InitBootGrid();
+    });
+    function initControl() {
+        // 部門
+        $("#DepartmentID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#EmployeeID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 特約商店
+        $("#StoreID").bindSelect({
+            url: "/OrderManage/ORD00/GetStoreJsonList",
+            id: "SID",
+            text: "NAME"
+        });
+        // 部門
+        $("#D_DepID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#D_EmpID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 菜單
+        $("#D_OrderMenuSID").bindSelect({
+            url: "/OrderManage/ORD00/GetMenuListPID?keyValue=" + $('#StoreID').children('option:selected').val(),
+            id: "SID",
+            text: "MealsName"
+        });
+
+        $('#wizard').wizard().on('change', function (e, data) {
+            //var $finish = $("#btn_finish");
+            var $next = $("#btn_next");
+            if (data.direction == "next") {
+                switch (data.step) {
+                    case 1:
+                        if (!$('#form1').formValid()) {
+                            return false;
+                        }
+                        //$finish.show();
+                        $next.hide();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                //$finish.hide();
+                $next.show();
+            }
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/OrderManage/ORD02/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    function btn_addDetail() {
+        //var keyValue = $("#gridList").jqGridRowValue().SID;
+        if ($("#D_DepID").val() == "" | $('#D_EmpID').val() == "" | $('#D_OrderDate').val() == "" |
+            $('#D_OrderMenuSID').val() == "" | $('#D_UnitPrice').val() == "" | $('#D_Qty').val() == "") {
+            msg = "請確實填寫各欄位!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "error");
+            }, 500);
+            return;
+        }
+
+        try{
+            var submitJson = {
+                DepID: $("#D_DepID").val(),
+                EmpID: $('#D_EmpID').val(),
+                OrderDate: $('#D_OrderDate').val(),
+                OrderMenuSID: $('#D_OrderMenuSID').val(),
+                UnitPrice: $('#D_UnitPrice').val(),
+                Qty: $('#D_Qty').val(),
+                ParentSID: keyValue
+            }
+            //alert($("#D_DepID").val()); alert($('#D_EmpID').val());
+            $.ajax({
+                url: "/OrderManage/ORD02/SubmitDetail",
+                data: { submitJson: JSON.stringify(submitJson) },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    //alert(data.state);
+                    msg = "新增訂購明細成功!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "success");
+                    }, 500);
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //重新整理附件列表
+                    $('#grid-orderlist').bootgrid('reload');
+                },
+                error: function (data) {
+                    msg = "新增訂購明細發生異常!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+                }
+            });}
+        catch (err) {
+            msg = err.message;
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+    }
+
+    function blockDisable() {
+        toggleDisabled(document.getElementById("adddetail"));
+    }
+
+    // 停用DIV內容
+    function toggleDisabled(el) {
+        try {
+            el.disabled = el.disabled ? false : true;
+        }
+        catch (E) {
+        }
+        if (el.childNodes && el.childNodes.length > 0) {
+            for (var x = 0; x < el.childNodes.length; x++) {
+                toggleDisabled(el.childNodes[x]);
+            }
+        }
+    }
+
+    // 初始化附件列表
+    function InitBootGrid() {
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+        // BootGrid test
+        $("#grid-orderlist").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            height: 100,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            right: "text-right",
+            labels: {
+                noResults: "無任何明細",
+                //infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/OrderManage/ORD00/GetOrderDetailList?keyword=' + keyValue,
+            formatters: {
+                "ORDERDATEFORMAT": function (column, row) {
+                    var strDate = row.ORDERDATE.substring(6, 9) + "/" + row.ORDERDATE.substring(4, 6) + "/" + row.ORDERDATE.substring(0, 4);
+                    return strDate;
+                }
+            }
+        })
+
+    }
+
+    $(document).ready(function () {
+        if (!keyValue) {
+            // 新建模式
+            $('#DepartmentID').change(function () {
+                // 員工 by 部門
+                $("#EmployeeID").empty().bindSelect({
+                    url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                    id: "EMPLYID",
+                    text: "EMPLYNM"
+                });
+
+            });
+
+        } else {
+            // 編輯模式
+            // 訂購員工
+            $('#D_DepID').change(function () {
+                // 員工 by 部門
+                $("#D_EmpID").empty().bindSelect({
+                    url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                    id: "EMPLYID",
+                    text: "EMPLYNM"
+                });
+
+            });
+
+            // 菜單 by 特約廠商
+            $('#StoreID').change(function () {
+                $("#D_OrderMenuSID").bindSelect({
+                    url: "/OrderManage/ORD00/GetMenuListPID?keyValue=" + $(this).children('option:selected').val(),
+                    id: "SID",
+                    text: "MealsName"
+                });
+            });
+
+            // 單價 by 菜單
+            $('#D_OrderMenuSID').change(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/OrderManage/ORD00/GetMenuListSID",
+                    data: { keyValue: $(this).children('option:selected').val() },
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        $.each(data, function (index, element) {
+                            //alert(element.UnitPrice);
+                            $("#D_UnitPrice").val(element.UnitPrice);
+                            $("#D_Qty").val(1);
+                        });
+                    },
+                    failure: function (errMsg) {
+
+                    }
+                });
+            });
+        }
+
+
+
+    });
+</script>
+<div class="widget-body">
+    <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
+        <ul class="steps">
+            <li data-target="#step-1" class="active"><span class="step">1</span>訂購資料<span class="chevron"></span></li>
+            <li data-target="#step-2"><span class="step">2</span>訂購明細<span class="chevron"></span></li>
+        </ul>
+    </div>
+    <div class="step-content" id="wizard-steps" style="border-left: none; border-bottom: none; border-right: none;">
+
+        <div class="step-pane active" id="step-1" style="margin: 10px; margin-bottom: 0px;">
+            <div>
+
+                <form id="form1">
+                    <input id="SID" name="SID" type="hidden" />
+                    <input id="GUID" name="GUID" type="hidden" value="" />
+                    <input id="WhoCanSee" name="WhoCanSee" type="hidden" />
+
+                    <div style="padding-top: 20px; margin-right: 20px;">
+                        <table class="form">
+
+                            <tr>
+                                <th class="formTitle">部門</th>
+                                <td class="formValue">
+
+                                    <select id="DepartmentID" name="DepartmentID" class="form-control required">
+                                        <option></option>
+                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                                    </select>
+                                </td>
+                                <th class="formTitle">人員</th>
+                                <td class="formValue">
+
+                                    <select id="EmployeeID" name="EmployeeID" class="form-control required">
+                                        <option></option>
+                                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">商店</th>
+                                <td class="formValue">
+                                    <select id="StoreID" name="StoreID" class="form-control required"></select>
+                                </td>
+                                <th class="formTitle">單項補助額</th>
+                                <td class="formValue">
+                                    <select id="SubsidizeAmount" name="SubsidizeAmount" class="form-control required">
+                                        <option value="65">65</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="formTitle">開始日</th>
+                                <td class="formValue">
+                                    <input id="StartDate" name="StartDate" type="text" class="form-control input-wdatepicker required" onchange="setleavetime()"
+                                           onfocus="WdatePicker({ startDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
+                                </td>
+                                <th class="formTitle">結束日</th>
+                                <td class="formValue">
+                                    <input id="EndDate" name="EndDate" type="text" class="form-control input-wdatepicker required" onchange="setbacktime()"
+                                           onfocus="WdatePicker({ startDate: '%y-%M-%d', dateFmt: 'yyyy-MM-dd', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">主旨</th>
+                                <td class="formValue" colspan="3">
+                                    <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入標題" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th class="formTitle">說明</th>
+                                <td class="formValue" colspan="3">
+                                    <textarea id="OrderContent" name="OrderContent" class="form-control" style="height: 50px;"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">數量</th>
+                                <td class="formValue">
+                                    <input id="Qty" name="Qty" type="text" class="form-control" readonly="readonly" value="0" />
+                                </td>
+                                <th class="formTitle">總計</th>
+                                <td class="formValue">
+                                    <input id="Amount" name="Amount" type="text" class="form-control" readonly="readonly" value="0" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="step-pane" id="step-2" style="margin: 5px; margin-bottom: 0px;">
+            <div>
+                <table id="grid-orderlist" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="SID" data-width="20%" data-visible="false">SID</th>
+                            <th data-column-id="DEPNM" data-width="100px">訂購部門</th>
+                            <th data-column-id="EMPNM" data-width="50px">訂購人</th>
+                            <th data-column-id="MEALSNAME" data-width="70px">訂購項目</th>
+                            <th data-column-id="UNITPRICE" data-width="40px">單價</th>
+                            <th data-column-id="QTY" data-width="50px">數量</th>
+                            <th data-column-id="AdjustSID" data-width="50px" data-visible="false">增購項</th>
+                            <th data-column-id="AdjustAmount" data-width="50px" data-visible="false">增購額</th>
+                            <th data-column-id="AdjustQty" data-width="50px" data-visible="false">增購量</th>
+                            <th data-column-id="ORDERDATE" data-width="70px">訂購日</th>
+                            <th data-column-id="AMOUNT" data-width="50px" class="right">金額</th>
+                            <th data-column-id="REMARK" data-width="50px">備註</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-button" id="wizard-actions">
+        <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
+        <a id="btn_next" class="btn btn-default btn-next">下一步</a>
+        @*<a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>*@
+    </div>
+</div>

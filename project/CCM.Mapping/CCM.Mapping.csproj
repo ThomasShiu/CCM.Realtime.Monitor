@@ -58,10 +58,14 @@
     <Compile Include="Human\V_HR_OVRTMMap.cs" />
     <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
+    <Compile Include="OrderManage\BU_LUNCHMap.cs" />
+    <Compile Include="OrderManage\BU_ORDERSMap.cs" />
+    <Compile Include="OrderManage\BU_ORDERS_DETAILMap.cs" />
+    <Compile Include="OrderManage\BU_ORDERS_MENUMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\BU_BULLETINMap.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKMap.cs" />
-    <Compile Include="PublicObject\BU_ORDERS_SOTREMap.cs" />
+    <Compile Include="OrderManage\BU_ORDERS_SOTREMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
@@ -92,9 +96,7 @@
       <Name>CCM.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OrderManage\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,31 +9,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/PublicObject/PUB06/GetGridJson",
+            url: "/OrderManage/ORD04/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				        { label: "FeedBackType", name: "FeedBackType", width: 80, align: 'left' },
-				        { label: "FeedBackContent", name: "FeedBackContent", width: 400, align: 'left' },
-				        {
-				            label: "CreateDate", name: "CreateDate", width: 120, align: 'left',
-				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-				        },
-				        { label: "WhoCanSee", name: "WhoCanSee", hidden: true, width: 80, align: 'left' },
-				        { label: "DepartmentID", name: "DepartmentID", width: 80, align: 'left' },
-				        { label: "EmployeeID", name: "EmployeeID", width: 80, align: 'left' },
-				        { label: "ReplyContent", name: "ReplyContent", hidden: true, width: 80, align: 'left' },
-				        {
-				            label: "ReplyDate", name: "ReplyDate", hidden: true, width: 120, align: 'left',
-				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-				        },
-				        { label: "ReplyDepartmentID", name: "ReplyDepartmentID", hidden: true, width: 80, align: 'left' },
-				        { label: "ReplyEmployeeID", name: "ReplyEmployeeID", width: 80, align: 'left' },
-				        { label: "Status", name: "Status", width: 80, align: 'left' },
-
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+			                    { label: "SID", name: "SID", width: 80, align: 'left' },
+				                     { label: "LUTYPE", name: "LUTYPE", width: 80, align: 'left' },
+				                     { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
+				                     { label: "LUDATE", name: "LUDATE", width: 80, align: 'left' },
+				                     { label: "FROM_YEAR", name: "FROM_YEAR", width: 80, align: 'left' },
+				                     { label: "FROM_MONTH", name: "FROM_MONTH", width: 80, align: 'left' },
+				                     { label: "TO_YEAR", name: "TO_YEAR", width: 80, align: 'left' },
+				                     { label: "TO_MONTH", name: "TO_MONTH", width: 80, align: 'left' },
+				                     { label: "EMPLYID", name: "EMPLYID", width: 80, align: 'left' },
+				                     { label: "DEPID", name: "DEPID", width: 80, align: 'left' },
+				                     { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "AMOUNT", name: "AMOUNT", width: 80, align: 'left' },
+				                     { label: "REMK", name: "REMK", width: 80, align: 'left' },
+				                    
             ],
 			pager: "#gridPager",
-			sortname: 'CreateDate desc',
+            sortname: 'SID asc,CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -46,7 +43,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/PublicObject/PUB06/Form",
+            url: "/OrderManage/ORD04/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -59,7 +56,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/PublicObject/PUB06/Form?keyValue=" + keyValue,
+            url: "/OrderManage/ORD04/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -69,7 +66,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/PublicObject/PUB06/DeleteForm",
+            url: "/OrderManage/ORD04/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -81,7 +78,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/PublicObject/PUB06/Details?keyValue=" + keyValue,
+            url: "/OrderManage/ORD04/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

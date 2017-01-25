@@ -13,7 +13,13 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				    { label: "操作人員", name: "Operator", width: 80, align: 'left' },
+                    { label: "操作人員", name: "Operator", width: 80, align: 'left'},
+				    {
+				        label: "姓名", name: "", width: 80, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            return top.clients.user[rowObject.Operator] == null ? "" : top.clients.user[rowObject.Operator].fullname;
+				        }
+				    },
 				    { label: "起始頁面", name: "Refer", width: 200, align: 'left' },
 				    { label: "目標頁面", name: "Destination", width: 200, align: 'left' },
 				    { label: "方式", name: "Method", width: 60, align: 'left' },

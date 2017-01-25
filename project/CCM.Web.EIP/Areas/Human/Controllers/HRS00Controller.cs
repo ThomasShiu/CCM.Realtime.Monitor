@@ -38,6 +38,16 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
             return Content(data.ToJson());
         }
 
+        // 所有員工
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetHR_EMPLY_ALL(string keyword)
+        {
+            //var data = EmplyApp.GetList(keyword);
+            var data = EmplyApp.GetListAllEmp(keyword);
+            return Content(data.ToJson());
+        }
+
         CCM_Main_EmployeeApp CCM_EmpApp = new CCM_Main_EmployeeApp();
         // 員工
         [HttpGet]

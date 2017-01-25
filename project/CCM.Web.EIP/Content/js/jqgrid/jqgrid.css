@@ -234,6 +234,9 @@ td.menu_text{width: auto;padding-left: 1px;white-space: nowrap;}
 .search_buttons #bs_search{margin-left: 3px;}
 /*.ui-jqgrid .cbox{margin-left: -1px;position: initial;vertical-align: text-bottom;}
 .ui-jqgrid .checkbox{margin-left: 8px;position:initial;margin-top:3.5px;}*/
+.ui-jqgrid .cbox{margin-left: -1px;position: initial;vertical-align: text-bottom;}
+.ui-jqgrid .checkbox{margin-left: 8px;position:initial;margin-top:3.5px;}
+
 .ui-jqgrid .ui-th-div .ckbox input[type="checkbox"]{margin-bottom:3px;}
 .ui-jqgrid .ui-th-div .ckbox,.rdio{margin-left: 4.5px;}
 .ui-jqgrid .ckbox,.rdio{position: relative;display:block;padding-right:0px;line-height: initial;float:left;margin-left: 5px;}

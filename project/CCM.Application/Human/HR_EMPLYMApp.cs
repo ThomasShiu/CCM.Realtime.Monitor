@@ -53,6 +53,18 @@ namespace CCM.Application
             expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
+
+        // 員工 by 部門別
+        public List<HR_EMPLYMEntity> GetListAllEmp(string keyword = "")
+        {
+            var expression = ExtLinq.True<HR_EMPLYMEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.DEPID.Contains(keyword));
+            }
+            //expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
+            return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
+        }
         public List<HR_EMPLYMEntity> GetList(Pagination pagination, string keyword = "")
         {
             var expression = ExtLinq.True<HR_EMPLYMEntity>();

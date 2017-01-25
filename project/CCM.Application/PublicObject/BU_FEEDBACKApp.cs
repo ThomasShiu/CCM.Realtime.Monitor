@@ -59,6 +59,9 @@ namespace CCM.Application
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
+                if (string.IsNullOrEmpty(tableEntity.ReplyDate.ToString())) {
+                    tableEntity.ReplyDate = DateTime.Now;
+                }
                 tableEntity.Modify(keyValue);
                 service.Update(tableEntity);
             }

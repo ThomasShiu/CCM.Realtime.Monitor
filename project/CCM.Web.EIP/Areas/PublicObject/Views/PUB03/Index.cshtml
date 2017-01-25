@@ -18,7 +18,7 @@
                         { label: "ObjectType", name: "ObjectType", hidden: true, width: 80, align: 'left' },
                         { label: "預約原因", name: "UseReason", width: 80, align: 'left' },
 				        { label: "會議主題", name: "Subject", width: 180, align: 'left' },
-				        { label: "參與人員/會議說明", name: "Description", width: 300, align: 'left' },
+				        { label: "參與人員/會議說明", name: "Description", width: 200, align: 'left' },
                         { label: "公共物件", name: "ObjectSID", hidden: true, width: 80, align: 'left' },
                         {
                             label: "會議室", name: "ObjectSID", width: 150, align: 'left',
@@ -27,16 +27,16 @@
                             }
                         },
 				        {
-				            label: "開會時間-起", name: "BookingStartTime", width: 120, align: 'left',
+				            label: "開會時間-起", name: "BookingStartTime", width: 100, align: 'left',
 				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				        },
 				        {
-				            label: "開會時間-迄", name: "BookingEndTime", width: 120, align: 'left',
+				            label: "開會時間-迄", name: "BookingEndTime", width: 100, align: 'left',
 				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				        },
 
 				        {
-				            label: "部門", name: "DepartmentID", width: 130, align: 'left', formatter: function (cellvalue) {
+				            label: "部門", name: "DepartmentID", width: 150, align: 'left', formatter: function (cellvalue) {
 				                return top.clients.dept[cellvalue] == null ? "" : top.clients.dept[cellvalue].fullname;
 				            }
 				        },
@@ -46,9 +46,22 @@
                                  return top.clients.user[rowObject.EmployeeID] == null ? "" : top.clients.user[rowObject.EmployeeID].fullname;
                              }
                          },
-                         { label: "出廠里程", name: "MileageLast", width: 60, align: 'right' },
-				        { label: "回廠里程", name: "Mileage", width: 60, align: 'left' },
-                        { label: "狀態", name: "Status", width: 60, align: 'left' },
+                         { label: "出廠里程", name: "MileageLast", hidden: true, width: 60, align: 'right' },
+				        { label: "回廠里程", name: "Mileage", hidden: true, width: 60, align: 'left' },
+                        { label: "Status", name: "Status", hidden: true, width: 80, align: 'left' },
+                        {
+                            label: "狀態", name: "", width: 50, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                                if (rowObject.Status == '鎖定') {
+                                    return '<span class=\"label label-warning\">鎖定</span>';
+                                } else if (rowObject.Status == '結束') {
+                                    return '<span class=\"label label-success\">結束</span>';
+                                } else if (rowObject.Status == '取消') {
+                                    return '<span class=\"label label-default\">取消</span>';
+                                }
+                            }
+                        },
                         {
                             label: "修改", name: "", width: 60, align: 'left',
                             formatter: function (cellvalue, options, rowObject) {

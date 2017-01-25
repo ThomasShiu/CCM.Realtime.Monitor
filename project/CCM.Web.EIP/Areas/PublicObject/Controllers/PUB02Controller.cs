@@ -9,6 +9,7 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 //公務車預約
@@ -17,11 +18,12 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     public class PUB02Controller : ControllerBase
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
-        private CcmServices ccmService = new CcmServices();
+        private CcmServices cs = new CcmServices();
 
         #region 警衛專用畫面
         [HttpGet]
         [HandlerAuthorize]
+        [ActionTraceLog]
         public  ActionResult Form2()
         {
             return View();
@@ -76,7 +78,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
             {
                 // 判斷該時段是否已有預約
-                string v_message = ccmService.chkPubObjExistBooking(tableEntity);
+                string v_message = cs.chkPubObjExistBooking(tableEntity);
                 if (!string.IsNullOrEmpty(v_message))
                 {
                     return Error(v_message);

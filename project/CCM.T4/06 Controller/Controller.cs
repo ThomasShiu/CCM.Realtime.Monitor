@@ -11,11 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.PublicObject.Controllers
+namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 {
-    public class PUB05Controller : ControllerBase
+    public class ORD03Controller : ControllerBase
     {
-        private BU_BULLETINApp tableApp = new BU_BULLETINApp();
+        private BU_ORDERS_DETAILApp tableApp = new BU_ORDERS_DETAILApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -47,9 +47,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(BU_BULLETINEntity BU_BULLETINEntity, string keyValue)
+        public ActionResult SubmitForm(BU_ORDERS_DETAILEntity BU_ORDERS_DETAILEntity, string keyValue)
         {
-            tableApp.SubmitForm(BU_BULLETINEntity, keyValue);
+            tableApp.SubmitForm(BU_ORDERS_DETAILEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

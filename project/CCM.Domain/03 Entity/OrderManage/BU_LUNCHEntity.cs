@@ -11,33 +11,37 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain
 {
 
-    //mapping table name: BU_ORDERS_SOTRE
-    public class BU_ORDERS_SOTREEntity : IEntityCcm<BU_ORDERS_SOTREEntity>, ICreationAuditedCcm, IModificationAuditedCcm
+    //mapping table name: BU_LUNCH
+    public class BU_LUNCHEntity : IEntityCcm<BU_LUNCHEntity>, ICreationAuditedCcm, IModificationAuditedCcm
     {
 
         public String SID { get; set; }
 
-        public String Name { get; set; }
+        public String LUTYPE { get; set; }
 
-        public String Phone { get; set; }
+        public String LOCATION { get; set; }
 
-        public String Fax { get; set; }
+        public DateTime? LUDATE { get; set; }
 
-        public String Address { get; set; }
+        public String FROM_YEAR { get; set; }
 
-        public String Contact { get; set; }
+        public String FROM_MONTH { get; set; }
 
-        public Int32? SubsidizeAmount { get; set; }
+        public String TO_YEAR { get; set; }
 
-        public String ContributingVendor { get; set; }
+        public String TO_MONTH { get; set; }
 
-        public String WebSiteURL { get; set; }
+        public String EMPLYID { get; set; }
 
-        public String Offer { get; set; }
+        public String DEPID { get; set; }
 
-        public String Remark { get; set; }
+        public Int32? MEATPEOPLES { get; set; }
 
-        public Int32? SortCode { get; set; }
+        public Int32? VEGEPEOPLES { get; set; }
+
+        public Int32? AMOUNT { get; set; }
+
+        public String REMK { get; set; }
 
         public String OrganizeId { get; set; }
 

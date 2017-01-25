@@ -1,5 +1,6 @@
 ﻿using CCM.Code;
 using CCM.Domain;
+using CCM.Repository;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -47,7 +48,8 @@ namespace CCM.Application
 
         #region 檢查公共物件是否被預約
         // 檢查公共物件是否被預約
-        public string chkPubObjExistBooking(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity) {
+        public string chkPubObjExistBooking(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity)
+        {
             string SQL = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
                          " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID AND ((@StartTime  BETWEEN  A.BookingStartTime AND A.BookingEndTime ) OR (@EndTime  BETWEEN A.BookingStartTime AND A.BookingEndTime))";
             //string SQL2 = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
@@ -81,7 +83,7 @@ namespace CCM.Application
                     }
 
                 }
-                
+
             }
             return v_message;
         }
@@ -90,7 +92,7 @@ namespace CCM.Application
         #region 取得特約廠商，只取前8筆
         public JArray GetVendorList()
         {
-            string v_sql = "SELECT TOP 8 Name, Phone  FROM EIP.dbo.BU_ORDERS_SOTRE WHERE Phone IS NOT NULL ORDER BY SortCode DESC";
+            string v_sql = "SELECT SID,Name, Phone  FROM EIP.dbo.BU_ORDERS_SOTRE WHERE Phone IS NOT NULL ORDER BY CreatorTime DESC";
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
 
@@ -98,6 +100,7 @@ namespace CCM.Application
             var detail = from p in dt.AsEnumerable()
                          select new
                          {
+                             SID = p.Field<string>("SID"),
                              NAME = p.Field<string>("Name"),
                              PHONE = p.Field<string>("Phone")
                          };
@@ -108,6 +111,7 @@ namespace CCM.Application
 
                 var colObject = new JObject
                 {
+                    {"SID",col.SID },
                     {"NAME",col.NAME },
                     {"PHONE",col.PHONE }
                 };
@@ -123,7 +127,7 @@ namespace CCM.Application
             string v_sql = " SELECT BUSubject,convert(varchar(10), StartDate, 111) +' ~ '+convert(varchar(10), EndDate, 111)  Showdate " +
                            "  FROM BU_BULLETIN " +
                            "  WHERE DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) BETWEEN StartDate AND EndDate " +
-                           "  ORDER BY SortCode DESC ";
+                           "  ORDER BY StartDate DESC ";
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
 
@@ -167,7 +171,7 @@ namespace CCM.Application
             return result;
         }
         #endregion
-        
+
         #region 把DataTable轉成JSON字串
         //把DataTable轉成JSON字串
         public string GetJson(string sql)
@@ -175,10 +179,10 @@ namespace CCM.Application
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(sql);
             //將DataTable轉成JSON字串
-           string str_json = JsonConvert.SerializeObject(dt, Formatting.Indented);
+            string str_json = JsonConvert.SerializeObject(dt, Formatting.Indented);
             //string str_json = JsonConvert.SerializeObject(dt);
-           return str_json;
-            
+            return str_json;
+
         }
         #endregion
 
@@ -357,7 +361,7 @@ namespace CCM.Application
         // 檢查加班單時段是否有重複
         public string chkOverTimeDup(HR_OVRTMEntity tableEntity)
         {
-            string SQL = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
+            string v_sql = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
                           + " FROM " + v_HR_OVRTM + " A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
                           + " WHERE A.EMPLYID = @EMPLYID  AND((@StartTime  BETWEEN  FETB AND FETE) OR(@EndTime  BETWEEN FETB AND FETE)) ";
             //string SQL2 = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
@@ -370,7 +374,7 @@ namespace CCM.Application
                 //2.開啟資料庫
                 conn.Open();
                 //3.引用SqlCommand物件
-                using (SqlCommand command = new SqlCommand(SQL, conn))
+                using (SqlCommand command = new SqlCommand(v_sql, conn))
                 {
                     command.Parameters.AddWithValue("@EMPLYID", tableEntity.EMPLYID);
                     command.Parameters.AddWithValue("@StartTime", String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB));
@@ -444,19 +448,19 @@ namespace CCM.Application
             var UserId = LoginInfo.UserCode; //A970701
             var UserDep = LoginInfo.DeptId; // H00
 
-            var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, "+
+            var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, " +
                           " A.STATUS,A.SENDDATE,B.SITEID,B.SIGNDATE,B.EMPLYID,M.MRDT,M.DEMIN,A.OVRT46 " +
                           " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID " +
                           " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          " WHERE B.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%"+ keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') "+
+                          " WHERE B.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%" + keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') " +
                           " AND A.STATUS = 'SN' " +
-                          " AND B.SITEID = ( SELECT MIN(SITEID)FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) " +
+                          " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) " +
                           " OR B.EMPLYID IN ( " +
                           "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R " +
                           "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
                           "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  " +
-                          " AND B.STATUS = 'SN' " + 
+                          " AND B.STATUS = 'SN' " +
                           " ORDER BY M.MRDT,A.STATUS DESC ";
 
             //得到一個DataTable物件
@@ -517,7 +521,7 @@ namespace CCM.Application
             int routeLevel = 0;
 
             SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
-            SqlCommand cmd = new SqlCommand(v_SP_GEN_SIGNROUTE , db);
+            SqlCommand cmd = new SqlCommand(v_SP_GEN_SIGNROUTE, db);
 
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -552,12 +556,12 @@ namespace CCM.Application
             }
         }
         #endregion
-       
+
         #region 取得簽核途程列表
         public JArray getSignList(string keyValue)
         {
             string v_sql = " SELECT OVRTNO,SITEID, DEPID, DEPTNM, EMPLYID, EMPLYNM, SIGN_STATUS, SIGNDATE,REPLY " +
-                           " FROM "+ v_V_WF_SIGNROUTE + "  WHERE OVRTNO = '" + keyValue + "' ORDER BY SITEID";
+                           " FROM " + v_V_WF_SIGNROUTE + "  WHERE OVRTNO = '" + keyValue + "' ORDER BY SITEID";
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
 
@@ -735,5 +739,128 @@ namespace CCM.Application
             }
         }
         #endregion
+
+
+        #region 取得訂便當清單
+        public JArray getOrderDetailList(string keyword)
+        {
+            var v_sql = "SELECT A.SID, A.ParentSID, Convert(char(10),A.OrderDate,120) OrderDate , A.EmpID,dbo.SF_GETEMPNAME(A.EmpID) EMPNM,A.DepID,dbo.SF_GETDEPTBYDEPT(A.DepID) DEPNM, " +
+                        "      A.OrderMenuSID,B.MealsName,A.Qty, A.UnitPrice, A.AdjustSID, A.AdjustAmount, A.AdjustQty, A.Amount, A.Remark " +
+                        " FROM EIP.dbo.BU_ORDERS_DETAIL A JOIN BU_ORDERS_MENU B ON A.OrderMenuSID = B.SID " +
+                        " WHERE A.ParentSID = '" + keyword + "' ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SID = p.Field<string>("SID"),
+                             ParentSID = p.Field<string>("ParentSID"),
+                             OrderDate = p.Field<string>("OrderDate"),
+                             EmpID = p.Field<string>("EmpID"),
+                             EMPNM = p.Field<string>("EMPNM"),
+                             DepID = p.Field<string>("DepID"),
+                             DEPNM = p.Field<string>("DEPNM"),
+                             OrderMenuSID = p.Field<string>("OrderMenuSID"),
+                             MealsName = p.Field<string>("MealsName"),
+                             Qty = p.Field<int?>("Qty"),
+                             UnitPrice = p.Field<int?>("UnitPrice"),
+                             Amount = p.Field<int?>("Amount"),
+                             Remark = p.Field<string>("Remark")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SID",col.SID },
+                    {"PARENTSID",col.ParentSID },
+                    {"ORDERDATE",col.OrderDate},
+                    {"EMPID",col.EmpID },
+                    {"EMPNM",col.EMPNM },
+                    {"DEPID",col.DepID },
+                    {"DEPNM" ,col.DEPNM},
+                    {"ORDERMENUSID" ,col.OrderMenuSID},
+                    {"MEALSNAME" ,col.MealsName},
+                    {"QTY" ,col.Qty},
+                    {"UNITPRICE" ,col.UnitPrice},
+                    {"AMOUNT" ,col.Amount},
+                    {"REMARKRemark" ,col.Remark}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        private BU_ORDERS_DETAILApp orderDetailapp = new BU_ORDERS_DETAILApp();
+        #region 新增訂便當明細
+        public bool addOrderDetail(string submitJson)
+        {
+            bool v_YN = false;
+            string v_PID = "";
+            var data = submitJson.ToJObject();
+            BU_ORDERS_DETAILEntity entity = new BU_ORDERS_DETAILEntity();
+
+            if (data.Count > 0)
+            {
+                entity.DepID = data["DepID"].ToString();
+                entity.EmpID = data["EmpID"].ToString();
+                entity.OrderDate = data["OrderDate"].ToDate();
+                entity.OrderMenuSID = data["OrderMenuSID"].ToString();
+                entity.Qty = data["Qty"].ToInt();
+                entity.UnitPrice = data["UnitPrice"].ToInt();
+                entity.ParentSID = data["ParentSID"].ToString();
+                entity.AdjustAmount = 0;
+                entity.AdjustQty = 0;
+                entity.Amount = 0;
+                orderDetailapp.SubmitForm(entity, "");
+                v_YN = true;
+                v_PID = data["ParentSID"].ToString();
+                //TODO: 更新訂便當主檔加總 v_PID
+                refreshOrderDetail(v_PID);
+            }
+
+
+            
+            return v_YN;
+        }
+        #endregion
+
+        #region 更新訂便當主檔
+        public void refreshOrderDetail(string keyvalue)
+        {
+            string v_sql = " UPDATE BU_ORDERS SET Qty = (SELECT SUM(Qty) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) , " +
+                            "Amount = (SELECT SUM(Qty*UnitPrice) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) WHERE SID = @SID ";
+            //1.引用SqlConnection物件連接資料庫
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString))
+            {
+                //2.開啟資料庫
+                conn.Open();
+                //3.引用SqlCommand物件
+                using (SqlCommand command = new SqlCommand(v_sql, conn))
+                {
+                    try
+                    {
+                        command.Parameters.AddWithValue("@SID", keyvalue);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex.GetBaseException();
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+        #endregion
+
     }
 }

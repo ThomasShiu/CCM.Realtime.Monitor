@@ -95,7 +95,7 @@
                               var status = rowObject.STATUS;
                               //alert(signdate);
                               if (status == 'SN' | signdate == null) {
-                                  return ' <button class=\'btn btn-success btn-xs\' onclick=\'btn_signwith(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>會簽</button>';
+                                  return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_signwith(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>會簽</button>';
                               } else {
                                   return ''
                               }
@@ -131,6 +131,9 @@
             multiselect: true,
             loadComplete: function () {
                 //$("#cb_" + this.id).click(); //全選
+                //var cbs = $("tr.jqgrow > td > input.cbox:even", grid[0]);
+                //cbs.attr("style", "vertical-align:middle;");
+
                 $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
                 var rowIds = $('#gridList').jqGrid('getDataIDs');
                 for (i = 0; i < rowIds.length; i++) {//iterate over each row
@@ -295,6 +298,7 @@
 
     // 會簽
     function btn_signwith() {
+
         var keyValue = arguments[0];  // 加班單號
         var keyValue1 = arguments[1]; // 簽核途程明細 SID
         var keyValue2 = arguments[2]; // 簽核人員工號
@@ -303,7 +307,7 @@
         $.modalOpen({
             id: "Form2",
             title: "會簽",
-            url: "/WorkflowControl/WFC07/Form2?keyValue=" + keyValue,
+            url: "/WorkflowControl/WFC07/Signwith?keyValue=" + keyValue,
             width: "840px",
             height: "600px",
             btn: null,
@@ -334,9 +338,9 @@
         @*<div class="btn-group">
             <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
         </div>*@
-        @*<div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_batch()"><i class="fa fa-check-square-o"></i>批次簽核</a>
-        </div>*@
+        <div class="btn-group">
+            <a id="NF-batch2" class="btn btn-danger dropdown-text" onclick="btn_batch()"><i class="fa fa-pencil-square-o "></i>批次簽核</a>
+        </div>
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span id="choiceCount">1</span>項</li>

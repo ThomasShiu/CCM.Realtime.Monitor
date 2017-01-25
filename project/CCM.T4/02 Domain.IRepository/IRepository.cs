@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: BU_BULLETIN
-	public interface IBU_BULLETINRepository : IRepositoryBase<BU_BULLETINEntity>
+	//mapping table name: BU_ORDERS_MENU
+	public interface IBU_ORDERS_MENURepository : IRepositoryBase<BU_ORDERS_MENUEntity>
     {
     }
 			 		                               

@@ -11,12 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.PublicObject.Controllers
+namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 {
-    public class PUB06Controller : ControllerBase
+    public class ORD04Controller : ControllerBase
     {
-        // 意見反映
-        private BU_FEEDBACKApp tableApp = new BU_FEEDBACKApp();
+        private BU_LUNCHApp tableApp = new BU_LUNCHApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -48,9 +47,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(BU_FEEDBACKEntity BU_FEEDBACKEntity, string keyValue)
+        public ActionResult SubmitForm(BU_LUNCHEntity BU_LUNCHEntity, string keyValue)
         {
-            tableApp.SubmitForm(BU_FEEDBACKEntity, keyValue);
+            tableApp.SubmitForm(BU_LUNCHEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: BU_BULLETIN
-	public class BU_BULLETINRepository : RepositoryBase<BU_BULLETINEntity>, IBU_BULLETINRepository
+	//mapping table name: BU_ORDERS_MENU
+	public class BU_ORDERS_MENURepository : RepositoryBase<BU_ORDERS_MENUEntity>, IBU_ORDERS_MENURepository
     {
     }
 }

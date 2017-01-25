@@ -9,20 +9,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/PublicObject/PUB04/GetGridJson",
+            url: "/OrderManage/ORD01/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				    { label: "Name", name: "Name", width: 80, align: 'left' },
-				    { label: "Phone", name: "Phone", width: 80, align: 'left' },
-				    { label: "Fax", name: "Fax", width: 80, align: 'left' },
-				    { label: "Address", name: "Address", width: 80, align: 'left' },
-				    { label: "Contact", name: "Contact", width: 80, align: 'left' },
-				    { label: "SubsidizeAmount", name: "SubsidizeAmount", width: 80, align: 'left' },
-				    { label: "ContributingVendor", name: "ContributingVendor", width: 80, align: 'left' },
-				    { label: "WebSiteURL", name: "WebSiteURL", width: 80, align: 'left' },
-				    { label: "Offer", name: "Offer", width: 80, align: 'left' },
-				    { label: "Remark", name: "Remark", hidden: true, width: 80, align: 'left' },
+                     {
+                         label: "超連結", name: "", width: 80, align: 'left',
+                         formatter: function (cellvalue, options, rowObject) {
+                             return rowObject.WebSiteURL == null ? "" : '<a href=\"' + rowObject.WebSiteURL + '\" target="_blank" class="btn btn-primary btn-sm" role="button">點我</a>';
+                         }
+                     },
+				    { label: "商店名稱", name: "Name", width: 200, align: 'left' },
+				    { label: "電話", name: "Phone", width: 80, align: 'left' },
+				    { label: "傳真", name: "Fax", hidden: true, width: 80, align: 'left' },
+				    { label: "地址", name: "Address", width: 250, align: 'left' },
+                   
+                    { label: "備註", name: "Remark", width: 80, align: 'left' },
+                    { label: "WebSiteURL", name: "WebSiteURL", hidden: true, width: 80, align: 'left' },
+				    { label: "Contact", name: "Contact", hidden: true, width: 80, align: 'left' },
+				    { label: "SubsidizeAmount", name: "SubsidizeAmount", hidden: true, width: 80, align: 'left' },
+				    { label: "ContributingVendor", name: "ContributingVendor", hidden: true, width: 80, align: 'left' },
+				    { label: "Offer", name: "Offer", hidden: true, width: 80, align: 'left' },
+				   
 
             ],
 			pager: "#gridPager",
@@ -39,7 +47,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增資料",
-            url: "/PublicObject/PUB04/Form",
+            url: "/OrderManage/ORD01/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -52,7 +60,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改資料",
-            url: "/PublicObject/PUB04/Form?keyValue=" + keyValue,
+            url: "/OrderManage/ORD01/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -62,7 +70,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/PublicObject/PUB04/DeleteForm",
+            url: "/OrderManage/ORD01/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -74,7 +82,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看資料",
-            url: "/PublicObject/PUB04/Details?keyValue=" + keyValue,
+            url: "/OrderManage/ORD01/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

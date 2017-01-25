@@ -50,7 +50,7 @@
         });
         // 員工
         $("#EmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -98,7 +98,9 @@
                         <option>私人需求</option>
                     </select>
                 </td>
-            </tr>
+                <td class="formValue" colspan="1">外出人員</td>
+
+</tr>
             <tr>
                 <th class="formTitle">申請部門</th>
                 <td class="formValue">
@@ -110,7 +112,9 @@
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
-
+                <td class="formValue" colspan="1" rowspan="3">
+                    <textarea id="AttendEmp" name="AttendEmp" class="form-control" style="height: 100px;"></textarea>
+                </td>
             </tr>
             <tr>
                 <th class="formTitle">車輛編號</th>
@@ -137,14 +141,14 @@
             </tr>
             <tr>
                 <th class="formTitle">用途說明</th>
-                <td class="formValue" colspan="3">
+                <td class="formValue" colspan="4">
                     <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入用途說明" />
                 </td>
 
             </tr>
             <tr>
                 <th class="formTitle">詳細說明</th>
-                <td class="formValue" colspan="3">
+                <td class="formValue" colspan="4">
                     <textarea id="Description" name="Description" class="form-control" style="height: 50px;"></textarea>
                 </td>
             </tr>

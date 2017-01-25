@@ -24,21 +24,21 @@
 					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
                         { label: "ObjectType", name: "ObjectType", hidden: true, width: 80, align: 'left' },
                         { label: "預約原因", name: "UseReason", width: 80, align: 'left' },
-				        { label: "借用說明", name: "Subject", width: 180, align: 'left' },
-				        { label: "詳細說明", name: "Description", width: 200, align: 'left' },
+				        { label: "借用說明", name: "Subject", width: 150, align: 'left' },
+				        { label: "詳細說明", name: "Description", width: 150, align: 'left' },
                         { label: "ObjectSID", name: "ObjectSID", hidden: true, width: 80, align: 'left' },
                         {
-                            label: "車輛號碼", name: "", width: 200, align: 'left',
+                            label: "車輛號碼", name: "", width: 160, align: 'left',
                             formatter: function (cellvalue, options, rowObject) {
                                 return top.clients.pubobject[rowObject.ObjectSID] == null ? "" : top.clients.pubobject[rowObject.ObjectSID].ObjectNM;
                             }
                         },
 				        {
-				            label: "使用時間-起", name: "BookingStartTime", width: 120, align: 'left',
+				            label: "使用時間-起", name: "BookingStartTime", width: 100, align: 'left',
 				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				        },
 				        {
-				            label: "使用時間-迄", name: "BookingEndTime", width: 120, align: 'left',
+				            label: "使用時間-迄", name: "BookingEndTime", width: 100, align: 'left',
 				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				        },
 
@@ -49,14 +49,27 @@
 				            }
 				        },
                          {
-                             label: "申請者", name: "", width: 80, align: 'left',
+                             label: "申請者", name: "", width: 50, align: 'left',
                              formatter: function (cellvalue, options, rowObject) {
                                  return top.clients.user[rowObject.EmployeeID] == null ? "" : top.clients.user[rowObject.EmployeeID].fullname;
                              }
                          },
-                         { label: "出廠里程", name: "MileageLast", width: 60, align: 'right' },
-				        { label: "回廠里程", name: "Mileage", width: 60, align: 'left' },
-                        { label: "狀態", name: "Status", width: 80, align: 'left' },
+                        { label: "出廠里程", name: "MileageLast",  width: 60, align: 'right' },
+				        { label: "回廠里程", name: "Mileage",  width: 60, align: 'left' },
+                        { label: "Status", name: "Status", hidden: true, width: 80, align: 'left' },
+                        {
+                            label: "狀態", name: "", width: 50, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                                if (rowObject.Status == '鎖定') {
+                                    return '<span class=\"label label-warning\">鎖定</span>';
+                                } else if (rowObject.Status == '結束') {
+                                    return '<span class=\"label label-success\">結束</span>';
+                                } else if (rowObject.Status == '取消') {
+                                    return '<span class=\"label label-default\">取消</span>';
+                                }
+                            }
+                        },
                         {
                             label: "修改", name: "", width: 80, align: 'left',
                             formatter: function (cellvalue, options, rowObject) {

@@ -16,7 +16,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     public class PUB03Controller : ControllerBase
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
-        private CcmServices ccmService = new CcmServices();
+        private CcmServices cs = new CcmServices();
 
       
 
@@ -54,7 +54,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         public ActionResult SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
             // 判斷該時段是否已有預約
-            string v_message = ccmService.chkPubObjExistBooking(tableEntity);
+            string v_message = cs.chkPubObjExistBooking(tableEntity);
             if (!string.IsNullOrEmpty(v_message))
             {
                 return Error(v_message);

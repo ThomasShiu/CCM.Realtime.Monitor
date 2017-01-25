@@ -20,7 +20,6 @@ namespace CCM.Application.SystemSecurity
     public class ActionLogApp
     {
         private IActionLogRepository service = new ActionLogRepository();
-
         public List<ActionLogEntity> GetList(string keyword = "")
         {
             var expression = ExtLinq.True<ActionLogEntity>();

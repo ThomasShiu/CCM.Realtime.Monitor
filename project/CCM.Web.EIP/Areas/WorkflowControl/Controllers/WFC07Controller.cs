@@ -21,10 +21,11 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         private CcmServices cs = new CcmServices();
 
 
+        // 會簽
         [HttpGet]
-        //[HandlerAuthorize]
+        [HandlerAuthorize]
         [ActionTraceLog]
-        public virtual ActionResult Form2()
+        public virtual ActionResult Signwith()
         {
             return View();
         }

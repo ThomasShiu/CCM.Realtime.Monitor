@@ -7,34 +7,22 @@
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
-        if (!!keyValue) {
-            $.ajax({
-                url: "/PublicObject/PUB06/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
-            });
-        }
+        $.ajax({
+            url: "/OrderManage/ORD03/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
     });
     function initControl() {
         $("#F_OrganizeId").bindSelect({
             url: "/SystemManage/Organize/GetTreeSelectJson",
         });
-    }
-    function submitForm() {
-        if (!$('#form1').formValid()) {
-            return false;
-        }
-        $.submitForm({
-            url: "/PublicObject/PUB06/SubmitForm?keyValue=" + keyValue,
-            param: $("#form1").formSerialize(),
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
     }
 </script>
 
@@ -57,69 +45,81 @@
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">FeedBackType</th>
+                <th class="formTitle">LUTYPE</th>
                 <td class="formValue">
-                    <input id="FeedBackType" name="FeedBackType" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LUTYPE" name="LUTYPE" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">FeedBackContent</th>
+                <th class="formTitle">LOCATION</th>
                 <td class="formValue">
-                    <input id="FeedBackContent" name="FeedBackContent" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LOCATION" name="LOCATION" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">CreateDate</th>
+                <th class="formTitle">LUDATE</th>
                 <td class="formValue">
-                    <input id="CreateDate" name="CreateDate" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LUDATE" name="LUDATE" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">WhoCanSee</th>
+                <th class="formTitle">FROM_YEAR</th>
                 <td class="formValue">
-                    <input id="WhoCanSee" name="WhoCanSee" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="FROM_YEAR" name="FROM_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">DepartmentID</th>
+                <th class="formTitle">FROM_MONTH</th>
                 <td class="formValue">
-                    <input id="DepartmentID" name="DepartmentID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="FROM_MONTH" name="FROM_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">EmployeeID</th>
+                <th class="formTitle">TO_YEAR</th>
                 <td class="formValue">
-                    <input id="EmployeeID" name="EmployeeID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="TO_YEAR" name="TO_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">ReplyContent</th>
+                <th class="formTitle">TO_MONTH</th>
                 <td class="formValue">
-                    <input id="ReplyContent" name="ReplyContent" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="TO_MONTH" name="TO_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">ReplyDate</th>
+                <th class="formTitle">EMPLYID</th>
                 <td class="formValue">
-                    <input id="ReplyDate" name="ReplyDate" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">ReplyDepartmentID</th>
+                <th class="formTitle">DEPID</th>
                 <td class="formValue">
-                    <input id="ReplyDepartmentID" name="ReplyDepartmentID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">ReplyEmployeeID</th>
+                <th class="formTitle">MEATPEOPLES</th>
                 <td class="formValue">
-                    <input id="ReplyEmployeeID" name="ReplyEmployeeID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Status</th>
+                <th class="formTitle">VEGEPEOPLES</th>
                 <td class="formValue">
-                    <input id="Status" name="Status" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">AMOUNT</th>
+                <td class="formValue">
+                    <input id="AMOUNT" name="AMOUNT" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">REMK</th>
+                <td class="formValue">
+                    <input id="REMK" name="REMK" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
