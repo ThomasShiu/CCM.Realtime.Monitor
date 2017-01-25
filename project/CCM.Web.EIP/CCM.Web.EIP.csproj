@@ -813,6 +813,7 @@
     <Content Include="Areas\OrderManage\Views\ORD03\Details.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD03\Form.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD03\Index.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD02\Form2.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

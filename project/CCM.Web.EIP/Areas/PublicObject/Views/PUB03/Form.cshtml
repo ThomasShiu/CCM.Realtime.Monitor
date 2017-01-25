@@ -3,8 +3,8 @@
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
-
     var keyValue = $.request("keyValue");
+    var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
     $(function () {
         initControl();
         if (!!keyValue) {
@@ -19,6 +19,10 @@
                     showPublicObject($('#ObjectSID').children('option:selected').val());
                 }
             });
+            if (depid != 'G20' & depid != 'C00') {
+                $("#BookingStartTime").attr("disabled", "disabled");
+                $("#BookingEndTime").attr("disabled", "disabled");
+            }
         }
     });
     function initControl() {
@@ -30,7 +34,7 @@
         });
         // 員工
         $("#EmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -122,7 +126,7 @@
             showPublicObject($('#ObjectSID').children('option:selected').val());
 
         });
-      
+
 
     });
 

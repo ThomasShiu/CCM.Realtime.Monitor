@@ -8,6 +8,7 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -19,6 +20,14 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         private BU_ORDERS_SOTREApp storeApp = new BU_ORDERS_SOTREApp();
         private BU_ORDERS_DETAILApp detailApp = new BU_ORDERS_DETAILApp();
         private CcmServices cs = new CcmServices();
+
+        [HttpGet]
+        [HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult Form2()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]

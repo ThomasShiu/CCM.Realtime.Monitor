@@ -22,8 +22,6 @@
         }
     });
     function initControl() {
-      
-
         // 部門
         $("#DepartmentID").bindSelect({
             url: "/Human/HRS00/GetHR_DEP",
@@ -32,7 +30,7 @@
         });
         // 員工
         $("#EmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });

@@ -134,6 +134,7 @@
             }
         });
     }
+
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
@@ -165,7 +166,8 @@
             }, 500);
         }
     }
-    function btn_edit2() {
+    
+    function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var status = $("#gridList").jqGridRowValue().Status;
         //var guid = $("#gridList").jqGridRowValue().GUID;
@@ -173,7 +175,7 @@
             $.modalOpen({
                 id: "Form",
                 title: "修改資料",
-                url: "/PublicObject/PUB03/Form2?keyValue=" + keyValue,
+                url: "/PublicObject/PUB03/Form?keyValue=" + keyValue,
                 width: "800px",
                 height: "680px",
                 callBack: function (iframeId) {
@@ -187,7 +189,20 @@
             }, 500);
         }
     }
+    function btn_edit_admin() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
 
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/PublicObject/PUB03/Form?keyValue=" + keyValue,
+            width: "800px",
+            height: "650px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
     function btn_delete() {
         var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
@@ -240,8 +255,8 @@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit-admin" authorize="yes" onclick="btn_edit_admin()"><i class="fa fa-pencil-square-o"></i>修改(管理)</a></li>
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
-                <li><a id="NF-edit2" authorize="yes" onclick="btn_edit2()"><i class="fa fa-pencil-square-o"></i>修改資料(守衛)</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
             </ul>

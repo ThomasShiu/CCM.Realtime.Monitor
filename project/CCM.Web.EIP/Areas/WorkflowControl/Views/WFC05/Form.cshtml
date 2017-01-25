@@ -51,14 +51,14 @@
        
         // 員工
         $("#EXC_INSDBID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY",
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });
 
         // 員工 by 部門
         $("#EMPLYID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
+            url: "/Human/HRS00/GetHR_EMPLY_ALL?keyword=" + $('#DEPID').children('option:selected').val(),
             id: "EMPLYID",
             text: "EMPLYNM"
         });

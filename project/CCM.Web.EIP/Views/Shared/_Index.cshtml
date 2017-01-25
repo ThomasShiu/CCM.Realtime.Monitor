@@ -15,7 +15,34 @@
     <script src="~/Content/js/jqgrid/grid.locale-tw.js"></script>
     <link href="~/Content/css/framework-ui.css" rel="stylesheet" />
     <script src="~/Content/js/framework-ui.js"></script>
+    <script>
+
+        function GetNow() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var hh = today.getHours();
+            //hh = hh % 12;
+            //hh = hh ? hh : 12; // the hour '0' should be '12'
+            hh = hh < 10 ? '0' + hh : hh;
+            var mi = today.getMinutes();
+            mi = mi < 10 ? '0' + mi : mi;
+            var ss = today.getSeconds();
+            var sss = today.getMilliseconds;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var now = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + mi + ':' + ss;
+            return now;
+        }
+    </script>
 </head>
+
 <body>
     @RenderBody()
     @Html.AntiForgeryToken()

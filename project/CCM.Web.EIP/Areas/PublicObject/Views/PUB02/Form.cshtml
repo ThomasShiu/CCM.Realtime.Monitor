@@ -6,6 +6,7 @@
 <script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
 <script>
     var keyValue = $.request("keyValue");
+    var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
     $(function () {
         initControl();
         if (!!keyValue) {
@@ -20,14 +21,15 @@
                     showPublicObject($('#ObjectSID').children('option:selected').val());
                 }
             });
-            //$('#AttendDeptID').removeAttr('required');
-            //$('#AttendEmplyID').removeAttr('required');
-            //$("#AttendDeptID").prop('required', false);
-            //$("#AttendEmplyID").prop('required', false);
+            if (depid != 'G20' & depid != 'C00') {
+                $("#BookingStartTime").attr("disabled", "disabled");
+                $("#BookingEndTime").attr("disabled", "disabled");
+            }
         } else {
            
             $("#AttendDeptID").attr("required", "true");
             $("#AttendEmplyID").attr("required", "true");
+
             
         }
     });
@@ -41,7 +43,7 @@
 
         // 員工 by 部門
         $("#EmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#DEPID').children('option:selected').val(),
+            url: "/Human/HRS00/GetHR_EMPLY" ,
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -61,7 +63,7 @@
 
         // 同行員工 by 部門
         $("#AttendEmplyID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $('#AttendDeptID').children('option:selected').val(),
+            url: "/Human/HRS00/GetHR_EMPLY_ALL?keyword=" + $('#AttendDeptID').children('option:selected').val(),
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -222,14 +224,12 @@
                 <th class="formTitle">申請部門</th>
                 <td class="formValue">
                     <select id="DepartmentID" name="DepartmentID" class="form-control required">
-                        <option></option>
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                     </select>
                 </td>
                 <th class="formTitle">申請人員</th>
                 <td class="formValue">
                     <select id="EmployeeID" name="EmployeeID" class="form-control required">
-                        <option></option>
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>

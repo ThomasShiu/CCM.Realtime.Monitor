@@ -834,8 +834,8 @@ namespace CCM.Application
         #region 更新訂便當主檔
         public void refreshOrderDetail(string keyvalue)
         {
-            string v_sql = " UPDATE BU_ORDERS SET Qty = (SELECT SUM(Qty) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) , " +
-                            "Amount = (SELECT SUM(Qty*UnitPrice) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) WHERE SID = @SID ";
+            string v_sql = " UPDATE BU_ORDERS SET Qty = (SELECT ISNULL(SUM(Qty),0) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) , " +
+                            "Amount = (SELECT ISNULL(SUM(Qty*UnitPrice),0) FROM BU_ORDERS_DETAIL WHERE ParentSID = @SID) WHERE SID = @SID ";
             //1.引用SqlConnection物件連接資料庫
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString))
             {
