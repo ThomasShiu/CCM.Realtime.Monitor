@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
+    var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
     $(function () {
         gridList();
     })
@@ -50,12 +51,38 @@
 				                return top.clients.user[rowObject.ReplyEmployeeID] == null ? "" : top.clients.user[rowObject.ReplyEmployeeID].fullname;
 				            }
 				        },
-				        { label: "狀態", name: "Status", width: 80, align: 'left' },
+				        { label: "Status", name: "Status", hidden: true, width: 80, align: 'left' },
+                        {
+                            label: "狀態", name: "", width: 80, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                                if (rowObject.Status == '結案') {
+                                    return '<span class=\"label label-success\">結案</span>';
+                                } else if (rowObject.Status == '未結案') {
+                                    return '<span class=\"label label-danger\">未結案</span>';
+                                } else if (rowObject.Status == '取消') {
+                                    return '<span class=\"label label-default\">取消</span>';
+                                }
+                            }
+                        },
                         { label: "WhoCanSee", name: "WhoCanSee", hidden: true, width: 80, align: 'left' },
+                       {
+                           label: "修改", name: "", width: 80, align: 'left',
+                           formatter: function (cellvalue, options, rowObject) {
+                               if (rowObject.Status == '結束') {
+                                   return '';
+                               } else {
+                                   if (rowObject.EmployeeID == usercode | rowObject.CreatorUserId == usercode | usercode == 'admin')
+                                       return '<span class=\"label label-success\">可修改</span>';
+                                   else
+                                       return '';
+                               }
+                           }
+                       },
 
             ],
 			pager: "#gridPager",
-			sortname: 'CreateDate desc',
+			sortname: 'CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -78,16 +105,33 @@
     }
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
-        $.modalOpen({
-            id: "Form",
-            title: "修改",
-            url: "/PublicObject/PUB04/Form?keyValue=" + keyValue,
-            width: "700px",
-            height: "400px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
+        var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
+        var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
+        var Status = $("#gridList").jqGridRowValue().Status;
+        if (Status != '結案') {
+            if (EmployeeID == usercode | CreatorUserId == usercode | usercode == 'admin') {
+                $.modalOpen({
+                    id: "Form",
+                    title: "修改",
+                    url: "/PublicObject/PUB04/Form?keyValue=" + keyValue,
+                    width: "700px",
+                    height: "400px",
+                    callBack: function (iframeId) {
+                        top.frames[iframeId].submitForm();
+                    }
+                });
+            } else {
+                msg = "只可修改自己建立的單據!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "warning");
+                }, 500);
             }
-        });
+        } else {
+            msg = "此單據已結案，不可修改。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
     }
     function btn_reply() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
@@ -100,13 +144,21 @@
         });
     }
     function btn_delete() {
-        $.deleteForm({
-            url: "/PublicObject/PUB04/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().SID },
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
+        var Status = $("#gridList").jqGridRowValue().Status;
+        if (Status == '未結案') {
+            $.deleteForm({
+                url: "/PublicObject/PUB04/DeleteForm",
+                param: { keyValue: $("#gridList").jqGridRowValue().SID },
+                success: function () {
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                }
+            })
+        } else {
+            msg = "此單據不可刪除。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
     }
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
@@ -120,7 +172,7 @@
         });
     }
 
-    
+
 </script>
 
 <div class="topPanel">

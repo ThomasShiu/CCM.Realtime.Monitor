@@ -26,11 +26,11 @@ using System.Web.Mvc;
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "BU_ORDERS_DETAIL"; 
+			restrictions[2] = "BU_BULLETIN_ATTACH_FILE"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
-			string areas = "OrderManage";  //區域名稱
-			string controller = "ORD03";  //控制器
+			string areas = "PublicObject";  //區域名稱
+			string controller = "PUB06";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 

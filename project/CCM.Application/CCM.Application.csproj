@@ -64,6 +64,7 @@
     <Compile Include="OrderManage\BU_ORDERS_MENUApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\BU_BULLETINApp.cs" />
+    <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILEApp.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKApp.cs" />
     <Compile Include="OrderManage\BU_ORDERS_SOTREApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />

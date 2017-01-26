@@ -8,11 +8,11 @@ using CCM.Domain;
 using System.Data.Entity.ModelConfiguration;
 
 //todo: 請修改對應的namespace
-namespace CCM.Mapping 
-{        
-		             
-	//mapping table name: BU_BULLETIN_ATTACH_FILE
-	public class BU_BULLETIN_ATTACH_FILEMap : EntityTypeConfiguration<BU_BULLETIN_ATTACH_FILEEntity>
+namespace CCM.Mapping
+{
+
+    //mapping table name: BU_BULLETIN_ATTACH_FILE
+    public class BU_BULLETIN_ATTACH_FILEMap : EntityTypeConfiguration<BU_BULLETIN_ATTACH_FILEEntity>
     {
         public BU_BULLETIN_ATTACH_FILEMap()
         {
@@ -20,5 +20,5 @@ namespace CCM.Mapping
             this.HasKey(t => t.SID);
         }
     }
-			                  
+
 }

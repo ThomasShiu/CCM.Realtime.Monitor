@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
@@ -15,11 +15,11 @@ namespace CCM.Code
 {
     public class WebHelper
     {
-        #region ResolveUrl(解析相对Url)
+        #region ResolveUrl(解析相對Url)
         /// <summary>
-        /// 解析相对Url
+        /// 解析相對Url
         /// </summary>
-        /// <param name="relativeUrl">相对Url</param>
+        /// <param name="relativeUrl">相對Url</param>
         public static string ResolveUrl(string relativeUrl)
         {
             if (string.IsNullOrWhiteSpace(relativeUrl))
@@ -34,19 +34,19 @@ namespace CCM.Code
 
         #endregion
 
-        #region HtmlEncode(对html字符串进行编码)
+        #region HtmlEncode(對html字串進行編碼)
         /// <summary>
-        /// 对html字符串进行编码
+        /// 對html字串進行編碼
         /// </summary>
-        /// <param name="html">html字符串</param>
+        /// <param name="html">html字串</param>
         public static string HtmlEncode(string html)
         {
             return HttpUtility.HtmlEncode(html);
         }
         /// <summary>
-        /// 对html字符串进行解码
+        /// 對html字串進行解碼
         /// </summary>
-        /// <param name="html">html字符串</param>
+        /// <param name="html">html字串</param>
         public static string HtmlDecode(string html)
         {
             return HttpUtility.HtmlDecode(html);
@@ -54,24 +54,24 @@ namespace CCM.Code
 
         #endregion
 
-        #region UrlEncode(对Url进行编码)
+        #region UrlEncode(對Url進行編碼)
 
         /// <summary>
-        /// 对Url进行编码
+        /// 對Url進行編碼
         /// </summary>
         /// <param name="url">url</param>
-        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        /// <param name="isUpper">編碼字元是否轉成大寫,範例,"http://"轉成"http%3A%2F%2F"</param>
         public static string UrlEncode(string url, bool isUpper = false)
         {
             return UrlEncode(url, Encoding.UTF8, isUpper);
         }
 
         /// <summary>
-        /// 对Url进行编码
+        /// 對Url進行編碼
         /// </summary>
         /// <param name="url">url</param>
-        /// <param name="encoding">字符编码</param>
-        /// <param name="isUpper">编码字符是否转成大写,范例,"http://"转成"http%3A%2F%2F"</param>
+        /// <param name="encoding">字元編碼</param>
+        /// <param name="isUpper">編碼字元是否轉成大寫,範例,"http://"轉成"http%3A%2F%2F"</param>
         public static string UrlEncode(string url, Encoding encoding, bool isUpper = false)
         {
             var result = HttpUtility.UrlEncode(url, encoding);
@@ -81,7 +81,7 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 获取大写编码字符串
+        /// 獲取大寫編碼字串
         /// </summary>
         private static string GetUpperEncode(string encode)
         {
@@ -101,10 +101,10 @@ namespace CCM.Code
 
         #endregion
 
-        #region UrlDecode(对Url进行解码)
+        #region UrlDecode(對Url進行解碼)
 
         /// <summary>
-        /// 对Url进行解码,对于javascript的encodeURIComponent函数编码参数,应使用utf-8字符编码来解码
+        /// 對Url進行解碼,對於javascript的encodeURIComponent函數編碼參數,應使用utf-8字元編碼來解碼
         /// </summary>
         /// <param name="url">url</param>
         public static string UrlDecode(string url)
@@ -113,10 +113,10 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 对Url进行解码,对于javascript的encodeURIComponent函数编码参数,应使用utf-8字符编码来解码
+        /// 對Url進行解碼,對於javascript的encodeURIComponent函數編碼參數,應使用utf-8字元編碼來解碼
         /// </summary>
         /// <param name="url">url</param>
-        /// <param name="encoding">字符编码,对于javascript的encodeURIComponent函数编码参数,应使用utf-8字符编码来解码</param>
+        /// <param name="encoding">字元編碼,對於javascript的encodeURIComponent函數編碼參數,應使用utf-8字元編碼來解碼</param>
         public static string UrlDecode(string url, Encoding encoding)
         {
             return HttpUtility.UrlDecode(url, encoding);
@@ -126,11 +126,11 @@ namespace CCM.Code
 
         #region Session操作
         /// <summary>
-        /// 写Session
+        /// 寫Session
         /// </summary>
-        /// <typeparam name="T">Session键值的类型</typeparam>
-        /// <param name="key">Session的键名</param>
-        /// <param name="value">Session的键值</param>
+        /// <typeparam name="T">Session鍵值的類型</typeparam>
+        /// <param name="key">Session的鍵名</param>
+        /// <param name="value">Session的鍵值</param>
         public static void WriteSession<T>(string key, T value)
         {
             if (key.IsEmpty())
@@ -139,19 +139,19 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 写Session
+        /// 寫Session
         /// </summary>
-        /// <param name="key">Session的键名</param>
-        /// <param name="value">Session的键值</param>
+        /// <param name="key">Session的鍵名</param>
+        /// <param name="value">Session的鍵值</param>
         public static void WriteSession(string key, string value)
         {
             WriteSession<string>(key, value);
         }
 
         /// <summary>
-        /// 读取Session的值
+        /// 讀取Session的值
         /// </summary>
-        /// <param name="key">Session的键名</param>        
+        /// <param name="key">Session的鍵名</param>        
         public static string GetSession(string key)
         {
             if (key.IsEmpty())
@@ -159,9 +159,9 @@ namespace CCM.Code
             return HttpContext.Current.Session[key] as string;
         }
         /// <summary>
-        /// 删除指定Session
+        /// 刪除指定Session
         /// </summary>
-        /// <param name="key">Session的键名</param>
+        /// <param name="key">Session的鍵名</param>
         public static void RemoveSession(string key)
         {
             if (key.IsEmpty())
@@ -173,9 +173,9 @@ namespace CCM.Code
 
         #region Cookie操作
         /// <summary>
-        /// 写cookie值
+        /// 寫cookie值
         /// </summary>
-        /// <param name="strName">名称</param>
+        /// <param name="strName">名稱</param>
         /// <param name="strValue">值</param>
         public static void WriteCookie(string strName, string strValue)
         {
@@ -188,11 +188,11 @@ namespace CCM.Code
             HttpContext.Current.Response.AppendCookie(cookie);
         }
         /// <summary>
-        /// 写cookie值
+        /// 寫cookie值
         /// </summary>
-        /// <param name="strName">名称</param>
+        /// <param name="strName">名稱</param>
         /// <param name="strValue">值</param>
-        /// <param name="strValue">过期时间(分钟)</param>
+        /// <param name="strValue">過期時間(分鐘)</param>
         public static void WriteCookie(string strName, string strValue, int expires)
         {
             HttpCookie cookie = HttpContext.Current.Request.Cookies[strName];
@@ -205,9 +205,9 @@ namespace CCM.Code
             HttpContext.Current.Response.AppendCookie(cookie);
         }
         /// <summary>
-        /// 读cookie值
+        /// 讀cookie值
         /// </summary>
-        /// <param name="strName">名称</param>
+        /// <param name="strName">名稱</param>
         /// <returns>cookie值</returns>
         public static string GetCookie(string strName)
         {
@@ -218,9 +218,9 @@ namespace CCM.Code
             return "";
         }
         /// <summary>
-        /// 删除Cookie对象
+        /// 刪除Cookie對象
         /// </summary>
-        /// <param name="CookiesName">Cookie对象名称</param>
+        /// <param name="CookiesName">Cookie對象名稱</param>
         public static void RemoveCookie(string CookiesName)
         {
             HttpCookie objCookie = new HttpCookie(CookiesName.Trim());
@@ -229,11 +229,11 @@ namespace CCM.Code
         }
         #endregion
 
-        #region GetFileControls(获取客户端文件控件集合)
+        #region GetFileControls(獲取用戶端檔控制項集合)
 
         /// <summary>
-        /// 获取有效客户端文件控件集合,文件控件必须上传了内容，为空将被忽略,
-        /// 注意:Form标记必须加入属性 enctype="multipart/form-data",服务器端才能获取客户端file控件.
+        /// 獲取有效用戶端檔控制項集合,檔控制項必須上傳了內容，為空將被忽略,
+        /// 注意:Form標記必須加入屬性 enctype="multipart/form-data",伺服器端才能獲取用戶端file控制項.
         /// </summary>
         public static List<HttpPostedFile> GetFileControls()
         {
@@ -253,11 +253,11 @@ namespace CCM.Code
 
         #endregion
 
-        #region GetFileControl(获取第一个有效客户端文件控件)
+        #region GetFileControl(獲取第一個有效用戶端檔控制項)
 
         /// <summary>
-        /// 获取第一个有效客户端文件控件,文件控件必须上传了内容，为空将被忽略,
-        /// 注意:Form标记必须加入属性 enctype="multipart/form-data",服务器端才能获取客户端file控件.
+        /// 獲取第一個有效用戶端檔控制項,檔控制項必須上傳了內容，為空將被忽略,
+        /// 注意:Form標記必須加入屬性 enctype="multipart/form-data",伺服器端才能獲取用戶端file控制項.
         /// </summary>
         public static HttpPostedFile GetFileControl()
         {
@@ -269,39 +269,39 @@ namespace CCM.Code
 
         #endregion
 
-        #region HttpWebRequest(请求网络资源)
+        #region HttpWebRequest(請求網路資源)
 
         /// <summary>
-        /// 请求网络资源,返回响应的文本
+        /// 請求網路資源,返回回應的文本
         /// </summary>
-        /// <param name="url">网络资源地址</param>
+        /// <param name="url">網路資源位址</param>
         public static string HttpWebRequest(string url)
         {
             return HttpWebRequest(url, string.Empty, Encoding.GetEncoding("utf-8"));
         }
 
         /// <summary>
-        /// 请求网络资源,返回响应的文本
+        /// 請求網路資源,返回回應的文本
         /// </summary>
-        /// <param name="url">网络资源Url地址</param>
-        /// <param name="parameters">提交的参数,格式：参数1=参数值1&amp;参数2=参数值2</param>
+        /// <param name="url">網路資源Url位址</param>
+        /// <param name="parameters">提交的參數,格式：參數1=參數值1&amp;參數2=參數值2</param>
         public static string HttpWebRequest(string url, string parameters)
         {
             return HttpWebRequest(url, parameters, Encoding.GetEncoding("utf-8"), true);
         }
 
         /// <summary>
-        /// 请求网络资源,返回响应的文本
+        /// 請求網路資源,返回回應的文本
         /// </summary>
-        /// <param name="url">网络资源地址</param>
-        /// <param name="parameters">提交的参数,格式：参数1=参数值1&amp;参数2=参数值2</param>
-        /// <param name="encoding">字符编码</param>
+        /// <param name="url">網路資源位址</param>
+        /// <param name="parameters">提交的參數,格式：參數1=參數值1&amp;參數2=參數值2</param>
+        /// <param name="encoding">字元編碼</param>
         /// <param name="isPost">是否Post提交</param>
-        /// <param name="contentType">内容类型</param>
+        /// <param name="contentType">內容類別型</param>
         /// <param name="cookie">Cookie容器</param>
-        /// <param name="timeout">超时时间</param>
+        /// <param name="timeout">超時時間</param>
         public static string HttpWebRequest(string url, string parameters, Encoding encoding, bool isPost = false,
-             string contentType = "application/x-www-form-urlencoded", CookieContainer cookie = null, int timeout = 120000)
+             string contentType = "application/x-www-form-urlencoded", CookieContainer cookie = null, int timeout = 360000)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Timeout = timeout;
@@ -333,17 +333,17 @@ namespace CCM.Code
 
         #endregion
 
-        #region 去除HTML标记
+        #region 去除HTML標記
         /// <summary>
-        /// 去除HTML标记
+        /// 去除HTML標記
         /// </summary>
-        /// <param name="NoHTML">包括HTML的源码 </param>
-        /// <returns>已经去除后的文字</returns>
+        /// <param name="NoHTML">包括HTML的源碼 </param>
+        /// <returns>已經去除後的文字</returns>
         public static string NoHtml(string Htmlstring)
         {
-            //删除脚本
+            //刪除腳本
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
-            //删除HTML
+            //刪除HTML
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
             Htmlstring = Regex.Replace(Htmlstring, @"([\r\n])[\s]+", "", RegexOptions.IgnoreCase);
             Htmlstring = Regex.Replace(Htmlstring, @"-->", "", RegexOptions.IgnoreCase);
@@ -371,9 +371,9 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 格式化文本（防止SQL注入）
+        #region 格式化文字（防止SQL注入）
         /// <summary>
-        /// 格式化文本（防止SQL注入）
+        /// 格式化文字（防止SQL注入）
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -387,10 +387,10 @@ namespace CCM.Code
             System.Text.RegularExpressions.Regex regex10 = new System.Text.RegularExpressions.Regex(@"select", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             System.Text.RegularExpressions.Regex regex11 = new System.Text.RegularExpressions.Regex(@"update", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             System.Text.RegularExpressions.Regex regex12 = new System.Text.RegularExpressions.Regex(@"delete", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            html = regex1.Replace(html, ""); //过滤<script></script>标记
-            html = regex2.Replace(html, ""); //过滤href=javascript: (<A>) 属性
-            html = regex3.Replace(html, " _disibledevent="); //过滤其它控件的on...事件
-            html = regex4.Replace(html, ""); //过滤iframe
+            html = regex1.Replace(html, ""); //過濾<script></script>標記
+            html = regex2.Replace(html, ""); //過濾href=javascript: (<A>) 屬性
+            html = regex3.Replace(html, " _disibledevent="); //過濾其它控制項的on...事件
+            html = regex4.Replace(html, ""); //過濾iframe
             html = regex10.Replace(html, "s_elect");
             html = regex11.Replace(html, "u_pudate");
             html = regex12.Replace(html, "d_elete");

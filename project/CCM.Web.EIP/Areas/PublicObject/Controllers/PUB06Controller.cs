@@ -9,17 +9,18 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
-             
+
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 {
+    // 公佈欄附件
     public class PUB06Controller : ControllerBase
     {
         private BU_BULLETIN_ATTACH_FILEApp tableApp = new BU_BULLETIN_ATTACH_FILEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
-		 public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new
             {
@@ -27,6 +28,21 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJsonUpload(string keyword)
+        {
+            //var data = tableApp.GetList(keyword); 
+            var data = new
+            {
+                current = 1,
+                rowCount = 10,
+                rows = tableApp.GetList(keyword),
+                total = tableApp.GetList(keyword).Count
             };
             return Content(data.ToJson());
         }
@@ -65,4 +81,3 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 
 
 }
-	

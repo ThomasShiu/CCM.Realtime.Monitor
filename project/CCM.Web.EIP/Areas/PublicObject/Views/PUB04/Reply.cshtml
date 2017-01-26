@@ -35,18 +35,18 @@
         });
 
         // 部門
-        $("#ReplyDepartmentID").bindSelect({
-            url: "/Human/HRS00/GetHR_DEP",
-            id: "DEPID",
-            text: "DEPNM"
-        });
+        //$("#ReplyDepartmentID").bindSelect({
+        //    url: "/Human/HRS00/GetHR_DEP",
+        //    id: "DEPID",
+        //    text: "DEPNM"
+        //});
 
         // 員工 by 部門
-        $("#ReplyEmployeeID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY_ALL",
-            id: "EMPLYID",
-            text: "EMPLYNM"
-        });
+        //$("#ReplyEmployeeID").bindSelect({
+        //    url: "/Human/HRS00/GetHR_EMPLY_ALL",
+        //    id: "EMPLYID",
+        //    text: "EMPLYNM"
+        //});
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -97,7 +97,7 @@
             </tr> 
             <tr>
                 <th class="formTitle">反映類別</th>
-                <td class="formValue" colspan="3">
+                <td class="formValue">
                     <select id="FeedBackType" name="FeedBackType" class="form-control required"  disabled="disabled">
                         <option value="設施維護">設施維護</option>
                         <option value="員工福利">員工福利</option>
@@ -106,6 +106,15 @@
                         <option value="其他意見">其他意見</option>
                     </select>
                    
+                </td>
+                <th class="formTitle">狀態</th>
+                <td class="formValue">
+                    <select id="Status" name="Status" class="form-control required">
+                        <option value="結案">結案</option>
+                        <option value="未結案">未結案</option>
+                        <option value="取消">取消</option>
+                    </select>
+
                 </td>
             </tr>
             <tr>
@@ -118,14 +127,15 @@
             <tr>
                 <th class="formTitle">回覆部門</th>
                 <td class="formValue">
-                    <select id="ReplyDepartmentID" name="ReplyDepartmentID" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    <select id="ReplyDepartmentID" name="ReplyDepartmentID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId" selected="selected">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                     </select>
+
                 </td>
                 <th class="formTitle">回覆人員</th>
                 <td class="formValue">
-                    <select id="ReplyEmployeeID" name="ReplyEmployeeID" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    <select id="ReplyEmployeeID" name="ReplyEmployeeID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode"  selected="selected">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
             </tr> 

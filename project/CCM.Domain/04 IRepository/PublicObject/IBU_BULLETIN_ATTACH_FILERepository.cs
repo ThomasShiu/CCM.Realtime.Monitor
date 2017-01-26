@@ -5,15 +5,16 @@
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using CCM.Data;
-using CCM.Domain;
 using CCM.Domain.Entity;
 
 //todo: 請修改對應的namespace
-namespace CCM.Repository
-{        
-		             
-	//mapping table name: BU_BULLETIN_ATTACH_FILE
-	public class BU_BULLETIN_ATTACH_FILERepository : RepositoryBase<BU_BULLETIN_ATTACH_FILEEntity>, IBU_BULLETIN_ATTACH_FILERepository
+namespace CCM.Domain
+{
+
+    //mapping table name: BU_BULLETIN_ATTACH_FILE
+    public interface IBU_BULLETIN_ATTACH_FILERepository : IRepositoryBase<BU_BULLETIN_ATTACH_FILEEntity>
     {
     }
+
+
 }

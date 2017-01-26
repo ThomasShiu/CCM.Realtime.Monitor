@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "首頁-公佈欄";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
@@ -54,8 +54,9 @@
             id: "Form",
             title: "新增資料",
             url: "/PublicObject/PUB05/Form",
-            width: "840px",
-            height: "400px",
+            width: "740px",
+            height: "680px",
+            btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -67,8 +68,9 @@
             id: "Form",
             title: "修改資料",
             url: "/PublicObject/PUB05/Form?keyValue=" + keyValue,
-            width: "840px",
-            height: "400px",
+            width: "740px",
+            height: "680px",
+            btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -89,8 +91,8 @@
             id: "Details",
             title: "查看資料",
             url: "/PublicObject/PUB05/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "500px",
             btn: null,
         });
     }

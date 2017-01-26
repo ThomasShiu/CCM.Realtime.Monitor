@@ -63,6 +63,7 @@
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
     <input id="GUID" name="GUID" type="hidden" value="" />
+    <input id="Status" name="Status" type="hidden" value="未結案" />
     <input id="WhoCanSee" name="WhoCanSee" type="hidden" value=""  />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form"> 
@@ -82,7 +83,7 @@
             </tr> 
             <tr>
                 <th class="formTitle">反映類別</th>
-                <td class="formValue" colspan="3">
+                <td class="formValue">
                     <select id="FeedBackType" name="FeedBackType" class="form-control required" >
                         <option value="設施維護">設施維護</option>
                         <option value="員工福利">員工福利</option>
@@ -91,6 +92,13 @@
                         <option value="其他意見">其他意見</option>
                     </select>
                    
+                </td>
+                <th class="formTitle">狀態</th>
+                <td class="formValue">
+                    <select id="Status" name="Status" class="form-control required">
+                        <option value="未結案">未結案</option>
+                        <option value="取消">取消</option>
+                    </select>
                 </td>
             </tr>
             <tr>

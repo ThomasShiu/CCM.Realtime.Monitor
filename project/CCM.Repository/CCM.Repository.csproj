@@ -56,6 +56,7 @@
     <Compile Include="OrderManage\BU_ORDERS_MENURepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\BU_BULLETINRepository.cs" />
+    <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILERepository.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKRepository.cs" />
     <Compile Include="OrderManage\BU_ORDERS_SOTRERepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTRepository.cs" />

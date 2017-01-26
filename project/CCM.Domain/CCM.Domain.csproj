@@ -67,6 +67,7 @@
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_DETAILEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_MENUEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_BULLETINEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\BU_BULLETIN_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_FEEDBACKEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_SOTREEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_DETAILRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_MENURepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_BULLETINRepository.cs" />
+    <Compile Include="04 IRepository\PublicObject\IBU_BULLETIN_ATTACH_FILERepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_SOTRERepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />

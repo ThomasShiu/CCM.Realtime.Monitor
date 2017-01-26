@@ -11,19 +11,17 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: BU_ORDERS_MENU
-			public class BU_ORDERS_MENUEntity  : IEntityCcm<BU_ORDERS_MENUEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: BU_BULLETIN_ATTACH_FILE
+			public class BU_BULLETIN_ATTACH_FILEEntity  : IEntityCcm<BU_BULLETIN_ATTACH_FILEEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public Int64 ParentSID  { get; set; }                                        
+				public String ParentSID  { get; set; }                                        
 				          
-				public String MealsName  { get; set; }                                        
+				public String Name  { get; set; }                                        
 				          
-				public Int32 UnitPrice  { get; set; }                                        
-				          
-				public String Remark  { get; set; }                                        
+				public String UploadPath  { get; set; }                                        
 				          
 				public String OrganizeId  { get; set; }                                        
 				          
