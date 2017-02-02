@@ -119,7 +119,7 @@
             title: "新增資料",
             url: "/WorkflowControl/WFC06/Form",
             width: "900px",
-            height: "600px",
+            height: "700px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -141,7 +141,7 @@
             title: "修改資料",
             url: "/WorkflowControl/WFC06/Form?keyValue=" + keyValue,
             width: "900px",
-            height: "640px",
+            height: "700px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -198,11 +198,13 @@
 
     function rejectSN() {
         //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        var ovrtno = arguments[0];
+        var act = arguments[1];
         $.modalConfirm("注：您確定要撤簽此加班單嗎？<br/>加班單號 : " + arguments[0], function (r) {
             if (r) {
                 $.ajax({
                     url: "/WorkflowControl/WFC00/RejectSign",
-                    data: { keyValue: arguments[0], act: arguments[1] },
+                    data: { keyValue: ovrtno, act: act },
                     dataType: "json",
                     async: false,
                     success: function (data) {
@@ -225,11 +227,13 @@
 
     function invalidSN() {
         //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        var ovrtno = arguments[0];
+        var act = arguments[1];
         $.modalConfirm("注：您確定要作廢此筆加班單嗎？<br/>加班單號 : " + arguments[0], function (r) {
             if (r) {
                 $.ajax({
                     url: "/WorkflowControl/WFC00/RejectSign",
-                    data: { keyValue: arguments[0], act: arguments[1] },
+                    data: { keyValue: ovrtno, act: act },
                     dataType: "json",
                     async: false,
                     success: function (data) {

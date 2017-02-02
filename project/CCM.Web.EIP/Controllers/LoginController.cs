@@ -116,6 +116,29 @@ namespace CCM.Web.EIP.Controllers
                 return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
             }
         }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        public ActionResult ChangePW(string username, string password)
+        {
+            try
+            {
+                UserEntity userEntity = new UserApp().CheckLogin(username, password);
+
+                if (userEntity != null)
+                {
+                    UserLogOnEntity userLogOnEntity = new UserLogOnApp().GetForm(userEntity.F_Id);
+
+                    userLogOnEntity.F_UserPassword = "";
+
+                }
+                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登錄成功。" }.ToJson());
+            }
+            catch (Exception ex)
+            {
+                return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
+            }
+        }
     }
 }
 

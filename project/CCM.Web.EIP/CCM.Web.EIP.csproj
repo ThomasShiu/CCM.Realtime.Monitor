@@ -164,6 +164,9 @@
     <Compile Include="Areas\OrderManage\Controllers\ORD03Controller.cs" />
     <Compile Include="Areas\OrderManage\Controllers\ORD02Controller.cs" />
     <Compile Include="Areas\OrderManage\Controllers\ORD04Controller.cs" />
+    <Compile Include="Areas\OrderManage\Controllers\ORD05Controller.cs" />
+    <Compile Include="Areas\OrderManage\Controllers\ORD06Controller.cs" />
+    <Compile Include="Areas\OrderManage\Controllers\ORD07Controller.cs" />
     <Compile Include="Areas\OrderManage\OrderManageAreaRegistration.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB00Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB01Controller.cs" />
@@ -236,6 +239,7 @@
     <Content Include="Content\img\alipay.jpg" />
     <Content Include="Content\img\alipayimg.png" />
     <Content Include="Content\img\button_pm_close.png" />
+    <Content Include="Content\img\button_pm_close2.png" />
     <Content Include="Content\img\ccm_line.jpg" />
     <Content Include="Content\img\cy-reward-title-bg.jpg" />
     <Content Include="Content\img\favicon.ico" />
@@ -815,6 +819,19 @@
     <Content Include="Areas\OrderManage\Views\ORD03\Form.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD03\Index.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD02\Form2.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD04\Form2.cshtml" />
+    <Content Include="Areas\SystemManage\Views\User\ResetPassword.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD05\Index.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD05\Details.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD05\Form.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD06\Index.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD06\Details.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD06\Form.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD06\Form2.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD07\Index.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD07\Details.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD07\Form.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD07\Form2.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

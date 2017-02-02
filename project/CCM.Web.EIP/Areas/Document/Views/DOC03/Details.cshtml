@@ -31,11 +31,11 @@
                                 </td>
                                 <th class="formTitle">收文日期</th>
                                 <td class="formValue">
-                                    <input id="RECEDATE" name="RECEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                                    <input id="RECEDATE" name="RECEDATE" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" disabled="disabled"/>
                                 </td>
                                 <th class="formTitle">狀態</th>
                                 <td class="formValue">
-                                    <select id="STATUS" name="STATUS" class="form-control required">
+                                    <select id="STATUS" name="STATUS" class="form-control required" disabled="disabled">
                                         <option value="CF">已登錄</option>
                                         <option value="NL">作廢</option>
                                     </select>
@@ -44,21 +44,21 @@
                             <tr>
                                 <th class="formTitle">發文機關</th>
                                 <td class="formValue">
-                                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文部門" />
+                                    <input id="OFFICIAL_NM" name="OFFICIAL_NM" type="text" class="form-control required" placeholder="請輸入發文部門"  disabled="disabled"/>
                                 </td>
                                 <th class="formTitle">發文字號</th>
                                 <td class="formValue">
-                                    <input id="OFFICIAL_DOCID" name="OFFICIAL_DOCID" type="text" class="form-control required" placeholder="請輸入發文字號" />
+                                    <input id="OFFICIAL_DOCID" name="OFFICIAL_DOCID" type="text" class="form-control required" placeholder="請輸入發文字號"  disabled="disabled"/>
                                 </td>
                                 <th class="formTitle">文別</th>
                                 <td class="formValue">
-                                    <input id="OFFICIAL_DOCTYPE" name="OFFICIAL_DOCTYPE" type="text" class="form-control required" placeholder="請輸入文別" />
+                                    <input id="OFFICIAL_DOCTYPE" name="OFFICIAL_DOCTYPE" type="text" class="form-control required" placeholder="請輸入文別"  disabled="disabled"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th class="formTitle">簽收公司</th>
                                 <td class="formValue">
-                                    <select id="COMID" name="COMID" class="form-control required">
+                                    <select id="COMID" name="COMID" class="form-control required" disabled="disabled">
                                         <option value="CCM">精湛光學</option>
                                         <option value="CPA">高雄全盈</option>
                                         <option value="YPA">桃園全盈</option>
@@ -69,11 +69,11 @@
                                 </td>
                                 <th class="formTitle">簽收部門</th>
                                 <td class="formValue">
-                                    <select id="DEPID" name="DEPID" class="form-control required" />
+                                    <select id="DEPID" name="DEPID" class="form-control required"  disabled="disabled"/>
                                 </td>
                                 <th class="formTitle">簽收人員</th>
                                 <td class="formValue">
-                                    <select id="EMPID" name="EMPID" class="form-control required">
+                                    <select id="EMPID" name="EMPID" class="form-control required" disabled="disabled">
                                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                                     </select>
 
@@ -85,7 +85,7 @@
                                     事由
                                 </th>
                                 <td class="formValue" colspan="5">
-                                    <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;"></textarea>
+                                    <textarea id="DESCR" name="DESCR" class="form-control required" style="height: 100px;" disabled="disabled"></textarea>
                                 </td>
                             </tr>
 

@@ -51,6 +51,42 @@ namespace CCM.Application.SystemSecurity
             }
             return service.FindList(expression, pagination);
         }
+        public List<LogEntity> GetListEmp(Pagination pagination, string queryJson)
+        {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            var expression = ExtLinq.True<LogEntity>();
+            var queryParam = queryJson.ToJObject();
+            if (!queryParam["keyword"].IsEmpty())
+            {
+                string keyword = queryParam["keyword"].ToString();
+                expression = expression.And(t => t.F_Account.Contains(keyword));
+            }
+            if (!queryParam["timeType"].IsEmpty())
+            {
+                string timeType = queryParam["timeType"].ToString();
+                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate();
+                DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
+                switch (timeType)
+                {
+                    case "1":
+                        break;
+                    case "2":
+                        startTime = DateTime.Now.AddDays(-7);
+                        break;
+                    case "3":
+                        startTime = DateTime.Now.AddMonths(-1);
+                        break;
+                    case "4":
+                        startTime = DateTime.Now.AddMonths(-3);
+                        break;
+                    default:
+                        break;
+                }
+                expression = expression.And(t => t.F_Date >= startTime && t.F_Date <= endTime);
+            }
+            expression = expression.And(t => t.F_Account == LoginInfo.UserCode);
+            return service.FindList(expression, pagination);
+        }
         public void RemoveLog(string keepTime)
         {
             DateTime operateTime = DateTime.Now;

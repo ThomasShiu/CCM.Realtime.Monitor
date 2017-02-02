@@ -1,58 +1,301 @@
 ﻿@{
     ViewBag.Title = "Info";
+    //Layout = "~/Views/Shared/_Index.cshtml";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+<link href="~/Content/js/select2/select2.min.css" rel="stylesheet" />
+<script src="~/Content/js/select2/select2.min.js"></script>
 <script>
+
+    var keyValue = $.request("keyValue");
     $(function () {
+        gridList();
         $('.wrapper').height($(window).height() - 11);
-    })
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/SystemManage/User/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    $("#F_UserPassword").val("******").attr('disabled', 'disabled');
+                }
+            });
+
+            $.ajax({
+                url: "/SystemManage/User/GetLogOnFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form2").formSerialize(data);
+
+                }
+            });
+        }
+        
+    });
+    function initControl() {
+        $("#F_Gender").bindSelect()
+        $("#F_IsAdministrator").bindSelect()
+        $("#F_EnabledMark").bindSelect()
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson"
+        });
+        $("#F_DepartmentId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+        $("#F_RoleId").bindSelect({
+            url: "/SystemManage/Role/GetGridJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+        $("#F_DutyId").bindSelect({
+            url: "/SystemManage/Duty/GetGridJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        //$("#F_Birthday").mask("9999/99/99", { placeholder: "yyyy/mm/dd" });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/SystemManage/User/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    function btn_resetpassword() {
+        //var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        //alert(keyValue);
+        var Account = $("#F_Account").val();
+        var RealName = $("#F_RealName").val();
+        $.modalOpen({
+            id: "RevisePassword",
+            title: '重置密碼',
+            url: '/SystemManage/User/ResetPassword?keyValue=' + keyValue + "&account=" + escape(Account) + '&realName=' + escape(RealName),
+            width: "450px",
+            height: "320px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/SystemSecurity/Log/GetGridJsonEmp",
+            height: $(window).height() - 188,
+            width: $(window).width(),
+            colModel: [
+                { label: '主鍵', name: 'F_Id', hidden: true },
+                {
+                    label: '日期', name: 'F_Date', width: 120, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s' }
+                },
+                { label: '帳戶', name: 'F_Account', width: 80, align: 'left' },
+                { label: '姓名', name: 'F_NickName', width: 80, align: 'left' },
+                { label: '操作功能表', name: 'F_ModuleName', width: 100, align: 'left' },
+                {
+                    label: '操作類型', name: 'F_Type', width: 80, align: 'left',
+                    formatter: function (cellvalue) {
+                        return top.clients.dataItems["DbLogType"][cellvalue] == undefined ? "" : top.clients.dataItems["DbLogType"][cellvalue]
+                    }
+                },
+                {
+                    label: 'IP地址', name: 'F_IPAddress', width: 330, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return cellvalue + ";" + rowObject.F_IPAddressName;
+                    }
+                },
+                { label: '日誌內容', name: 'F_Description', width: 400, align: 'left' }
+            ],
+            pager: "#gridPager",
+            sortname: 'F_Date desc',
+            viewrecords: true
+        });
+        $("#time_horizon a.btn-default").click(function () {
+            $("#time_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
+        $("#btn_search").click(function () {
+            var timeType = $("#time_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                timeType: $("#time_horizon a.active").attr('data-value'),
+            }
+            $gridList.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+            }).trigger('reloadGrid');
+        });
+    }
+
+  
 </script>
-<div class="wrapper">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#a" data-toggle="tab">基本資訊</a></li>
-        <li><a href="#b" data-toggle="tab">註冊資訊</a></li>
-        <li><a href="#c" data-toggle="tab">安全驗證</a></li>
-        <li><a href="#c" data-toggle="tab">系統日誌</a></li>
-        <li><a href="#c" data-toggle="tab">個性化設置</a></li>
-    </ul>
-    <div class="tab-content" style="padding-top: 5px;">
-        <div id="a" class="tab-pane active" style="padding: 15px;">
-            <ul class="pop-list">
+
+    <div class="wrapper">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#a" data-toggle="tab">基本資訊</a></li>
+            <li><a href="#b" data-toggle="tab">註冊資訊</a></li>
+            @*<li><a href="#c" data-toggle="tab">安全驗證</a></li>*@
+            <li><a href="#d" data-toggle="tab">系統日誌</a></li>
+            <li><a href="#e" data-toggle="tab">個性化設置</a></li>
+        </ul>
+        <div class="tab-content" style="padding-top: 5px;">
+            <div id="a" class="tab-pane active" style="padding: 15px;">
+                <form id="form1">
+                    <table class="form" style="width:800px">
+                        <tr>
+                            <th class="formTitle">帳戶</th>
+                            <td class="formValue">
+                                <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="請輸入帳戶" disabled="disabled" />
+                            </td>
+                            <th class="formTitle">密碼</th>
+                            <td class="formValue">
+                                <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="請輸入密碼" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">公司</th>
+                            <td class="formValue">
+                                <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required" disabled="disabled"></select>
+                            </td>
+                            <th class="formTitle">部門</th>
+                            <td class="formValue">
+                                <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required" disabled="disabled">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">角色</th>
+                            <td class="formValue">
+                                <select id="F_RoleId" name="F_RoleId" class="form-control required" disabled="disabled">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                            <th class="formTitle">職位</th>
+                            <td class="formValue">
+                                <select id="F_DutyId" name="F_DutyId" class="form-control required" disabled="disabled">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">姓名</th>
+                            <td class="formValue">
+                                <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="請輸入姓名" disabled="disabled" />
+                            </td>
+                            <th class="formTitle">性別</th>
+                            <td class="formValue">
+                                <select id="F_Gender" name="F_Gender" class="form-control required" disabled="disabled">
+                                    <option value="true">男</option>
+                                    <option value="false">女</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">手機</th>
+                            <td class="formValue">
+                                <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" disabled="disabled" />
+                            </td>
+                            <th class="formTitle">生日</th>
+                            <td class="formValue">
+                                <input id="F_Birthday" name="F_Birthday" type="text" class="form-control" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">微信</th>
+                            <td class="formValue">
+                                <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" disabled="disabled" />
+                            </td>
+                            <th class="formTitle">信箱</th>
+                            <td class="formValue">
+                                <input id="F_Email" name="F_Email" type="text" class="form-control" disabled="disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">類型</th>
+                            <td class="formValue">
+                                <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control" disabled="disabled">
+                                    <option value="false">普通用戶</option>
+                                    <option value="true">系統管理員</option>
+                                </select>
+                            </td>
+                            <th class="formTitle">允許登錄</th>
+                            <td class="formValue">
+                                <select id="F_EnabledMark" name="F_EnabledMark" class="form-control" disabled="disabled">
+                                    <option value="true">是</option>
+                                    <option value="false">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle" valign="top" style="padding-top: 5px;">
+                                備註
+                            </th>
+                            <td class="formValue" colspan="3">
+                                <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;" disabled="disabled"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                @*<ul class="pop-list">
                 <li>
                     <label>帳戶</label>
-                    <input type="text" class="form-control" />
+                    <input id="F_Account" name="F_Account" type="text" class="form-control " placeholder="請輸入帳戶" />
                 </li>
                 <li>
                     <label>姓名</label>
-                    <input type="text" class="form-control" />
+                    <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="請輸入姓名" />
                 </li>
                 <li>
                     <label>性別</label>
-                    <input type="text" class="form-control" />
+                    <select id="F_Gender" name="F_Gender" class="form-control required" style="width:100px">
+                        <option value="true">男</option>
+                        <option value="false">女</option>
+                    </select>
                 </li>
                 <li>
                     <label>出生</label>
-                    <input type="text" class="form-control" />
+                    <input id="F_Birthday" name="F_Birthday" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
                 </li>
                 <li>
                     <label>公司</label>
-                    <input type="text" class="form-control" />
+                    <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
                 </li>
-                <li>
+                <li class="formValue">
                     <label>部門</label>
-                    <input type="text" class="form-control" />
+                    <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
+                        <option value="">==請選擇==</option>
+                    </select>
+
                 </li>
                 <li>
                     <label>角色</label>
-                    <input type="text" class="form-control" />
+                    <select id="F_RoleId" name="F_RoleId" class="form-control required">
+                        <option value="">==請選擇==</option>
+                    </select>
                 </li>
                 <li>
-                    <label>崗位</label>
-                    <input type="text" class="form-control" />
+                    <label>職位</label>
+                    <select id="F_DutyId" name="F_DutyId" class="form-control required">
+                        <option value="">==請選擇==</option>
+                    </select>
                 </li>
                 <li>
                     <label>自我介紹</label>
-                    <textarea class="form-control" style="height: 60px;"></textarea>
+                    <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
+
                 </li>
                 <li class="line">
                     <h5><span>聯繫方式</span></h5>
@@ -69,46 +312,47 @@
                     <label>微信號</label>
                     <input type="text" class="form-control" />
                 </li>
-            </ul>
-        </div>
-        <div id="b" class="tab-pane" style="padding: 15px;">
-            <ul class="pop-list">
-                <li>
-                    <label>帳戶</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>密碼</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>第一次存取時間</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>上一次存取時間</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>最後修改密碼時間</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>登錄時間</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>登錄次數</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>帳戶類型</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li class="line">
-                    <h5><span>修改密碼</span></h5>
-                </li>
-                <li>
+            </ul>*@
+            </div>
+            <div id="b" class="tab-pane" style="padding: 15px;">
+                <form id="form2">
+                    <ul class="pop-list">
+                        <li>
+                            <label>帳戶</label>
+                            <input id="F_Id" name="F_Id" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>密碼</label>
+                            <input id="F_UserPassword" name="F_UserPassword" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>第一次存取時間</label>
+                            <input id="F_FirstVisitTime" name="F_FirstVisitTime" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>上一次存取時間</label>
+                            <input id="F_PreviousVisitTime" name="F_PreviousVisitTime" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>最後修改密碼時間</label>
+                            <input id="F_ChangePasswordDate" name="F_ChangePasswordDate" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>登錄時間</label>
+                            <input id="F_LastVisitTime" name="F_LastVisitTime" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>登錄次數</label>
+                            <input id="F_LogOnCount" name="F_LogOnCount" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li>
+                            <label>帳戶類型</label>
+                            <input id="F_EnabledMark" name="F_EnabledMark" type="text" class="form-control"  disabled="disabled"/>
+                        </li>
+                        <li class="line">
+                            <h5><span>修改密碼</span></h5>
+                        </li>
+                        @*<li>
                     <label>舊密碼</label>
                     <input type="text" class="form-control" />
                 </li>
@@ -119,21 +363,61 @@
                 <li>
                     <label>確認新密碼</label>
                     <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <div style="padding-left: 115px;">
-                        <a class="btn btn-primary" onclick="btn_add()"><i class="fa fa-save" style="margin-right:5px;"></i>確認修改</a>
-                    </div>
+                </li>*@
+                        <li>
+                            <div style="padding-left: 115px;">
+                                <a class="btn btn-primary" onclick="btn_resetpassword()"><i class="fa fa-pencil-square-o" style="margin-right:5px;"></i>進行修改</a>
+                            </div>
 
-                </li>
-            </ul>
-        </div>
-        <div id="c" class="tab-pane" style="padding-right: 15px;">
-            3
-        </div>
-        <div id="d" class="tab-pane" style="padding-right: 15px;">
-            4
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            @*<div id="c" class="tab-pane" style="padding-right: 15px;">
+                
+            </div>*@
+            <div id="d" class="tab-pane" style="padding-right: 15px;">
+                <div class="topPanel">
+                    <div class="toolbar">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+                        </div>
+                        <div class="btn-group">
+                            @*<a id="NF-removelog" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_removelog()"><i class="fa fa-eraser"></i>清空日誌</a>*@
+                        </div>
+                        <script>$('.toolbar').authorizeButton()</script>
+                    </div>
+                    <div class="search">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="input-group">
+                                        <input id="txt_keyword" type="text" class="form-control" placeholder="請輸入要查詢關鍵字" style="width: 200px;">
+                                        <span class="input-group-btn">
+                                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="padding-left: 10px;">
+                                    <div id="time_horizon" class="btn-group">
+                                        <a class="btn btn-default" data-value="1">今天</a>
+                                        <a class="btn btn-default active" data-value="2">近7天</a>
+                                        <a class="btn btn-default" data-value="3">近1個月</a>
+                                        <a class="btn btn-default" data-value="4">近3個月</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="gridPanel">
+                    <table id="gridList"></table>
+                    <div id="gridPager"></div>
+                </div>
+            </div>
+            <div id="e" class="tab-pane" style="padding-right: 15px;">
+
+            </div>
         </div>
     </div>
-</div>
 

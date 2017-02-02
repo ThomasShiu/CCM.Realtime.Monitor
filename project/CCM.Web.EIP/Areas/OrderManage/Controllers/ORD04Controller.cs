@@ -8,6 +8,7 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -16,6 +17,14 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
     public class ORD04Controller : ControllerBase
     {
         private BU_LUNCHApp tableApp = new BU_LUNCHApp();
+
+        [HttpGet]
+        [HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult Form2()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -30,7 +39,19 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
             };
             return Content(data.ToJson());
         }
-
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJsonEmp(Pagination pagination, string keyword)
+        {
+            var data = new
+            {
+                rows = tableApp.GetListEmp(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
         public ActionResult GetGridJson(string keyword)
         {
             var data = tableApp.GetList(keyword);

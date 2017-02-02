@@ -59,6 +59,8 @@
     <Compile Include="Human\HR_OVRTMApp.cs" />
     <Compile Include="MisManage\MisIpAddressApp.cs" />
     <Compile Include="OrderManage\BU_LUNCHApp.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_AMOUNTApp.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_SETTINGApp.cs" />
     <Compile Include="OrderManage\BU_ORDERSApp.cs" />
     <Compile Include="OrderManage\BU_ORDERS_DETAILApp.cs" />
     <Compile Include="OrderManage\BU_ORDERS_MENUApp.cs" />

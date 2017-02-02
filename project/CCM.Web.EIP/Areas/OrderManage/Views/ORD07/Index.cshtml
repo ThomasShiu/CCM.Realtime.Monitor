@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/OrderManage/ORD07/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				    { label: "LUNCHDATE", name: "LUNCHDATE", width: 80, align: 'left' },
+				    { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
+				    { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
+				    { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
+				    { label: "AbsentMEATPEOPLES", name: "AbsentMEATPEOPLES", width: 80, align: 'left' },
+				    { label: "AbsentVEGEPEOPLES", name: "AbsentVEGEPEOPLES", width: 80, align: 'left' },
+				    { label: "ChangeMEATPEOPLES", name: "ChangeMEATPEOPLES", width: 80, align: 'left' },
+				    { label: "ChangeVEGEPEOPLES", name: "ChangeVEGEPEOPLES", width: 80, align: 'left' },
+				    { label: "TuneMEATPEOPLES", name: "TuneMEATPEOPLES", width: 80, align: 'left' },
+				    { label: "TuneVEGEPEOPLES", name: "TuneVEGEPEOPLES", width: 80, align: 'left' },
+				    { label: "REALMEATPEOPLES", name: "REALMEATPEOPLES", width: 80, align: 'left' },
+				    { label: "REALVEGEPEOPLES", name: "REALVEGEPEOPLES", width: 80, align: 'left' },
+				    { label: "TunePAYEMPLYS", name: "TunePAYEMPLYS", width: 80, align: 'left' },
+				    { label: "REALPAYEMPLYS", name: "REALPAYEMPLYS", width: 80, align: 'left' },
+				    { label: "UNITPRICE", name: "UNITPRICE", width: 80, align: 'left' },
+				    { label: "TOTAL", name: "TOTAL", width: 80, align: 'left' },
+				    { label: "REMARK", name: "REMARK", width: 80, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+			sortname: 'LOCATION asc,LUNCHDATE desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增",
+            url: "/OrderManage/ORD07/Form",
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改",
+            url: "/OrderManage/ORD07/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/OrderManage/ORD07/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看",
+            url: "/OrderManage/ORD07/Details?keyValue=" + keyValue,
+            width: "640px",
+            height: "400px",
+            btn: null,
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="關鍵字" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

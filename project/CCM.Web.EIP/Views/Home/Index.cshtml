@@ -78,10 +78,10 @@
                                         @*<span class="hidden-xs">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode</span>*@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a class="menuItem" data-id="userInfo" href="/SystemManage/User/Info"><i class="fa fa-user"></i>個人資訊</a></li>
-                                        <li><a href="javascript:void();"><i class="fa fa-inbox"></i>我的信箱</a></li>
-                                        <li><a href="javascript:void();" onclick="layer.msg('流覽器緩存清除成功');"><i class="fa fa-trash-o"></i>清空緩存</a></li>
-                                        <li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮膚設置</a></li>
+                                        <li><a class="menuItem" data-id="userInfo" href="/SystemManage/User/Info?keyValue=@CCM.Code.OperatorProvider.Provider.GetCurrent().UserId"><i class="fa fa-user"></i>個人資訊</a></li>
+                                        @*<li><a href="javascript:void();"><i class="fa fa-inbox"></i>我的信箱</a></li>
+                                        <li><a href="javascript:void();" onclick="layer.msg('瀏覽器緩存清除成功');"><i class="fa fa-trash-o"></i>清空緩存</a></li>
+                                        <li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮膚設置</a></li>*@
                                         <li class="divider"></li>
                                         <li><a href="~/Login/OutLogin"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
                                     </ul>
@@ -186,6 +186,6 @@
     </div>
     <script src="~/Content/js/index.js"></script>
     <script src="~/Content/js/indextab.js"></script>
-    @*<script src="~/Content/js/loading/pace.min.js"></script>*@
+    <script src="~/Content/js/loading/pace.min.js"></script>
 </body>
 </html>

@@ -60,6 +60,11 @@
 			pager: "#gridPager",
 			sortname: 'RECEIVEID asc,RECEDATE desc',
 			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
 			//subGrid: true,
 			//subGridRowExpanded: function (subgrid_id, row_id) {
 			//    // we pass two parameters

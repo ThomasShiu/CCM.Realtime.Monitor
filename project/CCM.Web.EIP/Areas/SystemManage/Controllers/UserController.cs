@@ -38,6 +38,16 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
             var data = userApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetLogOnFormJson(string keyValue)
+        {
+            //var data = userLogOnApp.GetFormInfo(keyValue); GetForm
+            var data = userLogOnApp.GetForm(keyValue); 
+            return Content(data.ToJson());
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -60,6 +70,22 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitResetPassword(string userPassword, string keyValue)
+        {
+            userLogOnApp.RevisePassword(userPassword, keyValue);
+            return Success("修改密碼成功。");
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
@@ -99,6 +125,8 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         {
             return View();
         }
+
+
     }
 }
 

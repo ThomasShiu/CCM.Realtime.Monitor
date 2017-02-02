@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: BU_BULLETIN_ATTACH_FILE
-	public class BU_BULLETIN_ATTACH_FILEMap : EntityTypeConfiguration<BU_BULLETIN_ATTACH_FILEEntity>
+	//mapping table name: BU_LUNCH_AMOUNT
+	public class BU_LUNCH_AMOUNTMap : EntityTypeConfiguration<BU_LUNCH_AMOUNTEntity>
     {
-        public BU_BULLETIN_ATTACH_FILEMap()
+        public BU_LUNCH_AMOUNTMap()
         {
-            this.ToTable("BU_BULLETIN_ATTACH_FILE");
+            this.ToTable("BU_LUNCH_AMOUNT");
             this.HasKey(t => t.SID);
         }
     }

@@ -36,6 +36,19 @@ namespace CCM.Web.EIP.Areas.SystemSecurity.Controllers
             };
             return Content(data.ToJson());
         }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJsonEmp(Pagination pagination, string queryJson)
+        {
+            var data = new
+            {
+                rows = logApp.GetListEmp(pagination, queryJson),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]

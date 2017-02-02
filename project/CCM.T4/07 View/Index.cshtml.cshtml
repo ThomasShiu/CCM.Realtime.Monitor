@@ -9,23 +9,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/OrderManage/ORD03/GetGridJson",
+            url: "/OrderManage/ORD07/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "ParentSID", name: "ParentSID", width: 80, align: 'left' },
-				                     { label: "OrderDate", name: "OrderDate", width: 80, align: 'left' },
-				                     { label: "EmpID", name: "EmpID", width: 80, align: 'left' },
-				                     { label: "DepID", name: "DepID", width: 80, align: 'left' },
-				                     { label: "OrderMenuSID", name: "OrderMenuSID", width: 80, align: 'left' },
-				                     { label: "Qty", name: "Qty", width: 80, align: 'left' },
-				                     { label: "UnitPrice", name: "UnitPrice", width: 80, align: 'left' },
-				                     { label: "AdjustSID", name: "AdjustSID", width: 80, align: 'left' },
-				                     { label: "AdjustAmount", name: "AdjustAmount", width: 80, align: 'left' },
-				                     { label: "AdjustQty", name: "AdjustQty", width: 80, align: 'left' },
-				                     { label: "Amount", name: "Amount", width: 80, align: 'left' },
-				                     { label: "Remark", name: "Remark", width: 80, align: 'left' },
+				                     { label: "LUNCHDATE", name: "LUNCHDATE", width: 80, align: 'left' },
+				                     { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
+				                     { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "AbsentMEATPEOPLES", name: "AbsentMEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "AbsentVEGEPEOPLES", name: "AbsentVEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "ChangeMEATPEOPLES", name: "ChangeMEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "ChangeVEGEPEOPLES", name: "ChangeVEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "TuneMEATPEOPLES", name: "TuneMEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "TuneVEGEPEOPLES", name: "TuneVEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "REALMEATPEOPLES", name: "REALMEATPEOPLES", width: 80, align: 'left' },
+				                     { label: "REALVEGEPEOPLES", name: "REALVEGEPEOPLES", width: 80, align: 'left' },
+				                     { label: "TunePAYEMPLYS", name: "TunePAYEMPLYS", width: 80, align: 'left' },
+				                     { label: "REALPAYEMPLYS", name: "REALPAYEMPLYS", width: 80, align: 'left' },
+				                     { label: "UNITPRICE", name: "UNITPRICE", width: 80, align: 'left' },
+				                     { label: "TOTAL", name: "TOTAL", width: 80, align: 'left' },
+				                     { label: "REMARK", name: "REMARK", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -47,7 +52,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/OrderManage/ORD03/Form",
+            url: "/OrderManage/ORD07/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -60,7 +65,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/OrderManage/ORD03/Form?keyValue=" + keyValue,
+            url: "/OrderManage/ORD07/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -70,7 +75,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/OrderManage/ORD03/DeleteForm",
+            url: "/OrderManage/ORD07/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -82,7 +87,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/OrderManage/ORD03/Details?keyValue=" + keyValue,
+            url: "/OrderManage/ORD07/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

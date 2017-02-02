@@ -63,6 +63,8 @@
     <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_LUNCHEntity.cs" />
+    <Compile Include="03 Entity\OrderManage\BU_LUNCH_AMOUNTEntity.cs" />
+    <Compile Include="03 Entity\OrderManage\BU_LUNCH_SETTINGEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERSEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_DETAILEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_MENUEntity.cs" />
@@ -101,6 +103,8 @@
     <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_LUNCHRepository.cs" />
+    <Compile Include="04 IRepository\OrderManage\IBU_LUNCH_AMOUNTRepository.cs" />
+    <Compile Include="04 IRepository\OrderManage\IBU_LUNCH_SETTINGRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERSRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_DETAILRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_MENURepository.cs" />

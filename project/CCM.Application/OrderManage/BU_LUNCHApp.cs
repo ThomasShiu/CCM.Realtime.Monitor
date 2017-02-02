@@ -41,6 +41,19 @@ namespace CCM.Application
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
+        public List<BU_LUNCHEntity> GetListEmp(Pagination pagination, string keyword = "")
+        {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            var expression = ExtLinq.True<BU_LUNCHEntity>();
+            expression = expression.And(t => t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.FROM_YEAR.Contains(keyword));
+                expression = expression.Or(t => t.FROM_MONTH.Contains(keyword));
+            }
+            
+            return service.FindList(expression, pagination);
+        }
         public BU_LUNCHEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

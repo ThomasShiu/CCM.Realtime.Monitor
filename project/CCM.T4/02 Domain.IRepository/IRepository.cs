@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: BU_BULLETIN_ATTACH_FILE
-	public interface IBU_BULLETIN_ATTACH_FILERepository : IRepositoryBase<BU_BULLETIN_ATTACH_FILEEntity>
+	//mapping table name: BU_LUNCH_AMOUNT
+	public interface IBU_LUNCH_AMOUNTRepository : IRepositoryBase<BU_LUNCH_AMOUNTEntity>
     {
     }
 			 		                               

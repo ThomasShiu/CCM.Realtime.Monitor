@@ -51,6 +51,8 @@
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
     <Compile Include="OracleDbDAL.cs" />
     <Compile Include="OrderManage\BU_LUNCHRepository.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_AMOUNTRepository.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_SETTINGRepository.cs" />
     <Compile Include="OrderManage\BU_ORDERSRepository.cs" />
     <Compile Include="OrderManage\BU_ORDERS_DETAILRepository.cs" />
     <Compile Include="OrderManage\BU_ORDERS_MENURepository.cs" />

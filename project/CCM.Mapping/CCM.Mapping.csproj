@@ -59,6 +59,8 @@
     <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
     <Compile Include="OrderManage\BU_LUNCHMap.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_AMOUNTMap.cs" />
+    <Compile Include="OrderManage\BU_LUNCH_SETTINGMap.cs" />
     <Compile Include="OrderManage\BU_ORDERSMap.cs" />
     <Compile Include="OrderManage\BU_ORDERS_DETAILMap.cs" />
     <Compile Include="OrderManage\BU_ORDERS_MENUMap.cs" />

@@ -9,27 +9,75 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/OrderManage/ORD04/GetGridJson",
+            url: "/OrderManage/ORD04/GetGridJsonEmp",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				    { label: "LUTYPE", name: "LUTYPE", width: 80, align: 'left' },
-				    { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
-				    { label: "LUDATE", name: "LUDATE", width: 80, align: 'left' },
-				    { label: "FROM_YEAR", name: "FROM_YEAR", width: 80, align: 'left' },
-				    { label: "FROM_MONTH", name: "FROM_MONTH", width: 80, align: 'left' },
-				    { label: "TO_YEAR", name: "TO_YEAR", width: 80, align: 'left' },
-				    { label: "TO_MONTH", name: "TO_MONTH", width: 80, align: 'left' },
-				    { label: "EMPLYID", name: "EMPLYID", width: 80, align: 'left' },
-				    { label: "DEPID", name: "DEPID", width: 80, align: 'left' },
-				    { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
-				    { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "AMOUNT", name: "AMOUNT", width: 80, align: 'left' },
-				    { label: "REMK", name: "REMK", width: 80, align: 'left' },
-				                    
+				    {
+				        label: "登記型態", name: "LUTYPE", width: 120, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            if (rowObject.LUTYPE = '1') {
+				                return '預訂單日不用餐';
+				            } else if (rowObject.LUTYPE = '2') {
+				                return '預訂整月不用餐';
+				            } else if (rowObject.LUTYPE = '3') {
+				                return '預訂素食用餐';
+				            } else if (rowObject.LUTYPE = '4') {
+				                return '預訂訪客用餐';
+				            } else if (rowObject.LUTYPE = '5') {
+				                return '新到離職扣款';
+				            }
+				        }
+				    },
+				   
+                    {
+                        label: "日期", name: "LUDATE", width: 80, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                    },
+                     { label: "DEPID", name: "DEPID", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "部門", name: "", width: 140, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
+                        }
+                    },
+                    { label: "EMPLYID", name: "EMPLYID", hidden: true, width: 80, align: 'left' },
+				    {
+				        label: "員工", name: "", width: 60, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+				        }
+				    },
+				   
+				    {
+				        label: "地點", name: "LOCATION", width: 70, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            if (rowObject.LOCATION = '1') {
+				                return '精湛總廠';
+				            } else if (rowObject.LOCATION = '2') {
+				                return '一廠';
+				            } else if (rowObject.LOCATION = '3') {
+				                return '全盈';
+				            } else if (rowObject.LOCATION = '4') {
+				                return '關廟';
+				            } else if (rowObject.LOCATION = '5') {
+				                return '柳營';
+				            }
+				        }
+				    },
+				    { label: "年(起)", name: "FROM_YEAR", width: 80, align: 'center' },
+				    { label: "月(起)", name: "FROM_MONTH", width: 80, align: 'center' },
+				    { label: "年(迄)", name: "TO_YEAR", width: 80, align: 'center' },
+				    { label: "月(迄)", name: "TO_MONTH", width: 80, align: 'center' },
+                   
+				    { label: "葷食人數", name: "MEATPEOPLES", width: 60, align: 'center' },
+				    { label: "素食人數", name: "VEGEPEOPLES", width: 60, align: 'center' },
+				    { label: "扣款", name: "AMOUNT",  width: 60, align: 'right' },
+				    { label: "REMK", name: "REMK", hidden: true, width: 80, align: 'left' },
+				    { label: "", name: "", width: 80, align: 'left' },
             ],
 			pager: "#gridPager",
-			sortname: 'FROM_MONTH desc,FROM_YEAR desc',
+			sortname: 'CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -43,8 +91,8 @@
             id: "Form",
             title: "新增資料",
             url: "/OrderManage/ORD04/Form",
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -56,8 +104,8 @@
             id: "Form",
             title: "修改資料",
             url: "/OrderManage/ORD04/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -78,8 +126,8 @@
             id: "Details",
             title: "查看資料",
             url: "/OrderManage/ORD04/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             btn: null,
         });
     }
@@ -100,7 +148,7 @@
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
             </ul>
-            <a href="javascript:;" class="close"></a>
+            <a href="javascript:;" class="close" alt="取消選取"></a>
         </div>
         <script>$('.toolbar').authorizeButton()</script>
     </div>

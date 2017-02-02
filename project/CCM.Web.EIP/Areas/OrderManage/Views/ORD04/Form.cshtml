@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
@@ -9,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/OrderManage/ORD03/GetFormJson",
+                url: "/OrderManage/ORD04/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -29,7 +28,7 @@
             return false;
         }
         $.submitForm({
-            url: "/OrderManage/ORD03/SubmitForm?keyValue=" + keyValue,
+            url: "/OrderManage/ORD04/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -39,9 +38,11 @@
 </script>
 
 <form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="GUID" name="GUID" type="hidden" value="" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
-            <tr>
+            @*<tr>
                 <th class="formTitle">COL_SAMPLE</th>
                 <td class="formValue">
                     <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
@@ -49,121 +50,103 @@
                     <input id="GUID" name="GUID" type="hidden" value="" />
                 </td>
 
-            </tr>
+            </tr>*@
+           
             <tr>
-                <th class="formTitle">SID</th>
+                <th class="formTitle">登記型態</th>
                 <td class="formValue">
-                    <input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="LUTYPE" name="LUTYPE" class="form-control required">
+                        <option ></option>
+                        <option value="1">預訂單日不用餐</option>
+                        <option value="2">預訂整月不用餐</option>
+                        <option value="3">預訂素食用餐</option>
+                        <option value="4">預訂訪客用餐</option>
+                        <option value="5">新到離職扣款</option>
+                    </select>
+                </td>
+                <th class="formTitle">地點</th>
+                <td class="formValue">
+                    <select id="LOCATION" name="LOCATION" class="form-control required">
+                        <option></option>
+                        <option value="1">精湛總廠</option>
+                        <option value="2">一廠</option>
+                        <option value="3">全盈</option>
+                        <option value="4">關廟</option>
+                        <option value="5">柳營</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">LUTYPE</th>
+                <th class="formTitle">登記部門</th>
                 <td class="formValue">
-                    <input id="LUTYPE" name="LUTYPE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LOCATION</th>
-                <td class="formValue">
-                    <input id="LOCATION" name="LOCATION" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LUDATE</th>
-                <td class="formValue">
-                    <input id="LUDATE" name="LUDATE" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">FROM_YEAR</th>
-                <td class="formValue">
-                    <input id="FROM_YEAR" name="FROM_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">FROM_MONTH</th>
-                <td class="formValue">
-                    <input id="FROM_MONTH" name="FROM_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">TO_YEAR</th>
-                <td class="formValue">
-                    <input id="TO_YEAR" name="TO_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">TO_MONTH</th>
-                <td class="formValue">
-                    <input id="TO_MONTH" name="TO_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">EMPLYID</th>
+                <th class="formTitle">登記人員</th>
                 <td class="formValue">
                     <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">DEPID</th>
+                <th class="formTitle">日期</th>
                 <td class="formValue">
-                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LUDATE" name="LUDATE" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
-            </tr>
-            <tr>
-                <th class="formTitle">MEATPEOPLES</th>
-                <td class="formValue">
-                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">VEGEPEOPLES</th>
-                <td class="formValue">
-                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">AMOUNT</th>
+  
+                <th class="formTitle">用餐扣款</th>
                 <td class="formValue">
                     <input id="AMOUNT" name="AMOUNT" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">REMK</th>
+                <th class="formTitle">葷食人數</th>
                 <td class="formValue">
-                    <input id="REMK" name="REMK" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+                <th class="formTitle">素食人數</th>
+                <td class="formValue">
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">OrganizeId</th>
+                <th class="formTitle">年(起)</th>
                 <td class="formValue">
-                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="FROM_YEAR" name="FROM_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+                <th class="formTitle">月(起)</th>
+                <td class="formValue">
+                    <input id="FROM_MONTH" name="FROM_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">CreatorTime</th>
+                <th class="formTitle">年(迄)</th>
                 <td class="formValue">
-                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="TO_YEAR" name="TO_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+                <th class="formTitle">月(迄)</th>
+                <td class="formValue">
+                    <input id="TO_MONTH" name="TO_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+           
+            <tr>
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="REMK" name="REMK" class="form-control " style="height: 60px;"> </textarea>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">CreatorUserId</th>
-                <td class="formValue">
-                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                <th class="formTitle">注意事項</th>
+                <td class="formValue" colspan="3">
+                    <textarea class="form-control " style="height: 140px;" disabled="disabled">
+1.出差、出勤外出者不用特別來此處登記不用餐，系統會自動查核計算。
+2.選擇[預訂單日不用餐]只設定某一日不用餐，當月仍須扣款500元，唯請於每日早上九點前登記完成。
+3.選擇[預訂整月不用餐]設定整月或某幾個月不用餐，設定期間內之月份都不用扣款500元，唯必須於每月30日前設定次月不用餐，超過30日則只能設定次次月。目前只開放一次申請1個月。
+4.[預定素食用餐]提供給臨時(例如初一或十五)要吃素者臨時設定使用，唯請於每日早上九點前登記完成。
+5.長期吃素者不用來此特別設定，請直接親自向總務人員做一次性設定申請即可。
+6.[訪客用餐]葷素食數量，請於每日早上九點前於此登記完成。</textarea>
                 </td>
             </tr>
-            <tr>
-                <th class="formTitle">LastModifyTime</th>
-                <td class="formValue">
-                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyUserId</th>
-                <td class="formValue">
-                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
+           
 
         </table>
     </div>

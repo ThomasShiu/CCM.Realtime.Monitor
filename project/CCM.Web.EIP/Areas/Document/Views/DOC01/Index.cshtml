@@ -142,26 +142,37 @@
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var empid = $("#gridList").jqGridRowValue().EMPID;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
-        
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/Document/DOC01/Print?keyValue=" + keyValue,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+
         //var guid = $("#gridList").jqGridRowValue().GUID;
-        if (empid == usercode | usercode == 'admin') {
-            $.modalOpen({
-                id: "Form",
-                title: "列印",
-                url: "/Document/DOC01/Print?keyValue=" + keyValue,
-                width: "900px",
-                height: "680px",
-                btn: null,
-                callBack: function (iframeId) {
-                    top.frames[iframeId].submitForm();
-                }
-            });
-        } else {
-            msg = "只可列印自己建立的單據!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-        }
+        //if (empid == usercode | usercode == 'admin') {
+        //    $.modalOpen({
+        //        id: "Form",
+        //        title: "列印",
+        //        url: "/Document/DOC01/Print?keyValue=" + keyValue,
+        //        width: "900px",
+        //        height: "680px",
+        //        btn: null,
+        //        callBack: function (iframeId) {
+        //            top.frames[iframeId].submitForm();
+        //        }
+        //    });
+        //} else {
+        //    msg = "只可列印自己建立的單據!";
+        //    window.setTimeout(function () {
+        //        $.modalMsg(msg, "warning");
+        //    }, 500);
+        //}
     }
 </script>
 

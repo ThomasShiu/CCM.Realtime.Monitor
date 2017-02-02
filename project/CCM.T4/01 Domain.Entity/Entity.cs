@@ -11,17 +11,45 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: BU_BULLETIN_ATTACH_FILE
-			public class BU_BULLETIN_ATTACH_FILEEntity  : IEntityCcm<BU_BULLETIN_ATTACH_FILEEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: BU_LUNCH_AMOUNT
+			public class BU_LUNCH_AMOUNTEntity  : IEntityCcm<BU_LUNCH_AMOUNTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public String ParentSID  { get; set; }                                        
+				public DateTime LUNCHDATE  { get; set; }                                        
 				          
-				public String Name  { get; set; }                                        
+				public String LOCATION  { get; set; }                                        
 				          
-				public String UploadPath  { get; set; }                                        
+				public Int32 MEATPEOPLES  { get; set; }                                        
+				          
+				public Int32 VEGEPEOPLES  { get; set; }                                        
+				          
+				public Int32 AbsentMEATPEOPLES  { get; set; }                                        
+				          
+				public Int32 AbsentVEGEPEOPLES  { get; set; }                                        
+				          
+				public Int32 ChangeMEATPEOPLES  { get; set; }                                        
+				          
+				public Int32 ChangeVEGEPEOPLES  { get; set; }                                        
+				          
+				public Int32 TuneMEATPEOPLES  { get; set; }                                        
+				          
+				public Int32 TuneVEGEPEOPLES  { get; set; }                                        
+				          
+				public Int32 REALMEATPEOPLES  { get; set; }                                        
+				          
+				public Int32 REALVEGEPEOPLES  { get; set; }                                        
+				          
+				public Int32 TunePAYEMPLYS  { get; set; }                                        
+				          
+				public Int32 REALPAYEMPLYS  { get; set; }                                        
+				          
+				public Int32 UNITPRICE  { get; set; }                                        
+				          
+				public Int32 TOTAL  { get; set; }                                        
+				          
+				public String REMARK  { get; set; }                                        
 				          
 				public String OrganizeId  { get; set; }                                        
 				          
