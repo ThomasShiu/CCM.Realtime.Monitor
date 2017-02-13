@@ -72,8 +72,10 @@
     <Compile Include="03 Entity\PublicManage\BU_BULLETIN_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_FEEDBACKEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_SOTREEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\BU_FEEDBACKMISEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
+    <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
@@ -110,10 +112,12 @@
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_MENURepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_BULLETINRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_BULLETIN_ATTACH_FILERepository.cs" />
+    <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKMISRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_SOTRERepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
+    <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />

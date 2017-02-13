@@ -17,7 +17,7 @@ namespace CCM.Application.SystemManage
     {
         private IUserLogOnRepository service1 = new UserLogOnRepository();
         private IUserLogOnRepository service = new UserLogOnRepository();
-
+        public OperatorModel LoginInfo = OperatorProvider.Provider.GetCurrent();
 
         public List<UserLogOnEntity> GetList(string keyword = "")
         {
@@ -59,6 +59,17 @@ namespace CCM.Application.SystemManage
         }
         public void RevisePassword(string userPassword,string keyValue)
         {
+            UserLogOnEntity userLogOnEntity = new UserLogOnEntity();
+            userLogOnEntity.F_Id = keyValue;
+            userLogOnEntity.F_UserSecretkey = Md5.md5(Common.CreateNo(), 16).ToLower();
+            userLogOnEntity.F_UserPassword = Md5.md5(DESEncrypt.Encrypt(Md5.md5(userPassword, 32).ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
+            service.Update(userLogOnEntity);
+        }
+
+        public void ResetPassword(string userPassword)
+        {
+            var keyValue = LoginInfo.UserId;
+
             UserLogOnEntity userLogOnEntity = new UserLogOnEntity();
             userLogOnEntity.F_Id = keyValue;
             userLogOnEntity.F_UserSecretkey = Md5.md5(Common.CreateNo(), 16).ToLower();

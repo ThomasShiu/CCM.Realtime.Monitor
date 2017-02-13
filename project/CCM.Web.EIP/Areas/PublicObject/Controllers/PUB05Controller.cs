@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -8,6 +8,7 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System;
 using System.IO;
 using System.Web;
@@ -22,6 +23,20 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private BU_BULLETINApp tableApp = new BU_BULLETINApp();
         private BU_BULLETIN_ATTACH_FILEApp tableFileApp = new BU_BULLETIN_ATTACH_FILEApp();
         private BU_BULLETIN_ATTACH_FILEEntity tableEntity = new BU_BULLETIN_ATTACH_FILEEntity();
+
+        [HttpGet]
+        [ActionTraceLog]
+        public virtual ActionResult IndexPub()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [ActionTraceLog]
+        public virtual ActionResult DetailsPub()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]

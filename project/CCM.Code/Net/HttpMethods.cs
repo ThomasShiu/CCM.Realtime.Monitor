@@ -4,6 +4,7 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+using log4net.Repository.Hierarchy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -501,7 +502,7 @@ namespace CCM.Code
             }
             catch (Exception ex)
             {
-                //logger.Error("Error uploading file", ex);
+                //Logger.Error("Error uploading file", ex);
                 if (wresp != null)
                 {
                     wresp.Close();

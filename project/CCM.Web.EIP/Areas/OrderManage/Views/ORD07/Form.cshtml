@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
@@ -8,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/OrderManage/ORD03/GetFormJson",
+                url: "/OrderManage/ORD07/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -19,16 +20,14 @@
         }
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
+  
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: "/OrderManage/ORD03/SubmitForm?keyValue=" + keyValue,
+            url: "/OrderManage/ORD07/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -39,127 +38,104 @@
 
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
-    <input id="GUID" name="GUID" type="hidden" value="" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
-            @*<tr>
-                <th class="formTitle">COL_SAMPLE</th>
-                <td class="formValue">
-                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
-                    <select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
-                    <input id="GUID" name="GUID" type="hidden" value="" />
-                </td>
 
-            </tr>*@
-           
             <tr>
-                <th class="formTitle">LUTYPE</th>
+                <th class="formTitle">日期</th>
                 <td class="formValue">
-                    <input id="LUTYPE" name="LUTYPE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LUNCHDATE" name="LUNCHDATE" type="text" class="form-control input-wdatepicker "
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: true })" />
+                </td>
+                <th class="formTitle">地點</th>
+                <td class="formValue">
+                    <select id="LOCATION" name="LOCATION" class="form-control required">
+                        <option value="1">精湛總廠</option>
+                        <option value="2">一廠</option>
+                        <option value="3">全盈</option>
+                        <option value="4">關廟</option>
+                        <option value="5">柳營</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">LOCATION</th>
+                <th class="formTitle">設定葷食數</th>
                 <td class="formValue">
-                    <input id="LOCATION" name="LOCATION" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">設定素食數</th>
+                <td class="formValue">
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">LUDATE</th>
+                <th class="formTitle">缺勤葷食數</th>
                 <td class="formValue">
-                    <input id="LUDATE" name="LUDATE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="AbsentMEATPEOPLES" name="AbsentMEATPEOPLES" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">缺勤素食數</th>
+                <td class="formValue">
+                    <input id="AbsentVEGEPEOPLES" name="AbsentVEGEPEOPLES" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">FROM_YEAR</th>
+                <th class="formTitle">登記葷食數</th>
                 <td class="formValue">
-                    <input id="FROM_YEAR" name="FROM_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="ChangeMEATPEOPLES" name="ChangeMEATPEOPLES" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">登記素食數</th>
+                <td class="formValue">
+                    <input id="ChangeVEGEPEOPLES" name="ChangeVEGEPEOPLES" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">FROM_MONTH</th>
+                <th class="formTitle">調整葷食數</th>
                 <td class="formValue">
-                    <input id="FROM_MONTH" name="FROM_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="TuneMEATPEOPLES" name="TuneMEATPEOPLES" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">調整素食數</th>
+                <td class="formValue">
+                    <input id="TuneVEGEPEOPLES" name="TuneVEGEPEOPLES" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">TO_YEAR</th>
+                <th class="formTitle">實際葷食數</th>
                 <td class="formValue">
-                    <input id="TO_YEAR" name="TO_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="REALMEATPEOPLES" name="REALMEATPEOPLES" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">實際素食數</th>
+                <td class="formValue">
+                    <input id="REALVEGEPEOPLES" name="REALVEGEPEOPLES" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">TO_MONTH</th>
+                <th class="formTitle">調整數量</th>
                 <td class="formValue">
-                    <input id="TO_MONTH" name="TO_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="TunePAYEMPLYS" name="TunePAYEMPLYS" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">實際數量</th>
+                <td class="formValue">
+                    <input id="REALPAYEMPLYS" name="REALPAYEMPLYS" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">EMPLYID</th>
+                <th class="formTitle">單價</th>
                 <td class="formValue">
-                    <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="UNITPRICE" name="UNITPRICE" type="number" class="form-control text-center required"  />
+                </td>
+                <th class="formTitle">費用金額</th>
+                <td class="formValue">
+                    <input id="TOTAL" name="TOTAL" type="number" class="form-control text-center required"  />
                 </td>
             </tr>
+
             <tr>
-                <th class="formTitle">DEPID</th>
-                <td class="formValue">
-                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="REMARK" name="REMARK" class="form-control " style="height: 60px;"> </textarea>
                 </td>
             </tr>
-            <tr>
-                <th class="formTitle">MEATPEOPLES</th>
-                <td class="formValue">
-                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">VEGEPEOPLES</th>
-                <td class="formValue">
-                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">AMOUNT</th>
-                <td class="formValue">
-                    <input id="AMOUNT" name="AMOUNT" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">REMK</th>
-                <td class="formValue">
-                    <input id="REMK" name="REMK" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">OrganizeId</th>
-                <td class="formValue">
-                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorTime</th>
-                <td class="formValue">
-                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorUserId</th>
-                <td class="formValue">
-                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyTime</th>
-                <td class="formValue">
-                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyUserId</th>
-                <td class="formValue">
-                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
+            
 
         </table>
     </div>

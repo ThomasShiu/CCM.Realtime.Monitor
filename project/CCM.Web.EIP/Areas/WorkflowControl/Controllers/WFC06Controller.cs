@@ -1,8 +1,10 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇 
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
+ * Features:加班單申請-個人使用，只顯示自己的加班單
+ * Table: HR_OVRTM
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;
@@ -11,7 +13,6 @@ using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 {
     public class WFC06Controller : ControllerBase
@@ -23,6 +24,22 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         [HandlerAuthorize]
         [ActionTraceLog]
         public virtual ActionResult IndexEmp()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        //[HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult IndexEmpTest()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        //[HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult FormTest()
         {
             return View();
         }

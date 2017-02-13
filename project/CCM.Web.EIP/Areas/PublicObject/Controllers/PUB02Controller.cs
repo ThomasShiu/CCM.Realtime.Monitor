@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -19,6 +19,13 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
         private CcmServices cs = new CcmServices();
+
+        [HttpGet]
+        [ActionTraceLog]
+        public ActionResult IndexPub()
+        {
+            return View();
+        }
 
         #region 警衛專用畫面
         [HttpGet]

@@ -17,11 +17,24 @@
                     $("#form1").formSerialize(data);
                 }
             });
+        } else {
+            $("#MEAT").val('1');
+            $("#VEGETABLE").val('0');
         }
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
         });
     }
     function submitForm() {
@@ -36,6 +49,17 @@
             }
         })
     }
+    $(document).ready(function () {
+
+        $('#DEPID').change(function () {
+            // 員工 by 部門
+            $("#EMPLYID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+    });
 </script>
 
 <form id="form1">
@@ -43,39 +67,50 @@
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">DEPID</th>
+                <th class="formTitle">登記部門</th>
                 <td class="formValue">
-                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="DEPID" name="DEPID" class="form-control required">
+                        <option></option>
+                    </select>
                 </td>
-                <th class="formTitle">EMPLYID</th>
+                <th class="formTitle">登記員工</th>
                 <td class="formValue">
-                    <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required">
+                        <option></option>
+                    </select>
                 </td>
             </tr>
 
             <tr>
-                <th class="formTitle">LOCATION</th>
+                <th class="formTitle">登記地點</th>
                 <td class="formValue">
-                    <input id="LOCATION" name="LOCATION" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="LOCATION" name="LOCATION" class="form-control required">
+                        <option value="1">精湛總廠</option>
+                        <option value="2">一廠</option>
+                        <option value="3">全盈</option>
+                        <option value="4">關廟</option>
+                        <option value="5">柳營</option>
+                    </select>
+                    
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">MEAT</th>
+                <th class="formTitle">葷食人數</th>
                 <td class="formValue">
-                    <input id="MEAT" name="MEAT" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="MEAT" name="MEAT" type="number" class="form-control required"  />
                 </td>
-                <th class="formTitle">VEGETABLE</th>
+                <th class="formTitle">素食人數</th>
                 <td class="formValue">
-                    <input id="VEGETABLE" name="VEGETABLE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="VEGETABLE" name="VEGETABLE" type="number" class="form-control required"  />
                 </td>
             </tr>
             <tr>
                 
             </tr>
             <tr>
-                <th class="formTitle">REMARK</th>
-                <td class="formValue">
-                    <input id="REMARK" name="REMARK" type="text" class="form-control required" placeholder="請輸入標題" />
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="REMARK" name="REMARK" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>
         </table>

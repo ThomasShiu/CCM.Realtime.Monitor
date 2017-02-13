@@ -15,7 +15,13 @@
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
                     { label: "StoreID", name: "StoreID", hidden: true, width: 80, align: 'left' },
 				    { label: "標題", name: "Subject", width: 120, align: 'left' },
-				    { label: "商店", name: "StoreID", width: 80, align: 'left' },
+				    { label: "StoreID", name: "StoreID", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "商店", name: "", width: 80, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.store[rowObject.StoreID] == null ? "" : top.clients.store[rowObject.StoreID].fullname;
+                        }
+                    },
 				    { label: "說明", name: "OrderContent", width: 100, align: 'left' },
 				    {
 				        label: "開始日", name: "StartDate", width: 120, align: 'left',
@@ -86,6 +92,7 @@
             }
         });
     }
+    // 訂便當
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var orderTime = $("#gridList").jqGridRowValue().EndDate;
@@ -106,6 +113,7 @@
             url: "/OrderManage/ORD02/Form2?keyValue=" + keyValue,
             width: "900px",
             height: "600px",
+            btn: null,
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }

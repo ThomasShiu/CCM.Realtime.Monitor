@@ -1,14 +1,20 @@
 ﻿using CCM.Code;
 using CCM.Domain;
 using CCM.Repository;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
@@ -24,6 +30,7 @@ namespace CCM.Application
         public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE_TEST"; // 產生簽核途程
         public static string v_SP_SET_SIGNROUTE = "SP_SET_SIGNROUTE_TEST"; // 設定簽核狀態:撤簽、作廢、退回
         public static string v_SP_SET_SIGN = "SP_SET_SIGN_TEST";           // 主管簽核
+        public OperatorModel LoginInfo = OperatorProvider.Provider.GetCurrent();
 
         #region 產生資料集 , Report 報表使用
         public DataTable GetDataSet(string SQL)
@@ -89,7 +96,7 @@ namespace CCM.Application
         }
         #endregion
 
-        #region 取得特約廠商，只取前8筆
+        #region 取得特約廠商
         public JArray GetVendorList()
         {
             string v_sql = "SELECT SID,Name, Phone  FROM EIP.dbo.BU_ORDERS_SOTRE WHERE Phone IS NOT NULL ORDER BY CreatorTime DESC";
@@ -306,6 +313,91 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得員工個人資訊
+        public JArray getEmpInfo()
+        {
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
+            string v_sql = " SELECT '_0' AS SER,'到職日期' AS ITEM, CONVERT(CHAR(10), REGDT, 120) AS INFO ";
+            v_sql += " FROM HRSDBR53..HR_EMPLYM ";
+            v_sql += "    WHERE EMPLYID = '" + UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '_1' AS SER,'任職部門' AS ITEM, RTRIM(C.DEPNM)AS INFO ";
+            v_sql += "    FROM HRSDBR53..HR_EMPLYM A ";
+            v_sql += "    LEFT JOIN HRSDBR53..HR_DEP C ON A.DEPID = C.DEPID ";
+            v_sql += "    WHERE A.EMPLYID = '"+ UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '_2' AS SER, '任職職稱' AS ITEM, RTRIM(E.JOBNM) AS INFO ";
+            v_sql += "    FROM HRSDBR53..HR_EMPLYM A ";
+            v_sql += "    LEFT JOIN HRSDBR53..HR_JOBID E ON A.JOBID = E.JOBID ";
+            v_sql += "    WHERE A.EMPLYID = '" + UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '_3' AS SER, '簽核主管' AS ITEM, CASE WHEN F.EMPLYNM = A.EMPLYNM THEN( ";
+            v_sql += "        SELECT CASE WHEN F1.EMPLYNM = A.EMPLYNM THEN( ";
+            v_sql += "            SELECT F2.EMPLYNM ";
+            v_sql += "            FROM HRSDBR53..HR_DEP P1, HRSDBR53..HR_EMPLYM F2 ";
+            v_sql += "            WHERE P1.DEPID = P.DPRTID AND P1.EMPLYID = F2.EMPLYID ";
+            v_sql += "        ) ELSE F1.EMPLYNM END AS EMPLYNM ";
+            v_sql += "        FROM HRSDBR53..HR_DEP P, HRSDBR53..HR_EMPLYM F1 ";
+            v_sql += "        WHERE P.DEPID = C.DPRTID AND P.EMPLYID = F1.EMPLYID ";
+            v_sql += "    ) ELSE F.EMPLYNM END AS INFO ";
+            v_sql += "    FROM HRSDBR53..HR_EMPLYM A ";
+            v_sql += "    LEFT JOIN HRSDBR53..HR_DEP C ON A.DEPID = C.DEPID ";
+            v_sql += "    LEFT JOIN HRSDBR53..HR_EMPLYM F ON C.EMPLYID = F.EMPLYID ";
+            v_sql += "    WHERE A.EMPLYID = '" + UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '_4' AS SER, CASE replicate('0', (2 - len(MONTH(A.MRDT)))) + CONVERT(nchar, MONTH(A.MRDT)) WHEN RIGHT(REPLICATE('0', 2) + CAST(Datepart(MM, DATEADD(MONTH, -1, GETDATE())) as NVARCHAR), 2) THEN '加班時數 (' + RIGHT(REPLICATE('0', 2) + CAST(Datepart(MM, DATEADD(MONTH, -1, GETDATE())) as NVARCHAR), 2) + '月' + E.DESCPT + ')' ";
+            v_sql += "    WHEN RIGHT(REPLICATE('0', 2) + CAST(Datepart(MM, GETDATE()) as NVARCHAR), 2) THEN '加班時數 (' + RIGHT(REPLICATE('0', 2) + CAST(Datepart(MM, GETDATE()) as NVARCHAR), 2) + '月' + E.DESCPT + ')' END AS ITEM, ";
+            v_sql += "      RTRIM(CONVERT(nchar, SUM(CONVERT(numeric(8, 2), A.REHRS1)))) + ' 時' AS INFO ";
+            v_sql += "     FROM HRSDBR53..HR_OVRTM A ";
+            v_sql += "     JOIN HRSDBR53..KEYCODE E ON A.STATUS = E.KEY_CODE AND E.TBL_NAME = 'HR_FRLMT2' AND E.KEY_NAME = 'F_CFM' ";
+            v_sql += "     WHERE A.EMPLYID = '" + UserId + "' AND CAST(YEAR(A.MRDT) as NVARCHAR) + CAST(replicate('0', (2 - len(MONTH(A.MRDT)))) + CONVERT(nchar, MONTH(A.MRDT)) as NVARCHAR) >= CAST(Datepart(YYYY, DATEADD(MONTH, -1, GETDATE())) as NVARCHAR) + RIGHT(REPLICATE('0', 2) + CAST(Datepart(MM, DATEADD(MONTH, -1, GETDATE())) as NVARCHAR), 2) ";
+            v_sql += "     GROUP BY YEAR(A.MRDT), MONTH(A.MRDT), A.EMPLYID, E.DESCPT, A.DEPID ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '_5' AS SER, '年資' AS ITEM, CAST(DATEDIFF(DAY, REGDT, GETDATE()) / 365.0 as NVARCHAR) AS INFO FROM HRSDBR53..HR_EMPLYM  WHERE EMPLYID = '" + UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '15' AS SER, RTRIM(O.FRL_NM) + ' (已使用天數/時數)' AS ITEM, ISNULL(RTRIM(CONVERT(nchar, CONVERT(numeric(8, 2), SUM(L.FRHR) / 8, 1))) + ' 天/ ' + RTRIM(CONVERT(nchar, CONVERT(numeric(8, 2), SUM(L.FRHR)))) + ' 時', '') as FRHR_SUM ";
+            v_sql += "    FROM HRSDBR53..HR_FRLDL L ";
+            v_sql += "    JOIN HRSDBR53..HR_FRLNO O ON L.FRL_NO = O.FRL_NO ";
+            v_sql += "    join HRSDBR53..HR_FRLMT P ON L.FMNO = P.FMNO ";
+            v_sql += "    WHERE YEAR(L.BL_DT) = YEAR(GETDATE()) AND L.EMPLYID = '" + UserId + "' and P.STATUS = 'CF'  GROUP BY O.FRL_NM ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT '30' AS SER, '遲到次數 (本年累計)' AS ITEM, RTRIM(CONVERT(nchar, CONVERT(numeric(8, 0), SUM(LATE_CT)))) + ' 次' AS INFO FROM HRSDBR53.dbo.HR_EMPMMWRK WHERE YYYY = YEAR(GETDATE()) AND EMPLYID = '" + UserId + "' ";
+            v_sql += "    UNION ";
+            v_sql += "    SELECT DISTINCT '31' AS SER, '健保扶養人' AS ITEM, ";
+            v_sql += "    (SELECT S1.CNAME + ' , ' FROM HRSDBR53..HR_FAHIS S1 WHERE S.EMPLYID = S1.EMPLYID FOR XML PATH('')) AS INFO ";
+            v_sql += "    FROM HRSDBR53..HR_FAHIS S WHERE S.EMPLYID = '" + UserId + "' ";
+            v_sql += "    ORDER BY SER ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SER = p.Field<string>("SER"),
+                             ITEM = p.Field<string>("ITEM"),
+                             INFO = p.Field<string>("INFO")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SER",col.SER },
+                    {"ITEM",col.ITEM },
+                    {"INFO",col.INFO}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
         #region 取得工作班別
         public bool GetSFT_NO(string queryJson)
         {
@@ -363,7 +455,8 @@ namespace CCM.Application
         {
             string v_sql = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
                           + " FROM " + v_HR_OVRTM + " A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
-                          + " WHERE A.EMPLYID = @EMPLYID  AND((@StartTime  BETWEEN  FETB AND FETE) OR(@EndTime  BETWEEN FETB AND FETE)) ";
+                          + " WHERE A.EMPLYID = @EMPLYID  AND((@StartTime  BETWEEN  FETB AND FETE) OR(@EndTime  BETWEEN FETB AND FETE)) "
+                          +"  AND A.STATUS IN ('SN','CF','OP') ";
             //string SQL2 = " SELECT A.EMPLYID,B.EMPLYNM,A.OVRTNO, A.FETB , A.FETE, A.DEREASON, A.DEPID,A.OTTP "
             //              + " FROM dbo.HR_OVRTM_TEST A LEFT OUTER JOIN dbo.HR_EMPLYM B ON A.EMPLYID = B.EMPLYID "
             //              + " WHERE A.EMPLYID = '" + tableEntity.EMPLYID + "'  AND(('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETB) + "'  BETWEEN  FETB AND FETE) OR('" + String.Format("{0:yyyy/MM/dd HH:mm}", tableEntity.FETE) + "'  BETWEEN FETB AND FETE)) ";
@@ -448,20 +541,20 @@ namespace CCM.Application
             var UserId = LoginInfo.UserCode; //A970701
             var UserDep = LoginInfo.DeptId; // H00
 
-            var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, " +
-                          " A.STATUS,A.SENDDATE,B.SITEID,B.SIGNDATE,B.EMPLYID,M.MRDT,M.DEMIN,A.OVRT46 " +
-                          " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID " +
-                          " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          " WHERE B.STATUS = 'SN'  AND B.EMPLYID = '" + UserId + "'  AND(A.DOCID LIKE '%" + keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%') " +
-                          " AND A.STATUS = 'SN' " +
-                          " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) " +
-                          " OR B.EMPLYID IN ( " +
-                          "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R " +
-                          "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS " +
-                          "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  " +
-                          " AND B.STATUS = 'SN' " +
-                          " ORDER BY M.MRDT,A.STATUS DESC ";
+            var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, ";
+            v_sql += "         A.STATUS,A.SENDDATE,B.SITEID,B.SIGNDATE,B.EMPLYID,M.MRDT,M.DEMIN,A.OVRT46,M.FILFRL ";
+            v_sql += " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID ";
+            v_sql += " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID  ";
+            v_sql += " WHERE  ( B.EMPLYID = '" + UserId + "' ";
+            v_sql += " OR B.EMPLYID IN ( ";
+            v_sql += "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R ";
+            v_sql += "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  ) ";
+            v_sql += " AND A.STATUS = 'SN' AND B.STATUS = 'SN' ";
+            v_sql += " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) ";
+            v_sql += " AND(A.DOCID LIKE '%" + keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%' OR U.DEPM_NM LIKE '%" + keyword + "%') ";
+            v_sql += " ORDER BY M.MRDT,A.STATUS DESC ";
 
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
@@ -484,7 +577,8 @@ namespace CCM.Application
                              SENDDATE = p.Field<DateTime?>("SENDDATE"), //送簽日
                              SIGNDATE = p.Field<DateTime?>("SIGNDATE"), // 簽核日
                              DEMIN = p.Field<decimal?>("DEMIN"), // 預計加班
-                             OVRT46 = p.Field<string>("OVRT46") // 超過46小時
+                             OVRT46 = p.Field<string>("OVRT46"), // 超過46小時
+                             FILFRL = p.Field<string>("FILFRL") // 加班轉補休
                          };
 
             int totalCount = detail.Count();
@@ -508,6 +602,7 @@ namespace CCM.Application
                     {"SIGNDATE" ,col.SIGNDATE},
                     {"DEMIN" ,col.DEMIN},
                     {"OVRT46" ,col.OVRT46},
+                    {"FILFRL" ,col.FILFRL}
                 };
                 MixArray.Add(colObject);
             }
@@ -645,18 +740,23 @@ namespace CCM.Application
         #endregion
 
         #region 主管核准作業
-        public string ConfirmSign(string v_signid, string v_emplyid)
+        public string ConfirmSign(string v_signid,string v_reply="")
         {
             string routeLevel = "";
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
 
             SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
             SqlCommand cmd = new SqlCommand(v_SP_SET_SIGN, db);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@SIGNID", SqlDbType.VarChar, 500);
+            cmd.Parameters.Add("@SIGNID", SqlDbType.VarChar, 4000);
             cmd.Parameters["@SIGNID"].Value = v_signid;
+            cmd.Parameters.Add("@REPLY", SqlDbType.VarChar, 500);
+            cmd.Parameters["@REPLY"].Value = v_reply;
             cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
-            cmd.Parameters["@EMPLYID"].Value = v_emplyid;
+            cmd.Parameters["@EMPLYID"].Value = UserId;
+            
             //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
 
             try
@@ -860,6 +960,246 @@ namespace CCM.Application
                 }
             }
         }
+        #endregion
+
+
+        #region 取得公務車、會議室借用狀態
+        public JArray getPubObjectList(string keyword)
+        {
+            //var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
+            var v_sql = "SELECT B.SID,B.ObjectType, B.ObjectNM,A.BookingStartTime, A.BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status ";
+            v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
+            v_sql += " WHERE  A.Status = '鎖定' AND B.Enable = 'Y' AND B.ObjectType = '" + keyword + "' AND  B.Enable = 'Y' ";
+            v_sql += " AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ";
+            v_sql += "UNION ";
+            v_sql += "SELECT SID, ObjectType, ObjectNM, '' BookingStartTime, '' BookingEndTime, '可借用' Status ";
+            v_sql += "FROM PO_PUBLIC_OBJECT WHERE ObjectType = '"+ keyword + "' AND  Enable = 'Y' ";
+            v_sql += "AND SID NOT IN( ";
+            v_sql += "  SELECT A.ObjectSID ";
+            v_sql += "   FROM PO_PUBLIC_OBJECT_BOOKING A ";
+            v_sql += "   WHERE A.Status = '鎖定' ";
+            v_sql += "   AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ) ";
+            v_sql += " ORDER BY  Status,ObjectNM";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SID = p.Field<string>("SID"),
+                             ObjectType = p.Field<string>("ObjectType"),
+                             ObjectNM = p.Field<string>("ObjectNM"),
+                             Status = p.Field<string>("Status")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SID",col.SID },
+                    {"ObjectType",col.ObjectType },
+                    {"ObjectNM",col.ObjectNM},
+                    {"Status",col.Status }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 取得差勤人員
+        public JArray getLeaveEmpList()
+        {
+            var v_sql = "SELECT FMNO, SR, EMPLYID,dbo.SF_GETEMPNAME(EMPLYID) EMPLYNM, AGEMP, FRL_NO,FRL_NM, CONVERT(char(10), BL_DT, 20) AS BL_DT, SFT_NO, FRHR, REMARK, ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(B_NN AS int))) + RTRIM(CAST(B_NN AS int)) + ':' + ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(B_MM AS int))) + RTRIM(CAST(B_MM AS int)) BTIME, ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(E_NN AS int))) + RTRIM(CAST(E_NN AS int)) + ':' + ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(E_MM AS int))) + RTRIM(CAST(E_MM AS int)) ETIME ";
+            v_sql += " FROM V_HR_FRLDL ";
+            v_sql += " WHERE cast(BL_DT As Date) = cast(GETDATE() As Date)  ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             FMNO = p.Field<string>("FMNO"),
+                             SR = p.Field<decimal?>("SR"),
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             EMPLYNM = p.Field<string>("EMPLYNM"),
+                             FRL_NM = p.Field<string>("FRL_NM"),
+                             BL_DT = p.Field<string>("BL_DT"),
+                             BTIME = p.Field<string>("BTIME"),
+                             ETIME = p.Field<string>("ETIME"),
+                             REMARK = p.Field<string>("REMARK")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"FMNO",col.FMNO },
+                    {"SR",col.SR },
+                    {"EMPLYID",col.EMPLYID},
+                    {"EMPLYNM",col.EMPLYNM },
+                    {"FRL_NM",col.FRL_NM },
+                    {"BL_DT",col.BL_DT },
+                    {"BTIME",col.BTIME },
+                    {"ETIME",col.ETIME },
+                    {"REMARK",col.REMARK }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 個人資訊
+        public JArray getPersonalInfo(string keyword)
+        {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
+            var v_sql = "SELECT B.SID,B.ObjectType, B.ObjectNM,A.BookingStartTime, A.BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status ";
+            v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
+            v_sql += " WHERE A.Status = '鎖定' AND B.ObjectType = '" + keyword + "'";
+            v_sql += " AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ";
+            v_sql += "UNION ";
+            v_sql += "SELECT SID, ObjectType, ObjectNM, '' BookingStartTime, '' BookingEndTime, '可借用' Status ";
+            v_sql += "FROM PO_PUBLIC_OBJECT WHERE ObjectType = '" + keyword + "' ";
+            v_sql += "AND SID NOT IN( ";
+            v_sql += "  SELECT A.ObjectSID ";
+            v_sql += "   FROM PO_PUBLIC_OBJECT_BOOKING A ";
+            v_sql += "   WHERE A.Status = '鎖定' ";
+            v_sql += "   AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ) ";
+            v_sql += " ORDER BY  Status,ObjectNM";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SID = p.Field<string>("SID"),
+                             ObjectType = p.Field<string>("ObjectType"),
+                             ObjectNM = p.Field<string>("ObjectNM"),
+                             Status = p.Field<string>("Status")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SID",col.SID },
+                    {"ObjectType",col.ObjectType },
+                    {"ObjectNM",col.ObjectNM},
+                    {"Status",col.Status }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 郵寄報表檔
+        public void mailReport(string keyValue,string filename) {
+            string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
+                              " FROM FR_OFFIDOC_ISSUE " +
+                              " WHERE  SID = '"+ keyValue + "' ";
+            //string paper = "A4";
+
+            //資料集
+            DataTable dt = GetDataSet(v_sqlstr);
+            //var filename = Server.MapPath("~/Reports/DOC01_R01.rdlc"); //Path.Combine(Path.GetTempPath(), "Reports/DOC01_R01.rdlc");
+            //string filename = Path.Combine(Path.GetTempPath(), "Report2.rdlc");
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = filename;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);
+            localReport.DataSources.Add(reportDataSource);
+            localReport.EnableExternalImages = true;
+
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType;
+            string encoding;
+            string filenameExtension;
+
+            byte[] bytes = localReport.Render(
+               "PDF", null, out mimeType, out encoding, out filenameExtension,
+                out streamids, out warnings);
+
+            string tempReport = Path.Combine(Path.GetTempPath(), "ReportTemp.rdlc");
+            using (var fs = new FileStream(tempReport, FileMode.Create))
+            {
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();
+            }
+
+            MemoryStream _ms = new MemoryStream(bytes);
+            string[] _mailAddress = { "b050502@ccm3s.com"};
+            string _subject, _body;
+            ArrayList _AttachfilePathlist = new ArrayList();
+            _subject = "寄送報表測試";
+            _body = "詳見附件";
+            //MailReport(_ms, _mailAddress, _subject, _body, _AttachfilePathlist);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "ccm-ad.ccm3s.com";
+            client.EnableSsl = true;
+            client.Timeout = 60000;//1分鐘
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("erpsys@ccm3s.com", "manager");
+
+            MailMessage mm = new MailMessage();
+            mm.IsBodyHtml = true;
+            mm.From = new MailAddress("erpsys@ccm3s.com");
+            foreach (string s in _mailAddress)
+            {
+                if (s != null)
+                    mm.To.Add(new MailAddress(s));
+            }
+            mm.Subject = _subject;
+            mm.Body = _body;
+
+            mm.BodyEncoding = Encoding.GetEncoding("utf-8");
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            mm.Attachments.Add(new Attachment(_ms, "發文.pdf"));
+            //foreach (var item in _PathToAttachmentList)
+            //{
+            //    mm.Attachments.Add(new Attachment(item.ToString()));
+
+            //}
+            try
+            {
+                client.Send(mm);
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally {
+                _ms.Close();
+                _ms.Flush();
+            }
+
+        }
+
         #endregion
 
     }

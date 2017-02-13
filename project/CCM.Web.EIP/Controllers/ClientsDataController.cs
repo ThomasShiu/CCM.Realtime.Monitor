@@ -32,6 +32,7 @@ namespace CCM.Web.EIP.Controllers
                 dept = this.GetDeptList(),
                 user = this.GetEmpList(),
                 pubobject = this.GetPubObjectList(),
+                store = this.GetStoreList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
@@ -150,6 +151,22 @@ namespace CCM.Web.EIP.Controllers
                 {
                     ObjectType = item.ObjectType,
                     ObjectNM = item.ObjectNM
+                };
+                dictionary.Add(item.SID, fieldItem);
+            }
+            return dictionary;
+        }
+        private object GetStoreList()
+        {
+            BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
+            var data = tableApp.GetList();
+
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (BU_ORDERS_SOTREEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    fullname = item.Name
                 };
                 dictionary.Add(item.SID, fieldItem);
             }

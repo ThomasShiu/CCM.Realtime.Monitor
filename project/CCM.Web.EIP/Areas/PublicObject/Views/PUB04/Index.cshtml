@@ -136,12 +136,16 @@
     function btn_reply() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
-            id: "Details",
+            id: "Form",
             title: "回覆",
             url: "/PublicObject/PUB04/Reply?keyValue=" + keyValue,
             width: "700px",
-            height: "500px"
+            height: "500px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
         });
+
     }
     function btn_delete() {
         var Status = $("#gridList").jqGridRowValue().Status;

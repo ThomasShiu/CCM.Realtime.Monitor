@@ -13,23 +13,39 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				    { label: "LUNCHDATE", name: "LUNCHDATE", width: 80, align: 'left' },
-				    { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
-				    { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
-				    { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "AbsentMEATPEOPLES", name: "AbsentMEATPEOPLES", width: 80, align: 'left' },
-				    { label: "AbsentVEGEPEOPLES", name: "AbsentVEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "ChangeMEATPEOPLES", name: "ChangeMEATPEOPLES", width: 80, align: 'left' },
-				    { label: "ChangeVEGEPEOPLES", name: "ChangeVEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "TuneMEATPEOPLES", name: "TuneMEATPEOPLES", width: 80, align: 'left' },
-				    { label: "TuneVEGEPEOPLES", name: "TuneVEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "REALMEATPEOPLES", name: "REALMEATPEOPLES", width: 80, align: 'left' },
-				    { label: "REALVEGEPEOPLES", name: "REALVEGEPEOPLES", width: 80, align: 'left' },
-				    { label: "TunePAYEMPLYS", name: "TunePAYEMPLYS", width: 80, align: 'left' },
-				    { label: "REALPAYEMPLYS", name: "REALPAYEMPLYS", width: 80, align: 'left' },
-				    { label: "UNITPRICE", name: "UNITPRICE", width: 80, align: 'left' },
-				    { label: "TOTAL", name: "TOTAL", width: 80, align: 'left' },
-				    { label: "REMARK", name: "REMARK", width: 80, align: 'left' },
+				    { label: "日期", name: "LUNCHDATE", width: 80, align: 'left' },
+				    { label: "LOCATION", name: "LOCATION", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "地點", name: "", width: 60, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            if (rowObject.LOCATION == '1') {
+                                return '精湛總廠';
+                            } else if (rowObject.LOCATION == '2') {
+                                return '一廠';
+                            } else if (rowObject.LOCATION == '3') {
+                                return '全盈';
+                            } else if (rowObject.LOCATION == '4') {
+                                return '關廟';
+                            } else if (rowObject.LOCATION == '5') {
+                                return '柳營';
+                            }
+                        }
+                    },
+				    { label: "設定葷食數", name: "MEATPEOPLES", width: 65, align: 'right' },
+				    { label: "設定素食數", name: "VEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "缺勤葷食數", name: "AbsentMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "缺勤素食數", name: "AbsentVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "登記葷食數", name: "ChangeMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "登記素食數", name: "ChangeVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "調整葷食數", name: "TuneMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "調整素食數", name: "TuneVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "實際葷食數", name: "REALMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "實際素食數", name: "REALVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "調整數量", name: "TunePAYEMPLYS", width: 60, align: 'right' },
+				    { label: "實際數量", name: "REALPAYEMPLYS", width: 60, align: 'right' },
+				    { label: "單價", name: "UNITPRICE", width: 50, align: 'right' },
+				    { label: "費用金額", name: "TOTAL", width: 65, align: 'right' },
+				    { label: "備註", name: "REMARK", width: 80, align: 'left' },
 
             ],
 			pager: "#gridPager",
@@ -47,12 +63,18 @@
             id: "Form",
             title: "新增",
             url: "/OrderManage/ORD07/Form",
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "500px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
         });
+    }
+    function btn_calamount() {
+        msg = "此功能未完成!";
+        window.setTimeout(function () {
+            $.modalMsg(msg, "warning");
+        }, 500);
     }
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
@@ -60,8 +82,8 @@
             id: "Form",
             title: "修改",
             url: "/OrderManage/ORD07/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "500px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -82,8 +104,8 @@
             id: "Details",
             title: "查看",
             url: "/OrderManage/ORD07/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "480px",
             btn: null,
         });
     }
@@ -95,7 +117,7 @@
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>
+            <a id="NF-calcul" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_calamount()"><i class="fa fa-plus"></i>執行計算今日用餐人數</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">

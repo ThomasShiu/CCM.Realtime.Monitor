@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/PublicObject/PUB04/GetFormJson",
+                url: "/OrderManage/ORD01/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -20,16 +20,19 @@
         }
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
+        // 商店
+        //$("#Name").bindSelect({
+        //    url: "/OrderManage/ORD00/GetStoreJsonList",
+        //    id: "SID",
+        //    text: "NAME"
+        //});
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: "/PublicObject/PUB04/SubmitForm?keyValue=" + keyValue,
+            url: "/OrderManage/ORD01/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -39,117 +42,60 @@
 </script>
 
 <form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">COL_SAMPLE</th>
+                <th class="formTitle">商店名稱</th>
                 <td class="formValue">
-                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
-                    <select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
-                    <input id="GUID" name="GUID" type="hidden" value="" />
+                    <input id="Name" name="Name" type="text" class="form-control required" placeholder="請輸入商店名稱" />
                 </td>
-
-            </tr>
-            <tr>
-                <th class="formTitle">SID</th>
+                <th class="formTitle">供應商</th>
                 <td class="formValue">
-                    <input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="ContributingVendor" name="ContributingVendor" class="form-control required">
+                        <option value="True">是</option>
+                        <option value="False">否</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Name</th>
+                <th class="formTitle">電話</th>
                 <td class="formValue">
-                    <input id="Name" name="Name" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="Phone" name="Phone" type="text" class="form-control required" placeholder="請輸入電話" />
+                </td>
+                <th class="formTitle">傳真</th>
+                <td class="formValue">
+                    <input id="Fax" name="Fax" type="text" class="form-control " placeholder="請輸入傳真" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Phone</th>
+                <th class="formTitle">地址</th>
                 <td class="formValue">
-                    <input id="Phone" name="Phone" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="Address" name="Address" type="text" class="form-control required" placeholder="請輸入地址" />
+                </td>
+                <th class="formTitle">連絡人</th>
+                <td class="formValue">
+                    <input id="Contact" name="Contact" type="text" class="form-control " placeholder="請輸入連絡人" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Fax</th>
-                <td class="formValue">
-                    <input id="Fax" name="Fax" type="text" class="form-control required" placeholder="請輸入標題" />
+                
+                <th class="formTitle">位址</th>
+                <td class="formValue" colspan="3">
+                    <input id="WebSiteURL" name="WebSiteURL" type="text" class="form-control " placeholder="請輸入位址" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Address</th>
-                <td class="formValue">
-                    <input id="Address" name="Address" type="text" class="form-control required" placeholder="請輸入標題" />
+                
+                <th class="formTitle">合約</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Offer" name="Offer" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">Contact</th>
-                <td class="formValue">
-                    <input id="Contact" name="Contact" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">SubsidizeAmount</th>
-                <td class="formValue">
-                    <input id="SubsidizeAmount" name="SubsidizeAmount" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">ContributingVendor</th>
-                <td class="formValue">
-                    <input id="ContributingVendor" name="ContributingVendor" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">WebSiteURL</th>
-                <td class="formValue">
-                    <input id="WebSiteURL" name="WebSiteURL" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">Offer</th>
-                <td class="formValue">
-                    <input id="Offer" name="Offer" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">Remark</th>
-                <td class="formValue">
-                    <input id="Remark" name="Remark" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">SortCode</th>
-                <td class="formValue">
-                    <input id="SortCode" name="SortCode" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">OrganizeId</th>
-                <td class="formValue">
-                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorTime</th>
-                <td class="formValue">
-                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorUserId</th>
-                <td class="formValue">
-                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyTime</th>
-                <td class="formValue">
-                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyUserId</th>
-                <td class="formValue">
-                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>
 

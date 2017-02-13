@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -89,9 +89,9 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         #region 簽核
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult ConfirmSign(string signids,string emplyid)
+        public ActionResult ConfirmSign(string signids,string reply="")
         {
-            var data = cs.ConfirmSign(signids, emplyid);
+            var data = cs.ConfirmSign(signids, reply);
             if (data == "success")
             {
                 return Success("簽核成功。");

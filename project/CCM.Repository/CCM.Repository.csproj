@@ -59,10 +59,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicObject\BU_BULLETINRepository.cs" />
     <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILERepository.cs" />
+    <Compile Include="PublicObject\BU_FEEDBACKMISRepository.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKRepository.cs" />
     <Compile Include="OrderManage\BU_ORDERS_SOTRERepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
+    <Compile Include="RDManage\RD_MACHINEAUTHRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />
     <Compile Include="SystemManage\ItemsRepository.cs" />
     <Compile Include="SystemManage\ModuleButtonRepository.cs" />

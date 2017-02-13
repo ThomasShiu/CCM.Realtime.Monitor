@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: BU_LUNCH_AMOUNT
-	public interface IBU_LUNCH_AMOUNTRepository : IRepositoryBase<BU_LUNCH_AMOUNTEntity>
+	//mapping table name: RD_MACHINEAUTH
+	public interface IRD_MACHINEAUTHRepository : IRepositoryBase<RD_MACHINEAUTHEntity>
     {
     }
 			 		                               

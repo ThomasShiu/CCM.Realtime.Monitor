@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: BU_LUNCH_AMOUNT
-	public class BU_LUNCH_AMOUNTMap : EntityTypeConfiguration<BU_LUNCH_AMOUNTEntity>
+	//mapping table name: RD_MACHINEAUTH
+	public class RD_MACHINEAUTHMap : EntityTypeConfiguration<RD_MACHINEAUTHEntity>
     {
-        public BU_LUNCH_AMOUNTMap()
+        public RD_MACHINEAUTHMap()
         {
-            this.ToTable("BU_LUNCH_AMOUNT");
+            this.ToTable("RD_MACHINEAUTH");
             this.HasKey(t => t.SID);
         }
     }

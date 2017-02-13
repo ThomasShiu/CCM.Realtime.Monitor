@@ -90,7 +90,7 @@
             //指定上傳圖片的路徑
             url: "/PublicObject/PUB05/BatchUpload?guid=" + parentID,
             maxFiles: 50,
-            acceptedFiles: ".pdf,.doc,.xls,.jpg,.png,.gif,.bmp,.tif",
+            acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png,.gif,.bmp,.tif,.7z,.rar,.zip",
             //添加上傳取消和刪除預覽圖片的鏈結，默認不添加
             addRemoveLinks: true,
 
@@ -178,7 +178,7 @@
             },
             labels: {
                 noResults: "無任何附件",
-                //infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
             },
             rowCount: -1,
             post: function () {

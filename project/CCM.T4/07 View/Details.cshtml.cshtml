@@ -8,7 +8,7 @@
     $(function () {
         initControl();
         $.ajax({
-            url: "/OrderManage/ORD05/GetFormJson",
+            url: "/RDManage/RDM01/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
@@ -45,39 +45,27 @@
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">EMPLYID</th>
+                <th class="formTitle">Subject</th>
                 <td class="formValue">
-				    <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
+				    <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">DEPID</th>
+                <th class="formTitle">Machine_Id</th>
                 <td class="formValue">
-				    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
+				    <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">LOCATION</th>
+                <th class="formTitle">UploadPath</th>
                 <td class="formValue">
-				    <input id="LOCATION" name="LOCATION" type="text" class="form-control required" placeholder="請輸入標題" />
+				    <input id="UploadPath" name="UploadPath" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">MEAT</th>
+                <th class="formTitle">DownloadPath</th>
                 <td class="formValue">
-				    <input id="MEAT" name="MEAT" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">VEGETABLE</th>
-                <td class="formValue">
-				    <input id="VEGETABLE" name="VEGETABLE" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			            <tr>
-                <th class="formTitle">REMARK</th>
-                <td class="formValue">
-				    <input id="REMARK" name="REMARK" type="text" class="form-control required" placeholder="請輸入標題" />
+				    <input id="DownloadPath" name="DownloadPath" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>

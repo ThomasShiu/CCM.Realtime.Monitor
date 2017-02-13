@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/RDManage/RDM01/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+    });
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">Subject</th>
+                <td class="formValue">
+                    <input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">Machine_Id</th>
+                <td class="formValue">
+                    <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">UploadPath</th>
+                <td class="formValue">
+                    <input id="UploadPath" name="UploadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">DownloadPath</th>
+                <td class="formValue">
+                    <input id="DownloadPath" name="DownloadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+           
+
+        </table>
+    </div>
+</form>
+
+
+

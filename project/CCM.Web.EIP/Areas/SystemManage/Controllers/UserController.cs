@@ -1,9 +1,10 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
+using CCM.Application;
 using CCM.Application.SystemManage;
 using CCM.Code;
 using CCM.Domain.Entity.SystemManage;
@@ -17,6 +18,7 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
     {
         private UserApp userApp = new UserApp();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
+        private CcmServices cs = new CcmServices();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -78,11 +80,11 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        //[HandlerAuthorize]
+        //[ValidateAntiForgeryToken]
         public ActionResult SubmitResetPassword(string userPassword, string keyValue)
         {
-            userLogOnApp.RevisePassword(userPassword, keyValue);
+            userLogOnApp.ResetPassword(userPassword);
             return Success("修改密碼成功。");
         }
 
@@ -126,6 +128,21 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
             return View();
         }
 
+        // 員工資訊
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetEmpInfo()
+        {
+            var data = new
+            {
+                current = 1,
+                rowCount = 100,
+                rows = cs.getEmpInfo(),
+                total = cs.getEmpInfo().Count
+            };
+         
+            return Content(data.ToJson());
+        }
 
     }
 }

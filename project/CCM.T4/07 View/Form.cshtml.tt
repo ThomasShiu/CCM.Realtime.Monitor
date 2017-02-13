@@ -15,11 +15,11 @@
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "BU_LUNCH_SETTING"; //<<<修改這理
+			restrictions[2] = "RD_MACHINEAUTH"; //<<<修改這理
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 
-			string areas = "OrderManage";  //區域名稱
-			string controller = "ORD05";  //控制器
+			string areas = "RDManage";  //區域名稱
+			string controller = "RDM01";  //控制器
 
 			string selectQuery = "select * from  @tableName"; 
 			SqlCommand command = new SqlCommand(selectQuery,conn); 

@@ -1,0 +1,1156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Textbox Name="Textbox14">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>受 文 者:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>發文日期:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>0.69335cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="OFFICIAL_NM1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!OFFICIAL_NM.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>OFFICIAL_NM1</rd:DefaultName>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="ISSUEDATE1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!ISSUEDATE.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>ISSUEDATE1</rd:DefaultName>
+        <Top>0.69335cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="ISSUEID1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!ISSUEID.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>ISSUEID1</rd:DefaultName>
+        <Top>1.46974cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox17">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>發文文號:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>1.46974cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox18">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>速    別:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>2.23907cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox19">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>附　  件:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>3.01193cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>7</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox20">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>主    旨:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>3.78832cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox21">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>說    明:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>4.59646cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>9</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox22">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>正    本:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>5.37285cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox23">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>副    本:</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox12</rd:DefaultName>
+        <Top>6.11043cm</Top>
+        <Left>0.51942cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.6864cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="SUBJECT">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!SUBJECT.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>SUBJECT</rd:DefaultName>
+        <Top>3.78832cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>12</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="DESCR">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!DESCR.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>DESCR</rd:DefaultName>
+        <Top>4.59646cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Original">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Original.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Original</rd:DefaultName>
+        <Top>5.37285cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Duplicate">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Duplicate.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>標楷體</FontFamily>
+                  <FontSize>14pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Duplicate</rd:DefaultName>
+        <Top>6.11749cm</Top>
+        <Left>3.28696cm</Left>
+        <Height>0.6cm</Height>
+        <Width>15.42793cm</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>6.85271cm</Height>
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+    </Style>
+  </Body>
+  <Width>19.3675cm</Width>
+  <Page>
+    <PageHeader>
+      <Height>3.71891cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <ReportItems>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>精湛光學科技股份有限公司　函</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>16pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.0635cm</Top>
+          <Left>6.53203cm</Left>
+          <Height>0.86811cm</Height>
+          <Width>9.43208cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="Logo1">
+          <Source>Embedded</Source>
+          <Value>LOGOs1</Value>
+          <Sizing>FitProportional</Sizing>
+          <Left>4.41467cm</Left>
+          <Height>1.02333cm</Height>
+          <Width>1.97625cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>地　址: 82945高雄市湖內區忠孝街110巷58號</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>1.07272cm</Top>
+          <Left>10.58629cm</Left>
+          <Height>0.6cm</Height>
+          <Width>8.64892cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox8">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>承辦人:</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox8</rd:DefaultName>
+          <Top>1.71153cm</Top>
+          <Left>10.58629cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.71599cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="CONTACT">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!CONTACT.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>CONTACT</rd:DefaultName>
+          <Top>1.71153cm</Top>
+          <Left>12.42576cm</Left>
+          <Height>0.6cm</Height>
+          <Width>2.79633cm</Width>
+          <ZIndex>4</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox12">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>電　話:</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox12</rd:DefaultName>
+          <Top>2.36092cm</Top>
+          <Left>10.58629cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.71599cm</Width>
+          <ZIndex>5</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="PHONE">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!PHONE.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>PHONE</rd:DefaultName>
+          <Top>2.36092cm</Top>
+          <Left>12.42576cm</Left>
+          <Height>0.6cm</Height>
+          <Width>2.79633cm</Width>
+          <ZIndex>6</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="PHONEEXTENSION">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!PHONEEXTENSION.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>PHONEEXTENSION</rd:DefaultName>
+          <Top>2.39267cm</Top>
+          <Left>16.70702cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.30938cm</Width>
+          <ZIndex>7</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox13">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>傳　真:</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox12</rd:DefaultName>
+          <Top>3.01383cm</Top>
+          <Left>10.58629cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.71599cm</Width>
+          <ZIndex>8</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="FAX">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!FAX.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>FAX</rd:DefaultName>
+          <Top>3.01383cm</Top>
+          <Left>12.42576cm</Left>
+          <Height>0.6cm</Height>
+          <Width>2.79633cm</Width>
+          <ZIndex>9</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox16">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>分機:</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox12</rd:DefaultName>
+          <Top>2.39267cm</Top>
+          <Left>15.32792cm</Left>
+          <Height>0.6cm</Height>
+          <Width>1.26621cm</Width>
+          <ZIndex>10</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageHeader>
+    <PageFooter>
+      <Height>3.53024cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox24">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>公司名稱:精湛光學科技股份有限公司</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>14pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox12</rd:DefaultName>
+          <Top>0.3175cm</Top>
+          <Left>8.50666cm</Left>
+          <Height>0.68982cm</Height>
+          <Width>10.20823cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox36">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>負 責 人:吳俊男</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>14pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox36</rd:DefaultName>
+          <Top>1.03907cm</Top>
+          <Left>8.50666cm</Left>
+          <Height>0.70231cm</Height>
+          <Width>10.20823cm</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox37">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>統一編號:89855649</Value>
+                  <Style>
+                    <FontFamily>標楷體</FontFamily>
+                    <FontSize>14pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox37</rd:DefaultName>
+          <Top>1.77665cm</Top>
+          <Left>8.50666cm</Left>
+          <Height>0.67938cm</Height>
+          <Width>10.20823cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>None</Style>
+        </Border>
+      </Style>
+    </PageFooter>
+    <PageHeight>27cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <InteractiveHeight>23cm</InteractiveHeight>
+    <InteractiveWidth>18cm</InteractiveWidth>
+    <LeftMargin>0.5cm</LeftMargin>
+    <RightMargin>0.5cm</RightMargin>
+    <TopMargin>0.5cm</TopMargin>
+    <BottomMargin>0.5cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="EIPDataSet">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>268c2779-27a3-41d6-9421-c605f7fc0711</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>EIPDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="SID">
+          <DataField>SID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ISSUEID">
+          <DataField>ISSUEID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COMPANY">
+          <DataField>COMPANY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ISSUEDATE">
+          <DataField>ISSUEDATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="OFFICIAL_NM">
+          <DataField>OFFICIAL_NM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SUBJECT">
+          <DataField>SUBJECT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DESCR">
+          <DataField>DESCR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AttachFIle">
+          <DataField>AttachFIle</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EMPID">
+          <DataField>EMPID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DEPID">
+          <DataField>DEPID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STATUS">
+          <DataField>STATUS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DOCTYPE">
+          <DataField>DOCTYPE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CONTACT">
+          <DataField>CONTACT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PHONEAREACODE">
+          <DataField>PHONEAREACODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PHONE">
+          <DataField>PHONE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PHONEEXTENSION">
+          <DataField>PHONEEXTENSION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FAX">
+          <DataField>FAX</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Original">
+          <DataField>Original</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Duplicate">
+          <DataField>Duplicate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GUID">
+          <DataField>GUID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OrganizeId">
+          <DataField>OrganizeId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatorTime">
+          <DataField>CreatorTime</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CreatorUserId">
+          <DataField>CreatorUserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LastModifyTime">
+          <DataField>LastModifyTime</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="LastModifyUserId">
+          <DataField>LastModifyUserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>EIPDataSet</rd:DataSetName>
+        <rd:SchemaPath>D:\Git_Source\CCM.Web.Manage\project\CCM.Web.RDM\App_Data\EIPDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>FR_OFFIDOC_ISSUE</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>FR_OFFIDOC_ISSUETableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <EmbeddedImages>
+    <EmbeddedImage Name="LOGOs1">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>d4562df3-3938-45e4-b172-5c935412d3af</rd:ReportID>
+</Report>

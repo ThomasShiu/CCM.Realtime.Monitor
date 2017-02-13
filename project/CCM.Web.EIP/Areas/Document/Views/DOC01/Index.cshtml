@@ -137,11 +137,34 @@
         });
     }
 
+    function btn_mailreport() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.ajax({
+            url: "/Document/DOC01/mailReport",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                msg = "寄送MAIL成功!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "success");
+                }, 500);
+
+            },
+            error: function (data) {
+                msg = "寄送MAIL失敗!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "warning");
+                }, 500);
+            }
+        });
+    }
 
     function btn_print() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var empid = $("#gridList").jqGridRowValue().EMPID;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+
         $.modalOpen({
             id: "Form",
             title: "列印",
@@ -153,7 +176,7 @@
                 top.frames[iframeId].submitForm();
             }
         });
-
+ 
         //var guid = $("#gridList").jqGridRowValue().GUID;
         //if (empid == usercode | usercode == 'admin') {
         //    $.modalOpen({
@@ -194,6 +217,7 @@
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除發文</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看發文</a></li>
                 <li><a id="NF-print" authorize="yes" onclick="btn_print()"><i class="fa fa-print"></i>列印</a></li>
+                <li><a id="NF-mailreport"  onclick="btn_mailreport()"><i class="fa fa-envelope-o"></i>發送MAIL通知</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

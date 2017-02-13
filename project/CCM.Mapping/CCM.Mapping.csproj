@@ -69,8 +69,10 @@
     <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILEMap.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKMap.cs" />
     <Compile Include="OrderManage\BU_ORDERS_SOTREMap.cs" />
+    <Compile Include="PublicObject\BU_FEEDBACKMISMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
+    <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />
     <Compile Include="SystemManage\ItemsMap.cs" />

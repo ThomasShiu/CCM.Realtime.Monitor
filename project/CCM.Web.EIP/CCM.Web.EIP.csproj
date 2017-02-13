@@ -176,6 +176,7 @@
     <Compile Include="Areas\PublicObject\Controllers\PUB05Controller.cs" />
     <Compile Include="Areas\OrderManage\Controllers\ORD01Controller.cs" />
     <Compile Include="Areas\PublicObject\Controllers\PUB06Controller.cs" />
+    <Compile Include="Areas\PublicObject\Controllers\PUB07Controller.cs" />
     <Compile Include="Areas\PublicObject\PublicObjectAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
@@ -203,6 +204,8 @@
     <Compile Include="Areas\WorkflowControl\Controllers\WFC03Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC04Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC05Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC09Controller.cs" />
+    <Compile Include="Areas\WorkflowControl\Controllers\WFC08Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC06Controller.cs" />
     <Compile Include="Areas\WorkflowControl\Controllers\WFC07Controller.cs" />
     <Compile Include="Areas\WorkflowControl\WorkflowControlAreaRegistration.cs" />
@@ -819,7 +822,6 @@
     <Content Include="Areas\OrderManage\Views\ORD03\Form.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD03\Index.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD02\Form2.cshtml" />
-    <Content Include="Areas\OrderManage\Views\ORD04\Form2.cshtml" />
     <Content Include="Areas\SystemManage\Views\User\ResetPassword.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD05\Index.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD05\Details.cshtml" />
@@ -827,11 +829,28 @@
     <Content Include="Areas\OrderManage\Views\ORD06\Index.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD06\Details.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD06\Form.cshtml" />
-    <Content Include="Areas\OrderManage\Views\ORD06\Form2.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD07\Index.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD07\Details.cshtml" />
     <Content Include="Areas\OrderManage\Views\ORD07\Form.cshtml" />
-    <Content Include="Areas\OrderManage\Views\ORD07\Form2.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB05\IndexPub.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB05\DetailsPub.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD01\IndexPub.cshtml" />
+    <Content Include="Areas\OrderManage\Views\ORD01\DetailsPub.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB02\IndexPub.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB03\IndexPub.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC08\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC08\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC08\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC08\IndexEmp.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB07\Details.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB07\Form.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB07\Index.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB07\Reply.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB07\IndexEmp.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\IndexEmpTest.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC06\FormTest.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC09\IndexEmpTest.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC09\FormTest.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -930,6 +949,11 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="EIPContent\Content\PublicShare\Family\徐世宇.JPG" />
     <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_112224.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_112838.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_113553.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_130349.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_130801.mp4" />
     <Content Include="Global.asax" />
     <Content Include="LoginEip.htm" />
     <Content Include="Index.htm" />
@@ -945,6 +969,10 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\_IndexPub.cshtml" />
+    <Content Include="Views\Home\Dashboard2.cshtml" />
+    <Content Include="Views\Home\Study.cshtml" />
+    <Content Include="Views\Shared\_FormTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_LayoutIndex.cshtml" />
@@ -1056,7 +1084,9 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\DOC01_R01.rdlc" />
+    <Content Include="Reports\DOC01_R01.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

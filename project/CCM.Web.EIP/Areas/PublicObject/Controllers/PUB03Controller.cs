@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -8,6 +8,7 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Web.EIP.App_Start;
+using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 //公務車預約
@@ -18,7 +19,12 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
         private CcmServices cs = new CcmServices();
 
-      
+        [HttpGet]
+        [ActionTraceLog]
+        public ActionResult IndexPub()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]

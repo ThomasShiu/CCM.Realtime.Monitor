@@ -258,12 +258,12 @@
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
                     <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"  onchange="setleavetime()"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入開始時間" />
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
                     <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"   onchange="setbacktime()"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入結束時間" />
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請輸入結束時間" />
                 </td>
 
             </tr>

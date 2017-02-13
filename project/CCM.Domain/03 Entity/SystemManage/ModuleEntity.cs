@@ -24,6 +24,7 @@ namespace CCM.Domain.Entity.SystemManage
         public bool? F_AllowEdit { get; set; }
         public bool? F_AllowDelete { get; set; }
         public int? F_SortCode { get; set; }
+        public int? F_Count { get; set; }
         public bool? F_DeleteMark { get; set; }
         public bool? F_EnabledMark { get; set; }
         public string F_Description { get; set; }

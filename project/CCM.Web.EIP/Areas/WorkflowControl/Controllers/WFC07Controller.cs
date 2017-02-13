@@ -1,8 +1,10 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
+ * Features:加班單簽核
+ * Table: HR_OVRTM
 *********************************************************************************/
 using CCM.Application;
 using CCM.Code;

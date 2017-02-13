@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -28,11 +28,11 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string queryJson)
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = tableApp.GetList(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records

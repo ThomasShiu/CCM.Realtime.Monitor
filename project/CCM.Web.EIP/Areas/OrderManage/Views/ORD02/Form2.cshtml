@@ -178,7 +178,7 @@
             right: "text-right",
             labels: {
                 noResults: "無任何明細",
-                //infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
             },
             rowCount: -1,
             post: function () {
@@ -268,14 +268,12 @@
                         <th class="formTitle">訂購部門</th>
                         <td class="formValue">
                             <select id="D_DepID" name="D_DepID" class="form-control required">
-                                <option></option>
                                 <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                             </select>
                         </td>
                         <th class="formTitle">訂購人</th>
                         <td class="formValue">
                             <select id="D_EmpID" name="D_EmpID" class="form-control required">
-                                <option></option>
                                 <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                             </select>
                         </td>

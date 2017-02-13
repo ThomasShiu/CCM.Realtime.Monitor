@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -69,9 +70,11 @@
     <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILEApp.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKApp.cs" />
     <Compile Include="OrderManage\BU_ORDERS_SOTREApp.cs" />
+    <Compile Include="PublicObject\BU_FEEDBACKMISApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />
+    <Compile Include="RDManage\RD_MACHINEAUTHApp.cs" />
     <Compile Include="SystemManage\ItemsApp.cs" />
     <Compile Include="SystemManage\ItemsDetailApp.cs" />
     <Compile Include="SystemManage\ModuleApp.cs" />

@@ -7,6 +7,7 @@
     $(function () {
         initControl();
         if (!!keyValue) {
+            get10Year();
             $.ajax({
                 url: "/OrderManage/ORD04/GetFormJson",
                 data: { keyValue: keyValue },
@@ -16,12 +17,104 @@
                     $("#form1").formSerialize(data);
                 }
             });
+            
+        } else {
+            getYear();
         }
+
+        setControl();
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
         });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });       
+
+    }
+
+    function getYear() {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+
+        $("#FROM_YEAR").append($("<option></option>").attr("value", yyyy).text(yyyy));
+        $("#FROM_YEAR").append($("<option></option>").attr("value", yyyy + 1).text(yyyy + 1));
+        $("#TO_YEAR").append($("<option></option>").attr("value", yyyy).text(yyyy));
+        $("#TO_YEAR").append($("<option></option>").attr("value", yyyy + 1).text(yyyy + 1));
+    }
+    function get10Year() {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        for (i = yyyy - 10; i < yyyy + 2; i++) {
+            $("#FROM_YEAR").append($("<option></option>").attr("value", i).text(i));
+            $("#TO_YEAR").append($("<option></option>").attr("value", i).text(i));
+        }
+    }
+
+    function setControl() {
+        $('#LUDATE').attr('disabled', true);
+        $('#AMOUNT').attr('disabled', true);
+        $('#MEATPEOPLES').attr('disabled', true);
+        $('#VEGEPEOPLES').attr('disabled', true);
+        $('#FROM_YEAR').attr('disabled', true);
+        $('#FROM_MONTH').attr('disabled', true);
+        $('#TO_YEAR').attr('disabled', true);
+        $('#TO_MONTH').attr('disabled', true);
+
+        var lutype = $("#LUTYPE").children('option:selected').val();
+        if (lutype == '1') { //預訂單日不用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+
+        } else if (lutype == '2') {//預訂整月不用餐
+            $('#LUDATE').val('');
+            $('#FROM_YEAR').removeAttr('disabled');
+            $('#FROM_YEAR').addClass('required');
+            $('#FROM_MONTH').removeAttr('disabled');
+            $('#FROM_MONTH').addClass('required');
+            $('#TO_YEAR').removeAttr('disabled');
+            $('#TO_YEAR').addClass('required');
+            $('#TO_MONTH').removeAttr('disabled');
+            $('#TO_MONTH').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+        } else if (lutype == '3') {//預訂素食用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('0');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('1');
+        } else if (lutype == '4') {//預訂訪客用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+        }
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -35,6 +128,22 @@
             }
         })
     }
+
+    $(document).ready(function () {
+
+        $('#DEPID').change(function () {
+            // 員工 by 部門
+            $("#EMPLYID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+
+        $('#LUTYPE').change(function () {
+            setControl();
+        });
+    });
 </script>
 
 <form id="form1">
@@ -67,7 +176,6 @@
                 <th class="formTitle">地點</th>
                 <td class="formValue">
                     <select id="LOCATION" name="LOCATION" class="form-control required">
-                        <option></option>
                         <option value="1">精湛總廠</option>
                         <option value="2">一廠</option>
                         <option value="3">全盈</option>
@@ -79,52 +187,89 @@
             <tr>
                 <th class="formTitle">登記部門</th>
                 <td class="formValue">
-                    <input id="DEPID" name="DEPID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="DEPID" name="DEPID" class="form-control required" disabled="disabled">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
                 </td>
                 <th class="formTitle">登記人員</th>
                 <td class="formValue">
-                    <input id="EMPLYID" name="EMPLYID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required"  disabled="disabled">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">日期</th>
                 <td class="formValue">
-                    <input id="LUDATE" name="LUDATE" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="LUDATE" name="LUDATE" type="text" class="form-control input-wdatepicker " 
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: true })" />
                 </td>
   
                 <th class="formTitle">用餐扣款</th>
                 <td class="formValue">
-                    <input id="AMOUNT" name="AMOUNT" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="AMOUNT" name="AMOUNT" type="text" class="form-control " value="0"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">葷食人數</th>
                 <td class="formValue">
-                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="number" class="form-control "  />
                 </td>
                 <th class="formTitle">素食人數</th>
                 <td class="formValue">
-                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="number" class="form-control " />
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">年(起)</th>
                 <td class="formValue">
-                    <input id="FROM_YEAR" name="FROM_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="FROM_YEAR" name="FROM_YEAR" class="form-control ">
+                        <option></option>
+                    </select>
                 </td>
                 <th class="formTitle">月(起)</th>
                 <td class="formValue">
-                    <input id="FROM_MONTH" name="FROM_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="FROM_MONTH" name="FROM_MONTH" class="form-control ">
+                        <option></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">年(迄)</th>
                 <td class="formValue">
-                    <input id="TO_YEAR" name="TO_YEAR" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="TO_YEAR" name="TO_YEAR" class="form-control ">
+                        <option></option>
+                    </select>
                 </td>
                 <th class="formTitle">月(迄)</th>
                 <td class="formValue">
-                    <input id="TO_MONTH" name="TO_MONTH" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <select id="TO_MONTH" name="TO_MONTH" class="form-control ">
+                        <option></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
                 </td>
             </tr>
            

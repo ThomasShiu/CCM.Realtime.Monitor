@@ -11,45 +11,31 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: BU_LUNCH_AMOUNT
-			public class BU_LUNCH_AMOUNTEntity  : IEntityCcm<BU_LUNCH_AMOUNTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: RD_MACHINEAUTH
+			public class RD_MACHINEAUTHEntity  : IEntityCcm<RD_MACHINEAUTHEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
 				public String SID  { get; set; }                                        
 				          
-				public DateTime LUNCHDATE  { get; set; }                                        
+				public String Subject  { get; set; }                                        
 				          
-				public String LOCATION  { get; set; }                                        
+				public String Machine_Id  { get; set; }                                        
 				          
-				public Int32 MEATPEOPLES  { get; set; }                                        
+				public String oldFileName  { get; set; }                                        
 				          
-				public Int32 VEGEPEOPLES  { get; set; }                                        
+				public String newFileName  { get; set; }                                        
 				          
-				public Int32 AbsentMEATPEOPLES  { get; set; }                                        
+				public String UploadPath  { get; set; }                                        
 				          
-				public Int32 AbsentVEGEPEOPLES  { get; set; }                                        
+				public String DownloadPath  { get; set; }                                        
 				          
-				public Int32 ChangeMEATPEOPLES  { get; set; }                                        
+				public String CPU_SN  { get; set; }                                        
 				          
-				public Int32 ChangeVEGEPEOPLES  { get; set; }                                        
+				public String HD_SN  { get; set; }                                        
 				          
-				public Int32 TuneMEATPEOPLES  { get; set; }                                        
+				public String HD_Fireware  { get; set; }                                        
 				          
-				public Int32 TuneVEGEPEOPLES  { get; set; }                                        
-				          
-				public Int32 REALMEATPEOPLES  { get; set; }                                        
-				          
-				public Int32 REALVEGEPEOPLES  { get; set; }                                        
-				          
-				public Int32 TunePAYEMPLYS  { get; set; }                                        
-				          
-				public Int32 REALPAYEMPLYS  { get; set; }                                        
-				          
-				public Int32 UNITPRICE  { get; set; }                                        
-				          
-				public Int32 TOTAL  { get; set; }                                        
-				          
-				public String REMARK  { get; set; }                                        
+				public String HD_Moduleno  { get; set; }                                        
 				          
 				public String OrganizeId  { get; set; }                                        
 				          

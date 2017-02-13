@@ -9,28 +9,15 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/OrderManage/ORD07/GetGridJson",
+            url: "/RDManage/RDM01/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "LUNCHDATE", name: "LUNCHDATE", width: 80, align: 'left' },
-				                     { label: "LOCATION", name: "LOCATION", width: 80, align: 'left' },
-				                     { label: "MEATPEOPLES", name: "MEATPEOPLES", width: 80, align: 'left' },
-				                     { label: "VEGEPEOPLES", name: "VEGEPEOPLES", width: 80, align: 'left' },
-				                     { label: "AbsentMEATPEOPLES", name: "AbsentMEATPEOPLES", width: 80, align: 'left' },
-				                     { label: "AbsentVEGEPEOPLES", name: "AbsentVEGEPEOPLES", width: 80, align: 'left' },
-				                     { label: "ChangeMEATPEOPLES", name: "ChangeMEATPEOPLES", width: 80, align: 'left' },
-				                     { label: "ChangeVEGEPEOPLES", name: "ChangeVEGEPEOPLES", width: 80, align: 'left' },
-				                     { label: "TuneMEATPEOPLES", name: "TuneMEATPEOPLES", width: 80, align: 'left' },
-				                     { label: "TuneVEGEPEOPLES", name: "TuneVEGEPEOPLES", width: 80, align: 'left' },
-				                     { label: "REALMEATPEOPLES", name: "REALMEATPEOPLES", width: 80, align: 'left' },
-				                     { label: "REALVEGEPEOPLES", name: "REALVEGEPEOPLES", width: 80, align: 'left' },
-				                     { label: "TunePAYEMPLYS", name: "TunePAYEMPLYS", width: 80, align: 'left' },
-				                     { label: "REALPAYEMPLYS", name: "REALPAYEMPLYS", width: 80, align: 'left' },
-				                     { label: "UNITPRICE", name: "UNITPRICE", width: 80, align: 'left' },
-				                     { label: "TOTAL", name: "TOTAL", width: 80, align: 'left' },
-				                     { label: "REMARK", name: "REMARK", width: 80, align: 'left' },
+				                     { label: "Subject", name: "Subject", width: 80, align: 'left' },
+				                     { label: "Machine_Id", name: "Machine_Id", width: 80, align: 'left' },
+				                     { label: "UploadPath", name: "UploadPath", width: 80, align: 'left' },
+				                     { label: "DownloadPath", name: "DownloadPath", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -52,7 +39,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/OrderManage/ORD07/Form",
+            url: "/RDManage/RDM01/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -65,7 +52,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/OrderManage/ORD07/Form?keyValue=" + keyValue,
+            url: "/RDManage/RDM01/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -75,7 +62,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/OrderManage/ORD07/DeleteForm",
+            url: "/RDManage/RDM01/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -87,7 +74,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/OrderManage/ORD07/Details?keyValue=" + keyValue,
+            url: "/RDManage/RDM01/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

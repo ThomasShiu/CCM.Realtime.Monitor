@@ -11,11 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.OrderManage.Controllers
+namespace CCM.Web.EIP.Areas.RDManage.Controllers
 {
-    public class ORD07Controller : ControllerBase
+    public class RDM01Controller : ControllerBase
     {
-        private BU_LUNCH_AMOUNTApp tableApp = new BU_LUNCH_AMOUNTApp();
+        private RD_MACHINEAUTHApp tableApp = new RD_MACHINEAUTHApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -47,9 +47,9 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(BU_LUNCH_AMOUNTEntity BU_LUNCH_AMOUNTEntity, string keyValue)
+        public ActionResult SubmitForm(RD_MACHINEAUTHEntity RD_MACHINEAUTHEntity, string keyValue)
         {
-            tableApp.SubmitForm(BU_LUNCH_AMOUNTEntity, keyValue);
+            tableApp.SubmitForm(RD_MACHINEAUTHEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

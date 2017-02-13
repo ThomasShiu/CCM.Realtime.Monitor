@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -25,7 +25,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         private FR_OFFIDOC_ISSUE_ATTACH_FILEApp tableFileApp = new FR_OFFIDOC_ISSUE_ATTACH_FILEApp();
         private FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
 
-        private CcmServices ccmService = new CcmServices();
+        private CcmServices cs = new CcmServices();
 
 
         [HttpGet]
@@ -197,7 +197,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
 
 
             //資料集
-            DataTable dt = ccmService.GetDataSet(v_sqlstr);
+            DataTable dt = cs.GetDataSet(v_sqlstr);
 
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = path;
@@ -254,6 +254,15 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                         );
             return File(renderedBytes, mimeType);
 
+        }
+        #endregion
+
+        #region 寄送報表
+        public ActionResult mailReport(string keyValue)
+        {
+            string filename = Server.MapPath("~/Reports/DOC01_R01.rdlc");
+            cs.mailReport(keyValue, filename);
+            return Success("寄送完成。");
         }
         #endregion
     }

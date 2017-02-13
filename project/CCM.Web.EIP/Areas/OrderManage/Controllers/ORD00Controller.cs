@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
- * Author: CCM.MIS
+ * Author: CCM.MIS 徐世宇
  * Description: CCM,MIS 快速開發平臺
  * Website：http://www.ccm3s.com
 *********************************************************************************/
@@ -13,10 +13,10 @@ using System.Web.Mvc;
 //todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 {
-    // 特約廠商
+
     public class ORD00Controller : ControllerBase
     {
-        private BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
+        private BU_ORDERSApp tableApp = new BU_ORDERSApp();
         private BU_ORDERS_SOTREApp storeApp = new BU_ORDERS_SOTREApp();
         private BU_ORDERS_MENUApp menuApp = new BU_ORDERS_MENUApp();
         private CcmServices cs = new CcmServices();

@@ -22,7 +22,6 @@ namespace CCM.Web.EIP.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-
             return View();
         }
         [HttpGet]
@@ -37,6 +36,11 @@ namespace CCM.Web.EIP.Controllers
         }
         [HttpGet]
         public ActionResult About()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Study()
         {
             return View();
         }
@@ -65,5 +69,48 @@ namespace CCM.Web.EIP.Controllers
 
             return Content(data.ToJson());
         }
+        // 公務車
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCarList()
+        {
+            var result = cs.getPubObjectList("公務車輛");
+            var data = new
+            {
+                CarList = result
+            };
+
+            return Content(data.ToJson());
+        }
+
+        // 會議室
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetRoomList()
+        {
+            var result = cs.getPubObjectList("會議室");
+            var data = new
+            {
+                RoomList = result
+            };
+
+            return Content(data.ToJson());
+        }
+
+        // 差勤人員
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetLeaveEmpList()
+        {
+            var result = cs.getLeaveEmpList();
+            var data = new
+            {
+                LeaveEmpList = result
+            };
+
+            return Content(data.ToJson());
+        }
+
+
     }
 }

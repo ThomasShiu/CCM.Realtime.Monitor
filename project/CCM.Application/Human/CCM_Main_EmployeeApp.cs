@@ -42,6 +42,12 @@ namespace CCM.Application
                 expression = expression.And(t => t.EMP_NO.Contains(keyword));
                 expression = expression.Or(t => t.EMP_NM.Contains(keyword));
             }
+            // 部門
+            if (!queryParam["keyword2"].IsEmpty())
+            {
+                string DEPM_NO = queryParam["keyword2"].ToString();
+                expression = expression.And(t => t.DEPM_NO.Equals(DEPM_NO));
+            }
             // 日期條件
             if (!queryParam["timeType"].IsEmpty())
             {

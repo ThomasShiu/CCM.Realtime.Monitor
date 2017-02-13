@@ -16,20 +16,20 @@
 				    {
 				        label: "登記型態", name: "LUTYPE", width: 120, align: 'left',
 				        formatter: function (cellvalue, options, rowObject) {
-				            if (rowObject.LUTYPE = '1') {
+				            if (rowObject.LUTYPE == '1') {
 				                return '預訂單日不用餐';
-				            } else if (rowObject.LUTYPE = '2') {
+				            } else if (rowObject.LUTYPE == '2') {
 				                return '預訂整月不用餐';
-				            } else if (rowObject.LUTYPE = '3') {
+				            } else if (rowObject.LUTYPE == '3') {
 				                return '預訂素食用餐';
-				            } else if (rowObject.LUTYPE = '4') {
+				            } else if (rowObject.LUTYPE == '4') {
 				                return '預訂訪客用餐';
-				            } else if (rowObject.LUTYPE = '5') {
+				            } else if (rowObject.LUTYPE == '5') {
 				                return '新到離職扣款';
 				            }
 				        }
 				    },
-				   
+
                     {
                         label: "日期", name: "LUDATE", width: 80, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
@@ -48,18 +48,20 @@
 				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
 				        }
 				    },
-				   
+
 				    {
 				        label: "地點", name: "LOCATION", width: 70, align: 'left',
 				        formatter: function (cellvalue, options, rowObject) {
-				            if (rowObject.LOCATION = '1') {
+				            if (rowObject.LOCATION == '1') {
 				                return '精湛總廠';
-				            } else if (rowObject.LOCATION = '2') {
+				            } else if (rowObject.LOCATION == '2') {
 				                return '一廠';
-				            } else if (rowObject.LOCATION = '3') {
+				            } else if (rowObject.LOCATION == '3') {
 				                return '全盈';
-				            } else if (rowObject.LOCATION = '4') {
+				            } else if (rowObject.LOCATION == '4') {
 				                return '關廟';
+				            } else if (rowObject.LOCATION == '5') {
+				                return '柳營';
 				            }
 				        }
 				    },
@@ -67,20 +69,29 @@
 				    { label: "月(起)", name: "FROM_MONTH", width: 80, align: 'center' },
 				    { label: "年(迄)", name: "TO_YEAR", width: 80, align: 'center' },
 				    { label: "月(迄)", name: "TO_MONTH", width: 80, align: 'center' },
-                   
+
 				    { label: "葷食人數", name: "MEATPEOPLES", width: 60, align: 'center' },
 				    { label: "素食人數", name: "VEGEPEOPLES", width: 60, align: 'center' },
 				    { label: "扣款", name: "AMOUNT",  width: 60, align: 'right' },
-				    { label: "REMK", name: "REMK", hidden: true, width: 80, align: 'left' },
-				    { label: "", name: "", width: 80, align: 'left' },
+				    { label: "備註", name: "REMK",  width: 80, align: 'left' },
             ],
 			pager: "#gridPager",
 			sortname: 'CreatorTime desc',
             viewrecords: true
         });
+        $("#type_horizon a.btn-default").click(function () {
+            $("#type_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
         $("#btn_search").click(function () {
+            var timeType = $("#type_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                objectType: $("#type_horizon a.active").attr('data-value'),
+            }
             $gridList.jqGrid('setGridParam', {
-                postData: { keyword: $("#txt_keyword").val() },
+                postData: { queryJson: JSON.stringify(queryJson) },
             }).trigger('reloadGrid');
         });
     }
@@ -89,8 +100,8 @@
             id: "Form",
             title: "新增資料",
             url: "/OrderManage/ORD06/Form",
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -102,8 +113,8 @@
             id: "Form",
             title: "修改資料",
             url: "/OrderManage/ORD06/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -124,8 +135,8 @@
             id: "Details",
             title: "查看資料",
             url: "/OrderManage/ORD06/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "740px",
+            height: "600px",
             btn: null,
         });
     }
@@ -159,6 +170,15 @@
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>
+                    </div>
+                </td>
+                <td style="padding-left: 10px;">
+                    <div id="type_horizon" class="btn-group">
+                        <a class="btn btn-default" data-value="1">單日不用餐</a>
+                        <a class="btn btn-default" data-value="2">整月不用餐</a>
+                        <a class="btn btn-default" data-value="3">素食用餐</a>
+                        <a class="btn btn-default" data-value="4">訪客用餐</a>
+                        <a class="btn btn-default active" data-value="all">全部</a>
                     </div>
                 </td>
             </tr>
