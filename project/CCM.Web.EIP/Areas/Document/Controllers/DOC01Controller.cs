@@ -7,7 +7,6 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
-using CCM.Web.EIP.App_Start;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Data;
@@ -26,7 +25,7 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         private FR_OFFIDOC_ISSUE_ATTACH_FILEEntity tableEntity = new FR_OFFIDOC_ISSUE_ATTACH_FILEEntity();
 
         private CcmServices cs = new CcmServices();
-
+        private ReportService rs = new ReportService();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -112,14 +111,14 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                     {
                         fileName = file.FileName;
                         fileExtension = Path.GetExtension(fileName);
-                        fileNewName = Common.GuId() + fileExtension;
+                        fileNewName = CommonCCm.GuId() + fileExtension;
                         filePath = Path.Combine(directoryPath, fileNewName);
                         file.SaveAs(filePath);
 
                         count++;
 
                         //存放檔案路徑
-                        tableEntity.SID= Common.GuId(); 
+                        tableEntity.SID= CommonCCm.GuId(); 
                         tableEntity.ParentISSUEID = guid;
                         tableEntity.Name = fileName;
                         tableEntity.UploadPath = "EIPContent/Content/FilesCabinet/UploadFiles/" + fileNewName; //圖檔路徑
@@ -188,29 +187,10 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
         [HandlerAuthorize]
         public ActionResult Print(string keyValue, string type = "PDF")
         {
-            string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
-                              " FROM FR_OFFIDOC_ISSUE " +
-                              " WHERE  SID = '" + keyValue + "' ";
-
             var path = Server.MapPath("~/Reports/DOC01_R01.rdlc");
+            LocalReport localReport = rs.DOC01_R01(keyValue, type, path);
+
             string paper = "A4";
-
-
-            //資料集
-            DataTable dt = cs.GetDataSet(v_sqlstr);
-
-            LocalReport localReport = new LocalReport();
-            localReport.ReportPath = path;
-            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);
-            localReport.DataSources.Add(reportDataSource);
-            localReport.EnableExternalImages = true;
-
-            //var url = "http://" + Request.Url.Authority;
-            //宣告要傳入報表的參數 p_ImgPath，並指定照片路徑 , http://xxx.xxx.xxx.xx:1234
-            //ReportParameter p_ImgPath = new ReportParameter("ImgPath", url);
-            //把參數傳給報表
-            //localReport.SetParameters(new ReportParameter[] { p_ImgPath });
-
             string reportType = type;
             string mimeType;
             string encoding;
@@ -244,9 +224,9 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
             byte[] renderedBytes;
 
             renderedBytes = localReport.Render(
-                reportType,
-                deviceInfo,
-                out mimeType,
+                        reportType,
+                        deviceInfo,
+                        out mimeType,
                         out encoding,
                         out fileNameExtension,
                         out streams,

@@ -13,6 +13,13 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "登記員工", name: "EMPLYID", width: 80, align: 'left' },
+                     {
+                         label: "登記員工名稱", name: "", width: 60, align: 'left',
+                         formatter: function (cellvalue, options, rowObject) {
+                             return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+                         }
+                     },
                     { label: "登記部門", name: "DEPID",  width: 80, align: 'left' },
                      {
                          label: "登記部門名稱", name: "", width: 140, align: 'left',
@@ -20,15 +27,9 @@
                              return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
                          }
                      },
-				    { label: "登記員工", name: "EMPLYID",  width: 80, align: 'left' },
-                     {
-                         label: "登記員工名稱", name: "", width: 60, align: 'left',
-                         formatter: function (cellvalue, options, rowObject) {
-                             return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
-                         }
-                     },
+                     { label: "登記地點", name: "LOCATION", hidden: true, width: 70, align: 'left' },
 				     {
-				         label: "登記地點", name: "LOCATION", width: 70, align: 'left',
+				         label: "登記地點", name: "", width: 70, align: 'left',
 				         formatter: function (cellvalue, options, rowObject) {
 				             if (rowObject.LOCATION == '1') {
 				                 return '精湛總廠';
@@ -48,8 +49,9 @@
 				    { label: "備註", name: "REMARK", width: 80, align: 'left' },
 
             ],
+            rowNum: 300,
 			pager: "#gridPager",
-			sortname: 'EMPLYID asc',
+			sortname: 'EMPLYID asc,DEPID desc,LOCATION asc',
             viewrecords: true
         });
         $("#btn_search").click(function () {

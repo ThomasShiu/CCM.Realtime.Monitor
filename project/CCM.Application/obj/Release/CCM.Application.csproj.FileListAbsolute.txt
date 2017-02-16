@@ -21,7 +21,6 @@ D:\Git_Source\CCM.EIP.NFine\project\CCM.Application\obj\Release\CCM.Application.
 D:\Git_Source\CCM.EIP.NFine\project\CCM.Application\obj\Release\CCM.Application.dll
 D:\Git_Source\CCM.EIP.NFine\project\CCM.Application\obj\Release\CCM.Application.pdb
 D:\Git_Source\CCM.Admin.NFine\project\CCM.Application\obj\Release\CCM.Application.csprojResolveAssemblyReference.cache
-D:\Git_Source\CCM.Web.Manage\project\CCM.Application\obj\Release\CCM.Application.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\CCM.Application.dll
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\CCM.Application.pdb
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\CCM.Code.dll
@@ -41,5 +40,6 @@ D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\Newtonsoft.Json
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\log4net.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\NPOI.xml
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\bin\Release\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll
+D:\Git_Source\CCM.Web.Manage\project\CCM.Application\obj\Release\CCM.Application.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\obj\Release\CCM.Application.dll
 D:\Git_Source\CCM.Web.Manage\project\CCM.Application\obj\Release\CCM.Application.pdb

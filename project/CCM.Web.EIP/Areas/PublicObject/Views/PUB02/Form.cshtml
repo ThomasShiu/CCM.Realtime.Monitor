@@ -143,14 +143,15 @@
         });
         // 外出人員
         $('#AttendEmplyID').change(function () {
+            var deptNm = $("#AttendDeptID option:selected").html();
             var empId = $("#AttendEmplyID").val();
             var empNm = $("#AttendEmplyID option:selected").html();
             var attendEmp = $("#AttendEmp").val();
             if (!!empId) {
                 if (!!attendEmp) {
-                    $("#AttendEmp").val(attendEmp + '\r\n' + empId + '-' + empNm);
+                    $("#AttendEmp").val(attendEmp + '\r\n' + deptNm + '_' + empNm);
                 } else {
-                    $("#AttendEmp").val(empId + '-' + empNm);
+                    $("#AttendEmp").val(deptNm+'_'+ empNm);
                 }
             }
         });

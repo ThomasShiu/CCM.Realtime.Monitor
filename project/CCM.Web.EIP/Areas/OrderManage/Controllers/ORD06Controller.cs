@@ -8,7 +8,9 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.EIP.App_Start;
 using CCM.Web.EIP.App_Start._01_Handler;
+using Microsoft.Reporting.WebForms;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -17,6 +19,8 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
     public class ORD06Controller : ControllerBase
     {
         private BU_LUNCHApp tableApp = new BU_LUNCHApp();
+        private CcmServices cs = new CcmServices();
+        private ReportService rs = new ReportService();
 
         [HttpGet]
         [HandlerAuthorize]
@@ -70,6 +74,63 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+        #region 午餐登記明細報表列印
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Print(string keyValue, string type = "PDF")
+        {
+
+            var path = Server.MapPath("~/Reports/ORD06_R01.rdlc");
+            LocalReport localReport = rs.ORD06_R01(keyValue, type, path);
+
+            string paper = "A4";
+            string reportType = type;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+            string deviceInfo =
+                "<DeviceInfo>" +
+                "<OutPutFormat>" + type + "</OutPutFormat>";
+            switch (paper)
+            {
+                case "Letter":// 中一刀
+                    deviceInfo +=
+                    "<PageWidth>9in</PageWidth>" +
+                    "<PageHeight>6in</PageHeight>";
+                    break;
+                case "A4":// A4
+                    deviceInfo +=
+                    "<PageWidth>11.6in</PageWidth>" +
+                    "<PageHeight>8.2in</PageHeight>";
+                    break;
+            }
+            deviceInfo +=
+                "<MarginTop>0.2in</MarginTop>" +
+                "<MarginLeft>0.2in</MarginLeft>" +
+                "<MarginRight>0.2in</MarginRight>" +
+                "<MarginBottom>0.2in</MarginBottom>" +
+                "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+
+            renderedBytes = localReport.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                        out encoding,
+                        out fileNameExtension,
+                        out streams,
+                        out warnings
+                        );
+            return File(renderedBytes, mimeType);
+
+        }
+        #endregion
     }
 
 

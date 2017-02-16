@@ -3,19 +3,19 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
-    var ParentSID = $.request("ParentSID");
+    //var ParentSID = $.request("ParentSID");
     $(function () {
         gridList();
     })
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/OrderManage/ORD03/GetDetailJson?ParentSID=" + ParentSID,
+            url: "/OrderManage/ORD03/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 				    { label: "ParentSID", name: "ParentSID", hidden: true, width: 80, align: 'left' },
-				    { label: "部門", name: "DepID", hidden: true, width: 120, align: 'left' },
+				    { label: "部門", name: "DepID", hidden: true, width: 140, align: 'left' },
                     {
                         label: "部門", name: "", width: 120, align: 'left',
                         formatter: function (cellvalue, options, rowObject) {
@@ -35,14 +35,14 @@
 				    { label: "增購額", name: "AdjustAmount", width: 80, align: 'left' },
 				    { label: "增購量", name: "AdjustQty", width: 80, align: 'left' },
                     {
-                        label: "訂購日", name: "OrderDate", width: 80, align: 'left',
+                        label: "訂購日", name: "CreatorTime", width: 80, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                     },
 				    { label: "金額", name: "Amount", width: 80, align: 'left' },
 				    { label: "備註", name: "Remark", width: 80, align: 'left' },
             ],
 			pager: "#gridPager",
-            sortname: 'SID asc,CreatorTime desc',
+			sortname: 'CreatorTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {

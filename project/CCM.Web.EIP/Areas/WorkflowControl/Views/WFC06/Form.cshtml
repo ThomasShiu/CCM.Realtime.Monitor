@@ -74,9 +74,10 @@
         })
     }
     // 判斷 平日 假日
-    function getSFTNO() {
-        vEMPLYID = $('#EMPLYID').children('option:selected').val();
-    }
+    //function getSFTNO() {
+    //    vEMPLYID = $('#EMPLYID').children('option:selected').val();
+    //    vYMD = $('#FETB').val();
+    //}
 
     function chkOvertime() {
         // 開始加班
@@ -94,8 +95,8 @@
         // 計薪年月
         var owmon = fd1.Format("yyyyMM");
         $('#OWMON').val(owmon);
-        // 假日 平日
 
+        // 判斷 平日 假日
         if (d1 != null & d1 != '') {
             var queryJson = {
                 emplyid: vEMPLYID,
@@ -284,7 +285,7 @@
                 </td>
                 <th class="formTitle">出勤人員</th>
                 <td class="formValue">
-                    <select id="EMPLYID" name="EMPLYID" class="form-control required" onchange="getSFTNO()" >
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required"  >
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>

@@ -45,8 +45,6 @@ namespace CCM.Application
             return service.FindList(expression, pagination);
         }
 
- 
-
         // 個人加班單
         public List<HR_OVRTMEntity> GetListEmp(Pagination pagination, string keyword = "")
         {
@@ -63,6 +61,47 @@ namespace CCM.Application
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
+
+        // 加班單-BY建立人員
+        public List<HR_OVRTMEntity> GetListEMPADD(Pagination pagination, string queryJson = "")
+        {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            var expression = ExtLinq.True<HR_OVRTMEntity>();
+            expression = expression.And(t => t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
+
+            var queryParam = queryJson.ToJObject();
+
+            // 關鍵字
+            if (!queryParam["keyword"].IsEmpty())
+            {
+                string keyword = queryParam["keyword"].ToString();
+                expression = expression.And(t => t.OVRTNO.Contains(keyword));
+                expression = expression.Or(t => t.DEREASON.Contains(keyword));
+            }
+            // 關鍵字2
+            if (!queryParam["statusType"].IsEmpty())
+            {
+                string statusType = queryParam["statusType"].ToString();
+                switch (statusType)
+                {
+                    case "1":  //未送簽
+                        expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+                        break;
+                    case "2": //全部
+                        expression = expression.And(t => t.STATUS.Trim() != "OP");
+                        break;
+                    default:
+                        expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+                        break;
+                }
+            }
+            else
+            {
+                expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+            }
+            return service.FindList(expression, pagination);
+        }
+
         public HR_OVRTMEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

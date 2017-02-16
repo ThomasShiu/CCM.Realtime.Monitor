@@ -20,9 +20,9 @@
             height: $(window).height() - 128,
             colModel: [
 				    { label: "加班單號", name: "OVRTNO", key: true, width: 80, align: 'left' },
-                     { label: "工號", name: "EMPLYID", width: 80, align: 'left' },
+                     { label: "工號", name: "EMPLYID", width: 60, align: 'left' },
 				    {
-				        label: "出勤人員", name: "", width: 80, align: 'left',
+				        label: "出勤人員", name: "", width: 70, align: 'left',
 				        formatter: function (cellvalue, options, rowObject) {
 				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
 				        }

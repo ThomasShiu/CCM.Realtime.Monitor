@@ -179,6 +179,46 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得個人可建立加班部門
+        public JArray getOvertDept()
+        {
+            string v_sql = "SELECT EMPLYID, EMPLYNM, DEPID,dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM " +
+                          " FROM V_HR_EMPLYM " +
+                            "WHERE  DEPID IN ( " +
+                            "SELECT  EDPID  FROM EIP.dbo.WF_EMPADDEPT " +
+                            " WHERE EMPLYID = 'A960406' AND Enable = 'Y' " +
+                            ") ORDER BY 3,1 ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             EMPLYNM = p.Field<string>("EMPLYNM"),
+                             DEPID = p.Field<string>("DEPID"),
+                             DEPNM = p.Field<string>("DEPNM")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"EMPLYID",col.EMPLYID },
+                    {"EMPLYNM",col.EMPLYNM },
+                    {"DEPID",col.DEPID },
+                    {"DEPNM",col.DEPNM }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
         #region 把DataTable轉成JSON字串
         //把DataTable轉成JSON字串
         public string GetJson(string sql)
@@ -962,6 +1002,50 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 計算午餐用餐人數
+        public string ComputLunchPeople(string lunchdate)
+        {
+            string routeLevel = "";
+            //string LunchDate = String.Format("{0:yyyy-MM-dd}", DateTime.Today);
+
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+            SqlCommand cmd = new SqlCommand("SP_COMPUTLUNCH", db);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@LunchDate", SqlDbType.VarChar, 20);
+            cmd.Parameters["@LunchDate"].Value = lunchdate;
+            //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
+
+            try
+            {
+                db.Open();
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.SingleRow);
+                //cmd.ExecuteNonQuery();
+                //routeLevel = (string)cmd.Parameters["@returnval"].Value;
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    routeLevel = dr["outparam"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+            if (!routeLevel.Equals(""))
+            {
+                return "success";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        #endregion
 
         #region 取得公務車、會議室借用狀態
         public JArray getPubObjectList(string keyword)

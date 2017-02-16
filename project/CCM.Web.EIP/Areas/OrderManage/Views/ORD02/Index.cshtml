@@ -5,6 +5,7 @@
 <script>
     $(function () {
         gridList();
+
     })
     function gridList() {
         var $gridList = $("#gridList");
@@ -53,6 +54,7 @@
                     { label: "", name: "", width: 60, align: 'right' },
 				    { label: "SubsidizeAmount", name: "SubsidizeAmount", hidden: true, width: 80, align: 'left' },
 				    { label: "GUID", name: "GUID", hidden: true, width: 80, align: 'left' },
+                    
 
             ],
 			pager: "#gridPager",
@@ -139,6 +141,22 @@
             btn: null,
         });
     }
+
+    // 報表列印，午餐登記明細
+    function btn_print() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/OrderManage/ORD02/Print?keyValue=" + keyValue,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
 </script>
 
 <div class="topPanel">
@@ -156,6 +174,7 @@
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>訂購便當</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
+                <li><a id="NF-print" authorize="yes"  onclick="btn_print()"><i class="fa fa-print"></i>列印明細表</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

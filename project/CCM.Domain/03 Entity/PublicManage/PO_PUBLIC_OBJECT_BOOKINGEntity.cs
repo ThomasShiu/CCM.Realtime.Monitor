@@ -45,9 +45,9 @@ namespace CCM.Domain
 
         public String Status { get; set; }
 
-        public String LeaveTime { get; set; }
+        public DateTime? LeaveTime { get; set; }
 
-        public String BackTime { get; set; }
+        public DateTime? BackTime { get; set; }
 
         public String GuardEMPID { get; set; }
 

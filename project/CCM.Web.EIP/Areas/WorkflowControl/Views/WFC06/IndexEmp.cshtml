@@ -19,17 +19,52 @@
             url: "/WorkflowControl/WFC06/GetGridJsonEmp",
             height: $(window).height() - 128,
             colModel: [
+                {
+                    label: "執行", name: "", width: 120, align: 'center',
+                    formatter: function (cellvalue, options, rowObject) {
+                        var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
+                        var ovrtno = rowObject.OVRTNO;
+                        //alert(ovrtno);
+                        if (rowObject.EMPLYID == usercode & (rowObject.STATUS == 'OP' | rowObject.STATUS == 'PB' | rowObject.STATUS == 'CL')) {
+                            return '<button class=\'btn btn-success btn-xs\' onclick=\'submitSN(\"' + ovrtno + '\")\'>送簽</button> <button class=\'btn btn-danger btn-xs\' onclick=\'invalidSN(\"' + ovrtno + '\",\"NL\")\'>作廢</button>';
+                        } else if (rowObject.EMPLYID == usercode & rowObject.STATUS == 'SN') {
+                            return '<button class=\'btn btn-danger btn-xs\' onclick=\'rejectSN(\"' + ovrtno + '\",\"PB\")\'>撤簽</button>';
+                        } else {
+                            return '';
+                        }
+                    }
+                },
+                    {
+                        label: "狀態", name: "", width: 50, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                            if (rowObject.STATUS == 'OP') {
+                                return '<h5><span class=\"label label-default label-lg\">未送簽</span></h5>';
+                            } else if (rowObject.STATUS == 'SN') {
+                                return '<h5><span class=\"label label-primary label-lg\">簽核中</span></h5>';
+                            } else if (rowObject.STATUS == 'CF') {
+                                return '<h5><span class=\"label label-success label-lg\">已核准</span></h5>';
+                            } else if (rowObject.STATUS == 'CL') {
+                                return '<h5><span class=\"label label-warning label-lg\">已退回</span></h5>';
+                            } else if (rowObject.STATUS == 'NL') {
+                                return '<h5><span class=\"label label-danger label-lg\">已作廢</span></h5>';
+                            } else if (rowObject.STATUS == 'PB') {
+                                return '<h5><span class=\"label label-default label-lg\">已撤簽</span></h5>';
+                            }
+                        }
+                    },
+                    
 				    { label: "加班單號", name: "OVRTNO", key: true, width: 80, align: 'left' },
-                     { label: "工號", name: "EMPLYID", width: 80, align: 'left' },
+                     { label: "工號", name: "EMPLYID", width: 60, align: 'left' },
 				    {
-				        label: "出勤人員", name: "", width: 80, align: 'left',
+				        label: "出勤人員", name: "", width: 60, align: 'left',
 				        formatter: function (cellvalue, options, rowObject) {
 				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
 				        }
 				    },
                     { label: "部門代碼", name: "DEPID", hidden: true, width: 40, align: 'left' },
                     {
-                        label: "部門", name: "", width: 120, align: 'left',
+                        label: "部門", name: "", width: 100, align: 'left',
                         formatter: function (cellvalue, options, rowObject) {
                             return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
                         }
@@ -39,63 +74,30 @@
 
 
 				    {
-				        label: "預計加班-起", name: "FETB", width: 120, align: 'left',
+				        label: "預計加班-起", name: "FETB", width: 100, align: 'left',
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 
 				    },
 				    {
-				        label: "預計加班-迄", name: "FETE", width: 120, align: 'left',
+				        label: "預計加班-迄", name: "FETE", width: 100, align: 'left',
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
 				    },
 				    { label: "實際加班-起", name: "DETB", hidden: true, width: 80, align: 'left' },
 				    { label: "實際加班-迄", name: "DETE", hidden: true, width: 80, align: 'left' },
-				    { label: "申請時數", name: "DEMIN", width: 80, align: 'center' },
-				    { label: "人資時數", name: "REHRS1", width: 80, align: 'center' },
+				    { label: "申請時數", name: "DEMIN", width: 60, align: 'center' },
+				    { label: "人資時數", name: "REHRS1", width: 60, align: 'center' },
 				    { label: "費用別", name: "OVRTP", hidden: true, width: 80, align: 'left' },
 				   {
-				       label: "送簽日", name: "APPDATE", width: 80, align: 'left',
+				       label: "送簽日", name: "APPDATE", width: 70, align: 'left',
 				       formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				   },
 				    {
-				        label: "完簽日", name: "EXC_UPDDATE", width: 80, align: 'left',
+				        label: "完簽日", name: "EXC_UPDDATE", width: 70, align: 'left',
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				    },
 
 				    { label: "記薪月份", name: "OWMON", hidden: true, width: 80, align: 'left' },
-                      {
-                          label: "狀態", name: "", width: 50, align: 'left',
-                          formatter: function (cellvalue, options, rowObject) {
-                              //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
-                              if (rowObject.STATUS == 'OP') {
-                                  return '<h5><span class=\"label label-default label-lg\">未送簽</span></h5>';
-                              } else if (rowObject.STATUS == 'SN') {
-                                  return '<h5><span class=\"label label-primary label-lg\">簽核中</span></h5>';
-                              } else if (rowObject.STATUS == 'CF') {
-                                  return '<h5><span class=\"label label-success label-lg\">已核准</span></h5>';
-                              } else if (rowObject.STATUS == 'CL') {
-                                  return '<h5><span class=\"label label-warning label-lg\">已退回</span></h5>';
-                              } else if (rowObject.STATUS == 'NL') {
-                                  return '<h5><span class=\"label label-danger label-lg\">已作廢</span></h5>';
-                              } else if (rowObject.STATUS == 'PB') {
-                                  return '<h5><span class=\"label label-default label-lg\">已撤簽</span></h5>';
-                              }
-                          }
-                      },
-                    {
-                        label: "執行", name: "",  width: 80, align: 'center',
-                        formatter: function (cellvalue, options, rowObject) {
-                            var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
-                            var ovrtno = rowObject.OVRTNO;
-                            //alert(ovrtno);
-                            if (rowObject.EMPLYID == usercode & (rowObject.STATUS == 'OP' | rowObject.STATUS == 'PB' | rowObject.STATUS == 'CL')) {
-                                return '<button class=\'btn btn-success btn-xs\' onclick=\'submitSN(\"' + ovrtno + '\")\'>送簽</button> <button class=\'btn btn-danger btn-xs\' onclick=\'invalidSN(\"' + ovrtno + '\",\"NL\")\'>作廢</button>';
-                            } else if (rowObject.EMPLYID == usercode & rowObject.STATUS == 'SN') {
-                                return '<button class=\'btn btn-danger btn-xs\' onclick=\'rejectSN(\"' + ovrtno + '\",\"PB\")\'>撤簽</button>';
-                            } else {
-                                return '';
-                            }
-                        }
-                    },
+                      
                     { label: "", name: "",  width: 10, align: 'left' },
             ],
 			pager: "#gridPager",
@@ -281,7 +283,7 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="加班單號/加班原因" style="width: 200px;">
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>

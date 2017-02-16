@@ -14,7 +14,24 @@
             id: "SID",
             text: "ObjectNM"
         });
-        
+
+
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        for (var i = yyyy; i >= yyyy-4; i--) {
+            $("#selectyear").append($("<option></option>").attr("value", i).text(i));
+        }
+
+        $("#pdate").val(GetToday());
+
+        var btnPrint = $("#NF-print").attr('authorize');
+        if (btnPrint != 'yes') {
+            $('#pdate').hide();
+        }
+        var btnPrint2 = $("#NF-print2").attr('authorize');
+        if (btnPrint2 != 'yes') {
+            $('#selectyear').hide();
+        }
     })
     function gridList() {
         var $gridList = $("#gridList");
@@ -24,12 +41,12 @@
             colModel: [
 					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
                         { label: "ObjectType", name: "ObjectType", hidden: true, width: 80, align: 'left' },
-                        { label: "預約原因", name: "UseReason", width: 80, align: 'left' },
-				        { label: "借用說明", name: "Subject", width: 150, align: 'left' },
-				        { label: "詳細說明", name: "Description", width: 150, align: 'left' },
+                        { label: "預約原因", name: "UseReason", width: 70, align: 'left' },
+				        { label: "借用說明", name: "Subject", width: 120, align: 'left' },
+				        { label: "詳細說明", name: "Description", width: 120, align: 'left' },
                         { label: "ObjectSID", name: "ObjectSID", hidden: true, width: 80, align: 'left' },
                         {
-                            label: "車輛號碼", name: "", width: 160, align: 'left',
+                            label: "車輛號碼", name: "", width: 120, align: 'left',
                             formatter: function (cellvalue, options, rowObject) {
                                 return top.clients.pubobject[rowObject.ObjectSID] == null ? "" : top.clients.pubobject[rowObject.ObjectSID].ObjectNM;
                             }
@@ -44,7 +61,7 @@
 				        },
 
 				        {
-				            label: "部門", name: "DepartmentID", width: 160, align: 'left',
+				            label: "部門", name: "DepartmentID", width: 120, align: 'left',
 				            formatter: function (cellvalue) {
 				                return top.clients.dept[cellvalue] == null ? "" : top.clients.dept[cellvalue].fullname;
 				            }
@@ -107,7 +124,7 @@
 			    for (i = 0; i < rowIds.length; i++) {//iterate over each row
 			        rowData = $('#gridList').jqGrid('getRowData', rowIds[i]);
 			        //set background style if ColValue === true\
-			        if (rowData['Status'] == "鎖定" & datenow > rowData['BookingEndTime'] 
+			        if (rowData['Status'] == "鎖定" & datenow > rowData['BookingEndTime']
                         ) {
 			            $('#gridList').jqGrid('setRowData', rowIds[i], false, "myAltRowClassLock");
 			        } //if
@@ -136,6 +153,7 @@
 
 
     }
+
     function btn_add() {
         $.modalOpen({
             id: "Form",
@@ -148,7 +166,7 @@
             }
         });
     }
-    
+
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
@@ -180,6 +198,7 @@
             }, 500);
         }
     }
+    // 修改(守衛)
     function btn_edit_guard() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var status = $("#gridList").jqGridRowValue().Status;
@@ -202,6 +221,7 @@
             }, 500);
         }
     }
+    // 修改(管理)
     function btn_edit_admin() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
@@ -215,7 +235,10 @@
             }
         });
     }
+
+    // 刪除
     function btn_delete() {
+
         var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
         var status = $("#gridList").jqGridRowValue().Status;
@@ -243,6 +266,7 @@
             }, 500);
         }
     }
+
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
@@ -254,10 +278,59 @@
             btn: null,
         });
     }
+
+    // 報表列印，每日里程
+    function btn_print() {
+        var pdate = $('#pdate').val();
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/PublicObject/PUB02/Print?keyValue=" + pdate,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+
+    // 報表列印，每月里程
+    function btn_print2() {
+        var pdate = $('#selectyear').val();
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/PublicObject/PUB02/Print2?keyValue=" + pdate,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
 </script>
 
 <div class="topPanel">
     <div class="toolbar">
+        <div class="btn-group">
+            <select id="selectyear" name="selectyear" class="form-control "  style="width:50px;height:18px">
+                @*<option >2017</option>
+                <option >2016</option>
+                <option>2015</option>
+                <option>2014</option>*@
+            </select>
+        </div>
+        <div class="btn-group">
+            <a id="NF-print2" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_print2()"><i class="fa fa-print"></i>列印每月里程</a>
+        </div>
+        <div class="btn-group">
+            <input id="pdate" name="pdate"  type="date" class="form-control" placeholder="日期" style="width:120px;height:18px">
+        </div>
+        <div class="btn-group">
+            <a id="NF-print" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i>列印每日里程</a>
+        </div>
         <div class="btn-group">
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
@@ -272,6 +345,7 @@
                 <li><a id="NF-edit-guard" authorize="yes" onclick="btn_edit_guard()"><i class="fa fa-pencil-square-o"></i>修改(守衛)</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
+                @*<li><a id="NF-print" authorize="yes" onclick="btn_print()"><i class="fa fa-print"></i>列印</a></li>*@
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>
@@ -283,7 +357,7 @@
                 <td>
                     <div class="input-group">
                         <input id="txt_keyword" type="text" class="form-control" placeholder="說明" style="width: 100px;">
-                        <select id="PublicObject" name="PublicObject" class="form-control "  style="width: 250px;">
+                        <select id="PublicObject" name="PublicObject" class="form-control "  style="width: 200px;">
                             <option value=""></option>
                         </select>
                         <span class="input-group-btn">

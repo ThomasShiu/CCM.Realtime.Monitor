@@ -50,7 +50,7 @@
 
         // 員工 by 部門
         $("#EMPLYID").bindSelect({
-            url: "/Human/HRS00/GetHR_EMPLY_ALL?keyword=" + $('#DEPID').children('option:selected').val(),
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });
@@ -133,13 +133,11 @@
                 <th class="formTitle">建立部門</th>
                 <td class="formValue">
                     <select id="DEPIDAPP" name="DEPIDAPP" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                     </select>
                 </td>
                 <th class="formTitle">建立人員</th>
                 <td class="formValue">
                     <select id="EXC_INSDBID" name="EXC_INSDBID" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
 
@@ -148,13 +146,11 @@
                 <th class="formTitle">出勤人員部門</th>
                 <td class="formValue">
                     <select id="DEPID" name="DEPID" class="form-control required">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                     </select>
                 </td>
                 <th class="formTitle">出勤人員</th>
                 <td class="formValue">
                     <select id="EMPLYID" name="EMPLYID" class="form-control required" >
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
                 <th class="formTitle">加班轉補休</th>

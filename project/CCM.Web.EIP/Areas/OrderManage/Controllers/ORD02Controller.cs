@@ -9,6 +9,7 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start._01_Handler;
+using Microsoft.Reporting.WebForms;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -20,6 +21,7 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         private BU_ORDERS_SOTREApp storeApp = new BU_ORDERS_SOTREApp();
         private BU_ORDERS_DETAILApp detailApp = new BU_ORDERS_DETAILApp();
         private CcmServices cs = new CcmServices();
+        private ReportService rs = new ReportService();
 
         [HttpGet]
         [HandlerAuthorize]
@@ -121,6 +123,62 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
             return Success("删除成功。");
         }
 
+        #region 便當/團購統計表列印
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Print(string keyValue, string type = "PDF")
+        {
+
+            var path = Server.MapPath("~/Reports/ORD02_R01.rdlc");
+            LocalReport localReport = rs.ORD02_R01(keyValue, type, path);
+
+            string paper = "A4";
+            string reportType = type;
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+
+            string deviceInfo =
+                "<DeviceInfo>" +
+                "<OutPutFormat>" + type + "</OutPutFormat>";
+            switch (paper)
+            {
+                case "Letter":// 中一刀
+                    deviceInfo +=
+                    "<PageWidth>9in</PageWidth>" +
+                    "<PageHeight>6in</PageHeight>";
+                    break;
+                case "A4":// A4
+                    deviceInfo +=
+                    "<PageWidth>8.2in</PageWidth>" +
+                    "<PageHeight>11.6in</PageHeight>";
+                    break;
+            }
+            deviceInfo +=
+                "<MarginTop>0.2in</MarginTop>" +
+                "<MarginLeft>0.2in</MarginLeft>" +
+                "<MarginRight>0.2in</MarginRight>" +
+                "<MarginBottom>0.2in</MarginBottom>" +
+                "</DeviceInfo>";
+
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderedBytes;
+
+
+            renderedBytes = localReport.Render(
+                reportType,
+                deviceInfo,
+                out mimeType,
+                        out encoding,
+                        out fileNameExtension,
+                        out streams,
+                        out warnings
+                        );
+            return File(renderedBytes, mimeType);
+
+        }
+        #endregion
     }
 
 

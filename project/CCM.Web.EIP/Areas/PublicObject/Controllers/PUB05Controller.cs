@@ -7,7 +7,6 @@
 using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
-using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start._01_Handler;
 using System;
 using System.IO;
@@ -121,14 +120,14 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
                     {
                         fileName = file.FileName;
                         fileExtension = Path.GetExtension(fileName);
-                        fileNewName = Common.GuId() + fileExtension;
+                        fileNewName = CommonCCm.GuId() + fileExtension;
                         filePath = Path.Combine(directoryPath, fileNewName);
                         file.SaveAs(filePath);
 
                         count++;
 
                         //存放檔案路徑
-                        tableEntity.SID = Common.GuId();
+                        tableEntity.SID = CommonCCm.GuId();
                         tableEntity.ParentSID = guid;
                         tableEntity.Name = fileName;
                         tableEntity.UploadPath = "EIPContent/Content/Bulletin/UploadFiles/Bulletin/" + fileNewName; //圖檔路徑

@@ -74,6 +74,7 @@
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Cache\CacheFactory.cs" />
     <Compile Include="Cache\ICache.cs" />
+    <Compile Include="CommonCCM.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Configs\Configs.cs" />
     <Compile Include="Configs\DBConnection.cs" />

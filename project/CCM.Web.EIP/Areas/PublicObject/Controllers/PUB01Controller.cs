@@ -94,7 +94,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         public ActionResult UploadFiles()
         {
             string fname = "";
-            string vfilename = Common.GuId();
+            string vfilename = CommonCCm.GuId();
             bool isSavedSuccessfully = true;
             int count = 0;
             string msg = "";

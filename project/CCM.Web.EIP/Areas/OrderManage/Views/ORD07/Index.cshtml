@@ -5,6 +5,14 @@
 <script>
     $(function () {
         gridList();
+
+        $("#pdate").val(GetToday());
+
+        // 是否隱藏日期欄位
+        var btnPrint = $("#NF-print").attr('authorize');
+        if (btnPrint != 'yes') {
+            $('#pdate').hide();
+        }
     })
     function gridList() {
         var $gridList = $("#gridList");
@@ -49,7 +57,7 @@
 
             ],
 			pager: "#gridPager",
-			sortname: 'LOCATION asc,LUNCHDATE desc',
+			sortname: 'LOCATION desc,LUNCHDATE desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -58,6 +66,7 @@
             }).trigger('reloadGrid');
         });
     }
+
     function btn_add() {
         $.modalOpen({
             id: "Form",
@@ -70,11 +79,41 @@
             }
         });
     }
-    function btn_calamount() {
-        msg = "此功能未完成!";
-        window.setTimeout(function () {
-            $.modalMsg(msg, "warning");
-        }, 500);
+    // 計算用餐人數
+    function btn_computlunch() {
+        var today = GetToday();
+        $.modalConfirm("注：您確定要計算今日用餐人數嗎？", function (r) {
+            if (r) {
+                $.loading(true, '處理中，請稍候...');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: "/OrderManage/ORD07/ComputLunch",
+                        data: { keyValue: today },
+                        type: "get",
+                        dataType: "json",
+                        success: function (data) {
+                            msg = "計算今日用餐人數成功!";
+                            $.currentWindow().$("#gridList").trigger("reloadGrid");
+                            $.modalMsg(msg, 'success');
+                            $.modalClose();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $.loading(false);
+                            $.modalMsg(errorThrown, "error");
+                        },
+                        beforeSend: function () {
+                            $.loading(true, '處理中，請稍候...');
+                        },
+                        complete: function () {
+                            $.loading(false);
+                        }
+                    });
+                }, 500);
+            }
+        });
+
+
+
     }
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
@@ -109,15 +148,37 @@
             btn: null,
         });
     }
+
+    // 報表列印，午餐登記統計
+    function btn_print() {
+        var pdate = $('#pdate').val();
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/OrderManage/ORD07/Print?keyValue=" + pdate,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
 </script>
 
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">
+            <input id="pdate" name="pdate" type="date" class="form-control" placeholder="日期" style="width:120px;height:18px">
+        </div>
+        <div class="btn-group">
+            <a id="NF-print" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i>列印明細表</a>
+        </div>
+        <div class="btn-group">
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-calcul" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_calamount()"><i class="fa fa-plus"></i>執行計算今日用餐人數</a>
+            <a id="NF-calcul" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_computlunch()"><i class="fa fa-plus"></i>執行計算今日用餐人數</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">

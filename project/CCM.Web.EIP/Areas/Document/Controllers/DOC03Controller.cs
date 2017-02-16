@@ -107,14 +107,14 @@ namespace CCM.Web.EIP.Areas.Document.Controllers
                     {
                         fileName = file.FileName;
                         fileExtension = Path.GetExtension(fileName);
-                        fileNewName = Common.GuId() + fileExtension;
+                        fileNewName = CommonCCm.GuId() + fileExtension;
                         filePath = Path.Combine(directoryPath, fileNewName);
                         file.SaveAs(filePath);
 
                         count++;
 
                         //存放檔案路徑
-                        tableEntity.SID = Common.GuId();
+                        tableEntity.SID = CommonCCm.GuId();
                         tableEntity.ParentRECEIVEID = guid;
                         tableEntity.Name = fileName;
                         tableEntity.UploadPath = "EIPContent/Content/FilesCabinet/UploadFiles/" + fileNewName; //圖檔路徑
