@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WorkflowControl/WFC03/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/WorkflowControl/WFC03/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            
+            <tr>
+                <th class="formTitle">代建人員</th>
+                <td class="formValue">
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required" >
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">代建部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required" >
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">啟用/停用</th>
+                <td class="formValue">
+                    <div class="ckbox">
+                        <input id="Enable" name="Enable" type="checkbox" checked="checked"><label for="Enable">啟用</label>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

@@ -149,6 +149,7 @@
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
+    <Compile Include="Areas\RDManage\Controllers\RDM00Controller.cs" />
     <Compile Include="Areas\RDManage\Controllers\RDM02Controller.cs" />
     <Compile Include="Areas\RDManage\Controllers\RDM01Controller.cs" />
     <Compile Include="Areas\RDManage\RDManageAreaRegistration.cs" />
@@ -738,6 +739,8 @@
     <Content Include="Areas\RDManage\Views\RDM02\Details.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM02\Form.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM02\Index.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM02\Form2.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM01\Form2.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

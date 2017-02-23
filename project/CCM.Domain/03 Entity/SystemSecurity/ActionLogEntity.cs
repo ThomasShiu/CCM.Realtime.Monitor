@@ -32,6 +32,8 @@ namespace CCM.Domain.Entity.SystemSecurity
 
         public DateTime RequestTime { get; set; }
 
+        public String OrganizeId { get; set; }
+
         public String CreatorUserId { get; set; }
 
         public DateTime? CreatorTime { get; set; }

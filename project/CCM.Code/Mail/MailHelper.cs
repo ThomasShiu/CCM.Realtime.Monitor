@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;
@@ -15,38 +15,38 @@ namespace CCM.Code
     public class MailHelper
     {
         /// <summary>
-        /// 邮件服务器地址
+        /// 郵件伺服器地址
         /// </summary>
         public string MailServer { get; set; }
         /// <summary>
-        /// 用户名
+        /// 用戶名
         /// </summary>
         public string MailUserName { get; set; }
         /// <summary>
-        /// 密码
+        /// 密碼
         /// </summary>
         public string MailPassword { get; set; }
         /// <summary>
-        /// 名称
+        /// 名稱
         /// </summary>
         public string MailName { get; set; }
 
         /// <summary>
-        /// 同步发送邮件
+        /// 同步發送郵件
         /// </summary>
-        /// <param name="to">收件人邮箱地址</param>
-        /// <param name="subject">主题</param>
-        /// <param name="body">内容</param>
-        /// <param name="encoding">编码</param>
+        /// <param name="to">收件人郵箱地址</param>
+        /// <param name="subject">主題</param>
+        /// <param name="body">內容</param>
+        /// <param name="encoding">編碼</param>
         /// <param name="isBodyHtml">是否Html</param>
-        /// <param name="enableSsl">是否SSL加密连接</param>
+        /// <param name="enableSsl">是否SSL加密連接</param>
         /// <returns>是否成功</returns>
         public bool Send(string to, string subject, string body, string encoding = "UTF-8", bool isBodyHtml = true, bool enableSsl = false)
         {
             try
             {
                 MailMessage message = new MailMessage();
-                // 接收人邮箱地址
+                // 接收人郵箱位址
                 message.To.Add(new MailAddress(to));
                 message.From = new MailAddress(MailUserName, MailName);
                 message.BodyEncoding = Encoding.GetEncoding(encoding);
@@ -58,7 +58,7 @@ namespace CCM.Code
 
                 SmtpClient smtpclient = new SmtpClient(MailServer, 25);
                 smtpclient.Credentials = new System.Net.NetworkCredential(MailUserName, MailPassword);
-                //SSL连接
+                //SSL連接
                 smtpclient.EnableSsl = enableSsl;
                 smtpclient.Send(message);
                 return true;
@@ -69,44 +69,44 @@ namespace CCM.Code
             }
         }
         /// <summary>
-        /// 异步发送邮件 独立线程
+        /// 非同步發送郵件 獨立執行緒
         /// </summary>
-        /// <param name="to">邮件接收人</param>
-        /// <param name="title">邮件标题</param>
-        /// <param name="body">邮件内容</param>
-        /// <param name="port">端口号</param>
+        /// <param name="to">郵件接收人</param>
+        /// <param name="title">郵件標題</param>
+        /// <param name="body">郵件內容</param>
+        /// <param name="port">埠號</param>
         /// <returns></returns>
         public void SendByThread(string to, string title, string body, int port = 25)
         {
-            new Thread(new ThreadStart(delegate()
+            new Thread(new ThreadStart(delegate ()
             {
                 try
                 {
                     SmtpClient smtp = new SmtpClient();
-                    //邮箱的smtp地址
+                    //郵箱的smtp地址
                     smtp.Host = MailServer;
-                    //端口号
+                    //埠號
                     smtp.Port = port;
-                    //构建发件人的身份凭据类
+                    //構建寄件者的身份憑據類
                     smtp.Credentials = new NetworkCredential(MailUserName, MailPassword);
-                    //构建消息类
+                    //構建消息類
                     MailMessage objMailMessage = new MailMessage();
-                    //设置优先级
+                    //設置優先順序
                     objMailMessage.Priority = MailPriority.High;
-                    //消息发送人
+                    //消息發送人
                     objMailMessage.From = new MailAddress(MailUserName, MailName, System.Text.Encoding.UTF8);
                     //收件人
                     objMailMessage.To.Add(to);
-                    //标题
+                    //標題
                     objMailMessage.Subject = title.Trim();
-                    //标题字符编码
+                    //標題字元編碼
                     objMailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
                     //正文
                     objMailMessage.Body = body.Trim();
                     objMailMessage.IsBodyHtml = true;
-                    //内容字符编码
+                    //內容字元編碼
                     objMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
-                    //发送
+                    //發送
                     smtp.Send(objMailMessage);
                 }
                 catch (Exception)
@@ -118,3 +118,4 @@ namespace CCM.Code
         }
     }
 }
+

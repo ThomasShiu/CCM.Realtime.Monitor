@@ -25,29 +25,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         private HR_OVRTMApp tableApp = new HR_OVRTMApp();
         private CcmServices cs = new CcmServices();
 
-        [HttpGet]
-        [HandlerAuthorize]
-        [ActionTraceLog]
-        public virtual ActionResult IndexEmp()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        //[HandlerAuthorize]
-        [ActionTraceLog]
-        public virtual ActionResult IndexEmpTest()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        //[HandlerAuthorize]
-        [ActionTraceLog]
-        public virtual ActionResult FormTest()
-        {
-            return View();
-        }
 
         [HttpGet]
         [HandlerAjaxOnly]

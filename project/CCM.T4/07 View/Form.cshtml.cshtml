@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/RDManage/RDM01/GetFormJson",
+                url: "/SaleService/SRM02/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -29,7 +29,7 @@
             return false;
         }
         $.submitForm({
-            url: "/RDManage/RDM01/SubmitForm?keyValue=" + keyValue,
+            url: "/SaleService/SRM02/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -57,27 +57,33 @@
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">Subject</th>
+                <th class="formTitle">parentId</th>
                 <td class="formValue">
-					<input id="Subject" name="Subject" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="parentId" name="parentId" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">Machine_Id</th>
+                <th class="formTitle">FileName</th>
                 <td class="formValue">
-					<input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="FileName" name="FileName" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">UploadPath</th>
+                <th class="formTitle">Size</th>
                 <td class="formValue">
-					<input id="UploadPath" name="UploadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Size" name="Size" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">DownloadPath</th>
+                <th class="formTitle">Descript</th>
                 <td class="formValue">
-					<input id="DownloadPath" name="DownloadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Descript" name="Descript" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">ImgPath</th>
+                <td class="formValue">
+					<input id="ImgPath" name="ImgPath" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>

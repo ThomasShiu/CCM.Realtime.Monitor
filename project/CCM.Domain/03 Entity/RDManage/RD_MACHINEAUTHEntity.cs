@@ -16,18 +16,28 @@ namespace CCM.Domain
     {
 
         public String SID { get; set; }
-        public String Customer { get; set; }
+
+        public String CS_NO { get; set; }
+
+        public String SHORT_NM { get; set; }
+
         public String Remark { get; set; }
 
         public String Machine_Id { get; set; }
+
+        public String Version { get; set; }
 
         public String oldFileName { get; set; }
 
         public String newFileName { get; set; }
 
+        
+
         public String UploadPath { get; set; }
 
         public String DownloadPath { get; set; }
+
+        public String DownloadPath2 { get; set; }
 
         public String CPU_SN { get; set; }
 
@@ -36,6 +46,8 @@ namespace CCM.Domain
         public String HD_Fireware { get; set; }
 
         public String HD_Moduleno { get; set; }
+
+        public Boolean Enable { get; set; }
 
         public String OrganizeId { get; set; }
 

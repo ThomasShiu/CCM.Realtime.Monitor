@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class RD_MACHINEAUTHApp
+public class SRM_ALBUMDLApp
     {
-        private IRD_MACHINEAUTHRepository service = new RD_MACHINEAUTHRepository();     
+        private ISRM_ALBUMDLRepository service = new SRM_ALBUMDLRepository();     
 
-	public List<RD_MACHINEAUTHEntity> GetList(string keyword = "")
+	public List<SRM_ALBUMDLEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<RD_MACHINEAUTHEntity>();
+            var expression = ExtLinq.True<SRM_ALBUMDLEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class RD_MACHINEAUTHApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<RD_MACHINEAUTHEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<SRM_ALBUMDLEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<RD_MACHINEAUTHEntity>();
+            var expression = ExtLinq.True<SRM_ALBUMDLEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class RD_MACHINEAUTHApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public RD_MACHINEAUTHEntity GetForm(string keyValue)
+        public SRM_ALBUMDLEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class RD_MACHINEAUTHApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(RD_MACHINEAUTHEntity tableEntity, string keyValue)
+        public void SubmitForm(SRM_ALBUMDLEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

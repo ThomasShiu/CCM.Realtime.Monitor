@@ -24,6 +24,7 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private PO_PUBLIC_OBJECTApp tableApp = new PO_PUBLIC_OBJECTApp();
         private CcmServices cs = new CcmServices();
 
+        #region 取得公共物件
         // 公共物件
         [HttpGet]
         [HandlerAjaxOnly]
@@ -32,7 +33,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             var data = tableApp.GetList(keyword);
             return Content(data.ToJson());
         }
+        #endregion
 
+        #region 取得公共物件 by SID
         // 公共物件 by SID
         [HttpGet]
         [HandlerAjaxOnly]
@@ -41,7 +44,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             var data = tableApp.GetListSID(keyword);
             return Content(data.ToJson());
         }
+        #endregion
 
+        #region 取得警衛名單
         // 警衛名單
         [HttpGet]
         [HandlerAjaxOnly]
@@ -54,6 +59,17 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             //var data = tableApp.GetList(keyword);
             return Content(result);
         }
+        #endregion
+
+        #region 取得最近里程
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetLastMileage(string keyValue)
+        {
+            var data = cs.GetCarMile(keyValue);
+            return Content(data);
+        }
+        #endregion
     }
 
 

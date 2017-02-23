@@ -68,6 +68,31 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         }
         #endregion
 
+        #region 批次送簽
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult SendSignBatch(string overtnoList )
+        {
+            string message = "";
+            string[] idslist = CommonCCm.DelLastComma(overtnoList).Split(',');
+            foreach (var item in idslist)
+            {
+                var data = cs.GenSign(item);
+                if (data == "success")
+                {
+                    message += "單號:"+item+"送簽成功。</br>";
+                }
+                else
+                {
+                    message += "單號:" + item + "送簽失敗。</br>";
+                }
+            }
+
+            return Success(message);
+            //return Content(data.ToJson());
+        }
+        #endregion
+
         #region 撤簽
         [HttpGet]
         [HandlerAjaxOnly]
@@ -86,7 +111,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         }
         #endregion
 
-        #region 簽核
+        #region 核準
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult ConfirmSign(string signids,string reply="")

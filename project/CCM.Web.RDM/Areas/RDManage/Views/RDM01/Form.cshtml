@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Form";
+    ViewBag.Title = "Form-修改機台認證資料";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
@@ -19,20 +19,21 @@
         }
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
+        // 機台編號
+        $("#Machine_Id").bindSelect({
+            url: "/RDManage/RDM00/GetSrvProd",
+            id: "M_ITEM_NO",
+            text: "ITEM_DESCRIPT"
+        });
+
+        // 客戶
+        $("#CS_NO").bindSelect({
+            url: "/RDManage/RDM00/GetCustList",
+            id: "CS_NO",
+            text: "SHORT_NM"
         });
     }
     function submitForm() {
-        var FileUploadPath = $('input[name=FileUpload1]').val();
-        var UploadPath = $('input[name=UploadPath]').val();
-        if (UploadPath == '') {
-            msg = "請先上傳 DLL 檔!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "error");
-            }, 500);
-            return;
-        }
 
         if (!$('#form1').formValid()) {
             return false;
@@ -47,178 +48,67 @@
 
     }
 
-    function UploadFile() {
-        // Checking whether FormData is available in browser
-        if (window.FormData !== undefined) {
+    $(document).ready(function () {
+        $('#CS_NO').change(function () {
+            var short_nm = $(this).children('option:selected').text();
 
-            var fileUpload = $("#FileUpload1").get(0);
-            var files = fileUpload.files;
-            //alert(fileUpload);
-            // Create FormData object
-            var fileData = new FormData();
+            $('#SHORT_NM').val(short_nm);
+        });
 
-            // Looping over all files and add it to FormData object
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-
-            // Adding one more key to FormData object
-            fileData.append('username', 'Manas');
-            alert(fileData);
-
-            $.ajax({
-                url: '/RDManage/RDM01/UploadFiles',
-                type: "POST",
-                contentType: false, // Not to set any content header
-                processData: false, // Not to process data
-                data: fileData,
-                success: function (data) {
-                    //var res = JSON.parse(data.xhr.responseText);
-                    var res = data;
-                    if (res.Result) {
-                        msg = "已成功上傳" + res.Count + "個檔案！";
-                        window.setTimeout(function () {
-                            $.modalMsg(msg, "success");
-                        }, 500);
-
-                    }
-                    else {
-                        msg = "上傳失敗，原因：" + res.Message;
-                        window.setTimeout(function () {
-                            $.modalMsg(msg, "error");
-                        }, 500);
-                    }
-                    //alert(res.FileUrl);
-                    //更新圖片欄位
-                    //$('#PhotoUrl').val(data[0].value);
-                    $('input[name=UploadPath]').val(res.FileUrl);
-                    var UploadPath = $('input[name=UploadPath]').val();
-
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        } else {
-            alert("FormData is not supported.");
-        }
-    }
+    });
 </script>
 
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
+    <input id="Enable" name="Enable" type="hidden" value="" />
+    <input id="Version" name="Version" type="hidden" value="" />
+    
+
+    <input id="UploadPath" name="UploadPath" type="hidden" value="" />
+    <input id="oldFileName" name="oldFileName" type="hidden" value="" />
+    <input id="newFileName" name="newFileName" type="hidden" value="" />
+    <input id="DownloadPath" name="DownloadPath" type="hidden" value="" />
+    <input id="DownloadPath2" name="DownloadPath2" type="hidden" value="" />
+
+    <input id="CPU_SN" name="CPU_SN" type="hidden" value="" />
+    <input id="HD_SN" name="HD_SN" type="hidden" value="" />
+    <input id="HD_Fireware" name="HD_Fireware" type="hidden" value="" />
+    <input id="HD_Moduleno" name="HD_Moduleno" type="hidden" value="" />
+
+    <input id="OrganizeId" name="OrganizeId" type="hidden" value="" />
+    <input id="CreatorTime" name="CreatorTime" type="hidden" value="" />
+    <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
+    <input id="LastModifyTime" name="LastModifyTime" type="hidden" value="" />
+    <input id="LastModifyUserId" name="LastModifyUserId" type="hidden" value="" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
+                <th class="formTitle">機台編號</th>
+                <td class="formValue" colspan="3">
+                    <select id="Machine_Id" name="Machine_Id" class="form-control required" disabled="disabled">
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th class="formTitle">客戶</th>
                 <td class="formValue">
-                    <input id="Customer" name="Customer" type="text" class="form-control required"  />
+                    <select id="CS_NO" name="CS_NO" class="form-control required" >
+                        <option></option>
+                    </select>
+                  
                 </td>
-            </tr>
+                <td class="formValue" colspan="2">
+                    <input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" disabled="disabled"/>
+                </td>
+            </tr>  
+            
             <tr>
                 <th class="formTitle">備註</th>
-                <td class="formValue">
-                    <input id="Remark" name="Remark" type="text" class="form-control required"  />
+                <td class="formValue" colspan="3">
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>
-            <tr>
-                <th class="formTitle">機台編號</th>
-                <td class="formValue">
-                    <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required"  />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">檔案</th>
-                <td class="formValue" >
-                    <input id="UploadPath" name="UploadPath" type="hidden" value="" />
-                    <input id="oldFileName" name="oldFileName" type="hidden" value="" />
-                    <div>
-                        <label class="btn btn-default btn-file">
-                            <input type="file" id="FileUpload1" />
-                            <input type="button" id="btnUpload" value="上傳檔案" />
-                        </label>
-                    </div>
-                    <div>
-                        <label id="filepath" name="filepath"></label>
-                    </div>
-                    @*<div>
-                        <label class="btn btn-default btn-file">
-                            <input id="FileUpload1" type="file" hidden>
-                            <input type="button" id="btnUpload" value="Upload Files" />
-                        </label>
-                    </div>*@
-                </td>
-            </tr>
-      
+
         </table>
     </div>
 </form>
-
-@section scripts
-{
-
-    <!--加入一些自己手寫的簡單jQuery語法-->
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $('#btnUpload').click(function () {
-
-            // Checking whether FormData is available in browser
-            if (window.FormData !== undefined) {
-
-                var fileUpload = $("#FileUpload1").get(0);
-                var files = fileUpload.files;
-
-                // Create FormData object
-                var fileData = new FormData();
-
-                // Looping over all files and add it to FormData object
-                for (var i = 0; i < files.length; i++) {
-                    fileData.append(files[i].name, files[i]);
-                }
-
-                // Adding one more key to FormData object
-                fileData.append('username', 'Manas');
-
-                $.ajax({
-                    url: '/RDManage/RDM01/UploadFiles',
-                    type: "POST",
-                    contentType: false, // Not to set any content header
-                    processData: false, // Not to process data
-                    data: fileData,
-                    success: function (data) {
-                        //var res = JSON.parse(data.xhr.responseText);
-                        var res = data;
-                        if (res.Result) {
-                            msg = "已成功上傳" + res.Count + "個檔案！";
-                            window.setTimeout(function () {
-                                $.modalMsg(msg, "success");
-                            }, 500);
-
-                        }
-                        else {
-                            msg = "上傳失敗，原因：" + res.Message;
-                            window.setTimeout(function () {
-                                $.modalMsg(msg, "error");
-                            }, 500);
-                        }
-                        //alert(res.FileUrl);
-                        //更新圖片欄位
-                        //$('#PhotoUrl').val(data[0].value);
-                        $('input[name=UploadPath]').val(res.newFileName);
-                        $('input[name=oldFileName]').val(res.oldFileName);
-                        $("#filepath").html(res.newFileName);
-                        var UploadPath = $('input[name=UploadPath]').val();
-                        //var filepath = $("#filepath").html();
-                        //filepath = res.FileUrl;
-                    },
-                    error: function (err) {
-                        alert(err.statusText);
-                    }
-                });
-            } else {
-                alert("FormData is not supported.");
-            }
-        });
-    });
-    </script>
-}

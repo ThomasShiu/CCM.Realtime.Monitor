@@ -18,6 +18,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
+using System.Web.UI.WebControls;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.Web;
 
 namespace CCM.Application
 {
@@ -58,7 +62,8 @@ namespace CCM.Application
         public string chkPubObjExistBooking(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity)
         {
             string SQL = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
-                         " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID AND ((@StartTime  BETWEEN  A.BookingStartTime AND A.BookingEndTime ) OR (@EndTime  BETWEEN A.BookingStartTime AND A.BookingEndTime))";
+                         " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID AND ((@StartTime  BETWEEN  A.BookingStartTime AND A.BookingEndTime ) OR (@EndTime  BETWEEN A.BookingStartTime AND A.BookingEndTime)) "+
+                         " AND A.Status = '鎖定' ";
             //string SQL2 = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
             //            " WHERE A.ObjectSID = B.SID  AND ObjectSID = '" + tableEntity.ObjectSID + "' AND (('" + tableEntity.BookingStartTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN  BookingStartTime AND BookingEndTime ) OR ('" + tableEntity.BookingEndTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN BookingStartTime AND BookingEndTime))";
             string v_message = "";
@@ -182,12 +187,18 @@ namespace CCM.Application
         #region 取得個人可建立加班部門
         public JArray getOvertDept()
         {
-            string v_sql = "SELECT EMPLYID, EMPLYNM, DEPID,dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM " +
-                          " FROM V_HR_EMPLYM " +
-                            "WHERE  DEPID IN ( " +
-                            "SELECT  EDPID  FROM EIP.dbo.WF_EMPADDEPT " +
-                            " WHERE EMPLYID = 'A960406' AND Enable = 'Y' " +
-                            ") ORDER BY 3,1 ";
+            var UserId = LoginInfo.UserCode; //A970701
+            var UserDep = LoginInfo.DeptId; // H00
+            string v_sql = " SELECT EMPLYID, EMPLYNM, DEPID,dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM " +
+                            " FROM V_HR_EMPLYM " +
+                            " WHERE EMPLYID <> '' AND C_STA = 'A' " +
+                            " AND (DEPID = '"+ UserDep + "' " +
+                            "   OR  DEPID IN( " +
+                            "   SELECT  DEPID " +
+                            "    FROM EIP.dbo.WF_EMPADDEPT " +
+                            "    WHERE EMPLYID = '"+ UserId + "' " +
+                            "    AND Enable = 1 " +
+                            " )) ORDER BY 3 ,1 ";
 
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
@@ -438,6 +449,50 @@ namespace CCM.Application
         }
         #endregion
 
+        #region  取得公務車最近里程
+        public string GetCarMile(string keyValue)
+        {
+
+            DateTime dt = DateTime.Now;
+            String v_sqlstr = " SELECT MAX(Mileage) AS Mileage FROM PO_PUBLIC_OBJECT_BOOKING WHERE ObjectSID = @ObjectSID ";
+            SqlConnection db = new SqlConnection(WebConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString);
+
+            SqlCommand cmd = new SqlCommand(v_sqlstr, db);
+
+            cmd.Parameters.Add("@ObjectSID", SqlDbType.VarChar, 50);
+            cmd.Parameters["@ObjectSID"].Value = keyValue;
+
+            try
+            {
+                db.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                if (dr.HasRows)
+                { // 休假日、例假日 有另外設定
+                    string vMileage = dr["Mileage"].ToString();
+                    return vMileage;
+                }else
+                {
+                    return "0";
+                }
+                //dt.Load(cmd.ExecuteReader());
+                //v_DEPT = dt.Rows[0]["DEPID"].ToString();
+
+                //cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                db.Close();
+            }
+
+            return "0";
+        }
+        #endregion
+
         #region 取得工作班別
         public bool GetSFT_NO(string queryJson)
         {
@@ -577,7 +632,6 @@ namespace CCM.Application
         #region 取得待簽核清單
         public JArray getWaitSignList(string keyword)
         {
-            var LoginInfo = OperatorProvider.Provider.GetCurrent();
             var UserId = LoginInfo.UserCode; //A970701
             var UserDep = LoginInfo.DeptId; // H00
 
@@ -1050,11 +1104,10 @@ namespace CCM.Application
         #region 取得公務車、會議室借用狀態
         public JArray getPubObjectList(string keyword)
         {
-            //var LoginInfo = OperatorProvider.Provider.GetCurrent();
             var UserId = LoginInfo.UserCode; //B050502
             var UserDep = LoginInfo.DeptId; // C00
 
-            var v_sql = "SELECT B.SID,B.ObjectType, B.ObjectNM,A.BookingStartTime, A.BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status ";
+            var v_sql = "SELECT B.SID,B.ObjectType, B.ObjectNM,CONVERT(VARCHAR(5),A.BookingStartTime,108) BookingStartTime, CONVERT(VARCHAR(5),A.BookingEndTime,108) BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status  ";
             v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
             v_sql += " WHERE  A.Status = '鎖定' AND B.Enable = 'Y' AND B.ObjectType = '" + keyword + "' AND  B.Enable = 'Y' ";
             v_sql += " AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ";
@@ -1078,6 +1131,8 @@ namespace CCM.Application
                              SID = p.Field<string>("SID"),
                              ObjectType = p.Field<string>("ObjectType"),
                              ObjectNM = p.Field<string>("ObjectNM"),
+                             BookingStartTime = p.Field<string>("BookingStartTime"),
+                             BookingEndTime = p.Field<string>("BookingEndTime"),
                              Status = p.Field<string>("Status")
                          };
 
@@ -1090,6 +1145,8 @@ namespace CCM.Application
                     {"SID",col.SID },
                     {"ObjectType",col.ObjectType },
                     {"ObjectNM",col.ObjectNM},
+                    {"BookingStartTime",col.BookingStartTime},
+                    {"BookingEndTime",col.BookingEndTime},
                     {"Status",col.Status }
                 };
                 MixArray.Add(colObject);
@@ -1152,7 +1209,6 @@ namespace CCM.Application
         #region 個人資訊
         public JArray getPersonalInfo(string keyword)
         {
-            var LoginInfo = OperatorProvider.Provider.GetCurrent();
             var UserId = LoginInfo.UserCode; //B050502
             var UserDep = LoginInfo.DeptId; // C00
 
@@ -1286,5 +1342,96 @@ namespace CCM.Application
 
         #endregion
 
+        #region 郵寄報表檔
+        public int ImgUploadResize(HttpPostedFileBase file,string directoryPath,string fileNewName)
+        {
+            string fileName = "";
+            string fileExtension = "";
+            string filePath = "", fileNewPath="";
+
+            int saveCnt = 0;
+
+            try
+            {
+                fileName = file.FileName;
+                fileExtension = Path.GetExtension(fileName);
+                fileNewPath = Path.Combine(directoryPath, fileNewName);
+                filePath = Path.Combine(directoryPath, fileName);
+                file.SaveAs(filePath);
+
+                System.Drawing.Image image = System.Drawing.Image.FromFile(filePath);
+                //必須使用絕對路徑
+                ImageFormat thisFormat = image.RawFormat;
+
+            
+                //取得影像的格式
+                int fixWidth = 0;
+                int fixHeight = 0;
+                //第一種縮圖用 
+                //int maxPx = Convert.ToInt16(ConfigurationManager.AppSettings["maxWidth"]);
+                int maxPx = Convert.ToInt16(Configs.GetValue("ImgSize")); // 縮圖
+                int maxThumbsPx = Convert.ToInt16(Configs.GetValue("ImgSizeThumbs"));  // 檢視縮圖
+
+                //宣告一個最大值，demo是把該值寫到web.config裡
+                if (image.Width > maxPx || image.Height > maxPx)
+                //如果圖片的寬大於最大值或高大於最大值就往下執行
+                {
+                    if (image.Width >= image.Height)
+                    //圖片的寬大於圖片的高，橫式照片
+                    {
+                        fixWidth = maxPx;
+                        //設定修改後的圖寬
+                        fixHeight = Convert.ToInt32((Convert.ToDouble(fixWidth) / Convert.ToDouble(image.Width)) * Convert.ToDouble(image.Height));
+                        //設定修改後的圖高
+                    }
+                    else
+                    {  // 直式照片
+                        fixHeight = maxPx;
+                        //設定修改後的圖高
+                        fixWidth = Convert.ToInt32((Convert.ToDouble(fixHeight) / Convert.ToDouble(image.Height)) * Convert.ToDouble(image.Width));
+                        //設定修改後的圖寬
+                    }
+
+                }
+                else
+                //圖片沒有超過設定值，不執行縮圖
+                {
+                    fixHeight = image.Height;
+                    fixWidth = image.Width;
+                }
+                Bitmap imageOutput = new Bitmap(image, fixWidth, fixHeight);
+                if (fixWidth < fixHeight)
+                {
+                    RotateFlipType rft = RotateFlipType.RotateNoneFlipNone;
+                    imageOutput.RotateFlip(rft);
+                }
+                //輸出一個新圖(就是修改過的圖)
+                string fixSaveName = fileNewName;
+                //副檔名不應該這樣給，但因為此範例沒有讀取檔案的部份所以demo就直接給啦
+
+                imageOutput.Save(string.Concat(directoryPath, fixSaveName), thisFormat);
+                //將修改過的圖存於設定的位子
+                imageOutput.Dispose();
+                //釋放記憶體
+                image.Dispose();
+                //釋放掉圖檔 
+                System.IO.File.Delete(filePath);
+                saveCnt = 1;
+            }
+            catch (OutOfMemoryException ex)
+            {
+
+            }
+            catch (FileNotFoundException ex) { }
+            catch (AggregateException ex) { }
+            catch (Exception ex)
+            {
+                saveCnt = 0;
+                throw ex;
+            }
+
+            return saveCnt;
+        }
+        #endregion
     }
 }

@@ -45,14 +45,8 @@ namespace CCM.Application
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEREASON.Contains(keyword));
             }
-            //< a class="btn btn-default active" data-value="SN">簽核中</a>
-            //            <a class="btn btn-default" data-value="OP">未送簽</a>
-            //            <a class="btn btn-default" data-value="CL">已退回</a>
-            //            <a class="btn btn-default" data-value="NL">已作廢</a>
-            //            <a class="btn btn-default" data-value="PB">已撤簽</a>
-            //            <a class="btn btn-default" data-value="CF">已核准</a>
-            //            <a class="btn btn-default" data-value="ALL">全部</a>
-            // 日期條件
+
+            // 簽核狀態
             if (!queryParam["statusType"].IsEmpty())
             {
                 string statusType = queryParam["statusType"].ToString();

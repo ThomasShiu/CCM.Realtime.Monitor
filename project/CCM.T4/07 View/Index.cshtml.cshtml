@@ -9,15 +9,16 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/RDManage/RDM01/GetGridJson",
+            url: "/SaleService/SRM02/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "Subject", name: "Subject", width: 80, align: 'left' },
-				                     { label: "Machine_Id", name: "Machine_Id", width: 80, align: 'left' },
-				                     { label: "UploadPath", name: "UploadPath", width: 80, align: 'left' },
-				                     { label: "DownloadPath", name: "DownloadPath", width: 80, align: 'left' },
+				                     { label: "parentId", name: "parentId", width: 80, align: 'left' },
+				                     { label: "FileName", name: "FileName", width: 80, align: 'left' },
+				                     { label: "Size", name: "Size", width: 80, align: 'left' },
+				                     { label: "Descript", name: "Descript", width: 80, align: 'left' },
+				                     { label: "ImgPath", name: "ImgPath", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -39,7 +40,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/RDManage/RDM01/Form",
+            url: "/SaleService/SRM02/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -52,7 +53,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/RDManage/RDM01/Form?keyValue=" + keyValue,
+            url: "/SaleService/SRM02/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -62,7 +63,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/RDManage/RDM01/DeleteForm",
+            url: "/SaleService/SRM02/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -74,7 +75,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/RDManage/RDM01/Details?keyValue=" + keyValue,
+            url: "/SaleService/SRM02/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

@@ -18,6 +18,17 @@
                 $("#F_UserPassword").val("******");
             }
         });
+        $.ajax({
+            url: "/SystemManage/User/GetForm2Json",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form2").formSerialize(data);
+                $("#form2").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form2").find('div.ckbox label').attr('for', '');
+            }
+        });
     });
     function initControl() {
         $("#F_Gender").bindSelect()
@@ -40,132 +51,178 @@
             text: "F_FullName"
         });
     }
+
+    $(function () {
+        $('.wrapper').height($(window).height() - 11);
+    })
+
 </script>
-<form id="form1">
-    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#">基本資訊</a></li>
-            <li><a href="javascript:void()">擴展資訊</a></li>
-            <li><a href="javascript:void()">登錄日誌</a></li>
-            <li><a href="javascript:void()">操作日誌</a></li>
-        </ul>
-        <div style="padding-top: 20px; margin-right: 30px;">
-            <table class="form">
-                <tr>
-                    <th class="formTitle">帳戶</th>
-                    <td class="formValue">
-                        <input id="F_Account" name="F_Account" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">密碼</th>
-                    <td class="formValue">
-                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">公司</th>
-                    <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control"></select>
-                    </td>
-                    <th class="formTitle">部門</th>
-                    <td class="formValue">
-                        <select id="F_DepartmentId" name="F_DepartmentId" class="form-control">
-                            <option value="">==請選擇==</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">角色</th>
-                    <td class="formValue">
-                        <select id="F_RoleId" name="F_RoleId" class="form-control">
-                            <option value="">==請選擇==</option>
-                        </select>
-                    </td>
-                    <th class="formTitle">職位</th>
-                    <td class="formValue">
-                        <select id="F_DutyId" name="F_DutyId" class="form-control">
-                            <option value="">==請選擇==</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">姓名</th>
-                    <td class="formValue">
-                        <input id="F_RealName" name="F_RealName" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">性別</th>
-                    <td class="formValue">
-                        <select id="F_Gender" name="F_Gender" class="form-control">
-                            <option value="true">男</option>
-                            <option value="false">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">手機</th>
-                    <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">生日</th>
-                    <td class="formValue">
-                        <input id="F_Birthday" name="F_Birthday" type="text" class="form-control" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">微信</th>
-                    <td class="formValue">
-                        <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">郵箱</th>
-                    <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">類型</th>
-                    <td class="formValue">
-                        <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
-                            <option value="false">普通用戶</option>
-                            <option value="true">系統管理員</option>
-                        </select>
-                    </td>
-                    <th class="formTitle">允許登錄</th>
-                    <td class="formValue">
-                        <select id="F_EnabledMark" name="F_EnabledMark" class="form-control">
-                            <option value="true">是</option>
-                            <option value="false">否</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">
-                        備註
-                    </th>
-                    <td class="formValue" colspan="3">
-                        <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">創建人員</th>
-                    <td class="formValue">
-                        <input id="F_CreatorUserId" name="F_CreatorUserId" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">創建時間</th>
-                    <td class="formValue">
-                        <input id="F_CreatorTime" name="F_CreatorTime" type="text" class="form-control" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">修改人員</th>
-                    <td class="formValue">
-                        <input id="F_LastModifyUserId" name="F_LastModifyUserId" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">修改時間</th>
-                    <td class="formValue">
-                        <input id="F_LastModifyTime" name="F_LastModifyTime" type="text" class="form-control" />
-                    </td>
-                </tr>
-            </table>
+<div class="wrapper">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#a" data-toggle="tab">基本資訊</a></li>
+        <li><a href="#b" data-toggle="tab">擴展資訊</a></li>
+        <li><a href="#c" data-toggle="tab">登錄日誌</a></li>
+        <li><a href="#d" data-toggle="tab">操作日誌</a></li>
+    </ul>
+    <div class="tab-content" style="padding-top: 5px;">
+        <div id="a" class="tab-pane active" style="padding: 5px;">
+            <div style="padding-top: 5px; margin-right: 5px;">
+                <form id="form1">
+                    <table class="form">
+                        <tr>
+                            <th class="formTitle">帳戶</th>
+                            <td class="formValue">
+                                <input id="F_Account" name="F_Account" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">密碼</th>
+                            <td class="formValue">
+                                <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">公司</th>
+                            <td class="formValue">
+                                <select id="F_OrganizeId" name="F_OrganizeId" class="form-control"></select>
+                            </td>
+                            <th class="formTitle">部門</th>
+                            <td class="formValue">
+                                <select id="F_DepartmentId" name="F_DepartmentId" class="form-control">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">角色</th>
+                            <td class="formValue">
+                                <select id="F_RoleId" name="F_RoleId" class="form-control">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                            <th class="formTitle">職位</th>
+                            <td class="formValue">
+                                <select id="F_DutyId" name="F_DutyId" class="form-control">
+                                    <option value="">==請選擇==</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">姓名</th>
+                            <td class="formValue">
+                                <input id="F_RealName" name="F_RealName" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">性別</th>
+                            <td class="formValue">
+                                <select id="F_Gender" name="F_Gender" class="form-control">
+                                    <option value="true">男</option>
+                                    <option value="false">女</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">手機</th>
+                            <td class="formValue">
+                                <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">生日</th>
+                            <td class="formValue">
+                                <input id="F_Birthday" name="F_Birthday" type="text" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">微信</th>
+                            <td class="formValue">
+                                <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">郵箱</th>
+                            <td class="formValue">
+                                <input id="F_Email" name="F_Email" type="text" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">類型</th>
+                            <td class="formValue">
+                                <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
+                                    <option value="false">普通用戶</option>
+                                    <option value="true">系統管理員</option>
+                                </select>
+                            </td>
+                            <th class="formTitle">允許登錄</th>
+                            <td class="formValue">
+                                <select id="F_EnabledMark" name="F_EnabledMark" class="form-control">
+                                    <option value="true">是</option>
+                                    <option value="false">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle" valign="top" style="padding-top: 5px;">
+                                備註
+                            </th>
+                            <td class="formValue" colspan="3">
+                                <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">創建人員</th>
+                            <td class="formValue">
+                                <input id="F_CreatorUserId" name="F_CreatorUserId" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">創建時間</th>
+                            <td class="formValue">
+                                <input id="F_CreatorTime" name="F_CreatorTime" type="text" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">修改人員</th>
+                            <td class="formValue">
+                                <input id="F_LastModifyUserId" name="F_LastModifyUserId" type="text" class="form-control" />
+                            </td>
+                            <th class="formTitle">修改時間</th>
+                            <td class="formValue">
+                                <input id="F_LastModifyTime" name="F_LastModifyTime" type="text" class="form-control" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="b" class="tab-pane" style="padding: 5px;">
+            <form id="form2">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">登入次數</th>
+                        <td class="formValue">
+                            <input id="F_LogOnCount" name="F_LogOnCount" type="text" class="form-control" />
+                        </td> 
+                    </tr>
+                   <tr>
+                       <th class="formTitle">首次登入</th>
+                       <td class="formValue">
+                           <input id="F_FirstVisitTime" name="F_FirstVisitTime" type="text" class="form-control" />
+                       </td>
+                   </tr>
+                    <tr>
+                        <th class="formTitle">上次登入</th>
+                        <td class="formValue">
+                            <input id="F_PreviousVisitTime" name="F_FirstVisitTime" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">最後登入</th>
+                        <td class="formValue">
+                            <input id="F_LastVisitTime" name="F_FirstVisitTime" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="c" class="tab-pane" style="padding: 5px;">
+            <div>cccc</div>
+        </div>
+        <div id="d" class="tab-pane" style="padding: 5px;">
+            <div>dddd</div>
         </div>
     </div>
-</form>
+</div>
+
 

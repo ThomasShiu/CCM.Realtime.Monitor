@@ -175,7 +175,7 @@ namespace CCM.Web.SRM.Controllers
         private object GetMenuList()
         {
             var roleId = OperatorProvider.Provider.GetCurrent().RoleId;
-            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId).Where(t => t.F_Application == "EIP").ToList(), "0");
+            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId).Where(t => t.F_Application == "SRM").ToList(), "0");
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
         {

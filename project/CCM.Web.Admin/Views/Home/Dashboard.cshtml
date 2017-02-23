@@ -7,12 +7,20 @@
     <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <link href="~/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/js/bootstrap/bootstrap.js"></script>
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <script src="~/Content/js/charts/Chart.js"></script>
     <script>
         $(function () {
+            GenVendor();
+            GenBulletin();
+            GetCarList();
+            GetRoomList();
+            GetLeaveEmpList();
+
             GetSalaryChart();
             GetLeaveChart();
+           
         });
         function GetSalaryChart() {
             var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
@@ -86,6 +94,143 @@
             $("#c_value").html(c_value + "小時");
             $("#d_value").html(d_value + "小時");
         }
+
+        // 特約廠商
+        function GenVendor() {
+            $.ajax({
+                    type: "GET",
+                    url: "/Home/GetVendor",
+                    data: {},
+                    dataType: "json",
+                    cache :false,
+                    async: false,
+                    success: function (data) {
+                        var trHTML = '';
+                        $.each(data.Vendors, function (i, item) {
+                            trHTML += '<li><a class="menuItem" href="/OrderManage/ORD01/IndexPub" target="_blank">【廠商】' + data.Vendors[i].NAME + '</a><span class="time">' + data.Vendors[i].PHONE + '</span></li>';
+                        });
+                        $('#vendorlist').append(trHTML);
+                    },
+
+                    error: function (msg) {
+                        //alert(msg.responseText);
+                        window.setTimeout(function () {
+                            $.modalMsg(msg.responseText, "warning");
+                        }, 500);
+                    }
+                });
+        }
+
+        // 公佈欄
+        function GenBulletin() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetBulletin",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.Bulletin, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="/PublicObject/PUB05/IndexPub" target="_blank">【公告】' + data.Bulletin[i].BUSubject + '</a><span class="time">' + data.Bulletin[i].Showdate + '</span></li>';
+                    });
+                    $('#bulletinlist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+        // 公務車借用狀態
+        function GetCarList() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetCarList",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.CarList, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub" target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time">' + data.CarList[i].Status + '</span></li>';
+                    });
+                    $('#carlist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+        // 會議室借用狀態
+        function GetRoomList() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetRoomList",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.RoomList, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="/PublicObject/PUB03/IndexPub" target="_blank">【會議室】' + data.RoomList[i].ObjectNM + '</a><span class="time">' + data.RoomList[i].Status + '</span></li>';
+                    });
+                    $('#roomlist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+
+        // 差勤人員
+        function GetLeaveEmpList() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetLeaveEmpList",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.LeaveEmpList, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="#" >' + data.LeaveEmpList[i].EMPLYID + ' ' + data.LeaveEmpList[i].EMPLYNM + '-' + data.LeaveEmpList[i].FRL_NM + '</a><span class="time">' +
+                            data.LeaveEmpList[i].BL_DT + ' ' + data.LeaveEmpList[i].BTIME + '~' + data.LeaveEmpList[i].ETIME + '</span></li>';
+                    });
+                    $('#leavemplist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+
+        function btn_Vendor() {
+            var keyValue = $("#gridList").jqGridRowValue().SID;
+            $.modalOpen({
+                id: "Details",
+                title: "查看資料",
+                url: "/PublicObject/PUB04/Details?keyValue=" + keyValue,
+                width: "640px",
+                height: "400px",
+                btn: null,
+            });
+        }
     </script>
 </head>
 <body>
@@ -95,7 +240,8 @@
                 <div class="panel-heading">
                     <i class="fa fa-line-chart fa-lg" style="padding-right: 5px;"></i>關鍵資料即時指標
                     <div style="float: right; position: relative; top: -4px; right: 0px;">
-                      @* <iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>*@
+                        <iframe name="weather_inc" src="" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                        @*<iframe name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>*@
                     </div>
                 </div>
                 <div class="panel-body">
@@ -104,7 +250,7 @@
                             <h2 class="m-top-none">8</h2>
                             <h5>加班申請</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-user fa-3x"></i>
+                                <i class="fa fa-user fa-2x"></i>
                             </div>
                         </div>
                     </div>
@@ -113,7 +259,7 @@
                             <h2 class="m-top-none">12</h2>
                             <h5>公務車登記</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-car fa-3x"></i>
+                                <i class="fa fa-car fa-2x"></i>
                             </div>
                         </div>
                     </div>
@@ -122,7 +268,7 @@
                             <h2 class="m-top-none">2</h2>
                             <h5>會議室登記</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-commenting fa-3x"></i>
+                                <i class="fa fa-commenting fa-2x"></i>
                             </div>
                         </div>
                     </div>
@@ -131,16 +277,16 @@
                             <h2 class="m-top-none">6</h2>
                             <h5>對公待簽收任務</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-gavel fa-3x"></i>
+                                <i class="fa fa-gavel fa-2x"></i>
                             </div>
                         </div>
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #65cea7; margin-right: 0px;">
-                            <h2 class="m-top-none"></h2>
-                            <h5>網站地圖</h5>
+                            <h2 class="m-top-none">1234567</h2>
+                            <h5>總體營收</h5>
                             <div class="stat-icon">
-                                <i class="fa fa-sitemap fa-3x"></i>
+                                <i class="fa fa-sitemap fa-2x"></i>
                             </div>
                         </div>
                     </div>
@@ -148,8 +294,114 @@
             </div>
         </div>
         <div class="rows" style="margin-bottom: 1%; overflow: hidden;">
-            <div style="float: left; width: 69%;">
-                <div style="height: 350px; border: 1px solid #e6e6e6; background-color: #fff;">
+            <div style="float: left; width: 44%; margin-right: 1%;">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#bulltin-tab" data-toggle="tab"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</a>
+                    </li>
+                    <li >
+                        <a href="#store-tab" data-toggle="tab"><i class="fa fa-shopping-cart  fa-lg" style="padding-right: 5px;"></i>特約廠商</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="bulltin-tab">
+                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</div>*@
+                                <div class="panel-body">
+                                    <ul id="bulletinlist"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="store-tab">
+                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>特約廠商</div>*@
+                                <div class="panel-body">
+                                    <ul id="vendorlist"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="float: left; width: 34%; margin-right: 1%;">
+
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#car-tab" data-toggle="tab"><i class="fa fa-car fa-lg" style="padding-right: 5px;"></i>公務車 </a>
+                    </li>
+                    <li>
+                        <a href="#room-tab" data-toggle="tab"><i class="fa fa-weixin fa-lg" style="padding-right: 5px;"></i>會議室</a>
+                    </li>
+                    <li>
+                        <a href="#emp-tab" data-toggle="tab"><i class="fa  fa-plane fa-lg" style="padding-right: 5px;"></i>差勤人員</a>
+                    </li>
+
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="car-tab">
+                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa fa-car fa-lg" style="padding-right: 5px;"></i>公務車</div>*@
+                                <div class="panel-body">
+                                    <ul id="carlist"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="room-tab">
+                        <div style="height: 320px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa fa-weixin fa-lg" style="padding-right: 5px;"></i>會議室</div>*@
+                                <div class="panel-body">
+                                    <ul id="roomlist"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="emp-tab">
+                        <div style="height: 320px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa  fa-plane fa-lg" style="padding-right: 5px;"></i>差勤人員</div>*@
+                                <div class="panel-body">
+                                    <ul id="leavemplist">
+                                        @*<li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
+                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="float: right; width: 20%;">
+                <div style="height: 360px; border: 1px solid #e6e6e6; background-color: #fff;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-barcode fa-lg" style="padding-right: 5px;"></i>加入精湛、真湛 LINE群組</div>
+                        <div class="panel-body">
+                            <img src="~/Content/img/ccm_line.jpg" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div style="float: left;width: 30%;">
+                <div style="height: 370px; border: 1px solid #e6e6e6; background-color: #fff;">
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fccm3s%2F%3Frc%3Dp&tabs=timeline&width=600&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=343269692354910" width="500" height="350" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                </div>
+            </div>*@
+            
+        </div>
+        <div class="rows" style="overflow: hidden;">
+            <div style="float: left; width: 69%;margin-right: 1%;">
+                <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>考勤統計
@@ -159,17 +411,17 @@
                             </div>
                         </div>
                         <div class="panel-body" style="padding-bottom: 0px;">
-                            <canvas id="salarychart" style="height: 285px; width: 100%; padding-right: 10px;"></canvas>
+                            <canvas id="salarychart" style="height: 255px; width: 100%; padding-right: 10px;"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
             <div style="float: right; width: 30%;">
-                <div style="height: 350px; border: 1px solid #e6e6e6; background-color: #fff;">
+                <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-pie-chart fa-lg" style="padding-right: 5px;"></i>請假統計</div>
                         <div class="panel-body" style="padding-top: 20px;">
-                            <canvas id="leavechart" style="height: 160px; width: 100%;"></canvas>
+                            <canvas id="leavechart" style="height: 120px; width: 100%;"></canvas>
                             <div style="text-align: center; padding-top: 20px;">
                                 <span><i class="fa fa-square" style="color: #F7464A; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>事假</span>
                                 <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #46BFBD; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>病假</span>
@@ -198,58 +450,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="rows" style="overflow: hidden;">
-            <div style="float: left; width: 34%; margin-right: 1%;">
-                <div style="height: 265px; border: 1px solid #e6e6e6; background-color: #fff;">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>特約廠商</div>
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="#">【通知】藍屋日本料理-台南南紡店</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】多那之-台南民族店</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】月見溪行館</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】王品餐飲股份有限公司-西提牛排台南仁德中山店</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】王品餐飲股份有限公司-品田台南安平家樂福店</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】王品餐飲股份有限公司-西提安平家樂福店</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】九倷早午餐</a><span class="time">2016-07-21</span></li>
-                                <li><a href="#">【通知】好樂迪KTV</a><span class="time">2016-07-21</span></li>
-                            </ul>
-                        </div>
-                      
-                    </div>
-                </div>
-            </div>
-            <div style="float: left; width: 34%; margin-right: 1%;">
-                <div style="height: 265px; border: 1px solid #e6e6e6; background-color: #fff;">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</div>
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="#">【公告】11/14(一)晨會名單</a><span class="time">2016-11-08 </span></li>
-                                <li><a href="#">【公告】2016/1~10福利金收支明細表</a><span class="time">2016-07-20</span></li>
-                                <li><a href="#">【公告】2016/1~10慈善基金收支明細表</a><span class="time">2016-07-19</span></li>
-                                <li><a href="#">【公告】人事異動公告</a><span class="time">2016-07-17</span></li>
-                                <li><a href="#">【公告】11月生日名單 </a><span class="time">2016-07-17</span></li>
-                                <li><a href="#">【公告】新制定-性騷擾防治措施、申訴及懲戒辦法</a><span class="time">2016-07-13</span></li>
-                                <li><a href="#">【公告】AED(自動體外心臟去顫器)裝設位置</a><span class="time">2016-07-12</span></li>
-                                <li><a href="#">【公告】郭綜合醫院-特約服務</a><span class="time">2016-07-12</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="float: right; width: 30%;">
-                <div style="height: 265px; border: 1px solid #e6e6e6; background-color: #fff;">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-barcode fa-lg" style="padding-right: 5px;"></i>加入精湛、真湛 LINE群組</div>
-                        <div class="panel-body">
-                            <img src="~/Content/img/ccm_line.jpg" />
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
     <style>
@@ -270,17 +471,20 @@
         .dashboard-stats {
             float: left;
             width: 20%;
+            
         }
 
         .dashboard-stats-item {
             position: relative;
             overflow: hidden;
             color: #fff;
-            cursor: pointer;
-            height: 105px;
+            /*cursor: pointer;*/
+            /*height: 105px;*/
+            height: 75px;
             margin-right: 25px;
             margin-bottom: 10px;
             padding: 20px 20px;
+            border-radius: 4px;
         }
 
             .dashboard-stats-item .m-top-none {
@@ -289,6 +493,12 @@
 
             .dashboard-stats-item h2 {
                 font-size: 35px;
+                font-family: inherit;
+                line-height: 0.6;
+                font-weight: 500;
+            }
+            .dashboard-stats-item h3 {
+                font-size: 21px;
                 font-family: inherit;
                 line-height: 1.1;
                 font-weight: 500;
@@ -338,6 +548,7 @@
             .panel-default > .panel-body {
                 padding: 10px;
                 padding-bottom: 0px;
+                
             }
 
                 .panel-default > .panel-body ul {

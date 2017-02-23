@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: RD_MACHINEAUTH
-	public class RD_MACHINEAUTHRepository : RepositoryBase<RD_MACHINEAUTHEntity>, IRD_MACHINEAUTHRepository
+	//mapping table name: SRM_ALBUMDL
+	public class SRM_ALBUMDLRepository : RepositoryBase<SRM_ALBUMDLEntity>, ISRM_ALBUMDLRepository
     {
     }
 }

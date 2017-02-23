@@ -17,8 +17,12 @@
                     $("#form1").formSerialize(data);
                     // 顯示公共物件資料
                     showPublicObject($('#ObjectSID').children('option:selected').val());
+                    
                 }
             });
+
+            // 取得最後里程
+            getMileageLast();
         }
     });
     function initControl() {
@@ -48,6 +52,9 @@
             id: "USR_NO",
             text: "USR_NM"
         });
+
+       
+
  
     }
     function submitForm() {
@@ -82,6 +89,20 @@
                 $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
                 $("#ObjectNM").text(data[0].ObjectNM);
                 $("#ObjectDescr").text(data[0].Description);
+            }
+        });
+    }
+
+    function getMileageLast() {
+        var ObjectSID = $('#ObjectSID').val();
+        // 顯示公共物件資料
+        $.ajax({
+            url: "/PublicObject/PUB00/GetLastMileage",
+            data: { keyValue: ObjectSID },
+            dataType: "text",
+            async: false,
+            success: function (data) {
+                $('#MileageLast').val(data);
             }
         });
     }
@@ -170,31 +191,31 @@
                 <th class="formTitle">出廠時間</th>
                 <td class="formValue">
                     @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"
+                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control input-lg input-wdatepicker required"
                            onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />
                 </td>
                 <th class="formTitle">回廠時間</th>
                 <td class="formValue">
                     @*<input id="BackTime" name="BackTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control  input-wdatepickerrequired"
+                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control  input-lg input-wdatepickerrequired"
                            onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">出廠里程</th>
                 <td class="formValue">
-                    <input id="MileageLast" name="MileageLast" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()"/>
+                    <input id="MileageLast" name="MileageLast" type="text" class="form-control input-lg required" data-bind="value:replyNumber" onchange="calmileage()"/>
                 </td>
                 <th class="formTitle">回廠里程</th>
                 <td class="formValue">
-                    <input id="Mileage" name="Mileage" type="text" class="form-control required" data-bind="value:replyNumber" onchange="calmileage()"/>
+                    <input id="Mileage" name="Mileage" type="text" class="form-control input-lg required" data-bind="value:replyNumber" onchange="calmileage()"/>
                 </td>
             </tr>
 
             <tr>
                 <th class="formTitle">守衛人員</th>
                 <td class="formValue">
-                    <select id="GuardEMPID" name="GuardEMPID" class="form-control required"></select>
+                    <select id="GuardEMPID" name="GuardEMPID" class="form-control input-lg required"></select>
                 </td>
                 <th class="formTitle">總公里數</th>
                 <td class="formValue">

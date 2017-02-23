@@ -13,5 +13,7 @@ namespace CCM.Domain
         string SID { get; set; }
         string CreatorUserId { get; set; }
         DateTime? CreatorTime { get; set; }
+
+        string OrganizeId { get; set; }
     }
 }

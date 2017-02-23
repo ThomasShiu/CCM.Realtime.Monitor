@@ -38,6 +38,13 @@ namespace CCM.Web.Admin.Areas.SystemManage.Controllers
             var data = userApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetForm2Json(string keyValue)
+        {
+            var data = userLogOnApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

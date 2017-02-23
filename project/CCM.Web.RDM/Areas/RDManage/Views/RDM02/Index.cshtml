@@ -17,33 +17,66 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/RDManage/RDM01/GetGridJson",
+            url: "/RDManage/RDM02/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-                    { label: "Customer", name: "Customer", width: 60, align: 'left' },
-				    { label: "Remark", name: "Remark", width: 120, align: 'left' },
-				    { label: "Machine Number", name: "Machine_Id", width: 120, align: 'left' },
-                    { label: "File Name", name: "oldFileName", width: 100, align: 'left' },
+                    { label: "客戶", name: "Customer", hidden: true, width: 60, align: 'left' },
+				    
+				    { label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
+                    { label: "原檔名", name: "oldFileName", width: 100, align: 'left' },
                     { label: "CPU Serial Number", name: "CPU_SN", width: 140, align: 'left' },
-                    { label: "HD Serial Number", name: "HD_SN", width: 100, align: 'left' },
-                    { label: "HD Firmware", name: "HD_Fireware", width: 100, align: 'left' },
+                    { label: "HD Serial Number", name: "HD_SN", width: 110, align: 'left' },
+                    { label: "HD Firmware", name: "HD_Fireware", width: 90, align: 'left' },
                     { label: "HD Module Number", name: "HD_Moduleno", width: 140, align: 'left' },
 				    { label: "原檔下載", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
-                        label: "原檔下載", name: "", width: 80, align: 'left',
+                        label: "原檔下載", name: "", width: 70, align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
-                            return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">點我下載</a> ';
+                            if (rowObject.UploadPath != null & rowObject.UploadPath != '') {
+                                return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
+                            } else {
+                                return '';
+                            }
                         }
                     },
-				    { label: "認證檔下載", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
+				    { label: "認證檔(NEW)", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
+                    { label: "認證檔(OLD)", name: "DownloadPath2", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "認證檔下載", name: "", width: 80, align: 'left',
+                         label: "認證檔NEW", name: "", width: 70, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
-                             return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">點我下載</a> ';
+                             if (rowObject.DownloadPath != null & rowObject.DownloadPath != ''){
+                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
+                             } else {
+                                 return '';
+                             }
                          }
                      },
-                    { label: "建立時間", name: "CreatorTime", width: 120, align: 'left' },
+                     {
+                         label: "認證檔OLD", name: "", width: 70, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             if (rowObject.DownloadPath2 != null & rowObject.DownloadPath2 != '') {
+                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
+                             } else {
+                                 return '';
+                             }
+                         }
+                     },
+                       {
+                           label: "啟用", name: "Enable", width: 60, align: "center",
+                           formatter: function (cellvalue) {
+                               return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+                           }
+                       },
+                    { label: "備註", name: "Remark", width: 120, align: 'left' },
+                    {
+                        label: "建立時間", name: "CreatorTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+                    },
+                    {
+                        label: "修改時間", name: "LastModifyTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+                    },
                     { label: "", name: "", width: 180, align: 'left' },
             ],
 			pager: "#gridPager",
@@ -60,9 +93,9 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/RDManage/RDM01/Form",
-            width: "740px",
-            height: "400px",
+            url: "/RDManage/RDM02/Form",
+            width: "640px",
+            height: "380px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -73,9 +106,9 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/RDManage/RDM01/Form?keyValue=" + keyValue,
-            width: "740px",
-            height: "400px",
+            url: "/RDManage/RDM02/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "380px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -83,7 +116,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/RDManage/RDM01/DeleteForm",
+            url: "/RDManage/RDM02/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -95,8 +128,8 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/RDManage/RDM01/Details?keyValue=" + keyValue,
-            width: "740px",
+            url: "/RDManage/RDM02/Details?keyValue=" + keyValue,
+            width: "640px",
             height: "400px",
             btn: null,
         });

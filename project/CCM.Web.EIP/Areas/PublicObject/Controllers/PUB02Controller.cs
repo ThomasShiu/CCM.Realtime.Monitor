@@ -40,6 +40,15 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         }
         #endregion
 
+        #region 首頁預約公務車
+        [HttpGet]
+        [ActionTraceLog]
+        public virtual ActionResult Form3()
+        {
+            return View();
+        }
+        #endregion
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetCarGridJson(Pagination pagination, string queryJson)
@@ -137,6 +146,8 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+       
 
         #region 公務車每日外出人員報表列印
         [HttpGet]

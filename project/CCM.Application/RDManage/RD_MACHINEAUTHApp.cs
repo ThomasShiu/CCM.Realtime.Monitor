@@ -23,8 +23,10 @@ namespace CCM.Application
             var expression = ExtLinq.True<RD_MACHINEAUTHEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Customer.Contains(keyword));
-                expression = expression.And(t => t.Remark.Contains(keyword));
+                expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
+                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
@@ -34,13 +36,31 @@ namespace CCM.Application
             var expression = ExtLinq.True<RD_MACHINEAUTHEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Customer.Contains(keyword));
-                expression = expression.And(t => t.Remark.Contains(keyword));
+                expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
+                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
+
+        public List<RD_MACHINEAUTHEntity> GetListEnable(Pagination pagination, string keyword = "")
+        {
+            var expression = ExtLinq.True<RD_MACHINEAUTHEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
+                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.Remark.Contains(keyword));
+            }
+            expression = expression.And(t => t.Enable == true);
+            //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
+            return service.FindList(expression, pagination);
+        }
+
         public RD_MACHINEAUTHEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

@@ -19,6 +19,8 @@ namespace CCM.Web.EIP.Controllers
     [HandlerLogin]
     public class ClientsDataController : Controller
     {
+        public OperatorModel LoginInfo = OperatorProvider.Provider.GetCurrent();
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetClientsDataJson()
@@ -179,6 +181,9 @@ namespace CCM.Web.EIP.Controllers
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
         {
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
             StringBuilder sbJson = new StringBuilder();
             sbJson.Append("[");
             List<ModuleEntity> entitys = data.FindAll(t => t.F_ParentId == parentId);
@@ -186,6 +191,12 @@ namespace CCM.Web.EIP.Controllers
             {
                 foreach (var item in entitys)
                 {
+                    if (item.F_Id== "676424e9-5775-4d04-ac47-b5de82c16a5b")
+                    {
+                        // http://192.168.112.211:8080/WebAgenda/login_sso.jsp?loginID=
+                        item.F_UrlAddress += UserId;
+                    }
+
                     string strJson = item.ToJson();
                     strJson = strJson.Insert(strJson.Length - 1, ",\"ChildNodes\":" + ToMenuJson(data, item.F_Id) + "");
                     sbJson.Append(strJson + ",");

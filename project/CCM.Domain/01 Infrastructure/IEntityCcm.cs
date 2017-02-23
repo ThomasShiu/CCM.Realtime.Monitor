@@ -22,6 +22,7 @@ namespace CCM.Domain
                 entity.CreatorUserId = LoginInfo.UserCode;
             }
             entity.CreatorTime = DateTime.Now;
+            entity.OrganizeId = "CCM";
         }
         public void Modify(string keyValue)
         {

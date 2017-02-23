@@ -52,12 +52,24 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ELFinder.Connector, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ELFinder.Connector.1.0.1\lib\net40\ELFinder.Connector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ELFinder.Connector.ASPNet, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ELFinder.Connector.ASPNet.1.0.1\lib\net40\ELFinder.Connector.ASPNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -94,12 +106,33 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Razor">
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -117,31 +150,11 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -159,11 +172,13 @@
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="App_Start\ReportService.cs" />
     <Compile Include="App_Start\SendMailTask.cs" />
+    <Compile Include="Areas\Document\Controllers\DOC05Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC01Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC02Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC03Controller.cs" />
     <Compile Include="Areas\Document\Controllers\DOC04Controller.cs" />
     <Compile Include="Areas\Document\DocumentAreaRegistration.cs" />
+    <Compile Include="Areas\Document\Models\FileTreeViewModel.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SendMailController.cs" />
@@ -502,6 +517,108 @@
     <Content Include="Content\js\echarts\echarts.js" />
     <Content Include="Content\js\echarts\echarts.min.js" />
     <Content Include="Content\js\echarts\infographic.js" />
+    <Content Include="Content\js\elFinder\.gitignore" />
+    <Content Include="Content\js\elFinder\connectorNet\Autofac License.txt" />
+    <Content Include="Content\js\elFinder\connectorNet\Autofac.dll" />
+    <Content Include="Content\js\elFinder\connectorNet\Autofac.XML" />
+    <Content Include="Content\js\elFinder\connectorNet\elFinder.Connector.dll" />
+    <Content Include="Content\js\elFinder\connectorNet\elFinder.Connector.pdb" />
+    <Content Include="Content\js\elFinder\connectorNet\Newtonsoft.Json.dll" />
+    <Content Include="Content\js\elFinder\connectorNet\Newtonsoft.Json.pdb" />
+    <Content Include="Content\js\elFinder\connectorNet\Newtonsoft.Json.xml" />
+    <Content Include="Content\js\elFinder\connectorNet\readme.txt" />
+    <Content Include="Content\js\elFinder\css\elfinder.full.css" />
+    <Content Include="Content\js\elFinder\css\elfinder.min.css" />
+    <Content Include="Content\js\elFinder\css\theme.css" />
+    <Content Include="Content\js\elFinder\elfinder.html" />
+    <Content Include="Content\js\elFinder\img\arrows-active.png" />
+    <Content Include="Content\js\elFinder\img\arrows-normal.png" />
+    <Content Include="Content\js\elFinder\img\crop.gif" />
+    <Content Include="Content\js\elFinder\img\dialogs.png" />
+    <Content Include="Content\js\elFinder\img\icons-big.png" />
+    <Content Include="Content\js\elFinder\img\icons-small.png" />
+    <Content Include="Content\js\elFinder\img\logo.png" />
+    <Content Include="Content\js\elFinder\img\progress.gif" />
+    <Content Include="Content\js\elFinder\img\quicklook-bg.png" />
+    <Content Include="Content\js\elFinder\img\quicklook-icons.png" />
+    <Content Include="Content\js\elFinder\img\resize.png" />
+    <Content Include="Content\js\elFinder\img\spinner-mini.gif" />
+    <Content Include="Content\js\elFinder\img\toolbar.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_box.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_dropbox.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_ftp.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_googledrive.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_local.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_onedrive.png" />
+    <Content Include="Content\js\elFinder\img\volume_icon_sql.png" />
+    <Content Include="Content\js\elFinder\js\elfinder.full.js" />
+    <Content Include="Content\js\elFinder\js\elfinder.min.js" />
+    <Content Include="Content\js\elFinder\js\extras\encoding-japanese.min.js" />
+    <Content Include="Content\js\elFinder\js\extras\quicklook.googledocs.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ar.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.bg.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ca.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.cs.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.da.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.de.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.el.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.es.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.fa.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.fallback.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.fo.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.fr.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.he.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.hr.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.hu.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.id.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.it.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.jp.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ko.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.LANG.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.nl.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.no.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.pl.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.pt_BR.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ro.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ru.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.sk.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.sl.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.sr.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.sv.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.tr.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.ug_CN.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.uk.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.vi.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.zh_CN.js" />
+    <Content Include="Content\js\elFinder\js\i18n\elfinder.zh_TW.js" />
+    <Content Include="Content\js\elFinder\js\proxy\elFinderSupportVer1.js" />
+    <Content Include="Content\js\elFinder\main.default.js" />
+    <Content Include="Content\js\elFinder\php\autoload.php" />
+    <Content Include="Content\js\elFinder\php\elFinder.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderConnector.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderFlysystemGoogleDriveNetmount.php" />
+    <Content Include="Content\js\elFinder\php\elFinderPlugin.php" />
+    <Content Include="Content\js\elFinder\php\elFinderSession.php" />
+    <Content Include="Content\js\elFinder\php\elFinderSessionInterface.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeBox.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeDriver.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeDropbox.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeFTP.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeGoogleDrive.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeGroup.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeLocalFileSystem.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeMySQL.class.php" />
+    <Content Include="Content\js\elFinder\php\elFinderVolumeOneDrive.class.php" />
+    <Content Include="Content\js\elFinder\php\libs\GdBmp.php" />
+    <Content Include="Content\js\elFinder\php\MySQLStorage.sql" />
+    <Content Include="Content\js\elFinder\php\plugins\AutoResize\plugin.php" />
+    <Content Include="Content\js\elFinder\php\plugins\AutoRotate\plugin.php" />
+    <Content Include="Content\js\elFinder\php\plugins\Normalizer\plugin.php" />
+    <Content Include="Content\js\elFinder\php\plugins\Sanitizer\plugin.php" />
+    <Content Include="Content\js\elFinder\php\plugins\Watermark\logo.png" />
+    <Content Include="Content\js\elFinder\php\plugins\Watermark\plugin.php" />
+    <Content Include="Content\js\elFinder\php\resources\video.png" />
+    <Content Include="Content\js\elFinder\sounds\rm.wav" />
     <Content Include="Content\js\fancyBox\.gitattributes" />
     <Content Include="Content\js\fancyBox\lib\jquery-1.10.1.min.js" />
     <Content Include="Content\js\fancyBox\lib\jquery-1.9.0.min.js" />
@@ -521,6 +638,40 @@
     <Content Include="Content\js\fancyBox\source\jquery.fancybox.css" />
     <Content Include="Content\js\fancyBox\source\jquery.fancybox.js" />
     <Content Include="Content\js\fancyBox\source\jquery.fancybox.pack.js" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.asp" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.aspx" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.js" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.php" />
+    <Content Include="Content\js\filetree\images\application.png" />
+    <Content Include="Content\js\filetree\images\code.png" />
+    <Content Include="Content\js\filetree\images\css.png" />
+    <Content Include="Content\js\filetree\images\db.png" />
+    <Content Include="Content\js\filetree\images\directory.png" />
+    <Content Include="Content\js\filetree\images\doc.png" />
+    <Content Include="Content\js\filetree\images\file.png" />
+    <Content Include="Content\js\filetree\images\film.png" />
+    <Content Include="Content\js\filetree\images\flash.png" />
+    <Content Include="Content\js\filetree\images\folder_open.png" />
+    <Content Include="Content\js\filetree\images\html.png" />
+    <Content Include="Content\js\filetree\images\java.png" />
+    <Content Include="Content\js\filetree\images\linux.png" />
+    <Content Include="Content\js\filetree\images\music.png" />
+    <Content Include="Content\js\filetree\images\pdf.png" />
+    <Content Include="Content\js\filetree\images\php.png" />
+    <Content Include="Content\js\filetree\images\picture.png" />
+    <Content Include="Content\js\filetree\images\ppt.png" />
+    <Content Include="Content\js\filetree\images\psd.png" />
+    <Content Include="Content\js\filetree\images\ruby.png" />
+    <Content Include="Content\js\filetree\images\script.png" />
+    <Content Include="Content\js\filetree\images\spinner.gif" />
+    <Content Include="Content\js\filetree\images\txt.png" />
+    <Content Include="Content\js\filetree\images\xls.png" />
+    <Content Include="Content\js\filetree\images\zip.png" />
+    <Content Include="Content\js\filetree\index.html" />
+    <Content Include="Content\js\filetree\jquery.easing.js" />
+    <Content Include="Content\js\filetree\jquery.js" />
+    <Content Include="Content\js\filetree\jqueryFileTree.css" />
+    <Content Include="Content\js\filetree\jqueryFileTree.js" />
     <Content Include="Content\js\fullcalendar\CHANGELOG.txt" />
     <Content Include="Content\js\fullcalendar\CONTRIBUTING.txt" />
     <Content Include="Content\js\fullcalendar\demos\agenda-views.html" />
@@ -869,6 +1020,34 @@
     <Content Include="Areas\WorkflowControl\Views\WFC05\Details.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC05\Form.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC05\Index.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC03\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC03\Form.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC03\Index.cshtml" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.cf" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.jsp" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.pl" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.py" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree.rb" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree_huck.lasso" />
+    <Content Include="Content\js\filetree\connectors\jqueryFileTree_sabourdin.lasso" />
+    <Content Include="Areas\Document\Views\DOC05\GetFiles.cshtml" />
+    <Content Include="Areas\Document\Views\DOC05\Details.cshtml" />
+    <Content Include="Areas\Document\Views\DOC05\Form.cshtml" />
+    <Content Include="Areas\Document\Views\DOC05\Index.cshtml" />
+    <Content Include="Areas\Document\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Document\Views\DOC05\Index2.cshtml" />
+    <Content Include="Content\js\elFinder\bower.json" />
+    <Content Include="Content\js\elFinder\Changelog" />
+    <Content Include="Content\js\elFinder\composer.json" />
+    <Content Include="Content\js\elFinder\files\.gitkeep" />
+    <Content Include="Content\js\elFinder\LICENSE.md" />
+    <Content Include="Content\js\elFinder\package.json" />
+    <Content Include="Content\js\elFinder\php\.tmp\.htaccess" />
+    <Content Include="Content\js\elFinder\php\connector.minimal.php-dist" />
+    <Content Include="Content\js\elFinder\php\connector.php-dist" />
+    <Content Include="Content\js\elFinder\php\mime.types" />
+    <Content Include="Content\js\elFinder\README.md" />
+    <Content Include="Areas\PublicObject\Views\PUB02\Form3.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -965,6 +1144,465 @@
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\37907eff-d2a7-42c4-bf13-4f33ef0f6f97.JPG" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\626d23a3-0b63-4c3a-a0a8-177568129ec4.jpg" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\875f55f2-4dec-4682-b542-83d47f480944.JPG" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\a53c2a34-26fc-4576-bc18-74bc5b5c4d3e.jpg" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\b6bede99-8155-48e2-8e40-b847f14312a2.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\100601-CAR2.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\1111202005.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\2007_Lexus_LF-A_concept.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150107_081437.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150123_101116.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_101432.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_101458.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_101543.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_101923.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_101942.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150128_102011.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150319_095700.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150319_095721.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\20150319_095736.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\22-7257.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\258244.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\283190.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\9e3cf848-88e2-4ccf-8360-334ba9fa3ca6.png" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\acr-1284538852-4c9081e40c703[1].jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\AKJ-0277.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\car01.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_0737-WM.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_085-SF.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_3997-77.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\car_753-QGM.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_8427-GJ.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_ACG-9787.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAG-6727.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAG-7757.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAK-2567.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAP-5737.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAP-6117.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\Car_RAP-6167.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\house_decoplus_20140406_1396770878_2.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3435.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3436.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3437.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3439.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3440.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3441.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\IMAG3443.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\images %284%29.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\RAG-6757.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\warrior.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\^6009C44C00165A17D3CE0489F83357E1DB1C76CA17D8329704^pimgpsh_fullsize_distr.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\下載.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\展覽室.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\會議室101.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\會議室102.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\會議室3F.jpg" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\未命名.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\丁俊仁.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\任文益.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\何宗儒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\何育壇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\余明翰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\余昭明.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\余清浚.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\侯亦捷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\侯志霖.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉力仁.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉哲瑜.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉士毅.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉妙芬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉意珊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉明豐.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉洧廷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉華興.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\劉貞慧.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\卡里托.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\史忠正.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳佳燕.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳佳蓉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳侑恩.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳俊男.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳克銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳嘉文.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳國禎.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳定鴻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳小雯.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳文裕.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳明芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳易璇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳春翰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳昭鉉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳月婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳炳德.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳祈霖.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳航寧.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳虹臻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\吳袖婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\呂德宏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\呂權恩.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\周伯威.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\周怡君.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\周靜敏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\唐清益.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\姜炫諭.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\姜霞.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\孫志郎.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\孫玉昕.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\山本永男.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\左益誠.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\巴布.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張冠瑛.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張冠章.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張勲章.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張同南.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張嘉琳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張婉婷.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張學莉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張恩可.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張慶雄.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張文嚴.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張智洋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張智軒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張朝傑.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張珮琪.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張素蓮.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張育誌.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張茹瑩.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張菀蘋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張雅婷.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\張青淞.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐世宇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐信復.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐偉倫.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐家和.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐樹錦.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐虹芸.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\徐裕益.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\戴佑祥.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\施姵君.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\施展魁.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\施陳清芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\時榮貴.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曹俊武.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曹天寶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曾博賢.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曾愉喬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曾慧真.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\曾茂森.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\朱國韶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李佩儒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李侑軒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李俊享.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李俊興.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李俊青.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李南毅.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李同文.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李名豪.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李哲豪.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李婕瑀.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李孟得.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李孟璋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李孟真.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李孟純.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李宗耀.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李宛臻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李宜芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李彥俊.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李志皇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李怡靜.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李振銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李明燦.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李永勝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李秀娟.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李秉益.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李翊甄.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李舒怡.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李芝綺.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李郁.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李金蓉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\李騏名.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\杜仕霖.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\東春和.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林亞璇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林偉傑.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林冠宏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林嘉臨.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林大有.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林子育.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林宛蓁.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林宜璇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林宜薇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林建男.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林弘明.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林志成.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林愷廉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林敬庭.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林永佳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林玫儒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林祥文.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林秀蓮.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林秋美.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林育輝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林莞伶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林莠涓.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林鈞緯.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林銘凱.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林雨潔.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林韋銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\林麗玉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\梁進明.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊峻銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊惠娟.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊成輝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊振豪.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊文俊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊文龍.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊景超.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊淵如.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊瑩瑜.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊立煒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊芳晴.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊閔傑.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊雅婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\楊騏任.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\歐文備.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\武春曰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\武智慶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\段酈伊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\江良德.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\江評吉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\汪培堯.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\沈正基.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪偉峰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪志維.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪敏慧.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪欣治.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪立玟.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\洪銘澤.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\游博安.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\游輝鴻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\潘文勝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王介甫.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王可明.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王國霖.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王士福.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王宗輝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王崇權.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王建中.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王彥杰.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王怡靜.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王慶泰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王振羽.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王挺瑞.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王揚名.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王泓翔.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王進昇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\王郁雅.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\田文豪.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\盧勇良.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\盧天祥.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\盧建翰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\盧志昇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\盧榮安.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\瞿淑婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\石宛于.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\羅昱軒.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\羅琦.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\翁琬晴.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\胡志斌.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\范天銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\范庭永.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\范文利.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\范文孟.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\范文科.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉勁鋐.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉家瑜.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉志斌.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉慈新.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉旺承.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉東晟.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉琇玲.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉秀玲.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\葉鎮翊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\董晉傑.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡世芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡依潔.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡博正.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡培偉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡宏周.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡慧芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡旻峰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡昀龍.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡明翰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡睿恩.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡禮仰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡竹婷.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡育婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡裕宏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡賢寶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡金隆.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蔡雅芬.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蕭佑竹.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蕭廣穎.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\薛家慶.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\薛振典.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\薛明原.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\薛欣怡.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇亞倫.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇修煜.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇勝宗.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇啟斌.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇宗埼.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇家輝.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇志堅.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇敏賢.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇東民.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇清芬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇源拓.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇潤泰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇煜淵.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇玟升.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇益中.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇祐霆.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇祺勛.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇祺勳.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇貞瑜.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇郁喬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\蘇錦宙.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\裴伯良.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許夢麟.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許宏安.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許庭華.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許廷彰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許政賢.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許明愷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許栢瑋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許淑敏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\許清風.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\詹坤穎.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\談錫穩.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝仁傑.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝博彬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝家祥.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝明富.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝榮洲.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\謝耀文.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\警衛.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\趙丹語.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\邱薏方.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\邱銘賢.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\邱雨涵.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\邱駿展.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭克銘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭凱豪.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭峰峻.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭志遠.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭智鴻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭泰毅.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\郭秀麗.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄧涵如.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭一霆.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭以成.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭家欣.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭峻杰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭忠良.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭捷羽.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭文煥.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭文興.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭智耀.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭暐婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭聰吉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鄭聰洲.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鍾沛臻.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鍾淑琳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\鐘培哲.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮友城.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮友莊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮友雄.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮士中.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文定.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文平.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文春.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文海.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文重.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮文風.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮日光.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮春江.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\阮榮恭.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳伯陵.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳俊明.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳光宇.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳妙芬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳宗璘.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳家威.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳家禾.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳巧梅.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳建璋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳建翰.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳志福.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳志豪.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳慧婉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳慧真.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳敏維.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳文俊.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳文面.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳旻志.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳景亮.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳有彬.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳有隆.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳榮南.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳正峯.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳炳宏.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳玉玲.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳玉玲_副本.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳玟瑍.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳琪雯.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳秀薇.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳秀貞.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳秉鴻.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳詩婷.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳進雄.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳鋐諭.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳鋑偉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳雅平.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳雅漣.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陳香毓.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\陽光華.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\雪威.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\顏世欽.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\顏恭賀.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\馬蕎光.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\馮國順.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\高柏翰.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃一芳.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃世春.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃于嘉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃俊智.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃向榮.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃唯泠.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃國霖.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃培恩.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃家偉.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃建中.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃振瑋.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃榮輝.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃淑卿.jpg" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃淑慧.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃瑋君.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃鈺涵.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃馨儀.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黃麟量.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\黎文然.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Family\龔嘉民.JPG" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_112224.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_112838.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_113553.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_130349.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170208_130801.mp4" />
+    <Content Include="EIPContent\Content\PublicShare\Studymovie\20170217_101451.mp4" />
     <Content Include="Global.asax" />
     <Content Include="LoginEip.htm" />
     <Content Include="Index.htm" />
@@ -1048,8 +1686,6 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Document\Models\" />
-    <Folder Include="Areas\Document\Views\Shared\" />
     <Folder Include="Areas\Human\Models\" />
     <Folder Include="Areas\Human\Views\Shared\" />
     <Folder Include="Areas\OrderManage\Models\" />
@@ -1059,6 +1695,7 @@
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
     <Folder Include="Areas\WorkflowControl\Models\" />
     <Folder Include="Areas\WorkflowControl\Views\Shared\" />
+    <Folder Include="Content\js\elFinder\conector\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Default.cshtml" />
@@ -1085,6 +1722,13 @@
     <Content Include="App_Data\EIPDataSet.xss">
       <DependentUpon>EIPDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="EIPContent\Content\Bulletin\UploadFiles\Bulletin\51d1c0fa-1535-40ea-955b-dc66cd9c3cee.pdf" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\6b3aa657-6ab5-46fc-a701-5127b9682ab6.doc" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\dfeaa65c-e6d2-4d98-8ed4-2ac3d10346b0.doc" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\e3862faf-e2b8-4930-b1a7-a0a92fdfd5c8.pdf" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\e44003ec-cb23-494b-ba0f-d1d0010f01f9.pdf" />
+    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\f2eabdb5-21d4-4403-aa2a-b5bf4db2f606.xlsx" />
+    <Content Include="EIPContent\Content\PublicObject\UploadFiles\新增 Microsoft Excel 工作表.xlsx" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>

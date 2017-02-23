@@ -18,7 +18,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
     public class WFC04Controller : ControllerBase
     {
         private HR_OVRTMApp tableApp = new HR_OVRTMApp(); 
-            private V_HR_OVRTMApp vtableApp = new V_HR_OVRTMApp(); 
+        private V_HR_OVRTMApp vtableApp = new V_HR_OVRTMApp(); 
         private CcmServices cs = new CcmServices();
 
         [HttpGet]

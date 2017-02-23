@@ -35,7 +35,7 @@ namespace CCM.Web.EIP
             // 代表意義	    分鐘	  小時	    日期	  月份	     週	   指令
             // 數字範圍    0 - 59    0 - 23    1 - 31    1 - 12    0 - 7   Common
             ITrigger trigger = TriggerBuilder.Create()
-              .WithCronSchedule("0 9 * * * ?")  // 每一分鐘觸發一次。
+              .WithCronSchedule("0 7,16 * * * ?")  // 每每天六點、下午四點執行。
               .WithIdentity("SendMailTrigger")
               .Build();
 

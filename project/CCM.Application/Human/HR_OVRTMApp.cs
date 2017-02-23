@@ -84,14 +84,30 @@ namespace CCM.Application
                 string statusType = queryParam["statusType"].ToString();
                 switch (statusType)
                 {
-                    case "1":  //未送簽
-                        expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+
+                    case "SN":
+                        expression = expression.And(t => t.STATUS == "SN");
                         break;
-                    case "2": //全部
-                        expression = expression.And(t => t.STATUS.Trim() != "OP");
+                    case "OP":
+                        expression = expression.And(t => t.STATUS == "OP");
+                        break;
+                    case "CL":
+                        expression = expression.And(t => t.STATUS == "CL");
+                        break;
+                    case "NL":
+                        expression = expression.And(t => t.STATUS == "NL");
+                        break;
+                    case "PB":
+                        expression = expression.And(t => t.STATUS == "PB");
+                        break;
+                    case "CF":
+                        expression = expression.And(t => t.STATUS == "CF");
+                        break;
+                    case "ALL":
+                        expression = expression.And(t => t.STATUS != "");
                         break;
                     default:
-                        expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+                        expression = expression.And(t => t.STATUS == "OP");
                         break;
                 }
             }

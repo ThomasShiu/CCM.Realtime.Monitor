@@ -129,15 +129,11 @@
                         dataType: "json",
                         success: function (data) {
                             msg = "會簽成功!";
-                            //window.setTimeout(function () {
-                            //    $.modalMsg(msg, "success");
-                            //}, 500);
                             // 重整簽核途程  grid-signroute
                             $('#grid-signroute').bootgrid('reload');
                             $.currentWindow().$("#gridList").trigger("reloadGrid");
                             $.modalMsg(msg, 'success');
                             $.modalClose();
- 
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             $.loading(false);

@@ -76,6 +76,8 @@
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
+    <Compile Include="03 Entity\SaleService\SRM_ALBUMDLEntity.cs" />
+    <Compile Include="03 Entity\SaleService\SRM_ALBUMMTEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
     <Compile Include="03 Entity\WorkflowManage\WF_DEPTMAPEntity.cs" />
+    <Compile Include="03 Entity\WorkflowManage\WF_EMPADDEPTEntity.cs" />
     <Compile Include="03 Entity\WorkflowManage\WF_RULEMEntity.cs" />
     <Compile Include="03 Entity\WorkflowManage\WF_SIGNEREntity.cs" />
     <Compile Include="04 IRepository\Document\IFR_OFFIDOC_ISSUERepository.cs" />
@@ -118,6 +121,8 @@
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />
+    <Compile Include="04 IRepository\SaleService\ISRM_ALBUMDLRepository.cs" />
+    <Compile Include="04 IRepository\SaleService\ISRM_ALBUMMTRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="04 IRepository\SystemSecurity\IFilterIPRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\ILogRepository.cs" />
     <Compile Include="04 IRepository\WorkflowManage\IWF_DEPTMAPRepository.cs" />
+    <Compile Include="04 IRepository\WorkflowManage\IWF_EMPADDEPTRepository.cs" />
     <Compile Include="04 IRepository\WorkflowManage\IWF_RULEMRepository.cs" />
     <Compile Include="04 IRepository\WorkflowManage\IWF_SIGNERRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

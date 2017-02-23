@@ -19,6 +19,7 @@
             url: "/WorkflowControl/WFC05/GetGridJsonEmp",
             height: $(window).height() - 128,
             colModel: [
+               
                 {
                     label: "執行", name: "", width: 100, align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
@@ -53,8 +54,7 @@
                             }
                         }
                     },
-                    
-				    { label: "加班單號", name: "OVRTNO", key: true, width: 80, align: 'left' },
+                     { label: "加班單號", name: "OVRTNO", key: true, width: 80, align: 'left' },
                      { label: "工號", name: "EMPLYID", width: 60, align: 'left' },
 				    {
 				        label: "出勤人員", name: "", width: 60, align: 'left',
@@ -71,7 +71,6 @@
                     },
                      { label: "加班原因", name: "DEREASON", width: 150, align: 'left' },
                      { label: "STATUS", name: "STATUS", hidden: true, width: 50, align: 'left' },
-
 
 				    {
 				        label: "預計加班-起", name: "FETB", width: 100, align: 'left',
@@ -91,13 +90,17 @@
 				       label: "送簽日", name: "APPDATE", width: 70, align: 'left',
 				       formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				   },
-				    {
-				        label: "完簽日", name: "EXC_UPDDATE", width: 70, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-				    },
 
 				    { label: "記薪月份", name: "OWMON", hidden: true, width: 80, align: 'left' },
-                      
+                     {
+                         label: "查看", name: "", width: 40, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             var ovrtno = rowObject.OVRTNO;
+                             //alert(signdate);
+                             var v_button = '<button class=\'btn btn-default btn-xs\' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';
+                             return v_button;
+                         }
+                     },
                     { label: "", name: "",  width: 10, align: 'left' },
             ],
 			pager: "#gridPager",
@@ -166,8 +169,9 @@
         });
     }
     function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
-        var status = $("#gridList").jqGridRowValue().STATUS;
+        //var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        var keyValue = arguments[0];
+        //var status = $("#gridList").jqGridRowValue().STATUS;
         if (status == 'SN' | status == 'NL' | status == 'CF' ) {
             msg = "此單據不可修改。";
             window.setTimeout(function () {
@@ -189,16 +193,18 @@
         });
     }
     function btn_delete() {
+        var keyValue = arguments[0];
         $.deleteForm({
             url: "/WorkflowControl/WFC05/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().OVRTNO },
+            param: { keyValue: keyValue },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        //var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        var keyValue = arguments[0];
         $.modalOpen({
             id: "Details",
             title: "查看資料",
@@ -298,10 +304,6 @@
 
     // 批次送簽
     function btn_batch() {
-        batchSign();
-    }
-    // 批次送簽功能
-    function batchSign() {
         var grid = $("#gridList");
         var rowKey = grid.getGridParam("selrow");
 
@@ -326,28 +328,36 @@
 
             $.modalConfirm("注：您確定要批次送簽加班單嗎？", function (r) {
                 if (r) {
-                    //$.ajax({
-                    //    url: "/WorkflowControl/WFC00/ConfirmSign",
-                    //    data: { signids: result },
-                    //    dataType: "json",
-                    //    async: false,
-                    //    success: function (data) {
-                    //        msg = "送簽成功!";
-                    //        window.setTimeout(function () {
-                    //            $.modalMsg(msg, "success");
-                    //        }, 500);
-                    //        $.currentWindow().$("#gridList").trigger("reloadGrid");
-                    //    },
-                    //    error: function (data) {
-                    //        msg = "送簽發生異常!";
-                    //        window.setTimeout(function () {
-                    //            $.modalMsg(msg, "warning");
-                    //        }, 500);
-                    //    }
-                    //});
+                    $.loading(true, '處理中，請稍候...');
+                    window.setTimeout(function () {
+                        $.ajax({
+                            url: "/WorkflowControl/WFC00/SendSignBatch",
+                            data: { overtnoList: result },
+                            dataType: "text",
+                            async: false,
+                            success: function (data) {
+                                //var res = JSON.parse(data.xhr.responseText);
+                                //alert(data);
+                                msg = "送簽成功!";
+                                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                                $.modalMsg(msg, 'success');
+                                $.modalClose();
+                            },
+                            error: function (data) {
+                                msg = "送簽發生異常!";
+                                $.modalMsg(errorThrown, "error");
+                            },
+                            beforeSend: function () {
+                                $.loading(true, '處理中，請稍候...');
+                            },
+                            complete: function () {
+                                $.loading(false);
+                            }
+                        });
+                    }, 500);
                 }
             });
-
+            
         }
     }
 </script>
@@ -365,9 +375,9 @@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
-                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                @*<li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
-                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>*@
                 <li><a id="NF-batch" authorize="yes" onclick="btn_batch()"><i class="fa fa-pencil-square-o "></i>批次送簽</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
@@ -387,8 +397,9 @@
                 </td>
                 <td style="padding-left: 10px;">
                     <div id="status_horizon" class="btn-group">
-                        <a class="btn btn-default active" data-value="1">未送簽</a>
-                        <a class="btn btn-default" data-value="2">全部</a>
+                        <a class="btn btn-default active" data-value="OP">未送簽</a>
+                        <a class="btn btn-default" data-value="SN">簽核中</a>
+                        @*<a class="btn btn-default" data-value="2">全部</a>*@
                     </div>
                 </td>
             </tr>

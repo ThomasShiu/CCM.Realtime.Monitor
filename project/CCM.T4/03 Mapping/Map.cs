@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: RD_MACHINEAUTH
-	public class RD_MACHINEAUTHMap : EntityTypeConfiguration<RD_MACHINEAUTHEntity>
+	//mapping table name: SRM_ALBUMDL
+	public class SRM_ALBUMDLMap : EntityTypeConfiguration<SRM_ALBUMDLEntity>
     {
-        public RD_MACHINEAUTHMap()
+        public SRM_ALBUMDLMap()
         {
-            this.ToTable("RD_MACHINEAUTH");
+            this.ToTable("SRM_ALBUMDL");
             this.HasKey(t => t.SID);
         }
     }

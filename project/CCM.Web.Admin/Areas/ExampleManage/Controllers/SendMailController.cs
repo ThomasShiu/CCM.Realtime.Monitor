@@ -25,9 +25,10 @@ namespace CCM.Web.Admin.Areas.ExampleManage.Controllers
             mail.MailServer = Configs.GetValue("MailHost");
             mail.MailUserName = Configs.GetValue("MailUserName");
             mail.MailPassword = Configs.GetValue("MailPassword");
-            mail.MailName = "CCM快速开发平台";
+            mail.MailName = "系統管理員";
             mail.Send(account, title, content);
-            return Success("发送成功。");
+            return Success("發送成功。");
         }
     }
 }
+

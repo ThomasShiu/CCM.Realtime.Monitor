@@ -21,25 +21,67 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-                    { label: "Customer", name: "Customer", width: 60, align: 'left' },
-				    { label: "Remark", name: "Remark", width: 120, align: 'left' },
-				    { label: "Machine Number", name: "Machine_Id", width: 120, align: 'left' },
-                    { label: "File Name", name: "oldFileName", width: 100, align: 'left' },
-				    { label: "原檔下載", name: "UploadPath", hidden: true, width: 80, align: 'left' },
+                    { label: "客户编号", name: "CS_NO", width: 60, align: 'left' },
+				    { label: "客户名称", name: "SHORT_NM", width: 90, align: 'left' },
+				    { label: "机台编号", name: "Machine_Id", width: 80, align: 'left' },
+                    { label: "原档名", name: "oldFileName", width: 100, align: 'left' },
+				    { label: "原档下载", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
-                        label: "原檔下載", name: "", width: 80, align: 'left',
+                        label: "原档下载", name: "", width: 90, align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
-                            return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">點我下載</a> ';
+                            if (rowObject.DownloadPath != null & rowObject.DownloadPath != '') {
+                                return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">Download</a> ';
+                            } else {
+                                return '';
+                            }
+                            
                         }
                     },
-				    { label: "認證檔下載", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
+				   { label: "认证档(NEW)", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
+                    { label: "认证档(OLD)", name: "DownloadPath2", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "認證檔下載", name: "", width: 80, align: 'left',
+                         label: "认证档NEW", name: "", width: 90, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
-                             return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">點我下載</a> ';
+                             if (rowObject.DownloadPath != null & rowObject.DownloadPath != '') {
+                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">Download</a> ';
+                             } else {
+                                 return '';
+                             }
                          }
                      },
-                    { label: "建立時間", name: "CreatorTime", width: 120, align: 'left' },
+                     {
+                         label: "认证档OLD", name: "", width: 90, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             if (rowObject.DownloadPath2 != null & rowObject.DownloadPath2 != '') {
+                                 return '<a href="' + pathlink + rowObject.DownloadPath2 + '" class="btn btn-info btn-sm">Download</a> ';
+                             } else {
+                                 return '';
+                             }
+                         }
+                     },
+
+                    { label: "备注", name: "Remark", width: 120, align: 'left' },
+                    {
+                        label: "建立时间", name: "CreatorTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+                    },
+                    {
+                        label: "建立人员", name: "", width: 60, align: 'center',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.user[rowObject.CreatorUserId] == null ? "" : top.clients.user[rowObject.CreatorUserId].fullname;
+                        }
+                    },
+                    {
+                        label: "修改时间", name: "LastModifyTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+                    },
+                    { label: "修改人员", name: "LastModifyUserId", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "修改人员", name: "", width: 60, align: 'center',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.user[rowObject.LastModifyUserId] == null ? "" : top.clients.user[rowObject.LastModifyUserId].fullname;
+                        }
+                    },
                     { label: "", name: "", width: 180, align: 'left' },
             ],
 			pager: "#gridPager",
@@ -70,8 +112,29 @@
             id: "Form",
             title: "修改",
             url: "/RDManage/RDM01/Form?keyValue=" + keyValue,
+            width: "640px",
+            height: "500px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_upload() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var UploadPath = $("#gridList").jqGridRowValue().UploadPath;
+        if (UploadPath != null & UploadPath!='') {
+            msg = "已有上傳認證檔，不可重複上傳!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+            return;
+        }
+        $.modalOpen({
+            id: "Form",
+            title: "上傳",
+            url: "/RDManage/RDM01/Form2?keyValue=" + keyValue,
             width: "740px",
-            height: "400px",
+            height: "500px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -105,12 +168,13 @@
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>
+            @*<a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>*@
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改</a></li>
+                <li><a id="NF-upload" authorize="yes" onclick="btn_upload()"><i class="fa fa-upload "></i>上傳</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
             </ul>

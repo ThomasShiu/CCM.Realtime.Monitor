@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +50,7 @@
   <ItemGroup>
     <Compile Include="01 Infrastructure\DbLogType.cs" />
     <Compile Include="02 Services\CcmServices.cs" />
+    <Compile Include="02 Services\RDService.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECEApp.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHApp.cs" />
+    <Compile Include="SaleService\SRM_ALBUMDLApp.cs" />
+    <Compile Include="SaleService\SRM_ALBUMMTApp.cs" />
     <Compile Include="SystemManage\ItemsApp.cs" />
     <Compile Include="SystemManage\ItemsDetailApp.cs" />
     <Compile Include="SystemManage\ModuleApp.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="SystemSecurity\FilterIPApp.cs" />
     <Compile Include="SystemSecurity\LogApp.cs" />
     <Compile Include="WorkflowManage\WF_DEPTMAPApp.cs" />
+    <Compile Include="WorkflowManage\WF_EMPADDEPTApp.cs" />
     <Compile Include="WorkflowManage\WF_RULEMApp.cs" />
     <Compile Include="WorkflowManage\WF_SIGNERApp.cs" />
   </ItemGroup>

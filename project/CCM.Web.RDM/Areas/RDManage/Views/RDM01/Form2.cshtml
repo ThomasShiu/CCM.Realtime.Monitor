@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Form-上傳認證檔";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/RDManage/RDM01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        // 機台編號
+        $("#Machine_Id").bindSelect({
+            url: "/RDManage/RDM00/GetSrvProd",
+            id: "M_ITEM_NO",
+            text: "ITEM_DESCRIPT"
+        });
+
+        // 客戶
+        $("#CS_NO").bindSelect({
+            url: "/RDManage/RDM00/GetCustList",
+            id: "CS_NO",
+            text: "SHORT_NM"
+        });
+    }
+    function submitForm() {
+        var FileUploadPath = $('input[name=FileUpload1]').val();
+        var UploadPath = $('input[name=UploadPath]').val();
+        if (UploadPath == '') {
+            msg = "請先上傳 DLL 檔!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "error");
+            }, 500);
+            return;
+        }
+
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/RDManage/RDM01/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+
+    }
+
+    function UploadFile() {
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#FileUpload1").get(0);
+            var files = fileUpload.files;
+            //alert(fileUpload);
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding one more key to FormData object
+            fileData.append('username', 'Manas');
+            alert(fileData);
+
+            $.ajax({
+                url: '/RDManage/RDM01/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (data) {
+                    //var res = JSON.parse(data.xhr.responseText);
+                    var res = data;
+                    if (res.Result) {
+                        msg = "已成功上傳" + res.Count + "個檔案！";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+
+                    }
+                    else {
+                        msg = "上傳失敗，原因：" + res.Message;
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "error");
+                        }, 500);
+                    }
+
+                    $('input[name=UploadPath]').val(res.newFileName);
+                    $('input[name=oldFileName]').val(res.oldFileName);
+                    $("#filepath").html(res.newFileName);
+                    var UploadPath = $('input[name=UploadPath]').val();
+
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+    }
+
+    $(document).ready(function () {
+        $('#CS_NO').change(function () {
+            var short_nm = $(this).children('option:selected').text();
+
+            $('#SHORT_NM').val(short_nm);
+        });
+
+    });
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="Enable" name="Enable" type="hidden" value="" />
+
+    <input id="OrganizeId" name="OrganizeId" type="hidden" value="" />
+    <input id="CreatorTime" name="CreatorTime" type="hidden" value="" />
+    <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
+    <input id="LastModifyTime" name="LastModifyTime" type="hidden" value="" />
+    <input id="LastModifyUserId" name="LastModifyUserId" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">機台編號</th>
+                <td class="formValue" colspan="3">
+                    <select id="Machine_Id" name="Machine_Id" class="form-control required" disabled="disabled">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">客戶</th>
+                <td class="formValue">
+                    <select id="CS_NO" name="CS_NO" class="form-control required">
+                        <option></option>
+                    </select>
+                  
+                </td>
+                <td class="formValue" colspan="2">
+                    <input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" disabled="disabled"/>
+                </td>
+            </tr>  
+            
+            <tr>
+                <th class="formTitle">檔案</th>
+                <td class="formValue" colspan="3">
+                    <input id="UploadPath" name="UploadPath" type="hidden" value="" />
+                    <input id="oldFileName" name="oldFileName" type="hidden" value="" />
+                    <input id="newFileName" name="newFileName" type="hidden" value="" />
+                    @*<div>
+                        <label class="btn btn-default btn-file">
+                            <input type="file" id="FileUpload1" />
+                            <button type="button" id="btnUpload" class="btn btn-info">上傳檔案</button>
+                        </label>
+                    </div>*@
+                    <div class="input-group">
+                        <input type="file" id="FileUpload1" class="form-control" aria-label="...">
+                        <span class="input-group-btn">
+                            <button type="button" id="btnUpload" class="btn btn-info" onclick="UploadFile()">上傳檔案</button>
+                        </span>
+                    </div>
+                    <div>
+                        <label id="filepath" name="filepath"></label>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>

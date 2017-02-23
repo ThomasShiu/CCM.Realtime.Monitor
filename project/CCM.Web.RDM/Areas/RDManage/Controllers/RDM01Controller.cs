@@ -7,9 +7,11 @@
  * Table: HR_OVRTM
 *********************************************************************************/
 using CCM.Application;
+using CCM.Application._02_Services;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using CCM.Web.RDM.App_Start._01_Handler;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
@@ -22,6 +24,15 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
     public class RDM01Controller : ControllerBase
     {
         private RD_MACHINEAUTHApp tableApp = new RD_MACHINEAUTHApp();
+        private RDService rs = new RDService();
+
+        [HttpGet]
+        [HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult Form2()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -29,7 +40,7 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = tableApp.GetListEnable(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -50,6 +61,8 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
+        #region 送出資料
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -59,21 +72,36 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             MHDI.IAuthorized m_IAU = new MHDI.PSP();
             string exactPath = Server.MapPath("~/"+entity.UploadPath).Replace("RDManage\\RDM01\\", "");
             //exactPath = exactPath.Replace("RDManage\\RDM01\\","");
-            var DeviceInfo = m_IAU.GetDeviceInfo(exactPath);
+            // 截取DLL內的機台資訊
+            var DeviceInfo = m_IAU.GetDeviceInfo(exactPath,"");
             var Version = m_IAU.GetVersion();
             var vFilename = Path.GetFileNameWithoutExtension(exactPath);
-            var vPath = Path.GetDirectoryName(exactPath); ;
-            var TransPath = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar;
-            if (!Directory.Exists(TransPath))
+            var vPath = Path.GetDirectoryName(exactPath);
+
+            // 產生存檔路徑
+            var TransPathNew = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar+ "new" + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(TransPathNew))
             {
-             Directory.CreateDirectory(TransPath);
+             Directory.CreateDirectory(TransPathNew);
+            }
+            var TransPathOld = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar + "old" + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(TransPathOld))
+            {
+                Directory.CreateDirectory(TransPathOld);
             }
 
-            var trans = m_IAU.Transform(exactPath, TransPath, 1);
+            // 產生認証檔(新版)
+            var transNew = m_IAU.Transform(exactPath, TransPathNew, 1,"CCM");
+            // 產生認証檔(舊版)
+            var transOld = m_IAU.Transform(exactPath, TransPathOld, 1, "");
 
             JObject json = JObject.Parse(DeviceInfo);
+            entity.Version = Version;
             entity.newFileName = Path.GetFileName(exactPath);
-            entity.DownloadPath="EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
+
+            if (transNew) entity.DownloadPath="EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/new/CCM.dll";
+            if (transOld) entity.DownloadPath2 = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/old/CCM.dll";
+
             entity.CPU_SN = json["CPU Serial Number"].ToString();
             entity.HD_SN = json["HD Serial Number"].ToString();
             entity.HD_Fireware = json["HD Firmware"].ToString();
@@ -82,6 +110,8 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             tableApp.SubmitForm(entity, keyValue);
             return Success("操作成功。");
         }
+        #endregion
+
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
@@ -91,6 +121,8 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+       
 
         #region 單檔上傳
         [HttpPost]
