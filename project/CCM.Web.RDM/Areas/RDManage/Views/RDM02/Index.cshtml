@@ -21,9 +21,9 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-                    { label: "客戶", name: "Customer", hidden: true, width: 60, align: 'left' },
-				    
-				    { label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
+                    { label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
+                    { label: "客戶編號", name: "CS_NO", width: 60, align: 'left' },
+				    { label: "客戶名稱", name: "SHORT_NM", width: 90, align: 'left' },
                     { label: "原檔名", name: "oldFileName", width: 100, align: 'left' },
                     { label: "CPU Serial Number", name: "CPU_SN", width: 140, align: 'left' },
                     { label: "HD Serial Number", name: "HD_SN", width: 110, align: 'left' },
@@ -40,10 +40,9 @@
                             }
                         }
                     },
-				    { label: "認證檔(NEW)", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
-                    { label: "認證檔(OLD)", name: "DownloadPath2", hidden: true, width: 80, align: 'left' },
+				    { label: "認證檔", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "認證檔NEW", name: "", width: 70, align: 'center',
+                         label: "認證檔", name: "", width: 70, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
                              if (rowObject.DownloadPath != null & rowObject.DownloadPath != ''){
                                  return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
@@ -52,16 +51,7 @@
                              }
                          }
                      },
-                     {
-                         label: "認證檔OLD", name: "", width: 70, align: 'center',
-                         formatter: function (cellvalue, options, rowObject) {
-                             if (rowObject.DownloadPath2 != null & rowObject.DownloadPath2 != '') {
-                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
-                             } else {
-                                 return '';
-                             }
-                         }
-                     },
+                   
                        {
                            label: "啟用", name: "Enable", width: 60, align: "center",
                            formatter: function (cellvalue) {
@@ -129,8 +119,8 @@
             id: "Details",
             title: "查看",
             url: "/RDManage/RDM02/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "840px",
+            height: "520px",
             btn: null,
         });
     }

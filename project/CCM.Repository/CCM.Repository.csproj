@@ -46,8 +46,10 @@
     <Compile Include="Human\CCM_Main_EmployeeRepository.cs" />
     <Compile Include="Human\HR_DEPRepository.cs" />
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
+    <Compile Include="Human\V_EMP_EIPRepository.cs" />
     <Compile Include="Human\V_HR_OVRTMRepository.cs" />
     <Compile Include="Human\HR_OVRTMRepository.cs" />
+    <Compile Include="Human\V_HR_TICKETRepository.cs" />
     <Compile Include="MisManage\MisIpAddressRepository.cs" />
     <Compile Include="OracleDbDAL.cs" />
     <Compile Include="OrderManage\BU_LUNCHRepository.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHRepository.cs" />
+    <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />

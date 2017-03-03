@@ -68,40 +68,48 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm(RD_MACHINEAUTHEntity entity, string keyValue)
         {
+            tableApp.SubmitForm(entity, keyValue);
+            return Success("操作成功。");
+        }
+        #endregion
+
+        #region 送出資料-含上傳檔案
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitForm2(RD_MACHINEAUTHEntity entity, string keyValue,string newold)
+        {
             // 取出temp檔資訊
             MHDI.IAuthorized m_IAU = new MHDI.PSP();
-            string exactPath = Server.MapPath("~/"+entity.UploadPath).Replace("RDManage\\RDM01\\", "");
+            string exactPath = Server.MapPath("~/" + entity.UploadPath).Replace("RDManage\\RDM01\\", "");
             //exactPath = exactPath.Replace("RDManage\\RDM01\\","");
             // 截取DLL內的機台資訊
-            var DeviceInfo = m_IAU.GetDeviceInfo(exactPath,"");
+            var DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
             var Version = m_IAU.GetVersion();
             var vFilename = Path.GetFileNameWithoutExtension(exactPath);
             var vPath = Path.GetDirectoryName(exactPath);
 
             // 產生存檔路徑
-            var TransPathNew = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar+ "new" + Path.DirectorySeparatorChar;
-            if (!Directory.Exists(TransPathNew))
+            var TransPath = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(TransPath))
             {
-             Directory.CreateDirectory(TransPathNew);
-            }
-            var TransPathOld = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar + "old" + Path.DirectorySeparatorChar;
-            if (!Directory.Exists(TransPathOld))
-            {
-                Directory.CreateDirectory(TransPathOld);
+                Directory.CreateDirectory(TransPath);
             }
 
-            // 產生認証檔(新版)
-            var transNew = m_IAU.Transform(exactPath, TransPathNew, 1,"CCM");
+            if (newold == "new")
+            {
+                // 產生認証檔(新版)
+                var transNew = m_IAU.Transform(exactPath, TransPath, 1, "CCM");
+                entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
+            }
+            else { 
             // 產生認証檔(舊版)
-            var transOld = m_IAU.Transform(exactPath, TransPathOld, 1, "");
-
+                var transOld = m_IAU.Transform(exactPath, TransPath, 1, "");
+                entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
+            }
             JObject json = JObject.Parse(DeviceInfo);
             entity.Version = Version;
             entity.newFileName = Path.GetFileName(exactPath);
-
-            if (transNew) entity.DownloadPath="EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/new/CCM.dll";
-            if (transOld) entity.DownloadPath2 = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/old/CCM.dll";
-
             entity.CPU_SN = json["CPU Serial Number"].ToString();
             entity.HD_SN = json["HD Serial Number"].ToString();
             entity.HD_Fireware = json["HD Firmware"].ToString();

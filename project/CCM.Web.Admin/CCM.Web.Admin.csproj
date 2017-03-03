@@ -583,8 +583,6 @@
     <Content Include="Content\js\zsign\jquery.zsign.css" />
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
-    <Content Include="EIPContent\Content\PublicShare\Family\徐世宇.JPG" />
-    <Content Include="EIPContent\Content\PublicShare\Family\超級管理員.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Index.htm" />
     <Content Include="LoginEip.htm" />
@@ -836,7 +834,6 @@
     <Content Include="Areas\SystemManage\Views\User\Info.cshtml" />
     <Content Include="packages.config" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.map" />
-    <Content Include="EIPContent\Content\FilesCabinet\UploadFiles\e3862faf-e2b8-4930-b1a7-a0a92fdfd5c8.pdf" />
     <None Include="Properties\PublishProfiles\CCM_ADMIN_13.pubxml" />
     <None Include="Properties\PublishProfiles\CCM_ADMIN_207.pubxml" />
     <Content Include="Views\Home\Dashboard.cshtml" />

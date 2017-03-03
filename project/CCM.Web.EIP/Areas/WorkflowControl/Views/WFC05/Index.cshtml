@@ -169,8 +169,8 @@
         });
     }
     function btn_edit() {
-        //var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
-        var keyValue = arguments[0];
+        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        //var keyValue = arguments[0];
         //var status = $("#gridList").jqGridRowValue().STATUS;
         if (status == 'SN' | status == 'NL' | status == 'CF' ) {
             msg = "此單據不可修改。";
@@ -375,8 +375,8 @@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
-                @*<li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
-                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                @*<li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>*@
                 <li><a id="NF-batch" authorize="yes" onclick="btn_batch()"><i class="fa fa-pencil-square-o "></i>批次送簽</a></li>
             </ul>

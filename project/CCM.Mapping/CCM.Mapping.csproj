@@ -55,8 +55,10 @@
     <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
+    <Compile Include="Human\V_EMP_EIPMap.cs" />
     <Compile Include="Human\V_HR_OVRTMMap.cs" />
     <Compile Include="Human\HR_OVRTMMap.cs" />
+    <Compile Include="Human\V_HR_TICKETMap.cs" />
     <Compile Include="MisManage\MisIpAddreMap.cs" />
     <Compile Include="OrderManage\BU_LUNCHMap.cs" />
     <Compile Include="OrderManage\BU_LUNCH_AMOUNTMap.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />
+    <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />

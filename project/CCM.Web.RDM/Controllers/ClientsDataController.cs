@@ -124,14 +124,15 @@ namespace CCM.Web.RDM.Controllers
 
         private object GetEmpList()
         {
-            HR_EMPLYMApp EmplyApp = new HR_EMPLYMApp();
+            //HR_EMPLYMApp EmplyApp = new HR_EMPLYMApp();
+            V_EMP_EIPApp EmplyApp = new V_EMP_EIPApp();
             var data = EmplyApp.GetList("");
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
-            foreach (HR_EMPLYMEntity item in data)
+            foreach (V_EMP_EIPEntity item in data)
             {
                 var fieldItem = new
                 {
-                    depid = item.DEPID, 
+                    depid = item.DEPID,
                     fullname = item.EMPLYNM
                 };
                 dictionary.Add(item.EMPLYID, fieldItem);

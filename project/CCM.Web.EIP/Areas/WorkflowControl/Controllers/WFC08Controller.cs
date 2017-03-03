@@ -11,12 +11,14 @@ using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
-// 預留
+//todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 {
+    // 查詢本身部門加班單
     public class WFC08Controller : ControllerBase
     {
         private HR_OVRTMApp tableApp = new HR_OVRTMApp();
+        private V_HR_OVRTMApp vtableApp = new V_HR_OVRTMApp();
         private CcmServices cs = new CcmServices();
 
         [HttpGet]
@@ -29,11 +31,11 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string queryJson)
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = vtableApp.GetList(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -47,21 +49,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             return Content(data.ToJson());
         }
 
-        #region 加班申請作業-申請主管
-        [HttpGet]
-        [HandlerAjaxOnly]
-        public ActionResult GetGridJsonEmp(Pagination pagination, string keyword)
-        {
-            var data = new
-            {
-                rows = tableApp.GetListEmp(pagination, keyword),
-                total = pagination.total,
-                page = pagination.page,
-                records = pagination.records
-            };
-            return Content(data.ToJson());
-        }
-        #endregion
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -76,13 +63,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm(HR_OVRTMEntity tableEntity, string keyValue)
         {
-            var chkovrtm = cs.chkOverTime(tableEntity);
-            // 加班規則檢查
-            if (chkovrtm.Length > 0 & chkovrtm[0] != null) {
-                return Error("錯誤碼:"+chkovrtm[0]+" : "+ chkovrtm[1]);
-            }
-            // 新建模式才判斷時段是否重複
-            if (string.IsNullOrEmpty(keyValue)) 
+            if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
             {
                 // 判斷該加班時段是否已有預約
                 string v_message = cs.chkOverTimeDup(tableEntity);
@@ -105,9 +86,9 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             return Success("删除成功。");
         }
 
-        
 
-       
+
+
     }
 
 

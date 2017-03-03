@@ -26,7 +26,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }
-            //expression = expression.And(t => t.F_Category == 1);
+            //expression = expression.And(t => t.OrganizeId == "CCM");
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
         // 還在職的員工
@@ -39,7 +39,7 @@ namespace CCM.Application
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEPID.Contains(keyword));
             }
-            expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
+            expression = expression.And(t => t.C_STA == "A" & t.OrganizeId == "CCM");  // 在職員工 C_STA='A'  離職 C_STA='D'
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
         // 還在職的員工 by 部門別
@@ -50,7 +50,7 @@ namespace CCM.Application
             {
                 expression = expression.And(t => t.DEPID.Contains(keyword));
             }
-            expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
+            expression = expression.And(t => t.C_STA == "A" & t.OrganizeId == "CCM");  // 在職員工 C_STA='A'  離職 C_STA='D'
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
 
@@ -62,7 +62,7 @@ namespace CCM.Application
             {
                 expression = expression.And(t => t.DEPID.Contains(keyword));
             }
-            //expression = expression.And(t => t.C_STA == "A");  // 在職員工 C_STA='A'  離職 C_STA='D'
+            expression = expression.And(t => t.OrganizeId == "CCM");
             return service.IQueryable(expression).OrderBy(t => t.EMPLYID).ToList();
         }
         public List<HR_EMPLYMEntity> GetList(Pagination pagination, string keyword = "")
@@ -73,6 +73,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }
+            expression = expression.And(t => t.OrganizeId == "CCM");
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);

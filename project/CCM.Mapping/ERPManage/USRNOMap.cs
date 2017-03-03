@@ -16,7 +16,7 @@ namespace CCM.Mapping
     {
         public USRNOMap()
         {
-            this.ToTable("USRNO");
+            this.ToTable("V_USRNO");
             this.HasKey(t => t.SID);
         }
     }

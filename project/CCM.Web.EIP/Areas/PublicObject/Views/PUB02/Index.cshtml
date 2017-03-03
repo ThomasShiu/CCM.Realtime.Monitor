@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+<script src="~/Content/js/jqtimers/jquery.timers.js"></script>
 <script>
     var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
     $(function () {
@@ -310,6 +311,16 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        //每5分鐘執行，無限次，並命名計時器名稱為 Timer1 30das
+        //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
+        $('body').everyTime('30das', 'TimerCarBooking', function () {
+            //location.reload();
+            //return false;
+            $("#gridList").trigger("reloadGrid");
+        }, 0, true);
+    });
 </script>
 
 <div class="topPanel">

@@ -39,6 +39,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.CS_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
                 expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.oldFileName.Contains(keyword));
                 expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
@@ -54,6 +55,7 @@ namespace CCM.Application
                 expression = expression.And(t => t.CS_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
                 expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.oldFileName.Contains(keyword));
                 expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             expression = expression.And(t => t.Enable == true);

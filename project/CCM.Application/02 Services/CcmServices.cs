@@ -22,6 +22,7 @@ using System.Web.UI.WebControls;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Web;
+using System.Net.Mime;
 
 namespace CCM.Application
 {
@@ -29,11 +30,20 @@ namespace CCM.Application
     {
         public static string v_EIPContext = "EIPContext";
         public static string v_HRSContext = "HRSContext";
-        public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM_TEST";    // 測試用，轉正式時將_TEST拿掉 
-        public static string v_V_WF_SIGNROUTE = "V_WF_SIGNROUTE_TEST";     // 簽核途程清單
-        public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE_TEST"; // 產生簽核途程
-        public static string v_SP_SET_SIGNROUTE = "SP_SET_SIGNROUTE_TEST"; // 設定簽核狀態:撤簽、作廢、退回
-        public static string v_SP_SET_SIGN = "SP_SET_SIGN_TEST";           // 主管簽核
+        public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM";    // 測試用，轉正式時將_TEST拿掉 
+        public static string v_V_WF_SIGNROUTE = "V_WF_SIGNROUTE";     // 簽核途程清單
+        public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE"; // 產生簽核途程
+        public static string v_SP_SET_SIGNROUTE = "SP_SET_SIGNROUTE"; // 設定簽核狀態:撤簽、作廢、退回
+        public static string v_SP_SET_SIGN = "SP_SET_SIGN";           // 主管簽核
+
+        #region 加班單測試用
+        //public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM_TEST";    // 測試用，轉正式時將_TEST拿掉 
+        //public static string v_V_WF_SIGNROUTE = "V_WF_SIGNROUTE_TEST";     // 簽核途程清單
+        //public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE_TEST"; // 產生簽核途程
+        //public static string v_SP_SET_SIGNROUTE = "SP_SET_SIGNROUTE_TEST"; // 設定簽核狀態:撤簽、作廢、退回
+        //public static string v_SP_SET_SIGN = "SP_SET_SIGN_TEST";           // 主管簽核
+        #endregion
+
         public OperatorModel LoginInfo = OperatorProvider.Provider.GetCurrent();
 
         #region 產生資料集 , Report 報表使用
@@ -63,6 +73,11 @@ namespace CCM.Application
         {
             string SQL = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
                          " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID AND ((@StartTime  BETWEEN  A.BookingStartTime AND A.BookingEndTime ) OR (@EndTime  BETWEEN A.BookingStartTime AND A.BookingEndTime)) "+
+                         " AND A.Status = '鎖定'  "+
+                         " UNION "+
+                         " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A, PO_PUBLIC_OBJECT B " +
+                         " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID " +
+                         " AND((A.BookingStartTime  BETWEEN  @StartTime AND @EndTime) OR(A.BookingEndTime   BETWEEN @StartTime AND @EndTime)) " +
                          " AND A.Status = '鎖定' ";
             //string SQL2 = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
             //            " WHERE A.ObjectSID = B.SID  AND ObjectSID = '" + tableEntity.ObjectSID + "' AND (('" + tableEntity.BookingStartTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN  BookingStartTime AND BookingEndTime ) OR ('" + tableEntity.BookingEndTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN BookingStartTime AND BookingEndTime))";
@@ -79,6 +94,7 @@ namespace CCM.Application
                     command.Parameters.AddWithValue("@ObjectSID", tableEntity.ObjectSID);
                     command.Parameters.AddWithValue("@StartTime", tableEntity.BookingStartTime);
                     command.Parameters.AddWithValue("@EndTime", tableEntity.BookingEndTime);
+
                     //4.搭配SqlCommand物件使用SqlDataReader
                     using (SqlDataReader dr = command.ExecuteReader())
                     {
@@ -136,7 +152,7 @@ namespace CCM.Application
         #region 取得公佈欄
         public JArray GetBulletinList()
         {
-            string v_sql = " SELECT BUSubject,convert(varchar(10), StartDate, 111) +' ~ '+convert(varchar(10), EndDate, 111)  Showdate " +
+            string v_sql = " SELECT SID,BUSubject,convert(varchar(10), StartDate, 111) +' ~ '+convert(varchar(10), EndDate, 111)  Showdate " +
                            "  FROM BU_BULLETIN " +
                            "  WHERE DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) BETWEEN StartDate AND EndDate " +
                            "  ORDER BY StartDate DESC ";
@@ -147,6 +163,7 @@ namespace CCM.Application
             var detail = from p in dt.AsEnumerable()
                          select new
                          {
+                             SID = p.Field<string>("SID"),
                              BUSubject = p.Field<string>("BUSubject"),
                              Showdate = p.Field<string>("Showdate")
                          };
@@ -157,6 +174,7 @@ namespace CCM.Application
 
                 var colObject = new JObject
                 {
+                    {"SID",col.SID },
                     {"BUSubject",col.BUSubject },
                     {"Showdate",col.Showdate }
                 };
@@ -191,7 +209,7 @@ namespace CCM.Application
             var UserDep = LoginInfo.DeptId; // H00
             string v_sql = " SELECT EMPLYID, EMPLYNM, DEPID,dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM " +
                             " FROM V_HR_EMPLYM " +
-                            " WHERE EMPLYID <> '' AND C_STA = 'A' " +
+                            " WHERE EMPLYID <> '' AND C_STA = 'A' AND OrganizeId = 'CCM' " +
                             " AND (DEPID = '"+ UserDep + "' " +
                             "   OR  DEPID IN( " +
                             "   SELECT  DEPID " +
@@ -340,14 +358,28 @@ namespace CCM.Application
             {
                 db.Open();
                 dt.Load(cmd.ExecuteReader());
-                switch (v_mode)
+                if (dt.Rows.Count > 0)
                 {
-                    case "DEPID":
-                        v_DEPT = dt.Rows[0]["DEPID"].ToString();
-                        break;
-                    case "DEPNM":
-                        v_DEPT = dt.Rows[0]["DEPNM"].ToString();
-                        break;
+                    switch (v_mode)
+                    {
+                        case "DEPID":
+                            v_DEPT = dt.Rows[0]["DEPID"].ToString();
+                            break;
+                        case "DEPNM":
+                            v_DEPT = dt.Rows[0]["DEPNM"].ToString();
+                            break;
+                    }
+                }else
+                {
+                    switch (v_mode)
+                    {
+                        case "DEPID":
+                            v_DEPT = "G00";
+                            break;
+                        case "DEPNM":
+                            v_DEPT = "管理部";
+                            break;
+                    }
                 }
                 //cmd.ExecuteNonQuery();
             }
@@ -601,6 +633,8 @@ namespace CCM.Application
             cmd.Parameters["@FETB"].Value = tableEntity.FETB;
             cmd.Parameters.Add("@FETE", SqlDbType.DateTime);
             cmd.Parameters["@FETE"].Value = tableEntity.FETE;
+            cmd.Parameters.Add("@HOUR", SqlDbType.Int);
+            cmd.Parameters["@HOUR"].Value = tableEntity.DEMIN;
             string[] param = { null, null };
 
             try
@@ -629,7 +663,7 @@ namespace CCM.Application
         }
         #endregion
 
-        #region 取得待簽核清單
+        #region 取得待簽核加班單清單
         public JArray getWaitSignList(string keyword)
         {
             var UserId = LoginInfo.UserCode; //A970701
@@ -697,6 +731,47 @@ namespace CCM.Application
                     {"DEMIN" ,col.DEMIN},
                     {"OVRT46" ,col.OVRT46},
                     {"FILFRL" ,col.FILFRL}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 取得待簽核加班單筆數
+        public JArray getWaitSignCount(string keyword)
+        {
+            var UserId = LoginInfo.UserCode; //A970701
+            var UserDep = LoginInfo.DeptId; // H00
+
+            var v_sql = "SELECT COUNT(*) WAITSIGNCNT ";
+            v_sql += " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID ";
+            v_sql += " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID  ";
+            v_sql += " WHERE  ( B.EMPLYID = '" + UserId + "' ";
+            v_sql += " OR B.EMPLYID IN ( ";
+            v_sql += "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R ";
+            v_sql += "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  ) ";
+            v_sql += " AND A.STATUS = 'SN' AND B.STATUS = 'SN' ";
+            v_sql += " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             WAITSIGNCNT = p.Field<int>("WAITSIGNCNT")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"WAITSIGNCNT",col.WAITSIGNCNT }
                 };
                 MixArray.Add(colObject);
             }
@@ -780,6 +855,44 @@ namespace CCM.Application
                     {"SIGN_STATUS",col.SIGN_STATUS },
                     {"SIGNDATE",col.SIGNDATE },
                     {"REPLY" ,col.REPLY}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 取得打卡時間
+        public JArray getTicketList(string emplyid,string yymmdd)
+        {
+            string v_sql = " SELECT CONVERT(VARCHAR(10),YYMMDD,120) YYMMDD, EMPLYID, TKT_HH, TKT_NN, TKT_SS, BL_DT, C_UPDATE,"+
+                            "       CASE WHEN C_FUNC='1' THEN '上班'  WHEN C_FUNC = '2' THEN '下班' END AS C_FUNC, REMARK, SN " +
+                             " FROM V_HR_TICKET "+
+                             " WHERE EMPLYID = '"+emplyid+"' AND YYMMDD = '"+ yymmdd + "' ORDER BY C_FUNC DESC";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             YYMMDD = p.Field<string>("YYMMDD"),
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             C_FUNC = p.Field<string>("C_FUNC"),
+                             TKT_HH = p.Field<Decimal>("TKT_HH"),
+                             TKT_NN = p.Field<Decimal>("TKT_NN")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"YYMMDD",col.YYMMDD },
+                    {"EMPLYID",col.EMPLYID },
+                    {"C_FUNC",col.C_FUNC },
+                    {"TKT_HH",col.TKT_HH},
+                    {"TKT_NN",col.TKT_NN }
                 };
                 MixArray.Add(colObject);
             }
@@ -1206,6 +1319,51 @@ namespace CCM.Application
         }
         #endregion
 
+
+        #region 取得外出人員
+        public JArray getOutdoorEmpList()
+        {
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
+            var v_sql = " SELECT replace(replace(A.AttendEmp,CHAR(10),','),CHAR(13),'') AttendEmp,A.Subject , B.SID,B.ObjectType, B.ObjectNM, "+
+                        "        CONVERT(VARCHAR(5),A.BookingStartTime,108) BookingStartTime, CONVERT(VARCHAR(5),A.BookingEndTime,108) BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status  "+
+                        " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID "+
+                        " WHERE A.Status = '鎖定' AND B.Enable = 'Y' AND B.ObjectType = '公務車輛' AND B.Enable = 'Y' "+
+                        " AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             AttendEmp = p.Field<string>("AttendEmp"),
+                             Subject = p.Field<string>("Subject"),
+                             ObjectNM = p.Field<string>("ObjectNM"),
+                             BookingStartTime = p.Field<string>("BookingStartTime"),
+                             BookingEndTime = p.Field<string>("BookingEndTime")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"AttendEmp",col.AttendEmp },
+                    {"Subject",col.Subject },
+                    {"ObjectNM",col.ObjectNM},
+                    {"BookingStartTime",col.BookingStartTime},
+                    {"BookingEndTime",col.BookingEndTime}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
         #region 個人資訊
         public JArray getPersonalInfo(string keyword)
         {
@@ -1279,6 +1437,7 @@ namespace CCM.Application
             string encoding;
             string filenameExtension;
 
+            // 報表轉PDF
             byte[] bytes = localReport.Render(
                "PDF", null, out mimeType, out encoding, out filenameExtension,
                 out streamids, out warnings);
@@ -1295,7 +1454,7 @@ namespace CCM.Application
             string _subject, _body;
             ArrayList _AttachfilePathlist = new ArrayList();
             _subject = "寄送報表測試";
-            _body = "詳見附件";
+            _body = "您好:</br>發文內容如下:</br>" + dt.Rows[0]["ISSUEDATE"].ToString();
             //MailReport(_ms, _mailAddress, _subject, _body, _AttachfilePathlist);
             SmtpClient client = new SmtpClient();
             client.Port = 25;
@@ -1341,8 +1500,99 @@ namespace CCM.Application
         }
 
         #endregion
-
+       
         #region 郵寄報表檔
+        public void mailReport2(string keyValue, string filename)
+        {
+            string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
+                              " FROM FR_OFFIDOC_ISSUE " +
+                              " WHERE  SID = '" + keyValue + "' ";
+            //string paper = "A4";
+
+            //資料集
+            DataTable dt = GetDataSet(v_sqlstr);
+            //var filename = Server.MapPath("~/Reports/DOC01_R01.rdlc"); //Path.Combine(Path.GetTempPath(), "Reports/DOC01_R01.rdlc");
+            //string filename = Path.Combine(Path.GetTempPath(), "Report2.rdlc");
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = filename;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);
+            localReport.DataSources.Add(reportDataSource);
+            localReport.EnableExternalImages = true;
+
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType;
+            string encoding;
+            string filenameExtension;
+
+            // 報表轉PDF
+            byte[] bytes = localReport.Render(
+               "PDF", null, out mimeType, out encoding, out filenameExtension,
+                out streamids, out warnings);
+
+            string tempReport = Path.Combine(Path.GetTempPath(), "ReportTemp.rdlc");
+            using (var fs = new FileStream(tempReport, FileMode.Create))
+            {
+                fs.Write(bytes, 0, bytes.Length);
+                fs.Close();
+            }
+            MemoryStream _ms = new MemoryStream(bytes);
+
+            string[] _mailAddress = { "b050502@ccm3s.com" };
+            string _subject, _body;
+            ArrayList _AttachfilePathlist = new ArrayList();
+            _subject = "寄送報表測試";
+            _body = "您好:</br>發文內容如下:</br>"+dt.Rows[0]["ISSUEDATE"].ToString();
+            //MailReport(_ms, _mailAddress, _subject, _body, _AttachfilePathlist);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "ccm-ad.ccm3s.com";
+            client.EnableSsl = true;
+            client.Timeout = 60000;//1分鐘
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("erpsys@ccm3s.com", "manager");
+
+            MailMessage mm = new MailMessage();
+            mm.IsBodyHtml = true;
+            mm.From = new MailAddress("erpsys@ccm3s.com");
+            foreach (string s in _mailAddress)
+            {
+                if (s != null)
+                    mm.To.Add(new MailAddress(s));
+            }
+            mm.Subject = _subject;
+            mm.Body = _body;
+
+            mm.BodyEncoding = Encoding.GetEncoding("utf-8");
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            //mm.Attachments.Add(attachment1);
+            mm.Attachments.Add(new Attachment(_ms, "發文.pdf"));
+
+            //foreach (var item in _PathToAttachmentList)
+            //{
+            //    mm.Attachments.Add(new Attachment(item.ToString()));
+
+            //}
+            try
+            {
+                client.Send(mm);
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                _ms.Close();
+                _ms.Flush();
+            }
+
+        }
+
+        #endregion
+        #region 修改圖片解析度
         public int ImgUploadResize(HttpPostedFileBase file,string directoryPath,string fileNewName)
         {
             string fileName = "";

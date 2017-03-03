@@ -22,13 +22,13 @@
 				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
 				    },
 				    {
-				        label: "預計加班-起", name: "FETB", width: 120, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				        label: "預計加班-起", name: "FETB", width: 80, align: 'center',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'H:i' }
 
 				    },
 				    {
-				        label: "預計加班-迄", name: "FETE", width: 120, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				        label: "預計加班-迄", name: "FETE", width: 80, align: 'center',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'H:i' }
 				    },
 				    { label: "實際加班-起", name: "DETB", hidden: true, width: 80, align: 'left' },
 				    { label: "實際加班-迄", name: "DETE", hidden: true, width: 80, align: 'left' },
@@ -74,7 +74,7 @@
                     },
             ],
 			pager: "#gridPager",
-			sortname: 'OVRTNO asc,APPDATE desc',
+			sortname: 'MRDT asc',
 			viewrecords: true,
 			loadComplete: function () {
 			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");

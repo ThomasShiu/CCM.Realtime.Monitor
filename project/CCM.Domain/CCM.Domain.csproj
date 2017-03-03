@@ -58,9 +58,11 @@
     <Compile Include="03 Entity\Document\FR_OFFIDOC_RECE_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\Human\CCM_Main_EmployeeEntity.cs" />
     <Compile Include="03 Entity\Human\HR_DEPEntity.cs" />
+    <Compile Include="03 Entity\Human\V_EMP_EIPEntity.cs" />
     <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
     <Compile Include="03 Entity\Human\V_HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
+    <Compile Include="03 Entity\Human\V_HR_TICKETEntity.cs" />
     <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_LUNCHEntity.cs" />
     <Compile Include="03 Entity\OrderManage\BU_LUNCH_AMOUNTEntity.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
+    <Compile Include="03 Entity\RDManage\RD_MACHINEAUTH_HISTORYEntity.cs" />
     <Compile Include="03 Entity\SaleService\SRM_ALBUMDLEntity.cs" />
     <Compile Include="03 Entity\SaleService\SRM_ALBUMMTEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
@@ -104,8 +107,10 @@
     <Compile Include="04 IRepository\Human\ICCM_Main_EmployeeRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_DEPRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_EMPLYMRepository.cs" />
+    <Compile Include="04 IRepository\Human\IV_EMP_EIPRepository.cs" />
     <Compile Include="04 IRepository\Human\IV_HR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
+    <Compile Include="04 IRepository\Human\IV_HR_TICKETRepository.cs" />
     <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_LUNCHRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_LUNCH_AMOUNTRepository.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />
+    <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="04 IRepository\SaleService\ISRM_ALBUMDLRepository.cs" />
     <Compile Include="04 IRepository\SaleService\ISRM_ALBUMMTRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />

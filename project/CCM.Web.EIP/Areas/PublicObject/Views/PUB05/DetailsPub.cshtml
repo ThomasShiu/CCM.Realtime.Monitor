@@ -73,10 +73,13 @@
     function InitBootGrid() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
+        var pathlink = '';
         if (vport != 80) {
             vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+        } else {
+            pathlink = 'http://' + vhost + '/';
         }
-        var pathlink = 'http://' + vhost + vport + '/';
 
         // BootGrid test
         $("#grid-attachfile").on("load.rs.jquery.bootgrid", function () {
@@ -107,7 +110,7 @@
                     return "<a href='" + pathlink + row.UploadPath + "' target='_blank'> Download : " + row.Name + "</a>";
                 },
                 "commands": function (column, row) {
-                    return "<button type=\"button\" class=\"btn btn-xs btn-default command-link\" data-row-id=\"" + row.UploadPath + "\"><span class=\"fa fa-link\"></span></button> " ;
+                    return "<button type=\"button\" class=\"btn btn-md btn-default command-link\" data-row-id=\"" + row.UploadPath + "\"><span class=\"fa fa-link label-md\"></span></button> " ;
                 }
             }
         }).on("loaded.rs.jquery.bootgrid", function () {

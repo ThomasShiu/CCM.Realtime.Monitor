@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class SRM_ALBUMDLApp
+public class V_HR_TICKETApp
     {
-        private ISRM_ALBUMDLRepository service = new SRM_ALBUMDLRepository();     
+        private IV_HR_TICKETRepository service = new V_HR_TICKETRepository();     
 
-	public List<SRM_ALBUMDLEntity> GetList(string keyword = "")
+	public List<V_HR_TICKETEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<SRM_ALBUMDLEntity>();
+            var expression = ExtLinq.True<V_HR_TICKETEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class SRM_ALBUMDLApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<SRM_ALBUMDLEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<V_HR_TICKETEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<SRM_ALBUMDLEntity>();
+            var expression = ExtLinq.True<V_HR_TICKETEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class SRM_ALBUMDLApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public SRM_ALBUMDLEntity GetForm(string keyValue)
+        public V_HR_TICKETEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class SRM_ALBUMDLApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(SRM_ALBUMDLEntity tableEntity, string keyValue)
+        public void SubmitForm(V_HR_TICKETEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

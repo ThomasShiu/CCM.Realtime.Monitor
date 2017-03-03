@@ -29,11 +29,21 @@
                         }
                     },
 				    {
-				        label: "啟用", name: "Enable", width: 80, align: 'left',
+				        label: "啟用", name: "Enable", width: 60, align: 'left',
 				        formatter: function (cellvalue) {
 				            return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
 				        }
 				    },
+                    {
+                        label: "建立時間", name: "CreatorTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+
+                    },
+                    {
+                        label: "修改時間", name: "LastModifyTime", width: 120, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+
+                    },
 				    { label: "", name: "", width: 80, align: 'left' },
 
 

@@ -11,6 +11,7 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start._01_Handler;
+using System;
 using System.Web.Mvc;
 
 //todo: 請修改對應的namespace
@@ -20,6 +21,8 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
     public class WFC07Controller : ControllerBase
     {
         private HR_OVRTMApp tableApp = new HR_OVRTMApp();
+        private V_HR_TICKETApp tableApp2 = new V_HR_TICKETApp();
+
         private CcmServices cs = new CcmServices();
 
 
@@ -46,6 +49,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             return Content(data.ToJson());
         }
 
+        #region 待簽核加班單
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJsonList(string keyword)
@@ -54,6 +58,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
             var data = cs.getWaitSignList(keyword);
             return Content(data.ToJson());
         }
+        #endregion
 
         #region 加班申請作業-員工個人
         [HttpGet]
@@ -108,7 +113,24 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         }
 
 
-        
+        #region 取得打卡時間
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetTicketJsonList(string emplyid, string yymmdd)
+        {
+
+            var rows = cs.getTicketList(emplyid, yymmdd);
+
+            var data = new
+            {
+                current = 1,
+                rowCount = 10,
+                rows = rows,
+                total = rows.Count
+            };
+            return Content(data.ToJson());
+        }
+        #endregion
 
     }
 

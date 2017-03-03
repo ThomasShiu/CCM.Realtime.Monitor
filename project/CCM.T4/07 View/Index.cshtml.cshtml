@@ -9,16 +9,25 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/SaleService/SRM02/GetGridJson",
+            url: "/RDManage/RDM03/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "parentId", name: "parentId", width: 80, align: 'left' },
-				                     { label: "FileName", name: "FileName", width: 80, align: 'left' },
-				                     { label: "Size", name: "Size", width: 80, align: 'left' },
-				                     { label: "Descript", name: "Descript", width: 80, align: 'left' },
-				                     { label: "ImgPath", name: "ImgPath", width: 80, align: 'left' },
+				                     { label: "CS_NO", name: "CS_NO", width: 80, align: 'left' },
+				                     { label: "SHORT_NM", name: "SHORT_NM", width: 80, align: 'left' },
+				                     { label: "Remark", name: "Remark", width: 80, align: 'left' },
+				                     { label: "Version", name: "Version", width: 80, align: 'left' },
+				                     { label: "Machine_Id", name: "Machine_Id", width: 80, align: 'left' },
+				                     { label: "oldFileName", name: "oldFileName", width: 80, align: 'left' },
+				                     { label: "newFileName", name: "newFileName", width: 80, align: 'left' },
+				                     { label: "UploadPath", name: "UploadPath", width: 80, align: 'left' },
+				                     { label: "DownloadPath", name: "DownloadPath", width: 80, align: 'left' },
+				                     { label: "CPU_SN", name: "CPU_SN", width: 80, align: 'left' },
+				                     { label: "HD_SN", name: "HD_SN", width: 80, align: 'left' },
+				                     { label: "HD_Fireware", name: "HD_Fireware", width: 80, align: 'left' },
+				                     { label: "HD_Moduleno", name: "HD_Moduleno", width: 80, align: 'left' },
+				                     { label: "Enable", name: "Enable", width: 80, align: 'left' },
 				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
@@ -40,7 +49,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/SaleService/SRM02/Form",
+            url: "/RDManage/RDM03/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -53,7 +62,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/SaleService/SRM02/Form?keyValue=" + keyValue,
+            url: "/RDManage/RDM03/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -63,7 +72,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/SaleService/SRM02/DeleteForm",
+            url: "/RDManage/RDM03/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -75,7 +84,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/SaleService/SRM02/Details?keyValue=" + keyValue,
+            url: "/RDManage/RDM03/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

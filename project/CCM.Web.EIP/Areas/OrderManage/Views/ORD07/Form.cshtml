@@ -34,6 +34,35 @@
             }
         })
     }
+
+    function changeValue() {
+        var MEATPEOPLES = $('#MEATPEOPLES').val();             // 設定葷食
+        var AbsentMEATPEOPLES = $('#AbsentMEATPEOPLES').val(); // 缺勤葷食
+        var ChangeMEATPEOPLES = $('#ChangeMEATPEOPLES').val(); // 登記葷食
+        var TuneMEATPEOPLES = $('#TuneMEATPEOPLES').val();     // 調整葷食
+        var REALMEATPEOPLES = $('#REALMEATPEOPLES').val();     // 實際葷食
+        REALMEATPEOPLES = parseInt(MEATPEOPLES) +parseInt(AbsentMEATPEOPLES) + parseInt(ChangeMEATPEOPLES) + parseInt(TuneMEATPEOPLES);
+        $('#REALMEATPEOPLES').val(REALMEATPEOPLES);
+
+        var VEGEPEOPLES = $('#VEGEPEOPLES').val();             // 設定素食
+        var AbsentVEGEPEOPLES = $('#AbsentVEGEPEOPLES').val(); // 缺勤素食
+        var ChangeVEGEPEOPLES = $('#ChangeVEGEPEOPLES').val(); // 登記素食
+        var TuneVEGEPEOPLES = $('#TuneVEGEPEOPLES').val();     // 調整素食
+        var REALVEGEPEOPLES = $('#REALVEGEPEOPLES').val();     // 實際素食
+        REALVEGEPEOPLES = parseInt(VEGEPEOPLES) + parseInt(AbsentVEGEPEOPLES) + parseInt(ChangeVEGEPEOPLES) + parseInt(TuneVEGEPEOPLES);
+        $('#REALVEGEPEOPLES').val(REALVEGEPEOPLES);
+
+        var TunePAYEMPLYS = $('#TunePAYEMPLYS').val();  // 調整數量
+        var REALPAYEMPLYS = $('#REALPAYEMPLYS').val();  // 實際數量
+
+        REALPAYEMPLYS = parseInt(REALMEATPEOPLES) + parseInt(REALVEGEPEOPLES);
+        $('#REALPAYEMPLYS').val(REALPAYEMPLYS);
+
+        var UNITPRICE = $('#UNITPRICE').val();     // 單價
+        var TOTAL = (parseInt(REALPAYEMPLYS) + parseInt(TunePAYEMPLYS)) * parseInt(UNITPRICE);
+        $('#TOTAL').val(TOTAL);
+
+    }
 </script>
 
 <form id="form1">
@@ -44,12 +73,12 @@
             <tr>
                 <th class="formTitle">日期</th>
                 <td class="formValue">
-                    <input id="LUNCHDATE" name="LUNCHDATE" type="text" class="form-control input-wdatepicker "
+                    <input id="LUNCHDATE" name="LUNCHDATE" type="text" class="form-control input-wdatepicker " disabled="disabled"
                            onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: true })" />
                 </td>
                 <th class="formTitle">地點</th>
                 <td class="formValue">
-                    <select id="LOCATION" name="LOCATION" class="form-control required">
+                    <select id="LOCATION" name="LOCATION" class="form-control required" disabled="disabled">
                         <option value="1">精湛總廠</option>
                         <option value="2">一廠</option>
                         <option value="3">全盈</option>
@@ -61,57 +90,57 @@
             <tr>
                 <th class="formTitle">設定葷食數</th>
                 <td class="formValue">
-                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">設定素食數</th>
                 <td class="formValue">
-                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">缺勤葷食數</th>
                 <td class="formValue">
-                    <input id="AbsentMEATPEOPLES" name="AbsentMEATPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="AbsentMEATPEOPLES" name="AbsentMEATPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">缺勤素食數</th>
                 <td class="formValue">
-                    <input id="AbsentVEGEPEOPLES" name="AbsentVEGEPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="AbsentVEGEPEOPLES" name="AbsentVEGEPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">登記葷食數</th>
                 <td class="formValue">
-                    <input id="ChangeMEATPEOPLES" name="ChangeMEATPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="ChangeMEATPEOPLES" name="ChangeMEATPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">登記素食數</th>
                 <td class="formValue">
-                    <input id="ChangeVEGEPEOPLES" name="ChangeVEGEPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="ChangeVEGEPEOPLES" name="ChangeVEGEPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">調整葷食數</th>
                 <td class="formValue">
-                    <input id="TuneMEATPEOPLES" name="TuneMEATPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="TuneMEATPEOPLES" name="TuneMEATPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">調整素食數</th>
                 <td class="formValue">
-                    <input id="TuneVEGEPEOPLES" name="TuneVEGEPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="TuneVEGEPEOPLES" name="TuneVEGEPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">實際葷食數</th>
                 <td class="formValue">
-                    <input id="REALMEATPEOPLES" name="REALMEATPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="REALMEATPEOPLES" name="REALMEATPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">實際素食數</th>
                 <td class="formValue">
-                    <input id="REALVEGEPEOPLES" name="REALVEGEPEOPLES" type="number" class="form-control text-center required"  />
+                    <input id="REALVEGEPEOPLES" name="REALVEGEPEOPLES" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">調整數量</th>
                 <td class="formValue">
-                    <input id="TunePAYEMPLYS" name="TunePAYEMPLYS" type="number" class="form-control text-center required"  />
+                    <input id="TunePAYEMPLYS" name="TunePAYEMPLYS" type="number" class="form-control text-center required"  onchange="changeValue()"/>
                 </td>
                 <th class="formTitle">實際數量</th>
                 <td class="formValue">
@@ -121,7 +150,7 @@
             <tr>
                 <th class="formTitle">單價</th>
                 <td class="formValue">
-                    <input id="UNITPRICE" name="UNITPRICE" type="number" class="form-control text-center required"  />
+                    <input id="UNITPRICE" name="UNITPRICE" type="number" class="form-control text-center required"  disabled="disabled"/>
                 </td>
                 <th class="formTitle">費用金額</th>
                 <td class="formValue">

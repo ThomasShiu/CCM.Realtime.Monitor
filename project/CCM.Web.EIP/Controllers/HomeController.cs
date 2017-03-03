@@ -111,6 +111,31 @@ namespace CCM.Web.EIP.Controllers
             return Content(data.ToJson());
         }
 
+        // 外出人員
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetOutdoorEmpList()
+        {
+            var result = cs.getOutdoorEmpList();
+            var data = new
+            {
+                OutdoorEmpList = result
+            };
 
+            return Content(data.ToJson());
+        }
+        // 待簽核加班單筆數
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetWaitSignCount()
+        {
+            var result = cs.getWaitSignCount("");
+            var data = new
+            {
+                WaitSignCount = result
+            };
+
+            return Content(data.ToJson());
+        }
     }
 }

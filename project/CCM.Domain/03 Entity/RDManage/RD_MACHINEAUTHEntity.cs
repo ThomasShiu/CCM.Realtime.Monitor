@@ -31,13 +31,9 @@ namespace CCM.Domain
 
         public String newFileName { get; set; }
 
-        
-
         public String UploadPath { get; set; }
 
         public String DownloadPath { get; set; }
-
-        public String DownloadPath2 { get; set; }
 
         public String CPU_SN { get; set; }
 

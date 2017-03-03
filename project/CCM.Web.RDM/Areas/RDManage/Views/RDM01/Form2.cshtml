@@ -36,6 +36,8 @@
     function submitForm() {
         var FileUploadPath = $('input[name=FileUpload1]').val();
         var UploadPath = $('input[name=UploadPath]').val();
+        var newold = $('#newold').children('option:selected').val();
+
         if (UploadPath == '') {
             msg = "請先上傳 DLL 檔!";
             window.setTimeout(function () {
@@ -48,7 +50,7 @@
             return false;
         }
         $.submitForm({
-            url: "/RDManage/RDM01/SubmitForm?keyValue=" + keyValue,
+            url: "/RDManage/RDM01/SubmitForm2?keyValue=" + keyValue + "&newold=" + newold,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -74,7 +76,7 @@
 
             // Adding one more key to FormData object
             fileData.append('username', 'Manas');
-            alert(fileData);
+            //alert(fileData);
 
             $.ajax({
                 url: '/RDManage/RDM01/UploadFiles',
@@ -117,8 +119,7 @@
     $(document).ready(function () {
         $('#CS_NO').change(function () {
             var short_nm = $(this).children('option:selected').text();
-
-            $('#SHORT_NM').val(short_nm);
+            $('input[name=SHORT_NM]').val(short_nm);
         });
 
     });
@@ -127,12 +128,12 @@
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
     <input id="Enable" name="Enable" type="hidden" value="" />
+    <input id="SHORT_NM" name="SHORT_NM" type="hidden" value="" />
 
-    <input id="OrganizeId" name="OrganizeId" type="hidden" value="" />
-    <input id="CreatorTime" name="CreatorTime" type="hidden" value="" />
-    <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
-    <input id="LastModifyTime" name="LastModifyTime" type="hidden" value="" />
-    <input id="LastModifyUserId" name="LastModifyUserId" type="hidden" value="" />
+    <input id="UploadPath" name="UploadPath" type="hidden" value="" />
+    <input id="oldFileName" name="oldFileName" type="hidden" value="" />
+    <input id="newFileName" name="newFileName" type="hidden" value="" />
+
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
@@ -144,23 +145,18 @@
             </tr>
             <tr>
                 <th class="formTitle">客戶</th>
-                <td class="formValue">
+                <td class="formValue" colspan="3" >
+                    
                     <select id="CS_NO" name="CS_NO" class="form-control required">
                         <option></option>
                     </select>
-                  
                 </td>
-                <td class="formValue" colspan="2">
-                    <input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" disabled="disabled"/>
-                </td>
+
             </tr>  
-            
             <tr>
                 <th class="formTitle">檔案</th>
-                <td class="formValue" colspan="3">
-                    <input id="UploadPath" name="UploadPath" type="hidden" value="" />
-                    <input id="oldFileName" name="oldFileName" type="hidden" value="" />
-                    <input id="newFileName" name="newFileName" type="hidden" value="" />
+                <td class="formValue">
+                    
                     @*<div>
                         <label class="btn btn-default btn-file">
                             <input type="file" id="FileUpload1" />
@@ -168,15 +164,25 @@
                         </label>
                     </div>*@
                     <div class="input-group">
-                        <input type="file" id="FileUpload1" class="form-control" aria-label="...">
+                        <input type="file" id="FileUpload1" class="form-control" aria-label="..." >
                         <span class="input-group-btn">
                             <button type="button" id="btnUpload" class="btn btn-info" onclick="UploadFile()">上傳檔案</button>
                         </span>
                     </div>
-                    <div>
-                        <label id="filepath" name="filepath"></label>
-                    </div>
+                 </td>
+                <th class="formTitle">版本</th>
+                <td class="formValue">
+                    <select id="newold" name="newold" class="form-control required">
+                        <option value="new">新版</option>
+                        <option value="old">舊版</option>
+                    </select>
 
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">已上傳</th>
+                <td class="formValue" colspan="3">
+                    <label id="filepath" name="filepath"></label>
                 </td>
             </tr>
             <tr>

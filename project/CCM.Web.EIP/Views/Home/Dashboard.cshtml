@@ -11,13 +11,23 @@
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <script src="~/Content/js/framework-ui.js"></script>
     <script src="~/Content/js/charts/Chart.js"></script>
+    <script src="~/Content/js/jqtimers/jquery.timers.js"></script>
     <script>
         $(function () {
+            // 特約廠商
             GenVendor();
+            // 公佈欄
             GenBulletin();
+            // 公務車輛
             GetCarList();
+            // 會議室
             GetRoomList();
+            // 差勤人員
             GetLeaveEmpList();
+            // 外出人員
+            GetOutdoorEmpList();
+            // 待簽核加班單筆數
+            GetWaitSignCount();
 
             GetSalaryChart();
             GetLeaveChart();
@@ -134,7 +144,7 @@
                 success: function (data) {
                     var trHTML = '';
                     $.each(data.Bulletin, function (i, item) {
-                        trHTML += '<li><a class="menuItem" href="/PublicObject/PUB05/IndexPub" target="_blank">【公告】' + data.Bulletin[i].BUSubject + '</a><span class="time">' + data.Bulletin[i].Showdate + '</span></li>';
+                        trHTML += '<li><a class="menuItem" href="#"  onclick="btn_bulltinDetails(\'' + data.Bulletin[i].SID + '\')">【公告】' + data.Bulletin[i].BUSubject + '</a><span class="time">' + data.Bulletin[i].Showdate + '</span></li>';
                     });
                     $('#bulletinlist').append(trHTML);
                 },
@@ -158,6 +168,7 @@
                 async: false,
                 success: function (data) {
                     var trHTML = '';
+                    var counter = 0;
                     $.each(data.CarList, function (i, item) {
                         if (data.CarList[i].BookingStartTime != '') {
                             trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="menuItem">  ' +
@@ -165,8 +176,13 @@
                         } else {
                             trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time"><a class="menuItem" href="#top"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
                         }
+                        if (data.CarList[i].Status != '可借用') {
+                            counter++;
+                        }
                     });
+                    
                     $('#carlist').append(trHTML);
+                    $("#car_booking_count").text(counter);
                 },
                 error: function (msg) {
                     //alert(msg.responseText);
@@ -188,10 +204,16 @@
                 async: false,
                 success: function (data) {
                     var trHTML = '';
+                    var counter = 0;
                     $.each(data.RoomList, function (i, item) {
                         trHTML += '<li><a class="menuItem" href="/PublicObject/PUB03/IndexPub" target="_blank">【會議室】' + data.RoomList[i].ObjectNM + '</a><span class="time">' + data.RoomList[i].Status + '</span></li>';
+                        if (data.RoomList[i].Status != '可借用') {
+                            counter++;
+                        }
                     });
+                    
                     $('#roomlist').append(trHTML);
+                    $("#room_booking_count").text(counter);
                 },
                 error: function (msg) {
                     //alert(msg.responseText);
@@ -213,11 +235,15 @@
                 async: false,
                 success: function (data) {
                     var trHTML = '';
+                    var counter = 0;
                     $.each(data.LeaveEmpList, function (i, item) {
                         trHTML += '<li><a class="menuItem" href="#" >' + data.LeaveEmpList[i].EMPLYID + ' ' + data.LeaveEmpList[i].EMPLYNM + '-' + data.LeaveEmpList[i].FRL_NM + '</a><span class="time">' +
                             data.LeaveEmpList[i].BL_DT + ' ' + data.LeaveEmpList[i].BTIME + '~' + data.LeaveEmpList[i].ETIME + '</span></li>';
+                        counter++;
                     });
+                    
                     $('#leavemplist').append(trHTML);
+                    $("#leavemp_count").text(counter);
                 },
                 error: function (msg) {
                     //alert(msg.responseText);
@@ -228,6 +254,56 @@
             });
         }
 
+        // 外出人員
+        function GetOutdoorEmpList() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetOutdoorEmpList",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    var counter = 0;
+                    $.each(data.OutdoorEmpList, function (i, item) {
+                        trHTML += '<li><a class="menuItem" href="#" >' + data.OutdoorEmpList[i].AttendEmp + ' : ' + data.OutdoorEmpList[i].Subject + ' - '+data.OutdoorEmpList[i].BookingStartTime + '~' + data.OutdoorEmpList[i].BookingEndTime + '</a></li>';
+                        counter++;
+                    });
+
+                    $('#outdooremplist').append(trHTML);
+                },
+                error: function (msg) {
+                    //alert(msg.responseText);
+                    window.setTimeout(function () {
+                        $.modalMsg(msg.responseText, "warning");
+                    }, 500);
+                }
+            });
+        }
+
+        // 待簽核加班單筆數
+        function GetWaitSignCount() {
+            $.ajax({
+                type: "GET",
+                url: "/Home/GetWaitSignCount",
+                data: {},
+                dataType: "json",
+                cache: false,
+                async: false,
+                success: function (data) {
+                    var trHTML = '';
+                    $.each(data.WaitSignCount, function (i, item) {
+                        
+                        trHTML = data.WaitSignCount[i].WAITSIGNCNT;
+                    });
+                    $("#waitsign_overtime").text(trHTML);
+                },
+                error: function (msg) {
+                    $("#waitsign_overtime").text('0');
+                }
+            });
+        }
         // 特約廠商
         function btn_Vendor() {
             var keyValue = $("#gridList").jqGridRowValue().SID;
@@ -256,6 +332,42 @@
                 }
             });
         }
+
+        // 查看公佈欄
+        function btn_bulltinDetails() {
+            //var keyValue = $("#gridList").jqGridRowValue().SID;
+            var keyValue = arguments[0];
+            $.modalOpen({
+                id: "Details",
+                title: "查看公告",
+                url: "/PublicObject/PUB05/DetailsPub?keyValue=" + keyValue,
+                width: "740px",
+                height: "500px",
+                btn: null,
+            });
+        }
+
+        $(document).ready(function () {
+            //每5分鐘執行，無限次，並命名計時器名稱為 Timer1
+            //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
+            $('body').everyTime('6das', 'Timer1', function () {
+                $('#carlist').empty();
+                $('#roomlist').empty();
+                $('#leavemplist').empty();
+                $('#outdooremplist').empty();
+
+                // 公務車輛
+                GetCarList();
+                // 會議室
+                GetRoomList();
+                // 差勤人員
+                GetLeaveEmpList();
+                // 外出人員
+                GetOutdoorEmpList();
+                // 待簽核加班單筆數
+                GetWaitSignCount();
+            }, 0, true);
+        });
     </script>
 </head>
 <body>
@@ -273,8 +385,8 @@
                 <div class="panel-body">
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #fc8675;">
-                            <h2 class="m-top-none">8</h2>
-                            <h5>加班申請</h5>
+                            <h2 class="m-top-none"><span id="waitsign_overtime">0</span></h2>
+                            <h5>加班申請(待簽核)</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-user fa-2x"></i>
                             </div>
@@ -282,7 +394,7 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #6bafbd;">
-                            <h2 class="m-top-none">12</h2>
+                            <h2 class="m-top-none"><span id="car_booking_count">0</span></h2>
                             <h5>公務車登記</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-car fa-2x"></i>
@@ -291,7 +403,7 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #f3ce85;">
-                            <h2 class="m-top-none">2</h2>
+                            <h2 class="m-top-none"><span id="room_bookin_countg">0</span></h2>
                             <h5>會議室登記</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-commenting fa-2x"></i>
@@ -300,8 +412,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #949FB1;">
-                            <h2 class="m-top-none">6</h2>
-                            <h5>對公待簽收任務</h5>
+                            <h2 class="m-top-none"><span id="leavemp_count">0</span></h2>
+                            <h5>出差缺勤人數</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-gavel fa-2x"></i>
                             </div>
@@ -309,7 +421,7 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #65cea7; margin-right: 0px;">
-                            <h2 class="m-top-none">1234567</h2>
+                            <h2 class="m-top-none">1234567890</h2>
                             <h5>總體營收</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-sitemap fa-2x"></i>
@@ -320,7 +432,7 @@
             </div>
         </div>
         <div class="rows" style="margin-bottom: 1%; overflow: hidden;">
-            <div style="float: left; width: 44%; margin-right: 1%;">
+            <div style="float: left; width: 38%; margin-right: 1%;">
                 <ul id="myTab" class="nav nav-tabs">
                     <li class="active">
                         <a href="#bulltin-tab" data-toggle="tab"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</a>
@@ -352,7 +464,7 @@
                     </div>
                 </div>
             </div>
-            <div style="float: left; width: 34%; margin-right: 1%;">
+            <div style="float: left; width: 40%; margin-right: 1%;">
 
                 <ul id="myTab" class="nav nav-tabs">
                     <li class="active">
@@ -364,7 +476,9 @@
                     <li>
                         <a href="#emp-tab" data-toggle="tab"><i class="fa  fa-plane fa-lg" style="padding-right: 5px;"></i>差勤人員</a>
                     </li>
-
+                    <li>
+                        <a href="#outdoor-tab" data-toggle="tab"><i class="fa  fa-sign-out fa-lg" style="padding-right: 5px;"></i>外出人員</a>
+                    </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="car-tab">
@@ -393,14 +507,17 @@
                                 @*<div class="panel-heading"><i class="fa  fa-plane fa-lg" style="padding-right: 5px;"></i>差勤人員</div>*@
                                 <div class="panel-body">
                                     <ul id="leavemplist">
-                                        @*<li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>
-                                        <li><a href="#">【員工】B123456 王大明</a><span class="time">特休02/10至02/11</span></li>*@
                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="outdoor-tab">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                            <div class="panel panel-default">
+                                @*<div class="panel-heading"><i class="fa fa-weixin fa-lg" style="padding-right: 5px;"></i>外出人員</div>*@
+                                <div class="panel-body">
+                                    <ul id="outdooremplist"></ul>
                                 </div>
                             </div>
                         </div>
@@ -410,7 +527,7 @@
             <div style="float: right; width: 20%;">
                 <div style="height: 340px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-barcode fa-lg" style="padding-right: 5px;"></i>加入精湛、真湛 LINE群組</div>
+                        <div class="panel-heading"><i class="fa fa-barcode fa-lg" style="padding-right: 5px;"></i>加入精湛集團大家族 LINE群組</div>
                         <div class="panel-body">
                             <img src="~/Content/img/ccm_line.jpg" />
 

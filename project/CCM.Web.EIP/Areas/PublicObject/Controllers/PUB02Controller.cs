@@ -82,6 +82,17 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm( PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
+            //CAMARY楊登雄上下班使用，限制只能  08:00~17:00 預約
+            if (tableEntity.ObjectSID=="24") {
+                var starttime = int.Parse(tableEntity.BookingStartTime.ToString("HHmm"));
+                var endtime = int.Parse(tableEntity.BookingEndTime.ToString("HHmm"));
+
+                if (starttime < 800 | endtime > 1700)
+                {
+                    return Error("此公務車在08:00~17:00 不可借用。");
+                }
+            }
+
             if (!string.IsNullOrEmpty(tableEntity.Status) )
             {
                 if (string.IsNullOrEmpty(tableEntity.CreatorUserId) | 

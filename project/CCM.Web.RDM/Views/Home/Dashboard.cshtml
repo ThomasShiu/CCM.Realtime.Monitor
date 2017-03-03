@@ -9,7 +9,7 @@
     <link href="~/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Content/js/bootstrap/bootstrap.js"></script>
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
-
+    <script src="~/Content/js/framework-ui.js"></script>
     <script src="~/Content/js/charts/Chart.js"></script>
     <script>
         $(function () {
@@ -146,6 +146,7 @@
                 }
             });
         }
+
         // 公務車借用狀態
         function GetCarList() {
             $.ajax({
@@ -158,7 +159,12 @@
                 success: function (data) {
                     var trHTML = '';
                     $.each(data.CarList, function (i, item) {
-                        trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub" target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time">' + data.CarList[i].Status + '</span></li>';
+                        if (data.CarList[i].BookingStartTime != '') {
+                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="menuItem">  ' +
+                                data.CarList[i].BookingStartTime + '~' + data.CarList[i].BookingEndTime + '</span><span class="time"><a class="menuItem" href="#top"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
+                        } else {
+                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time"><a class="menuItem" href="#top"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
+                        }
                     });
                     $('#carlist').append(trHTML);
                 },
@@ -170,6 +176,7 @@
                 }
             });
         }
+
         // 會議室借用狀態
         function GetRoomList() {
             $.ajax({
@@ -221,6 +228,7 @@
             });
         }
 
+        // 特約廠商
         function btn_Vendor() {
             var keyValue = $("#gridList").jqGridRowValue().SID;
             $.modalOpen({
@@ -232,9 +240,26 @@
                 btn: null,
             });
         }
+
+        // 預約公務車
+        function btn_addCarBooking() {
+            var objectid = arguments[0];  // ObjectSID
+            var objectnm = arguments[1];  // ObjectNM
+            $.modalOpen({
+                id: "Form",
+                title: "預約公務車",
+                url: "/PublicObject/PUB02/Form3?objectid=" + objectid + "&objectnm=" + escape(objectnm),
+                width: "900px",
+                height: "700px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        }
     </script>
 </head>
 <body>
+    <a id="top"></a>
     <div id="areascontent">
         <div class="rows" style="margin-bottom: 1%; border: 1px solid #e6e6e6; overflow: hidden; padding-left: 1px;">
             <div class="panel panel-default">
@@ -284,8 +309,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #65cea7; margin-right: 0px;">
-                            <h2 class="m-top-none"></h2>
-                            <h5>網站地圖</h5>
+                            <h2 class="m-top-none">1234567</h2>
+                            <h5>總體營收</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-sitemap fa-2x"></i>
                             </div>
@@ -306,7 +331,7 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="bulltin-tab">
-                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
                             <div class="panel panel-default">
                                 @*<div class="panel-heading"><i class="fa fa-rss fa-lg" style="padding-right: 5px;"></i>通知公告</div>*@
                                 <div class="panel-body">
@@ -316,7 +341,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade " id="store-tab">
-                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
                             <div class="panel panel-default">
                                 @*<div class="panel-heading"><i class="fa fa-thumbs-o-up fa-lg" style="padding-right: 5px;"></i>特約廠商</div>*@
                                 <div class="panel-body">
@@ -343,17 +368,17 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="car-tab">
-                        <div style="height: 330px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
                             <div class="panel panel-default">
                                 @*<div class="panel-heading"><i class="fa fa-car fa-lg" style="padding-right: 5px;"></i>公務車</div>*@
                                 <div class="panel-body">
-                                    <ul id="carlist"></ul>
+                                    <ul id="carlist" onload="GetCarList()"></ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="room-tab">
-                        <div style="height: 320px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
                             <div class="panel panel-default">
                                 @*<div class="panel-heading"><i class="fa fa-weixin fa-lg" style="padding-right: 5px;"></i>會議室</div>*@
                                 <div class="panel-body">
@@ -363,7 +388,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="emp-tab">
-                        <div style="height: 320px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
+                        <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;overflow-y:scroll;">
                             <div class="panel panel-default">
                                 @*<div class="panel-heading"><i class="fa  fa-plane fa-lg" style="padding-right: 5px;"></i>差勤人員</div>*@
                                 <div class="panel-body">
@@ -383,7 +408,7 @@
                 </div>
             </div>
             <div style="float: right; width: 20%;">
-                <div style="height: 360px; border: 1px solid #e6e6e6; background-color: #fff;">
+                <div style="height: 340px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-barcode fa-lg" style="padding-right: 5px;"></i>加入精湛、真湛 LINE群組</div>
                         <div class="panel-body">
@@ -402,7 +427,7 @@
         </div>
         <div class="rows" style="overflow: hidden;">
             <div style="float: left; width: 69%;margin-right: 1%;">
-                <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;">
+                <div style="height: 310px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>考勤統計
@@ -418,7 +443,7 @@
                 </div>
             </div>
             <div style="float: right; width: 30%;">
-                <div style="height: 300px; border: 1px solid #e6e6e6; background-color: #fff;">
+                <div style="height: 310px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-pie-chart fa-lg" style="padding-right: 5px;"></i>請假統計</div>
                         <div class="panel-body" style="padding-top: 20px;">

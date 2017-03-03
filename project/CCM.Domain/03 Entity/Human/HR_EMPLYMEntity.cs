@@ -19,79 +19,10 @@ namespace CCM.Domain
 
         public String EMPLYNM { get; set; }
 
-        public String EMPLYENM { get; set; }
-
-        public String PIDNO { get; set; }
-
-        public String BPLACE { get; set; }
-
-        public String SEX { get; set; }
-
-        public DateTime? BRTHDT { get; set; }
-
-        public String MARY { get; set; }
-
-        public String REGADRS { get; set; }
-
-        public String MAILADRS { get; set; }
-
-        public String MAILADRS2 { get; set; }
-
-        public String HP { get; set; }
-
-        public String CONTEL { get; set; }
-
         public String DEPID { get; set; }
-
-        public String LBRTP { get; set; }
-
-        public DateTime? REGDT { get; set; }
-
-        public String JOBID { get; set; }
-
-        public String DEGREE { get; set; }
-
-        public String SERVICE { get; set; }
-
-        public Decimal? RNO { get; set; }
-
-        public DateTime? SPSDT { get; set; }
-
-        public DateTime? LRTDT { get; set; }
-
-        public DateTime? LLFDT { get; set; }
-
-        public String NATION { get; set; }
-
-        public String FORMAL { get; set; }
-
-        public Decimal? EXMN { get; set; }
 
         public String C_STA { get; set; }
 
-        public String PERD_05 { get; set; }
-
-        public String PERD_06 { get; set; }
-
-        public String RANKID { get; set; }
-
-        public String EMAIL { get; set; }
-
-        public String SFT_NO { get; set; }
-
-        public String COMID { get; set; }
-
-        public String WBSID { get; set; }
-
-        public String FA_NO { get; set; }
-
-        public String EXT { get; set; }
-
-        public String EFMNO { get; set; }
-
-        public String TFMNO { get; set; }
-
-        public String DIET { get; set; }
-
+        public String OrganizeId { get; set; }
     }
 }

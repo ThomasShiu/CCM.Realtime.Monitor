@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/SaleService/SRM02/GetFormJson",
+                url: "/RDManage/RDM03/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -29,7 +29,7 @@
             return false;
         }
         $.submitForm({
-            url: "/SaleService/SRM02/SubmitForm?keyValue=" + keyValue,
+            url: "/RDManage/RDM03/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -57,33 +57,87 @@
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">parentId</th>
+                <th class="formTitle">CS_NO</th>
                 <td class="formValue">
-					<input id="parentId" name="parentId" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="CS_NO" name="CS_NO" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">FileName</th>
+                <th class="formTitle">SHORT_NM</th>
                 <td class="formValue">
-					<input id="FileName" name="FileName" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">Size</th>
+                <th class="formTitle">Remark</th>
                 <td class="formValue">
-					<input id="Size" name="Size" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Remark" name="Remark" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">Descript</th>
+                <th class="formTitle">Version</th>
                 <td class="formValue">
-					<input id="Descript" name="Descript" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Version" name="Version" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">ImgPath</th>
+                <th class="formTitle">Machine_Id</th>
                 <td class="formValue">
-					<input id="ImgPath" name="ImgPath" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">oldFileName</th>
+                <td class="formValue">
+					<input id="oldFileName" name="oldFileName" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">newFileName</th>
+                <td class="formValue">
+					<input id="newFileName" name="newFileName" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">UploadPath</th>
+                <td class="formValue">
+					<input id="UploadPath" name="UploadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">DownloadPath</th>
+                <td class="formValue">
+					<input id="DownloadPath" name="DownloadPath" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">CPU_SN</th>
+                <td class="formValue">
+					<input id="CPU_SN" name="CPU_SN" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">HD_SN</th>
+                <td class="formValue">
+					<input id="HD_SN" name="HD_SN" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">HD_Fireware</th>
+                <td class="formValue">
+					<input id="HD_Fireware" name="HD_Fireware" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">HD_Moduleno</th>
+                <td class="formValue">
+					<input id="HD_Moduleno" name="HD_Moduleno" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">Enable</th>
+                <td class="formValue">
+					<input id="Enable" name="Enable" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>

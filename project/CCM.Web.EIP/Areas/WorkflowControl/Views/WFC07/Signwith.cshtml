@@ -22,6 +22,7 @@
         });
         // 初始化簽核途程列表
         InitBootGrid();
+        InitBootGrid2();
     });
     function initControl() {
         // 部門
@@ -104,6 +105,45 @@
         })
 
     }
+
+    // 初始化打卡時間列表
+    function InitBootGrid2() {
+        var emplyid = $('#EMPLYID').children('option:selected').val();
+        var yymmdd = $('input[name=MRDT]').val();
+
+        //alert(emplyid);
+        //alert(yymmdd);
+        // BootGrid test
+        $("#grid-ticket").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/WorkflowControl/WFC07/GetTicketJsonList?emplyid=' + emplyid + '&yymmdd=' + yymmdd,
+            formatters: {
+
+            }
+        })
+
+    }
+
     // 會簽
     function btn_signwith() {
 
@@ -218,29 +258,49 @@
         });
     }
 </script>
-<table class="form">
+<table>
     <tr>
-        <th class="formTitle">會簽人員</th>
-        <td class="formValue">
-            <select id="SIGNWITHEMP" name="SIGNWITHEMP" class="form-control required">
-                <option></option>
-            </select>
+        <td  style="width:60%">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">會簽人員</th>
+                    <td class="formValue">
+                        <select id="SIGNWITHEMP" name="SIGNWITHEMP" class="form-control required">
+                            <option></option>
+                        </select>
+                    </td>
+                    <th class="formValue">
+                        <button class="btn btn-success btn-md" onclick="btn_signwith()">會簽</button>
+                        <button class="btn btn-danger btn-md" onclick="rejectSN()">退回</button>
+                    </th>
+                </tr>
+                <tr >
+                    <th class="formTitle">批示</th>
+                    <td class="formValue">
+                        <input id="REPLY" name="REPLY" type="text" class="form-control " />
+                    </td>
+                    <th class="formValue">
+                        <button class="btn btn-info btn-md" onclick="btn_sign()">核准</button>
+                    </th>
+                </tr>
+            </table>
         </td>
-        <th class="formValue">
-            <button class="btn btn-success btn-md" onclick="btn_signwith()">會簽</button>
-            <button class="btn btn-danger btn-md" onclick="rejectSN()">退回</button>
-        </th>
-    </tr>
-    <tr>
-        <th class="formTitle">批示</th>
-        <td class="formValue">
-            <input id="REPLY" name="REPLY" type="text" class="form-control "/>
+        <td style="width:40%">
+            <table id="grid-ticket" class="table table-condensed table-hover table-striped">
+                <thead>
+                    <tr>
+                        @*<th data-column-id="C_FUNC" data-width="10%">類別</th>*@
+                        <th data-column-id="YYMMDD" data-width="10%">日期</th>
+                        <th data-column-id="TKT_HH" data-width="5%">時</th>
+                        <th data-column-id="TKT_NN" data-width="5%">分</th>
+                        <th data-column-id="COMMAND" data-width="10%"></th>
+                    </tr>
+                </thead>
+            </table>
         </td>
-        <th class="formValue">
-            <button class="btn btn-info btn-md" onclick="btn_sign()">核准</button>
-        </th>
     </tr>
- </table>
+</table>
+
     <form id="form1">
     <input id="SID" name="SID" type="hidden" />
     <input id="C_SOURCE" name="C_SOURCE" type="hidden" />
@@ -347,11 +407,11 @@
             <tr>
                 <th class="formTitle">加班原因</th>
                 <td class="formValue" colspan="5">
-                    <textarea id="DEREASON" name="DEREASON" class="form-control " style="height: 60px;" disabled="disabled"></textarea>
+                    <textarea id="DEREASON" name="DEREASON" class="form-control " style="height: 40px;" disabled="disabled"></textarea>
                 </td>
 
             </tr>
-            <tr></tr>
+           
             <tr>
                 <th class="formTitle">簽核途程</th>
                 <td colspan="5">
@@ -369,6 +429,7 @@
                     </table>
                 </td>
             </tr>
+           
         </table>
     </div>
 </form>

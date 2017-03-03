@@ -152,6 +152,7 @@
     <Compile Include="Areas\RDManage\Controllers\RDM00Controller.cs" />
     <Compile Include="Areas\RDManage\Controllers\RDM02Controller.cs" />
     <Compile Include="Areas\RDManage\Controllers\RDM01Controller.cs" />
+    <Compile Include="Areas\RDManage\Controllers\RDM03Controller.cs" />
     <Compile Include="Areas\RDManage\RDManageAreaRegistration.cs" />
     <Compile Include="Areas\SystemManage\Controllers\AreaController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\DutyController.cs" />
@@ -741,6 +742,9 @@
     <Content Include="Areas\RDManage\Views\RDM02\Index.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM02\Form2.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM01\Form2.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM03\Details.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM03\Form.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM03\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -947,12 +951,10 @@
       <DependentUpon>EIPDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\CCM_ADMIN_207.pubxml" />
-    <None Include="Properties\PublishProfiles\CCM_EIP_13.pubxml" />
-    <None Include="Properties\PublishProfiles\CCM_EIP_207.pubxml">
+    <None Include="Properties\PublishProfiles\CCM_RDM_13.pubxml" />
+    <None Include="Properties\PublishProfiles\CCM_RDM_207.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>

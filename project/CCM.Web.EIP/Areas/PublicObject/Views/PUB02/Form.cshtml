@@ -4,6 +4,7 @@
 }
 <link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
 <script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
+
 <script>
     var keyValue = $.request("keyValue");
     var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
@@ -164,18 +165,19 @@
           
         });
         // 預計出廠時間
-        $('#BookingStartTime').change(function () {
-            var leavetime = $('#BookingStartTime').val();
-            $('#LeaveTime').val(leavetime);
+        //$('#BookingStartTime').change(function () {
+        //    var leavetime = $('#BookingStartTime').val();
+        //    $('#LeaveTime').val(leavetime);
 
-        });
+        //});
         // 預計回廠時間
-        $('#BookingEndTime').change(function () {
-            var backtime = $('#BookingEndTime').val();
-            $('#BackTime').val(backtime);
+        //$('#BookingEndTime').change(function () {
+        //    var backtime = $('#BookingEndTime').val();
+        //    $('#BackTime').val(backtime);
 
-        });
-        
+        //});
+
+      
     });
     
 </script>
@@ -258,16 +260,36 @@
             <tr>
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
-                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"  onchange="setleavetime()"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請輸入開始時間" />
+                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required" 
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm' })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
-                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"   onchange="setbacktime()"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請輸入結束時間" />
+                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"  
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm' })" placeholder="請輸入結束時間" />
                 </td>
 
             </tr>
+@{
+    var depid = CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId;
+
+    if (depid == "G00" | depid == "G10" | depid == "G20" | depid == "C00")
+    {
+            <tr>
+                <th class="formTitle">實際時間起</th>
+                <td class="formValue">
+                    <input id="LeaveTime" name="LeaveTime" type="text" class="form-control input-wdatepicker "
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm'})" placeholder="請輸入開始時間" />
+                </td>
+                <th class="formTitle">實際時間迄</th>
+                <td class="formValue">
+                    <input id="BackTime" name="BackTime" type="text" class="form-control input-wdatepicker "
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm'})" placeholder="請輸入結束時間" />
+                </td>
+
+            </tr>
+    }
+    }
             <tr>
                 <th class="formTitle">用途說明</th>
                 <td class="formValue" colspan="3">
@@ -282,7 +304,7 @@
                 </td>
             </tr>
             <tr>
-                <th class="formTitle" colspan="3"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;"/></th>
+                <th class="formTitle" colspan="3"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:230px;"/></th>
                 <td class="formValue" colspan="3">
                     <span id="ObjectNM" name="ObjectNM"></span>
                     <br /><br /><br />

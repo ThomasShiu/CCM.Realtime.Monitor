@@ -76,127 +76,12 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             {
                 return Error(result);
             }
-
-            // 有上傳檔案時，產生認證檔
-            if (!string.IsNullOrEmpty(entity.UploadPath))
-            {
-                // 取出temp檔資訊
-                MHDI.IAuthorized m_IAU = new MHDI.PSP();
-                string exactPath = Server.MapPath("~/" + entity.UploadPath).Replace("RDManage\\RDM01\\", "");
-                //exactPath = exactPath.Replace("RDManage\\RDM01\\","");
-                // 截取DLL內的機台資訊
-                var DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
-                var Version = m_IAU.GetVersion();
-                var vFilename = Path.GetFileNameWithoutExtension(exactPath);
-                var vPath = Path.GetDirectoryName(exactPath);
-
-                // 產生存檔路徑
-                var TransPathNew = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar;
-                if (!Directory.Exists(TransPathNew))
-                {
-                    Directory.CreateDirectory(TransPathNew);
-                }
-                var TransPathOld = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar + "old" + Path.DirectorySeparatorChar;
-                if (!Directory.Exists(TransPathOld))
-                {
-                    Directory.CreateDirectory(TransPathOld);
-                }
-
-                // 產生認証檔(新版)
-                var transNew = m_IAU.Transform(exactPath, TransPathNew, 1, "CCM");
-                // 產生認証檔(舊版)
-                var transOld = m_IAU.Transform(exactPath, TransPathOld, 1, "");
-
-                JObject json = JObject.Parse(DeviceInfo);
-                entity.Version = Version;
-                entity.newFileName = Path.GetFileName(exactPath);
-
-                if (transNew) entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/new/CCM.dll";
-                if (transOld) entity.DownloadPath2 = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/old/CCM.dll";
-
-                entity.CPU_SN = json["CPU Serial Number"].ToString();
-                entity.HD_SN = json["HD Serial Number"].ToString();
-                entity.HD_Fireware = json["HD Firmware"].ToString();
-                entity.HD_Moduleno = json["HD Module Number"].ToString();
-            }
-
+            
             tableApp.SubmitForm(entity, keyValue);
             return Success("操作成功。");
         }
         #endregion
 
-        #region 單檔上傳
-        [HttpPost]
-        public ActionResult UploadFiles()
-        {
-            string fname = "", oldfilename="";
-            string newfilename = Common.GuId();
-            bool isSavedSuccessfully = true;
-            int count = 0;
-            string msg = "";
-
-            // Checking no of files injected in Request object  
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    //  Get all files from Request object  
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                        oldfilename = Path.GetFileName(Request.Files[i].FileName);  
-
-                        HttpPostedFileBase file = files[i];
-
-                        // Checking for Internet Explorer  
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            //vfilename = testfiles[testfiles.Length - 1];
-                            newfilename += Path.GetExtension(file.FileName);
-                        }
-                        else
-                        {
-                            //vfilename = file.FileName;
-                            newfilename += Path.GetExtension(file.FileName);
-                        }
-
-                        // Get the complete folder path and store the file inside it.  
-                        fname = Path.Combine(Server.MapPath("~/EIPContent/Content/PublicObject/MachineAuth/"), newfilename);
-                        file.SaveAs(fname);
-
-                        newfilename = "EIPContent/Content/PublicObject/MachineAuth/" + newfilename;
-                        count++;
-                    }
-                    // Returns message that successfully uploaded  
-                    //return Json("File Uploaded Successfully!");
-                    msg = "success";
-
-                }
-                catch (Exception ex)
-                {
-                    msg = ex.Message;
-                    isSavedSuccessfully = false;
-                }
-            }
-            else
-            {
-                msg = "請選擇要上傳的檔案!";
-                isSavedSuccessfully = false;
-                //return Json("No files selected.");
-            }
-
-            return Json(new
-            {
-                Result = isSavedSuccessfully,
-                Count = count,
-                Message = msg,
-                oldFileName = oldfilename,
-                newFileName = newfilename
-            });
-        }
-        #endregion
     }
 
 

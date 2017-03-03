@@ -11,49 +11,29 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: RD_MACHINEAUTH
-			public class RD_MACHINEAUTHEntity  : IEntityCcm<RD_MACHINEAUTHEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: V_HR_TICKET
+			public class V_HR_TICKETEntity  : IEntityCcm<V_HR_TICKETEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public String SID  { get; set; }                                        
+				public DateTime YYMMDD  { get; set; }                                        
 				          
-				public String Customer  { get; set; }                                        
+				public String EMPLYID  { get; set; }                                        
 				          
-				public String Remark  { get; set; }                                        
+				public Decimal TKT_HH  { get; set; }                                        
 				          
-				public String Version  { get; set; }                                        
+				public Decimal TKT_NN  { get; set; }                                        
 				          
-				public String Machine_Id  { get; set; }                                        
+				public Decimal TKT_SS  { get; set; }                                        
 				          
-				public String oldFileName  { get; set; }                                        
+				public DateTime BL_DT  { get; set; }                                        
 				          
-				public String newFileName  { get; set; }                                        
+				public String C_UPDATE  { get; set; }                                        
 				          
-				public String newFileNameOld  { get; set; }                                        
+				public String C_FUNC  { get; set; }                                        
 				          
-				public String UploadPath  { get; set; }                                        
+				public String REMARK  { get; set; }                                        
 				          
-				public String DownloadPath  { get; set; }                                        
-				          
-				public String CPU_SN  { get; set; }                                        
-				          
-				public String HD_SN  { get; set; }                                        
-				          
-				public String HD_Fireware  { get; set; }                                        
-				          
-				public String HD_Moduleno  { get; set; }                                        
-				          
-				public Boolean Enable  { get; set; }                                        
-				          
-				public String OrganizeId  { get; set; }                                        
-				          
-				public DateTime CreatorTime  { get; set; }                                        
-				          
-				public String CreatorUserId  { get; set; }                                        
-				          
-				public DateTime LastModifyTime  { get; set; }                                        
-				          
-				public String LastModifyUserId  { get; set; }                                        
+				public String SN  { get; set; }                                        
 				                                
 			}                            
 }

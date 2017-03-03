@@ -44,6 +44,7 @@ namespace CCM.Application
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
                 expression = expression.Or(t => t.DEREASON.Contains(keyword));
+                expression = expression.Or(t => t.DEPID.Contains(keyword));
             }
 
             // 簽核狀態
@@ -106,7 +107,63 @@ namespace CCM.Application
         {
             return service.FindEntity(keyValue);
         }
-       
 
+        // 自身部門加班單
+        public List<V_HR_OVRTMEntity> GetDepList(Pagination pagination, string queryJson = "")
+        {
+            var expression = ExtLinq.True<V_HR_OVRTMEntity>();
+            var queryParam = queryJson.ToJObject();
+
+            if (!queryParam["keyword"].IsEmpty())
+            {
+                string keyword = queryParam["keyword"].ToString();
+                expression = expression.And(t => t.OVRTNO.Contains(keyword));
+                expression = expression.Or(t => t.EMPLYID.Contains(keyword));
+                expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
+                expression = expression.Or(t => t.DEREASON.Contains(keyword));
+                expression = expression.Or(t => t.DEPID.Contains(keyword));
+            }
+
+            // 簽核狀態
+            if (!queryParam["statusType"].IsEmpty())
+            {
+                string statusType = queryParam["statusType"].ToString();
+                switch (statusType)
+                {
+                    case "SN":
+                        expression = expression.And(t => t.STATUS == "SN");
+                        break;
+                    case "OP":
+                        expression = expression.And(t => t.STATUS == "OP");
+                        break;
+                    case "CL":
+                        expression = expression.And(t => t.STATUS == "CL");
+                        break;
+                    case "NL":
+                        expression = expression.And(t => t.STATUS == "NL");
+                        break;
+                    case "PB":
+                        expression = expression.And(t => t.STATUS == "PB");
+                        break;
+                    case "CF":
+                        expression = expression.And(t => t.STATUS == "CF");
+                        break;
+                    case "ALL":
+                        expression = expression.And(t => t.STATUS != "");
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+            else
+            {
+                expression = expression.And(t => t.STATUS == "SN");
+            }
+
+            //expression = expression.And(t => t.STATUS == "SN");
+            //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
+            return service.FindList(expression, pagination);
+        }
     }
 }

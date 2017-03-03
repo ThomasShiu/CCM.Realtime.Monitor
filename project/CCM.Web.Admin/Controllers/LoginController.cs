@@ -36,7 +36,7 @@ namespace CCM.Web.Admin.Controllers
         {
             new LogApp().WriteDbLog(new LogEntity
             {
-                F_ModuleName = "系統登錄",
+                F_ModuleName = "系統登入",
                 F_Type = DbLogType.Exit.ToString(),
                 F_Account = OperatorProvider.Provider.GetCurrent().UserCode,
                 F_NickName = OperatorProvider.Provider.GetCurrent().UserName,
@@ -53,7 +53,7 @@ namespace CCM.Web.Admin.Controllers
         public ActionResult CheckLogin(string username, string password, string code)
         {
             LogEntity logEntity = new LogEntity();
-            logEntity.F_ModuleName = "系統登錄";
+            logEntity.F_ModuleName = "系統登入";
             logEntity.F_Type = DbLogType.Login.ToString();
             try
             {
@@ -88,17 +88,17 @@ namespace CCM.Web.Admin.Controllers
                     logEntity.F_Account = userEntity.F_Account;
                     logEntity.F_NickName = userEntity.F_RealName;
                     logEntity.F_Result = true;
-                    logEntity.F_Description = "登錄成功";
+                    logEntity.F_Description = "登入成功";
                     new LogApp().WriteDbLog(logEntity);
                 }
-                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登錄成功。" }.ToJson());
+                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登入成功。" }.ToJson());
             }
             catch (Exception ex)
             {
                 logEntity.F_Account = username;
                 logEntity.F_NickName = username;
                 logEntity.F_Result = false;
-                logEntity.F_Description = "登錄失敗，" + ex.Message;
+                logEntity.F_Description = "登入失敗，" + ex.Message;
                 new LogApp().WriteDbLog(logEntity);
                 return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
             }

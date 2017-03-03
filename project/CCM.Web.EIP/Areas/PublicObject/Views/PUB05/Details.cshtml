@@ -73,10 +73,13 @@
     function InitBootGrid() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
+        var pathlink = '';
         if (vport != 80) {
             vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+        } else {
+            pathlink = 'http://' + vhost + '/';
         }
-        var pathlink = 'http://' + vhost + vport + '/';
 
         // BootGrid test
         $("#grid-attachfile").on("load.rs.jquery.bootgrid", function () {

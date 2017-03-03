@@ -6,7 +6,7 @@
 <script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
 <script>
     var objectid = $.request("objectid");  //ObjectSID
-    var objectnm = '@Server.UrlDecode(Request.QueryString["objectnm"])'; //$.request("objectnm"); 
+    var objectnm = '@Server.UrlDecode(Request.QueryString["objectnm"])'; //$.request("objectnm");
     var keyValue = $.request("keyValue");  //ObjectSID
     var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
     $(function () {
@@ -74,7 +74,7 @@
             text: "EMPLYNM"
         });
 
-        
+
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -85,7 +85,7 @@
             param: $("#form1").formSerialize(),
             success: function () {
                 $.loading(false);
-                
+
                 msg = "作業完成!";
                 window.setTimeout(function () {
                     $.modalMsg(msg, "success");
@@ -178,32 +178,32 @@
         $('#ObjectSID').change(function () {
             // 顯示公共物件資料
             showPublicObject($('#ObjectSID').children('option:selected').val());
-          
+
         });
         // 預計出廠時間
-        $('#BookingStartTime').change(function () {
-            var leavetime = $('#BookingStartTime').val();
-            $('#LeaveTime').val(leavetime);
+        //$('#BookingStartTime').change(function () {
+        //    var leavetime = $('#BookingStartTime').val();
+        //    $('#LeaveTime').val(leavetime);
 
-        });
+        //});
         // 預計回廠時間
-        $('#BookingEndTime').change(function () {
-            var backtime = $('#BookingEndTime').val();
-            $('#BackTime').val(backtime);
+        //$('#BookingEndTime').change(function () {
+        //    var backtime = $('#BookingEndTime').val();
+        //    $('#BackTime').val(backtime);
 
-        });
-        
+        //});
+
     });
-    
+
 </script>
 
 <form id="form1">
     <input id="SID" name="SID" type="hidden" value="" />
     <input id="MileageLast" name="MileageLast" type="hidden" value="0" />
-    <input id="Mileage" name="Mileage" type="hidden"  value="0" />
+    <input id="Mileage" name="Mileage" type="hidden" value="0" />
     <input id="LeaveTime" name="LeaveTime" type="hidden" value="" />
     <input id="BackTime" name="BackTime" type="hidden" value="" />
-    <input id="Status" name="Status" type="hidden" value=""/>
+    <input id="Status" name="Status" type="hidden" value="" />
     <input id="CreatorUserId" name="CreatorUserId" type="hidden" value="" />
     @*<input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛"  />*@
 
@@ -262,24 +262,22 @@
             <tr>
                 <th class="formTitle">車輛編號</th>
                 <td class="formValue" colspan="3">
-                    <select id="ObjectSID" name="ObjectSID" class="form-control required" >
-                    </select>
+                    <select id="ObjectSID" name="ObjectSID" class="form-control required"></select>
                 </td>
 
                 <td class="formValue" colspan="2" rowspan="3">
                     <textarea id="AttendEmp" name="AttendEmp" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>
-
             <tr>
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
-                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required"  onchange="setleavetime()"
+                    <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required" onchange="setleavetime()"
                            onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 08:00', '%y-%M-%d 09:00', '%y-%M-%d 10:00', '%y-%M-%d 11:00', '%y-%M-%d 12:00', '%y-%M-%d 13:00'], lang: 'zh-tw' })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
-                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"   onchange="setbacktime()"
+                    <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required" onchange="setbacktime()"
                            onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true ,hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 13:00', '%y-%M-%d 14:00', '%y-%M-%d 15:00', '%y-%M-%d 16:00', '%y-%M-%d 17:00', '%y-%M-%d 18:00'], lang: 'zh-tw' })" placeholder="請輸入結束時間" />
                 </td>
 
@@ -298,7 +296,7 @@
                 </td>
             </tr>
             <tr>
-                <th class="formTitle" colspan="3"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;"/></th>
+                <th class="formTitle" colspan="3"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:250px;" /></th>
                 <td class="formValue" colspan="3">
                     <span id="ObjectNM" name="ObjectNM"></span>
                     <br /><br /><br />
@@ -309,6 +307,3 @@
         </table>
     </div>
 </form>
-
-
-

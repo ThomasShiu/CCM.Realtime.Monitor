@@ -16,7 +16,8 @@ namespace CCM.Mapping
     {
         public HR_OVRTMMap()
         {
-            this.ToTable("HR_OVRTM_TEST");
+            this.ToTable("HR_OVRTM");
+            //this.ToTable("HR_OVRTM_TEST");
             this.HasKey(t => t.OVRTNO);
         }
     }

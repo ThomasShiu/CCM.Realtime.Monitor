@@ -17,12 +17,16 @@
                     $("#form1").formSerialize(data);
                     // 顯示公共物件資料
                     showPublicObject($('#ObjectSID').children('option:selected').val());
-                    
                 }
             });
 
+            // 填入出廠年月日
+            getLeaveBackTime();
+
             // 取得最後里程
             getMileageLast();
+        } else {
+
         }
     });
     function initControl() {
@@ -53,9 +57,6 @@
             text: "USR_NM"
         });
 
-       
-
- 
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -106,6 +107,36 @@
             }
         });
     }
+    function getLeaveBackTime() {
+        // 開始加班
+        var d1 = $('input[name=BookingStartTime]').val();
+        var fd1 = new Date(d1);
+        // 結束加班
+        var d2 = $('input[name=BookingEndTime]').val();
+        var fd2 = new Date(d2);
+
+
+        // 出廠年月日
+        $('#LeaveYMD').val(fd1.getFullYear() + '/' + (fd1.getMonth() + 1) + '/' + fd1.getDate());
+        // 回廠年月日
+        $('#BackYMD').val(fd2.getFullYear() + '/' + (fd2.getMonth() + 1) + '/' + fd2.getDate());
+
+    }
+
+    function changeLeave() {
+        var LeaveTime = $('#LeaveYMD').val() + ' ' + $('#LeaveHH').val() + ':' + $('#LeaveMM').val()
+        $('input[name=LeaveTime]').val(LeaveTime);
+
+        //alert($('input[name=LeaveTime]').val());
+    }
+
+    function changeBack() {
+        var BackTime = $('#BackYMD').val() + ' ' + $('#BackHH').val() + ':' + $('#BackMM').val()
+        $('input[name=BackTime]').val(BackTime);
+
+        //alert($('input[name=BackTime]').val());
+    }
+
     $(document).ready(function () {
         if (!!keyValue) {
             // 編輯模式
@@ -114,7 +145,6 @@
             var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
             if (ttlmileage <= 0) { ttlmileage = 0; }
             $("#ttlkm").text(ttlmileage);
-
             //alert($("#Mileage").val() - $("#MileageLast").val());
         }
         $("#ObjectType").attr("disabled", "disabled");
@@ -190,15 +220,121 @@
             <tr>
                 <th class="formTitle">出廠時間</th>
                 <td class="formValue">
-                    @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control input-lg input-wdatepicker required"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input id="LeaveYMD" name="LeaveYMD" type="text" class="form-control input-md input-wdatepicker required" onchange="changeLeave()"
+                                   onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="LeaveHH" name="LeaveHH" class="form-control required" onchange="changeLeave()">
+                                <option value=""></option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="LeaveMM" name="LeaveMM" class="form-control required" onchange="changeLeave()">
+                                <option value=""></option>
+                                <option value="00">00</option>
+                                <option value="05">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                                <option value="50">50</option>
+                                <option value="55">55</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input id="LeaveTime" name="LeaveTime" type="hidden" />
+                    @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control input-lg input-wdatepicker required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />*@
                 </td>
                 <th class="formTitle">回廠時間</th>
-                <td class="formValue">
-                    @*<input id="BackTime" name="BackTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control  input-lg input-wdatepickerrequired"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />
+                <td class="">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <input id="BackYMD" name="BackYMD" type="text" class="form-control input-md input-wdatepicker required" onchange="changeBack()"
+                                   onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />
+                        </div>
+                        <div class="col-sm-4" >
+                            <select id="BackHH" name="BackHH" class="form-control required" onchange="changeBack()">
+                                <option value=""></option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="BackMM" name="BackMM" class="form-control required" onchange="changeBack()">
+                                <option value=""></option>
+                                <option value="00">00</option>
+                                <option value="05">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                                <option value="50">50</option>
+                                <option value="55">55</option>
+                            </select>
+                        </div>
+                    </div>
+
+                   
+                    <input id="BackTime" name="BackTime" type="hidden"  />
+                    @*<input id="BackTime" name="BackTime" type="text" class="form-control  input-lg input-wdatepicker required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />*@
                 </td>
             </tr>
             <tr>
@@ -215,7 +351,7 @@
             <tr>
                 <th class="formTitle">守衛人員</th>
                 <td class="formValue">
-                    <select id="GuardEMPID" name="GuardEMPID" class="form-control input-lg required"></select>
+                    <select id="GuardEMPID" name="GuardEMPID" class="form-control input-lg "></select>
                 </td>
                 <th class="formTitle">總公里數</th>
                 <td class="formValue">

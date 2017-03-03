@@ -4,6 +4,10 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace CCM.Code
 {
     public class OperatorProvider
@@ -32,10 +36,31 @@ namespace CCM.Code
         {
             if (LoginProvider == "Cookie")
             {
-                WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 60);
+                var depid = new List<string> { "G00", "G10", "G20","C00" };
+                string x = operatorModel.DeptId;
+                bool contains = depid.Contains(x, StringComparer.OrdinalIgnoreCase);
+                string userid = operatorModel.UserCode;
+                if (userid.Equals("bmw"))
+                {
+                    // 守衛無登入限制
+                    WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 525600);
+                }
+                else
+                {
+                    if (contains)
+                    {
+                        // 管理部、資訊部登入時效 8小時
+                        WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 640);
+                    }
+                    else
+                    {   // 一般員工 2小時
+                        WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 120);
+                    }
+                }
             }
             else
             {
+                // 使用Session
                 WebHelper.WriteSession(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()));
             }
             WebHelper.WriteCookie("CCM_mac", Md5.md5(Net.GetMacByNetworkInterface().ToJson(), 32));

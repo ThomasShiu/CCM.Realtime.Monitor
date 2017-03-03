@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: SRM_ALBUMDL
-	public interface ISRM_ALBUMDLRepository : IRepositoryBase<SRM_ALBUMDLEntity>
+	//mapping table name: V_HR_TICKET
+	public interface IV_HR_TICKETRepository : IRepositoryBase<V_HR_TICKETEntity>
     {
     }
 			 		                               

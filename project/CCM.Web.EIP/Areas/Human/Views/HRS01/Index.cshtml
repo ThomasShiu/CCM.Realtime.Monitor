@@ -10,10 +10,13 @@
     function gridList() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
+        var pathlink = '';
         if (vport != 80) {
             vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+        } else {
+            pathlink = 'http://' + vhost + '/';
         }
-        var pathlink = 'http://' + vhost + vport + '/';
 
         var $gridList = $("#gridList");
         $gridList.dataGrid({
@@ -30,9 +33,10 @@
                     },
 			        { label: "工號", name: "EMP_NO", width: 80, align: 'left' },
 				    { label: "姓名", name: "EMP_NM", width: 80, align: 'left' },
-				    { label: "生日", name: "BRD_DT", width: 80, align: 'left' },
+				    { label: "生日", name: "BRD_DT", hidden: true, width: 80, align: 'left' },
 				    { label: "到職日", name: "ARV_DT", width: 80, align: 'left' },
 				    { label: "職位", name: "JOB_NM", width: 80, align: 'left' },
+                    { label: "部門代號", name: "DEPM_NO", width: 80, align: 'left' },
 				    { label: "部門名稱", name: "DEPM_NM", width: 80, align: 'left' },
 				    
 
@@ -132,8 +136,8 @@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>
-                @*<li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
-                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>*@
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>

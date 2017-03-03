@@ -21,9 +21,10 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "机台编号", name: "Machine_Id", width: 80, align: 'left' },
                     { label: "客户编号", name: "CS_NO", width: 60, align: 'left' },
 				    { label: "客户名称", name: "SHORT_NM", width: 90, align: 'left' },
-				    { label: "机台编号", name: "Machine_Id", width: 80, align: 'left' },
+                    { label: "版本", name: "Version", width: 60, align: 'left' },
                     { label: "原档名", name: "oldFileName", width: 100, align: 'left' },
 				    { label: "原档下载", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
@@ -37,10 +38,9 @@
                             
                         }
                     },
-				   { label: "认证档(NEW)", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
-                    { label: "认证档(OLD)", name: "DownloadPath2", hidden: true, width: 80, align: 'left' },
+				   { label: "认证档", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "认证档NEW", name: "", width: 90, align: 'center',
+                         label: "认证档", name: "", width: 90, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
                              if (rowObject.DownloadPath != null & rowObject.DownloadPath != '') {
                                  return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">Download</a> ';
@@ -49,17 +49,6 @@
                              }
                          }
                      },
-                     {
-                         label: "认证档OLD", name: "", width: 90, align: 'center',
-                         formatter: function (cellvalue, options, rowObject) {
-                             if (rowObject.DownloadPath2 != null & rowObject.DownloadPath2 != '') {
-                                 return '<a href="' + pathlink + rowObject.DownloadPath2 + '" class="btn btn-info btn-sm">Download</a> ';
-                             } else {
-                                 return '';
-                             }
-                         }
-                     },
-
                     { label: "备注", name: "Remark", width: 120, align: 'left' },
                     {
                         label: "建立时间", name: "CreatorTime", width: 120, align: 'left',
@@ -121,14 +110,14 @@
     }
     function btn_upload() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
-        var UploadPath = $("#gridList").jqGridRowValue().UploadPath;
-        if (UploadPath != null & UploadPath!='') {
-            msg = "已有上傳認證檔，不可重複上傳!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-            return;
-        }
+        //var UploadPath = $("#gridList").jqGridRowValue().UploadPath;
+        //if (UploadPath != null & UploadPath!='') {
+        //    msg = "已有上傳認證檔，不可重複上傳!";
+        //    window.setTimeout(function () {
+        //        $.modalMsg(msg, "warning");
+        //    }, 500);
+        //    return;
+        //}
         $.modalOpen({
             id: "Form",
             title: "上傳",

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Form";
+    ViewBag.Title = "Form-加班單批次申請";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
@@ -94,7 +94,10 @@
             param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
+            },
+            error: function (data) {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+        }
         })
     }
     // 判斷 平日 假日
@@ -301,7 +304,7 @@
                                     <td class="formValue">
                                         <select id="LNO" name="LNO" class="form-control required" onchange="chkOvertime()">
                                             <option value="0">N</option>
-                                            <option value="1">Y</option>
+                                            <option value="30">Y</option>
                                         </select>
                                     </td>
                                 </tr>

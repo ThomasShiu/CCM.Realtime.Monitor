@@ -53,30 +53,35 @@ namespace CCM.Application
             if (!queryParam["timeType"].IsEmpty())
             {
                 string timeType = queryParam["timeType"].ToString();
-                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate();
+                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(-1);
                 DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(7);
                 switch (timeType)
                 {
                     case "1":  //今日內
-                        startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddHours(-12);
+                        startTime = DateTime.Now.ToString("yyyy-MM-dd  23:59:00").ToDate().AddDays(-1);
+                        endTime = DateTime.Now.ToString("yyyy-MM-dd  01:00:00").ToDate().AddDays(1);
+                        expression = expression.And(t => t.BookingStartTime > startTime && t.BookingEndTime < endTime);
                         break;
                     case "2": //一周內
                         startTime = DateTime.Now.AddDays(-7);
+                        expression = expression.And(t => t.BookingStartTime >= startTime);
                         break;
                     case "3": //一月內
                         startTime = DateTime.Now.AddMonths(-1);
+                        expression = expression.And(t => t.BookingStartTime >= startTime);
                         break;
                     default:
                         startTime = DateTime.Now.AddYears(-100);
+                        expression = expression.And(t => t.BookingStartTime >= startTime);
                         break;
                 }
-                expression = expression.And(t => t.BookingEndTime >= startTime && t.BookingEndTime <= endTime);
+                //expression = expression.And(t => t.BookingEndTime >= startTime && t.BookingEndTime <= endTime);
             }
             else {
-                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddHours(-12);
-                DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
+                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd 23:59:00").ToDate().AddDays(-1);
+                DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd 01:00:00").ToDate().AddDays(1);
                 //startTime = DateTime.Now.AddDays(-1);
-                expression = expression.And(t => t.BookingEndTime >= startTime);
+                expression = expression.And(t => t.BookingStartTime > startTime && t.BookingEndTime < endTime);
             }
             expression = expression.And(t => t.ObjectType == "公務車輛");
             return service.FindList(expression, pagination);

@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: SRM_ALBUMDL
-	public class SRM_ALBUMDLMap : EntityTypeConfiguration<SRM_ALBUMDLEntity>
+	//mapping table name: V_HR_TICKET
+	public class V_HR_TICKETMap : EntityTypeConfiguration<V_HR_TICKETEntity>
     {
-        public SRM_ALBUMDLMap()
+        public V_HR_TICKETMap()
         {
-            this.ToTable("SRM_ALBUMDL");
+            this.ToTable("V_HR_TICKET");
             this.HasKey(t => t.SID);
         }
     }
