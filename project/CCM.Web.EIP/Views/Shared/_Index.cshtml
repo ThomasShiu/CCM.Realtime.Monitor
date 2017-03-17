@@ -64,6 +64,17 @@
             var now = yyyy + '-' + mm + '-' + dd;
             return now;
         }
+
+        // 本機位址
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        var pathlink = '';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+        } else {
+            pathlink = 'http://' + vhost + '/';
+        }
     </script>
 </head>
 

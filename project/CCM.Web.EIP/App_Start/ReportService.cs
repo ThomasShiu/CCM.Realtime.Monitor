@@ -40,7 +40,7 @@ namespace CCM.Web.EIP
                             "          A.Status, A.LeaveTime, A.BackTime, A.GuardEMPID,C.USR_NM " +
                             "  FROM PO_PUBLIC_OBJECT_BOOKING A LEFT JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID " +
                             "  LEFT JOIN PO_GUARDNO C ON A.GuardEMPID = C.USR_NO " +
-                            "  WHERE CONVERT(VARCHAR(10), A.BookingStartTime, 120) = '" + keyValue + "' " +
+                            "  WHERE CONVERT(VARCHAR(10), A.BookingEndTime, 120) = '" + keyValue + "' " +
                             "  AND A.ObjectType = '公務車輛' AND A.Status = '結束' " +
                             "  ORDER BY B.ObjectNM,A.GuardEMPID ";
 
@@ -64,20 +64,20 @@ namespace CCM.Web.EIP
         #region 公務車每月里程統計表
         public LocalReport PUB01_R02(string keyValue, string type, string path)
         {
-            string v_sqlstr = "SELECT B.ObjectNM, CONVERT(VARCHAR(7),A.BookingStartTime,120) YM, " +
+            string v_sqlstr = "SELECT B.ObjectNM, CONVERT(VARCHAR(7),A.BookingEndTime,120) YM, " +
                            "       sum(A.Mileage - A.MileageLast) ttlmile " +
                            "  FROM PO_PUBLIC_OBJECT_BOOKING A LEFT JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID " +
                            " LEFT JOIN PO_GUARDNO C ON A.GuardEMPID = C.USR_NO " +
-                           " WHERE CONVERT(VARCHAR(4), A.BookingStartTime, 112) = '" + keyValue + "' " +
+                           " WHERE CONVERT(VARCHAR(4), A.BookingEndTime, 112) = '" + keyValue + "' " +
                            " AND A.ObjectType = '公務車輛' AND A.Status = '結束' " +
-                           " GROUP BY B.ObjectNM, CONVERT(VARCHAR(7), A.BookingStartTime, 120) " +
+                           " GROUP BY B.ObjectNM, CONVERT(VARCHAR(7), A.BookingEndTime, 120) " +
                            " ORDER BY 1,2 ";
-            string v_sqlstr2 = " SELECT B.ObjectNM, CONVERT(VARCHAR(7),A.BookingStartTime,120) YM, MAX(A.Mileage) Mileage " +
+            string v_sqlstr2 = " SELECT B.ObjectNM, CONVERT(VARCHAR(7),A.BookingEndTime,120) YM, MAX(A.Mileage) Mileage " +
                             " FROM PO_PUBLIC_OBJECT_BOOKING A LEFT JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID " +
                             " LEFT JOIN PO_GUARDNO C ON A.GuardEMPID = C.USR_NO " +
-                            " WHERE CONVERT(VARCHAR(4), A.BookingStartTime, 112) = '" + keyValue + "' " +
+                            " WHERE CONVERT(VARCHAR(4), A.BookingEndTime, 112) = '" + keyValue + "' " +
                             " AND A.ObjectType = '公務車輛' AND A.Status = '結束' " +
-                            " GROUP BY B.ObjectNM, CONVERT(VARCHAR(7), A.BookingStartTime, 120) " +
+                            " GROUP BY B.ObjectNM, CONVERT(VARCHAR(7), A.BookingEndTime, 120) " +
                             " ORDER BY 1,2 ";
 
             //資料集

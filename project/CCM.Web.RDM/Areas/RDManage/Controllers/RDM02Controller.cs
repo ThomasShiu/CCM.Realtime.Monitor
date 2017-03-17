@@ -71,14 +71,32 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm(RD_MACHINEAUTHEntity entity, string keyValue)
         {
-            var result = rs.chkMachineExists(entity.Machine_Id);
-            if (result != "")
-            {
-                return Error(result);
-            }
+            //var result = rs.chkMachineExists(entity.Machine_Id);
+            //if (result != "")
+            //{
+            //    return Error(result);
+            //}
             
             tableApp.SubmitForm(entity, keyValue);
             return Success("操作成功。");
+        }
+        #endregion
+
+        [HttpGet]
+        public ActionResult ResetFile()
+        {
+            return View();
+        }
+
+        #region 清空認證檔欄位
+        [HttpPost]
+        [HandlerAjaxOnly]
+        //[HandlerAuthorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitResetFile( string keyValue)
+        {
+            tableApp.ResetFile(keyValue);
+            return Success("清空認證檔成功。");
         }
         #endregion
 

@@ -20,11 +20,11 @@
     });
     function initControl() {
         // 機台編號
-        $("#Machine_Id").bindSelect({
-            url: "/RDManage/RDM02/GetSrvProd",
-            id: "M_ITEM_NO",
-            text: "ITEM_DESCRIPT"
-        });
+        //$("#Machine_Id").bindSelect({
+        //    url: "/RDManage/RDM02/GetSrvProd",
+        //    id: "M_ITEM_NO",
+        //    text: "ITEM_DESCRIPT"
+        //});
     }
     function submitForm() {
         var FileUploadPath = $('input[name=FileUpload1]').val();
@@ -125,9 +125,9 @@
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">機台編號</th>
+                <th class="formTitle">機台品號</th>
                 <td class="formValue">
-                    <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required"  />
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
                 </td>
             </tr>
             <tr>

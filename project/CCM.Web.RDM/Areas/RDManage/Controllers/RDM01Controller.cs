@@ -83,8 +83,7 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             MHDI.IAuthorized m_IAU = new MHDI.PSP();
             string exactPath = Server.MapPath("~/" + entity.UploadPath).Replace("RDManage\\RDM01\\", "");
             //exactPath = exactPath.Replace("RDManage\\RDM01\\","");
-            // 截取DLL內的機台資訊
-            var DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
+            var DeviceInfo = "";
             var Version = m_IAU.GetVersion();
             var vFilename = Path.GetFileNameWithoutExtension(exactPath);
             var vPath = Path.GetDirectoryName(exactPath);
@@ -98,12 +97,16 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
 
             if (newold == "new")
             {
+                // 截取DLL內的機台資訊
+                DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "CCM");
                 // 產生認証檔(新版)
                 var transNew = m_IAU.Transform(exactPath, TransPath, 1, "CCM");
                 entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
             }
-            else { 
-            // 產生認証檔(舊版)
+            else {
+                // 截取DLL內的機台資訊
+                DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
+                // 產生認証檔(舊版)
                 var transOld = m_IAU.Transform(exactPath, TransPath, 1, "");
                 entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
             }

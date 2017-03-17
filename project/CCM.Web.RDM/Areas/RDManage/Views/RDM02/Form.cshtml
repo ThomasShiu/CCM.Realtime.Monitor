@@ -20,10 +20,10 @@
     });
     function initControl() {
         // 機台編號
-        $("#Machine_Id").bindSelect({
-            url: "/RDManage/RDM00/GetSrvProd",
-            id: "M_ITEM_NO",
-            text: "ITEM_DESCRIPT"
+        $("#ITEM_NO").bindSelect({
+            url: "/RDManage/RDM00/GetITEM?company=",
+            id: "ITEM_NO",
+            text: "DESCR"
         });
     }
     function submitForm() {
@@ -41,6 +41,16 @@
 
     }
 
+    $(document).ready(function () {
+        // 品號
+        $('#COMPANY').change(function () {
+            $("#ITEM_NO").bindSelect({
+                url: "/RDManage/RDM00/GetITEM?company=" + $(this).children('option:selected').val(),
+                id: "ITEM_NO",
+                text: "DESCR"
+            });
+        });
+    });
 </script>
 
 <form id="form1">
@@ -48,24 +58,37 @@
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">機台編號</th>
+                <th class="formTitle">公司別</th>
                 <td class="formValue">
-                    <select id="Machine_Id" name="Machine_Id" class="form-control required">
-                        <option></option>
+                    <select id="COMPANY" name="COMPANY" class="form-control required" style="width:200px">
+                        <option value="CCM">總廠</option>
+                        <option value="KSC">昆山</option>
+                        <option value="NGB">寧波</option>
+                        <option value="DAC">東莞</option>
                     </select>
                 </td>
-            </tr>
-            <tr>
                 <th class="formTitle">開放</th>
                 <td class="formValue">
                     <div class="ckbox">
                         <input id="Enable" name="Enable" type="checkbox"><label for="Enable">啟用</label>
                     </div>
                 </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">機台品號</th>
+                <td class="formValue"  >
+                    <input id="ITEM_NO" name="ITEM_NO" class="form-control">
+                </td>
+                <th class="formTitle">出機編號</th>
+                <td class="formValue">
+                    <input id="PROD_NO" name="PROD_NO" class="form-control">
+
+                </td>
             </tr>
             <tr>
                 <th class="formTitle">備註</th>
-                <td class="formValue">
+                <td class="formValue" colspan="3">
                     <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
                 </td>
             </tr>

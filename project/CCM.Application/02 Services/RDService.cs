@@ -16,7 +16,6 @@ namespace CCM.Application._02_Services
         public static string v_HRSContext = "HRSContext";
 
         #region 檢查機台編號
-        // 檢查公共物件是否被預約
         public string chkMachineExists(string keyValue)
         {
             string v_sql = " SELECT  COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO FROM ( "+
@@ -59,16 +58,19 @@ namespace CCM.Application._02_Services
         #endregion
 
         #region 取得售服機台資料
-        public JArray GetSRVPRODList()
+        public JArray GetSRVPRODList(string keyValue)
         {
-            string v_sql = " SELECT 'KSC' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_TY, '') + ',' + ITEM_NO + ',' + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
-                          "  FROM EIP.dbo.V_SRVPRODMT_KSC " +
+            string v_sql = " SELECT 'CCM' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_NO, '') + ',' +  ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
+                          "  FROM EIP.dbo.V_SRVPRODMT_CCM WHERE ITEM_NO LIKE '%"+ keyValue + "%' " +
                           "  UNION ALL " +
-                          "  SELECT 'NGB' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_TY, '') + ',' + ITEM_NO + ',' + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
-                          "  FROM EIP.dbo.V_SRVPRODMT_NGB " +
+                            " SELECT 'KSC' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_NO, '') + ',' + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
+                          "  FROM EIP.dbo.V_SRVPRODMT_KSC WHERE ITEM_NO LIKE '%" + keyValue + "%'  " +
                           "  UNION ALL " +
-                          "  SELECT 'DAC' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_TY, '') + ',' + ITEM_NO + ',' + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
-                          "  FROM EIP.dbo.V_SRVPRODMT_DAC  ";
+                          "  SELECT 'NGB' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_NO, '') + ','  + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
+                          "  FROM EIP.dbo.V_SRVPRODMT_NGB WHERE ITEM_NO LIKE '%" + keyValue + "%'  " +
+                          "  UNION ALL " +
+                          "  SELECT 'DAC' COMPANY,PROD_NO, PROD_TY, ITEM_NO, ITEM_NM, ITEM_SP, M_ITEM_NO,(ISNULL(PROD_NO, '') + ','  + ITEM_NM+','+M_ITEM_NO) ITEM_DESCRIPT " +
+                          "  FROM EIP.dbo.V_SRVPRODMT_DAC WHERE ITEM_NO LIKE '%" + keyValue + "%'   ";
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
 
@@ -106,8 +108,74 @@ namespace CCM.Application._02_Services
         }
         #endregion
 
-        #region 取得售服機台資料
-        public JArray GetCustList()
+        #region 取得售服機台資料與品號
+        public JArray GetITEMList(string company)
+        {
+            string v_sql = "";
+            switch (company) {
+                case "CCM":
+                    v_sql = " SELECT DISTINCT 'CCM' COMPANY,RTRIM(A.ITEM_NO) ITEM_NO,RTRIM(A.ITEM_NM) ITEM_NM,RTRIM(A.ITEM_SP) ITEM_SP,RTRIM(B.M_ITEM_NO) M_ITEM_NO, ";
+                    v_sql += "       (RTRIM(A.ITEM_NO) + ',' + RTRIM(A.ITEM_NM) + ',' + ISNULL(RTRIM(A.ITEM_SP), '') + ',' + ISNULL(RTRIM(B.M_ITEM_NO), '')) DESCR ";
+                    v_sql += " FROM [192.168.100.19].CCM_Main.dbo.ITEM A LEFT OUTER JOIN [192.168.100.19].CCM_Main.dbo.SRVPRODMT B ";
+                    v_sql += " ON A.ITEM_NO = B.ITEM_NO ";
+                    v_sql += " WHERE A.ITEM_NO LIKE '6S%' ";
+                    break;
+                case "KSC":
+                    v_sql = " SELECT DISTINCT 'KSC' COMPANY,RTRIM(A.ITEM_NO) ITEM_NO,RTRIM(A.ITEM_NM) ITEM_NM,RTRIM(A.ITEM_SP) ITEM_SP,RTRIM(B.M_ITEM_NO) M_ITEM_NO, ";
+                    v_sql += "       (RTRIM(A.ITEM_NO) + ',' + RTRIM(A.ITEM_NM) + ',' + ISNULL(RTRIM(A.ITEM_SP), '') + ',' + ISNULL(RTRIM(B.M_ITEM_NO), '')) DESCR ";
+                    v_sql += " FROM [192.168.100.18].KSC_15.dbo.ITEM A LEFT JOIN [192.168.100.18].KSC_15.dbo.SRVPRODMT B ";
+                    v_sql += " ON A.ITEM_NO = B.ITEM_NO ";
+                    v_sql += " WHERE A.ITEM_NO IS NOT NULL AND(A.ITEM_NO LIKE '7S%' OR A.ITEM_NO LIKE '6S%'  OR A.ITEM_NO LIKE '5S%') ";
+                    break;
+                case "NGB":
+                    v_sql = "SELECT  DISTINCT 'NGB' COMPANY,RTRIM(A.ITEM_NO) ITEM_NO,RTRIM(A.ITEM_NM) ITEM_NM,RTRIM(A.ITEM_SP) ITEM_SP,RTRIM(B.M_ITEM_NO) M_ITEM_NO, ";
+                    v_sql += "       (RTRIM(A.ITEM_NO) + ',' + RTRIM(A.ITEM_NM) + ',' + ISNULL(RTRIM(A.ITEM_SP), '') + ',' + ISNULL(RTRIM(B.M_ITEM_NO), '')) DESCR ";
+                    v_sql += " FROM [192.168.100.18].NGB_15.dbo.ITEM A LEFT JOIN [192.168.100.18].NGB_15.dbo.SRVPRODMT B ";
+                    v_sql += " ON A.ITEM_NO = B.ITEM_NO ";
+                    v_sql += " WHERE A.ITEM_NO IS NOT NULL AND(A.ITEM_NO LIKE '7S%' OR A.ITEM_NO LIKE '6S%' OR A.ITEM_NO LIKE '5S%') ";
+                    break;
+                case "DAC":
+                    v_sql = "SELECT DISTINCT 'DAC' COMPANY,RTRIM(A.ITEM_NO) ITEM_NO,RTRIM(A.ITEM_NM) ITEM_NM,RTRIM(A.ITEM_SP) ITEM_SP,RTRIM(B.M_ITEM_NO) M_ITEM_NO, ";
+                    v_sql += "       (RTRIM(A.ITEM_NO) + ',' + RTRIM(A.ITEM_NM) + ',' + ISNULL(RTRIM(A.ITEM_SP), '') + ',' + ISNULL(RTRIM(B.M_ITEM_NO), '')) DESCR ";
+                    v_sql += " FROM [192.168.100.18].DAC_15.dbo.ITEM A LEFT JOIN [192.168.100.18].DAC_15.dbo.SRVPRODMT B ";
+                    v_sql += " ON A.ITEM_NO = B.ITEM_NO ";
+                    v_sql += " WHERE A.ITEM_NO IS NOT NULL AND(A.ITEM_NO LIKE '7S%' OR A.ITEM_NO LIKE '6S%' OR A.ITEM_NO LIKE '5S%')  ";
+                    break;
+
+            }
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             COMPANY = p.Field<string>("COMPANY"),
+                             ITEM_NO = p.Field<string>("ITEM_NO"),
+                             ITEM_NM = p.Field<string>("ITEM_NM"),
+                             ITEM_SP = p.Field<string>("ITEM_SP"),
+                             DESCR = p.Field<string>("DESCR")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"COMPANY",col.COMPANY },
+                    {"ITEM_NO",col.ITEM_NO },
+                    {"ITEM_NM",col.ITEM_NM },
+                    {"ITEM_SP",col.ITEM_SP },
+                    {"DESCR",col.DESCR }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 取得售服資料
+        public JArray GetSRVPRODdata()
         {
             string v_sql = " SELECT RTRIM(CS_NO) CS_NO, SHORT_NM,  FULL_NM,(RTRIM(CS_NO)+'-'+RTRIM(SHORT_NM)) CUST_NAME " +
                             " FROM EIP.dbo.V_CUSTOMER " +
@@ -141,8 +209,43 @@ namespace CCM.Application._02_Services
             return MixArray;
         }
         #endregion
-        
 
+        #region 取得客戶資料
+        public JArray GetCustList()
+        {
+            string v_sql = " SELECT RTRIM(CS_NO) CS_NO, SHORT_NM,  FULL_NM,(RTRIM(CS_NO)+'-'+RTRIM(SHORT_NM)) CUST_NAME " +
+                            " FROM EIP.dbo.V_CUSTOMER " +
+                            " WHERE COMPID IN('CCM','KSC', 'NGB', 'DAC') " +
+                            " ORDER BY COMPID,CS_NO  ";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             CS_NO = p.Field<string>("CS_NO"),
+                             SHORT_NM = p.Field<string>("SHORT_NM"),
+                             FULL_NM = p.Field<string>("FULL_NM"),
+                             CUST_NAME = p.Field<string>("CUST_NAME")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"CS_NO",col.CS_NO },
+                    {"SHORT_NM",col.SHORT_NM },
+                    {"FULL_NM",col.FULL_NM },
+                    {"CUST_NAME",col.CUST_NAME }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+        
         #region 回傳DataTable物件
         /// <summary>
         /// 依據SQL語句，回傳DataTable物件

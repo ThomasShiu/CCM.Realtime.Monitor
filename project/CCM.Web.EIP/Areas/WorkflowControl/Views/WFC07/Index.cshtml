@@ -16,6 +16,22 @@
             colModel: [
 				    { label: "SID", name: "SID", key: true, hidden: true, width: 80, align: 'left' },
                     { label: "FLOWID", name: "FLOWID", hidden: true, width: 80, align: 'left' },
+                     {
+                         label: "簽核", name: "", width: 40, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             var usercode = rowObject.EMPLYID;
+                             var ovrtno = rowObject.DOCID;
+                             var sid = rowObject.SID;
+                             var signdate = rowObject.SIGNDATE;
+                             var status = rowObject.STATUS;
+                             //alert(signdate);
+                             if (status == 'SN' | signdate == null) {
+                                 return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_signwith(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>簽核</button>';
+                             } else {
+                                 return ''
+                             }
+                         }
+                     },
                     { label: "單別", name: "FLOWNM", width: 50, align: 'left' },
                     { label: "單號", name: "DOCID", width: 80, align: 'left' },
                     {
@@ -85,22 +101,7 @@
                      //        }
                      //    }
                      //},
-                      {
-                          label: "簽核", name: "", width: 40, align: 'center',
-                          formatter: function (cellvalue, options, rowObject) {
-                              var usercode = rowObject.EMPLYID;
-                              var ovrtno = rowObject.DOCID;
-                              var sid = rowObject.SID;
-                              var signdate = rowObject.SIGNDATE;
-                              var status = rowObject.STATUS;
-                              //alert(signdate);
-                              if (status == 'SN' | signdate == null) {
-                                  return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_signwith(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>簽核</button>';
-                              } else {
-                                  return ''
-                              }
-                          }
-                      },
+                     
                        //{
                        //    label: "退回", name: "", width: 40, align: 'center',
                        //    formatter: function (cellvalue, options, rowObject) {

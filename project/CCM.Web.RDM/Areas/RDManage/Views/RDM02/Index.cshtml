@@ -21,14 +21,36 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-                    { label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
+                    { label: "品號", name: "ITEM_NO", width: 120, align: 'left' },
+                    { label: "出機編號", name: "M_ITEM_NO", width: 80, align: 'left' },
+                    //{
+                    //    label: "機台編號", name: "", width: 80, align: 'left',
+                    //    formatter: function (cellvalue, options, rowObject) {
+                    //        var item_no = rowObject.ITEM_NO;
+                    //        var value = "";
+
+                    //        if (item_no != '') {
+                    //            //$.ajax({
+                    //            //    type: 'POST',
+                    //            //    url: '/RDManage/RDM01/',
+                    //            //    async: false,
+                    //            //    success: (function (result) {
+                    //            //        var myObject = myResult[0];
+                    //            //        value = myObject.myID;
+                    //            //    })
+                    //            //});
+                    //            return value;
+                    //        }
+                    //     }
+                    //},
+                    //{ label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
                     { label: "客戶編號", name: "CS_NO", width: 60, align: 'left' },
 				    { label: "客戶名稱", name: "SHORT_NM", width: 90, align: 'left' },
                     { label: "原檔名", name: "oldFileName", width: 100, align: 'left' },
-                    { label: "CPU Serial Number", name: "CPU_SN", width: 140, align: 'left' },
-                    { label: "HD Serial Number", name: "HD_SN", width: 110, align: 'left' },
-                    { label: "HD Firmware", name: "HD_Fireware", width: 90, align: 'left' },
-                    { label: "HD Module Number", name: "HD_Moduleno", width: 140, align: 'left' },
+                    { label: "CPU Serial Number", name: "CPU_SN",  width: 140, align: 'left' },
+                    { label: "HD Serial Number", name: "HD_SN",  width: 110, align: 'left' },
+                    { label: "HD Firmware", name: "HD_Fireware",  width: 90, align: 'left' },
+                    { label: "HD Module Number", name: "HD_Moduleno",  width: 140, align: 'left' },
 				    { label: "原檔下載", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
                         label: "原檔下載", name: "", width: 70, align: 'center',
@@ -51,7 +73,7 @@
                              }
                          }
                      },
-                   
+
                        {
                            label: "啟用", name: "Enable", width: 60, align: "center",
                            formatter: function (cellvalue) {
@@ -70,7 +92,7 @@
                     { label: "", name: "", width: 180, align: 'left' },
             ],
 			pager: "#gridPager",
-			sortname: 'CreatorTime desc',
+			sortname: 'CreatorTime desc,LastModifyTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -85,7 +107,7 @@
             title: "新增",
             url: "/RDManage/RDM02/Form",
             width: "640px",
-            height: "380px",
+            height: "480px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -119,10 +141,33 @@
             id: "Details",
             title: "查看",
             url: "/RDManage/RDM02/Details?keyValue=" + keyValue,
-            width: "840px",
-            height: "520px",
+            width: "800px",
+            height: "480px",
             btn: null,
         });
+    }
+
+    function btn_reset() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var oldFileName = $("#gridList").jqGridRowValue().oldFileName;
+        //alert(ovrtno);
+        if (oldFileName != '') {
+            $.modalOpen({
+                id: "ResetFile",
+                title: '重置認證檔',
+                url: '/RDManage/RDM02/ResetFile?keyValue=' + keyValue,
+                width: "840px",
+                height: "420px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        } else {
+            msg = "此單據未上傳，不可重置。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
     }
 </script>
 
@@ -139,6 +184,9 @@
                 <li class="first">已選中<span>1</span>項</li>
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
+                <li class="split"></li>
+                <li><a id="NF-reset" authorize="yes" onclick="btn_reset()"><i class="fa fa-eraser"></i>重置</a></li>
+                <li class="split"></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>

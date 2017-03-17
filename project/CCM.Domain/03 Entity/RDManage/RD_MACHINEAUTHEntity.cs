@@ -23,7 +23,12 @@ namespace CCM.Domain
 
         public String Remark { get; set; }
 
-        public String Machine_Id { get; set; }
+        public String COMPANY { get; set; }
+
+        public String ITEM_NO { get; set; }
+
+        public String M_ITEM_NO { get; set; }
+        public String PROD_NO { get; set; }
 
         public String Version { get; set; }
 
@@ -43,7 +48,7 @@ namespace CCM.Domain
 
         public String HD_Moduleno { get; set; }
 
-        public Boolean Enable { get; set; }
+        public bool? Enable { get; set; }
 
         public String OrganizeId { get; set; }
 

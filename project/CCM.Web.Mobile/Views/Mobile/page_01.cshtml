@@ -1,0 +1,83 @@
+﻿@{ var v_pic = "~/EIPContent/Content/PublicShare/Family/" + CCM.Code.OperatorProvider.Provider.GetCurrent().UserName + ".jpg"; }
+<!DOCTYPE html>
+<html style="overflow: hidden;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>精湛 EIP Mobile 通訊錄</title>
+    <link href='~/Content/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <link href="~/Content/js/jquerymobile/css/themes/default/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="~/Content/js/jquerymobile/_assets/css/jqm-demos.css" rel="stylesheet" />
+    <script src="~/Content/js/jquerymobile/js/jquery.js"></script>
+    <script src="~/Content/js/jquerymobile/_assets/js/index.js"></script>
+    <script src="~/Content/js/jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                window.scrollTo(0, 1);
+                // 員工通訊錄
+                GenEmpContart();
+            }, 10);
+        });
+
+        $(document).ready(function () {
+            // 員工通訊錄
+            //GenEmpContart();
+        });
+
+        // 員工通訊錄
+        function GenEmpContart() {
+            // 顯示已選取幾筆
+            setTimeout(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Mobile/GetEmpContact",
+                    data: {},
+                    dataType: "json",
+                    cache: true,
+                    async: true,
+                    success: function (data) {
+                        var trHTML = '';
+                        $.each(data.EmpContact, function (i, item) {
+                            trHTML += '<li><a href="#"  >' + data.EmpContact[i].EMPLYID + '-' + data.EmpContact[i].EMPLYNM +',手機:'+ data.EmpContact[i].HP +',電話:'+ data.EmpContact[i].CONTEL + '</a></li>';
+                        });
+                        $('#empcontact').append(trHTML);
+                        $('#empcontact').trigger('create');
+                        $('#empcontact').listview('refresh');
+                    },
+                    error: function (msg) {
+                        //alert(msg.responseText);
+                        window.setTimeout(function () {
+                            $.modalMsg(msg.responseText, "warning");
+                        }, 500);
+                    }
+                });
+            }, 1000);
+
+
+        }
+    </script>
+</head>
+<body style="overflow: hidden;">
+    <form id="form1" runat="server">
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <h1>精湛 EIP Mobile 通訊錄</h1>
+            <!--<a href="m_index.aspx" data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>-->
+            <!--<a href="#" onclick="window.location.reload()" data-icon="back" data-iconpos="notext">Refresh</a> -->
+        </div><!-- /header -->
+        <div>
+            <ul  id="empcontact" data-role="listview" data-filter="true" data-filter-placeholder="快速查詢..." data-inset="true">
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" onclick="window.history.back()" data-icon="back" data-iconpos="top">上一頁</a></li>
+                    <li><a href="./Index" data-rel="home" data-icon="home" data-iconpos="top">首頁</a></li>
+                    <li><a href="#" onclick="window.location.reload()" data-icon="refresh" data-iconpos="top">重整</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->
+    </form>
+</body>
+</html>

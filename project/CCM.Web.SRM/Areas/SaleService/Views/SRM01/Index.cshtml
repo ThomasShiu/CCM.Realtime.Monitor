@@ -23,13 +23,16 @@
 				    { label: "描述", name: "Descript", width: 100, align: 'left' },
 				    { label: "GUID", name: "GUID", hidden: true, width: 80, align: 'left' },
                     {
-                        label: "執行", name: "", width: 100, align: 'left',
+                        label: "執行", name: "", width: 60, align: 'left',
                         formatter: function (cellvalue, options, rowObject) {
                             var sid = rowObject.SID;
                                 return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_showimg(\"' + sid + '\")\'>查看</button>';
                         }
                     },
-                    { label: "CreatorTime", name: "CreatorTime", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "建立時間", name: "CreatorTime", width: 80, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                    }
             ],
 			pager: "#gridPager",
             sortname: 'SID asc,CreatorTime desc',

@@ -81,6 +81,7 @@
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTH_HISTORYEntity.cs" />
     <Compile Include="03 Entity\SaleService\SRM_ALBUMDLEntity.cs" />
     <Compile Include="03 Entity\SaleService\SRM_ALBUMMTEntity.cs" />
+    <Compile Include="03 Entity\SaleService\V_SRVPRODMT_CCMEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="04 IRepository\SaleService\ISRM_ALBUMDLRepository.cs" />
     <Compile Include="04 IRepository\SaleService\ISRM_ALBUMMTRepository.cs" />
+    <Compile Include="04 IRepository\SaleService\IV_SRVPRODMT_CCMRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />

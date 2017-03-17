@@ -35,12 +35,32 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         }
         #endregion
 
-        #region 取得機台清單
+        #region 取得品號清單
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetSrvProd()
+        public ActionResult GetITEM(string company="")
         {
-            var result = rs.GetSRVPRODList();
+            var result = rs.GetITEMList(company);
+            return Content(result.ToJson());
+        }
+        #endregion
+
+        #region 取得料件基本資料
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetITEMDdata(string company)
+        {
+            var result = rs.GetITEMList(company);
+            return Content(result.ToJson());
+        }
+        #endregion
+
+        #region 取得售服機台資料
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSRVPRODdata(string keyValue)
+        {
+            var result = rs.GetSRVPRODList(keyValue);
             return Content(result.ToJson());
         }
         #endregion

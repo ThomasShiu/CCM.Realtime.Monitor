@@ -70,6 +70,7 @@
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_CCMRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />
     <Compile Include="SystemManage\ItemsRepository.cs" />
     <Compile Include="SystemManage\ModuleButtonRepository.cs" />

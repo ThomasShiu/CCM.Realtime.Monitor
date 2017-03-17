@@ -49,6 +49,16 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         }
         #endregion
 
+        #region 預約公務車行事曆
+        [HttpGet]
+        [ActionTraceLog]
+        public virtual ActionResult Form4()
+        {
+            return View();
+        }
+        #endregion
+
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetCarGridJson(Pagination pagination, string queryJson)
@@ -74,6 +84,15 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         public ActionResult GetFormJson(string keyValue)
         {
             var data = tableApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
+
+        // 公務車行事曆
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCalendarJson(string keyValue)
+        {
+            var data = cs.getPubObjectCal(keyValue);
             return Content(data.ToJson());
         }
 
@@ -108,15 +127,23 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
                     }
                 }
             }
-            if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
+
+            if (!OperatorProvider.Provider.GetCurrent().DeptId.Equals("G00") &
+                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G10") &
+                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G20") &
+                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("C00"))
             {
-                // 判斷該時段是否已有預約
-                string v_message = cs.chkPubObjExistBooking(tableEntity);
-                if (!string.IsNullOrEmpty(v_message))
-                {
-                    return Error(v_message);
-                }
+                //if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
+                //{
+                    // 判斷該時段是否已有預約
+                    string v_message = cs.chkPubObjExistBooking(tableEntity);
+                    if (!string.IsNullOrEmpty(v_message))
+                    {
+                        return Error(v_message);
+                    }
+                //}
             }
+
             // 判斷起始時間不可大於結束時間
             if (tableEntity.BookingStartTime < tableEntity.BookingEndTime) {
                 tableApp.SubmitForm(tableEntity, keyValue);
@@ -158,7 +185,20 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             return Success("删除成功。");
         }
 
-       
+        #region 公務車最近預約
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCarBooking(string keyword)
+        {
+            var result = cs.GetCarBooking(keyword);
+            var data = new
+            {
+                CarBooking = result
+            };
+
+            return Content(data.ToJson());
+        }
+        #endregion
 
         #region 公務車每日外出人員報表列印
         [HttpGet]

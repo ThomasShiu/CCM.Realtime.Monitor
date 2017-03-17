@@ -1,0 +1,221 @@
+﻿@{ var v_pic = "~/EIPContent/Content/PublicShare/Family/" + CCM.Code.OperatorProvider.Provider.GetCurrent().UserName + ".jpg"; }
+<!DOCTYPE html>
+<html style="overflow: hidden;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,hight=1000px,initial-scale=1,maximum-scale=1,user-scalable=yes">
+    <title>精湛 通訊錄</title>
+    <link href='~/Content/img/favicon.ico' rel='icon' type='image/x-icon' />
+    @*<link href="~/Content/js/jquerymobile/css/themes/default/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="~/Content/js/jquerymobile/_assets/css/jqm-demos.css" rel="stylesheet" />
+    <script src="~/Content/js/jquerymobile/js/jquery.js"></script>
+    <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>*@
+
+    <link rel="stylesheet" href="~/Content/js/JQTouch/themes/css/jqtouch.min.css" data-jqt-theme>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
+    <script src="~/Content/js/JQTouch/lib/zepto/zepto.min.js"></script>
+    <script src="~/Content/js/JQTouch/src/jqt.min.js"></script>
+
+    <!-- Or,     (2) jQuery: Un-comment these 3 lines (order matters)  -->
+    <!-- <script src="../../lib/jquery/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> -->
+    <!-- <script src="../../src/jqt.min.js" type="text/javascript" charset="utf-8"></script> -->
+    <!-- <script src="../../src/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script> -->
+
+    <script src="~/Content/js/JQTouch/extensions/jqt.themeswitcher.min.js"></script>
+
+    <script src="~/Content/js/JQTouch/extensions/jqt.actionsheet.min.js"></script>
+
+    <script src="~/Content/js/JQTouch/extensions/jqt.menusheet.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQT({
+                icon: 'jqtouch.png',
+                icon4: 'jqtouch4.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black-translucent',
+                preloadImages: []
+            });
+
+            // Some sample Javascript functions:
+            $(function(){
+
+                // Show a swipe event on swipe test
+                $('#swipeme').swipe(function(evt, data) {
+                    var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    $(this).html('You swiped ' + details );
+                    $(this).parent().after('<li>swiped!</li>')
+                });
+
+                $('#tapme').tap(function(){
+                    $(this).parent().after('<li>tapped!</li>')
+                });
+
+                $('a[target="_blank"]').bind('click', function() {
+                    if (confirm('This link opens in a new window.')) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+                // Page animation callback events
+                $('#pageevents').
+                    bind('pageAnimationStart', function(e, info){
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
+                    }).
+                    bind('pageAnimationEnd', function(e, info){
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
+                    });
+
+                // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
+                $('#callback').bind('pageAnimationEnd', function(e, info){
+
+                    // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
+                    if (!$(this).data('loaded')) {
+
+                        // Append a placeholder in case the remote HTML takes its sweet time making it back
+                        // Then, overwrite the "Loading" placeholder text with the remote HTML
+                        $(this).append($('<div>Loading</div>').load('ajax.html .info', function() {
+                            // Set the 'loaded' var to true so we know not to reload
+                            // the HTML next time the #callback div animation ends
+                            $(this).parent().data('loaded', true);
+                        }));
+                    }
+                });
+                // Orientation callback event
+                $('#jqt').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+
+            });
+    </script>
+    <style type="text/css" media="screen">
+        #jqt.fullscreen #home .info {
+            display: none;
+        }
+
+        div#jqt #about {
+            padding: 100px 10px 40px;
+            text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0;
+            color: #999;
+            font-size: 13px;
+            text-align: center;
+            background: #161618;
+        }
+
+            div#jqt #about p {
+                margin-bottom: 8px;
+            }
+
+            div#jqt #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+    </style>
+
+    <script>
+        var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
+       
+        //window.addEventListener("load", function () {
+        //    setTimeout(function () {
+                
+        //        window.scrollTo(0, 1000);
+                
+        //    }, 10);
+        //});
+
+        $(function () {
+            if (depid == 'C00' | depid=='G10'){
+                GenEmpContart();
+            }
+        })
+
+        //$(document).ready(function () {
+        //    // 員工通訊錄
+        //    GenEmpContart();
+        //});
+
+        // 員工通訊錄
+        function GenEmpContart() {
+            // 顯示已選取幾筆
+            setTimeout(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Mobile/GetEmpContact",
+                    data: {},
+                    dataType: "json",
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                        var trHTML = '';
+                        $.each(data.EmpContact, function (i, item) {
+                            
+                            trHTML += '<li class="arrow"><a href="#">' + data.EmpContact[i].EMPLYID + '-' + data.EmpContact[i].EMPLYNM +
+                                '<em>' + data.EmpContact[i].BRTHDT + '</em>' +
+                                '<em>' + data.EmpContact[i].CONTEL + '</em>' +
+                                '<em>' + data.EmpContact[i].REGADRS + '</em>' +
+                                ' <small>手機:' + data.EmpContact[i].HP + '</small></a></li>';
+                            //trHTML +='<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">';
+                            //trHTML += '  <h2>' + data.EmpContact[i].EMPLYID + '-' + data.EmpContact[i].EMPLYNM + '</h2> ';
+                            //trHTML += '  <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false"> ';
+                            //trHTML += '    <li>生日:' + data.EmpContact[i].BRTHDT + '</li> ';
+                            //trHTML += '    <li>手機:' + data.EmpContact[i].HP + '</li> ';
+                            //trHTML += '    <li>電話:' + data.EmpContact[i].CONTEL + '</li> ';
+                            //trHTML += '    <li>地址:' + data.EmpContact[i].REGADRS + '</li> ';
+                            //trHTML += '  </ul> </li> ';
+                        });
+
+
+                        $('#empcontact').append(trHTML);
+                        $('#empcontact').trigger('create');
+                        //$('#empcontact').listview('refresh');
+                    },
+                    error: function (msg) {
+                        //alert(msg.responseText);
+                       
+                    }
+                });
+            }, 500);
+
+
+        }
+    </script>
+</head>
+<body>
+    <div id="ui">
+        <div class="toolbar">
+            <h1>EIP Demos</h1>
+            <a class="back" href="#">首頁</a>
+        </div>
+        <div class="scroll">
+            <h2>菜單</h2>
+            <ul class="rounded">
+                <li class="arrow"><a href="#contact">通訊錄</a></li>
+                @*<li class="arrow"><a href="#metal">Metal</a></li>*@
+            </ul>
+
+        </div>
+    </div>
+    <div id="contact">
+        <div class="toolbar">
+            <h1>員工通訊錄</h1>
+            <a href="#" class="back">Back</a>
+        </div>
+        <ul id="empcontact" class="metal scroll">
+            @*<li class="arrow"><a href="#">Simple list <small>Label</small></a></li>
+            <li class="arrow"><a href="#">Contact list <small class="counter">42</small></a></li>
+            <li class="forward"><a href="#">Content List</a></li>
+            <li><a href="#">Metal list</a></li>
+            <li><a href="#">Metal list</a></li>*@
+
+        </ul>
+    </div>
+</body>
+</html>

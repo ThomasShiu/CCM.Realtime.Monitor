@@ -78,6 +78,7 @@
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_CCMMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />
     <Compile Include="SystemManage\ItemsMap.cs" />

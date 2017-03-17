@@ -20,60 +20,78 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-                    { label: "机台编号", name: "Machine_Id", width: 80, align: 'left' },
-                    { label: "客户编号", name: "CS_NO", width: 60, align: 'left' },
-				    { label: "客户名称", name: "SHORT_NM", width: 90, align: 'left' },
-                    { label: "版本", name: "Version", width: 60, align: 'left' },
-                    { label: "原档名", name: "oldFileName", width: 100, align: 'left' },
-				    { label: "原档下载", name: "UploadPath", hidden: true, width: 80, align: 'left' },
+                    { label: "品號", name: "ITEM_NO", width: 120, align: 'left' },
+                    { label: "出機編號", name: "PROD_NO", width: 80, align: 'left' },
+                    //{
+                    //    label: "機台編號", name: "", width: 80, align: 'left',
+                    //    formatter: function (cellvalue, options, rowObject) {
+                    //        var item_no = rowObject.ITEM_NO;
+                    //        var value = "";
+
+                    //        if (item_no != '') {
+                    //            //$.ajax({
+                    //            //    type: 'POST',
+                    //            //    url: '/RDManage/RDM01/',
+                    //            //    async: false,
+                    //            //    success: (function (result) {
+                    //            //        var myObject = myResult[0];
+                    //            //        value = myObject.myID;
+                    //            //    })
+                    //            //});
+                    //            return value;
+                    //        }
+                    //    }
+                    //},
+                    //{ label: "機台編號", name: "Machine_Id", width: 100, align: 'left' },
+                    { label: "客戶編號", name: "CS_NO", hidden: true, width: 60, align: 'left' },
+				    { label: "客戶名稱", name: "SHORT_NM", width: 90, align: 'left' },
+                    { label: "原檔名", name: "oldFileName", width: 100, align: 'left' },
+                    { label: "CPU Serial Number", name: "CPU_SN", width: 140, align: 'left' },
+                    { label: "HD Serial Number", name: "HD_SN", width: 110, align: 'left' },
+                    { label: "HD Firmware", name: "HD_Fireware", width: 90, align: 'left' },
+                    { label: "HD Module Number", name: "HD_Moduleno", width: 140, align: 'left' },
+				    { label: "原檔下載", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
-                        label: "原档下载", name: "", width: 90, align: 'center',
+                        label: "原檔下載", name: "", width: 70, align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
                             if (rowObject.UploadPath != null & rowObject.UploadPath != '') {
-                                return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">Download</a> ';
+                                return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">下載</a> ';
                             } else {
                                 return '';
                             }
-
                         }
                     },
-				   { label: "认证档", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
+				    { label: "認證檔", name: "DownloadPath", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "认证档", name: "", width: 90, align: 'center',
+                         label: "認證檔", name: "", width: 70, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
                              if (rowObject.DownloadPath != null & rowObject.DownloadPath != '') {
-                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">Download</a> ';
+                                 return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
                              } else {
                                  return '';
                              }
                          }
                      },
-                    { label: "备注", name: "Remark", width: 120, align: 'left' },
+
+                       {
+                           label: "啟用", name: "Enable", width: 50, align: "center",
+                           formatter: function (cellvalue) {
+                               return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+                           }
+                       },
+                    { label: "備註", name: "Remark", width: 90, align: 'left' },
                     {
-                        label: "建立时间", name: "CreatorTime", width: 120, align: 'left',
+                        label: "建立時間", name: "CreatorTime", width: 120, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                     },
                     {
-                        label: "建立人员", name: "", width: 60, align: 'center',
-                        formatter: function (cellvalue, options, rowObject) {
-                            return top.clients.user[rowObject.CreatorUserId] == null ? "" : top.clients.user[rowObject.CreatorUserId].fullname;
-                        }
-                    },
-                    {
-                        label: "修改时间", name: "LastModifyTime", width: 120, align: 'left',
+                        label: "修改時間", name: "LastModifyTime", width: 120, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                     },
-                    { label: "修改人员", name: "LastModifyUserId", hidden: true, width: 80, align: 'left' },
-                    {
-                        label: "修改人员", name: "", width: 60, align: 'center',
-                        formatter: function (cellvalue, options, rowObject) {
-                            return top.clients.user[rowObject.LastModifyUserId] == null ? "" : top.clients.user[rowObject.LastModifyUserId].fullname;
-                        }
-                    },
-                    { label: "", name: "", width: 180, align: 'left' },
+                    { label: "", name: "", width: 10, align: 'left' },
             ],
 			pager: "#gridPager",
-            sortname: 'SID asc,CreatorTime desc',
+			sortname: 'CreatorTime desc,LastModifyTime desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -123,7 +141,7 @@
             title: "查看",
             url: "/RDManage/RDM03/Details?keyValue=" + keyValue,
             width: "840px",
-            height: "400px",
+            height: "480px",
             btn: null,
         });
     }

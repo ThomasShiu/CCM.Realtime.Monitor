@@ -26,7 +26,10 @@ namespace CCM.Application.SystemSecurity
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.Operator.Contains(keyword));
-               // expression = expression.Or(t => t.F_EnCode.Contains(keyword));
+                expression = expression.Or(t => t.Refer.Contains(keyword));
+                expression = expression.Or(t => t.Destination.Contains(keyword));
+                expression = expression.Or(t => t.IPAddress.Contains(keyword));
+                // expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.RequestTime).ToList();
@@ -37,6 +40,9 @@ namespace CCM.Application.SystemSecurity
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.Operator.Contains(keyword));
+                expression = expression.Or(t => t.Refer.Contains(keyword));
+                expression = expression.Or(t => t.Destination.Contains(keyword));
+                expression = expression.Or(t => t.IPAddress.Contains(keyword));
                 //expression = expression.Or(t => t.SUBJECT.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);

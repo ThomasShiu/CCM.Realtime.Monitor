@@ -23,9 +23,11 @@ namespace CCM.Application
             var expression = ExtLinq.True<RD_MACHINEAUTH_HISTORYEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Machine_Id.Contains(keyword));
+                expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
-                expression = expression.Or(t => t.oldFileName.Contains(keyword));
+                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
+                expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
@@ -35,9 +37,11 @@ namespace CCM.Application
             var expression = ExtLinq.True<RD_MACHINEAUTH_HISTORYEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Machine_Id.Contains(keyword));
+                expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
-                expression = expression.Or(t => t.oldFileName.Contains(keyword));
+                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
+                expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();

@@ -18,6 +18,7 @@
     <script src="~/Content/js/framework-ui.js"></script>
     @*  取得所屬角色的選單，預載 Id 對應的參數，職位、公司別等等...可修改ClientsDataController.js & framework-clientdata.js*@
     <script src="~/Content/js/framework-clientdata.js"></script>
+    
 </head>
 <body style="overflow: hidden;">
     <div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
@@ -39,7 +40,7 @@
                         </div>
                         <div class="nav-no-collapse pull-right" id="header-nav">
                             <ul class="nav navbar-nav pull-right">
-                                <li class="mobile-search">
+                                @*<li class="mobile-search">
                                     <a class="btn">
                                         <i class="fa fa-search"></i>
                                     </a>
@@ -51,8 +52,32 @@
                                             </div>
                                         </form>
                                     </div>
+                                </li>*@
+                                <li>
+                                    <a href="~/EIPContent/Content/PublicShare/Download/行事曆.pdf" target="_blank">
+                                        <i class="fa fa-calendar"></i>
+                                        <span >行事曆</span>
+                                    </a>
                                 </li>
-                                <li class="dropdown hidden-xs">
+                                <li>
+                                    <a href="~/EIPContent/Content/PublicShare/Download/台灣分機表.pdf" target="_blank">
+                                        <i class="fa fa-address-book-o"></i>
+                                        <span >台灣分機表</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/EIPContent/Content/PublicShare/Download/大陸分機表.pdf" target="_blank">
+                                        <i class="fa fa-address-book-o"></i>
+                                        <span>大陸分機表</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/EIPContent/Content/PublicShare/Download/組織圖.jpg" target="_blank">
+                                        <i class="fa fa-sitemap"></i>
+                                        <span>組織圖</span>
+                                    </a>
+                                </li>
+                                @*<li class="dropdown hidden-xs">
                                     <a class="btn dropdown-toggle" data-toggle="dropdown">
                                         <i class="fa fa-tasks"></i>
                                         <span class="count">0</span>
@@ -70,7 +95,7 @@
                                         <i class="fa fa-envelope-o"></i>
                                         <span class="count">0</span>
                                     </a>
-                                </li>
+                                </li>*@
                                 <li class="dropdown profile-dropdown">
                                     <a href="#" class="dropdown" data-toggle="dropdown">
                                         <img src="@Url.Content(v_pic)" alt="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName" />
@@ -107,12 +132,20 @@
                                         <i class="fa fa-circle"></i>線上
                                     </span>
                                 </div>
+
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
                                     <li class="nav-header hidden-sm hidden-xs">
                                         常用連結
                                         <i class="fa fa-gear" style="color: #868b98; font-size: 12px; margin-top: -6px; position: absolute; right: 23px; top: 50%; cursor: pointer;"></i>
+                                    </li>
+                                    
+                                    <li class="common">
+                                        <a href="http://192.168.100.13:84/CCM_ErpPlugin/" target="_blank">
+                                            <i class="fa fa-user-plus "></i>
+                                            <span>客戶資訊管理平台</span>
+                                        </a>
                                     </li>
                                     <li class="common">
                                         <a href="http://192.168.100.13:81/Home/Index" target="_blank">
@@ -151,9 +184,10 @@
                         <nav class="page-tabs menuTabs">
                             <div class="page-tabs-content" style="margin-left: 0px;">
                                 <a href="javascript:;" class="menuTab active" data-id="/Home/Dashboard">歡迎首頁</a>
-                                <a href="javascript:;" class="menuTab" data-id="Calendar" style="padding-right: 15px;">行事曆</a>
-                                <a href="javascript:;" class="menuTab" data-id="/Home/Study"  style="padding-right: 15px;">使用教學</a>
-                                @*<a href="javascript:;" class="menuTab" data-id="/Home/About" style="padding-right: 15px;">平臺介紹</a>*@
+                                 
+                                @*<a href="javascript:;" class="menuTab" data-id="Calendar" style="padding-right: 15px;">行事曆</a>
+                                    <a href="javascript:;" class="menuTab" data-id="/Home/Study" style="padding-right: 15px;">使用教學</a>
+                                     <a href="javascript:;" class="menuTab" data-id="/Home/About" style="padding-right: 15px;">平臺介紹</a>*@
                             </div>
                         </nav>
                         <button class="roll-nav roll-right tabRight">
@@ -175,8 +209,9 @@
                     <div class="content-iframe" style="background-color: #f9f9f9; overflow: hidden;">
                         <div class="mainContent" id="content-main" style="margin: 10px; margin-bottom: 0px; padding: 0;">
                             <iframe class="NFine_iframe" width="100%" height="100%" src="/Home/Dashboard" frameborder="0" data-id="/Home/Dashboard" id="Dashboard" name="Dashboard"></iframe>
-                            <iframe class="NFine_iframe" width="100%" height="100%" src="http://ccm-ad.ccm3s.com/owa/calendar/ERPSYS@ccm3s.com/%E8%A1%8C%E4%BA%8B%E6%9B%86/calendar.html" frameborder="0" data-id="Calendar"></iframe>
-                            <iframe class="NFine_iframe" width="100%" height="100%" src="/Home/Study" frameborder="0" data-id="/Home/Study"></iframe>
+
+                            @*<iframe class="NFine_iframe" width="100%" height="100%" src="http://ccm-ad.ccm3s.com/owa/calendar/ERPSYS@ccm3s.com/%E8%A1%8C%E4%BA%8B%E6%9B%86/calendar.html" frameborder="0" data-id="Calendar"></iframe>*@
+                            @*<iframe class="NFine_iframe" width="100%" height="100%" src="/Home/Study" frameborder="0" data-id="/Home/Study"></iframe>*@
                             @*<iframe class="NFine_iframe" width="100%" height="100%" src="/Home/About" frameborder="0" data-id="/Home/About"></iframe>*@
                         </div>
                     </div>
@@ -190,9 +225,11 @@
     </div>
     <script src="~/Content/js/index.js"></script>
     <script src="~/Content/js/indextab.js"></script>
-    <script src="~/Content/js/loading/pace.min.js"></script>
+    @*<script src="~/Content/js/loading/pace.min.js"></script>*@
     <link href="~/Content/css/framework-ui.css" rel="stylesheet" />
     <script src="~/Content/js/framework-ui.js"></script>
+    <script src="~/Content/js/isMobile.js"></script>
+    <script src="~/Content/js/jqtimers/jquery.timers.js"></script>
     <script>
 
         function btn_resetpassword() {
@@ -210,6 +247,36 @@
                 }
             });
         }
+
+
+        // My own arbitrary use of isMobile, as an example
+        (function () {
+            var MOBILE_SITE = '/m/mobile/Index', // site to redirect to
+                NO_REDIRECT = 'noredirect'; // cookie to prevent redirect
+
+            // I only want to redirect iPhones, Android phones and a handful of 7" devices
+            if (isMobile.apple.phone || isMobile.android.phone || isMobile.seven_inch) {
+
+                // Only redirect if the user didn't previously choose
+                // to explicitly view the full site. This is validated
+                // by checking if a "noredirect" cookie exists
+                if (document.cookie.indexOf(NO_REDIRECT) === -1) {
+                    document.location = MOBILE_SITE;
+                }
+            }
+        })();
+
+
+        $(document).ready(function () {
+            //每十分鐘執行，無限次，並命名計時器名稱為 TimerRefresh 36hs
+            //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
+            $('body').everyTime('600s', 'TimerRefresh', function () {
+                location.reload();
+                return false;
+                //$("#gridList").trigger("reloadGrid");
+
+            }, 0, true);
+        });
     </script>
 </body>
 </html>

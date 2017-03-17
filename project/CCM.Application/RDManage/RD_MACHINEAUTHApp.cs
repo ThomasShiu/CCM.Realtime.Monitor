@@ -24,8 +24,10 @@ namespace CCM.Application
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
+                expression = expression.Or(t => t.M_ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
-                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
                 expression = expression.Or(t => t.Remark.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
@@ -37,8 +39,10 @@ namespace CCM.Application
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
+                expression = expression.Or(t => t.M_ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
-                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
                 expression = expression.Or(t => t.oldFileName.Contains(keyword));
                 expression = expression.Or(t => t.Remark.Contains(keyword));
             }
@@ -53,8 +57,10 @@ namespace CCM.Application
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.CS_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
+                expression = expression.Or(t => t.M_ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.SHORT_NM.Contains(keyword));
-                expression = expression.Or(t => t.Machine_Id.Contains(keyword));
+                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
                 expression = expression.Or(t => t.oldFileName.Contains(keyword));
                 expression = expression.Or(t => t.Remark.Contains(keyword));
             }
@@ -84,6 +90,25 @@ namespace CCM.Application
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }
+        }
+
+        // 清空認證檔欄位
+        public void ResetFile( string keyValue)
+        {
+            RD_MACHINEAUTHEntity entity = new RD_MACHINEAUTHEntity();
+            entity.SID = keyValue;
+            entity.Version = "";
+            entity.oldFileName = "";
+            entity.newFileName = "";
+            entity.UploadPath = "";
+            entity.DownloadPath = "";
+            entity.CPU_SN = "";
+            entity.HD_SN = "";
+            entity.HD_Moduleno = "";
+            entity.HD_Fireware = "";
+            //entity.Remark = "";
+
+            service.Update(entity);
         }
 
     }

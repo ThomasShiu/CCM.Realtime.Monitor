@@ -82,9 +82,10 @@ namespace CCM.Web.EIP.Areas.SystemManage.Controllers
         [HandlerAjaxOnly]
         //[HandlerAuthorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult SubmitResetPassword(string userPassword, string keyValue)
+        public ActionResult SubmitResetPassword( string keyValue,string userPassword)
         {
             userLogOnApp.ResetPassword(userPassword);
+            cs.changeERPPW(keyValue, userPassword);
             return Success("修改密碼成功。");
         }
 

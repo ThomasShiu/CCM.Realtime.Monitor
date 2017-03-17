@@ -9,6 +9,7 @@ using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
 using CCM.Web.EIP.App_Start;
+using CCM.Web.EIP.App_Start._01_Handler;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Web.Mvc;
@@ -21,6 +22,8 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         private BU_LUNCH_AMOUNTApp tableApp = new BU_LUNCH_AMOUNTApp();
         private CcmServices cs = new CcmServices();
         private ReportService rs = new ReportService();
+
+        
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -66,6 +69,25 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+        #region 缺勤人員
+        [HttpGet]
+        [HandlerAuthorize]
+        [ActionTraceLog]
+        public virtual ActionResult Form2()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetAbsentGridJson(string lunchdate,string loca,string mode)
+        {
+            var data = cs.getAbsentList(lunchdate, loca, mode);
+            return Content(data.ToJson());
+        }
+
+        #endregion
 
         //計算用餐人數
         [HttpGet]

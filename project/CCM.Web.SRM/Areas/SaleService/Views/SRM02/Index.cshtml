@@ -12,22 +12,47 @@
             url: "/SaleService/SRM02/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-			                    { label: "SID", name: "SID", width: 80, align: 'left' },
-				                     { label: "parentId", name: "parentId", width: 80, align: 'left' },
-				                     { label: "FileName", name: "FileName", width: 80, align: 'left' },
-				                     { label: "Size", name: "Size", width: 80, align: 'left' },
-				                     { label: "Descript", name: "Descript", width: 80, align: 'left' },
-				                     { label: "ImgPath", name: "ImgPath", width: 80, align: 'left' },
-				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
-				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
-				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
-				                     { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
-				                     { label: "LastModifyUserId", name: "LastModifyUserId", width: 80, align: 'left' },
+
+			                    { label: "產品號碼", name: "PROD_NO", key: true, width: 70, align: 'left' },
+				                     { label: "型式", name: "PROD_TY", width: 70, align: 'left' },
+				                     { label: "產品品號", name: "ITEM_NO", width: 100, align: 'left' },
+				                     { label: "產品品名", name: "ITEM_NM", width: 180, align: 'left' },
+				                     { label: "規格", name: "ITEM_SP", width: 110, align: 'left' },
+				                     { label: "主件品號", name: "M_ITEM_NO", width: 100, align: 'left' },
+				                     { label: "主件號碼", name: "M_ITEM_ID", width: 100, align: 'left' },
+				                     {
+				                         label: "出貨日", name: "SO_DT", width: 80, align: 'left',
+				                         formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				                     },
+				                     //{ label: "出貨單別", name: "SO_TY", width: 70, align: 'center' },
+				                     //{ label: "出貨單號", name: "SO_NO", width: 80, align: 'left' },
+				                     //{ label: "出貨序號", name: "SO_SR", width: 60, align: 'center' },
+				                     //{ label: "經銷客戶", name: "SO_CS_NO", width: 60, align: 'left' },
+				                     //{ label: "客戶名稱", name: "SO_CS_NM", width: 70, align: 'left' },
+				                     //{ label: "經銷商", name: "FA_NO", hidden:true , width: 80, align: 'left' },
+				                     //{ label: "使用客戶", name: "CS_NO", width: 70, align: 'left' },
+				                     //{ label: "使用客戶名稱", name: "CS_NM", width: 80, align: 'left' },
+				                     //{ label: "送貨地址", name: "TO_ADDR", width: 120, align: 'left' },
+				                     { label: "保固月數", name: "PROD_GUAR_MM", width: 60, align: 'center' },
+				                     {
+				                         label: "保固截止日", name: "PROD_GUAR_DT", width: 80, align: 'left',
+				                         formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				                     },
+				                     { label: "主件保固月數", name: "M_ITEM_GUAR_MM", hidden: true, width: 80, align: 'left' },
+				                     {
+				                         label: "主件保固截止日", name: "M_ITEM_GUAR_DT", hidden: true, width: 80, align: 'left',
+				                         formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				                     },
+				                     { label: "備註", name: "REMK", hidden: true, width: 80, align: 'left' },
+				                     { label: "訂單單別", name: "CO_TY", hidden: true, width: 60, align: 'left' },
+				                     { label: "單號", name: "CO_NO", hidden: true, width: 80, align: 'left' },
+				                     { label: "序號", name: "CO_SR", hidden: true, width: 30, align: 'right' },
+				                     { label: "", name: "", width: 2, align: 'right' },
+
 
             ],
 			pager: "#gridPager",
-            sortname: 'SID asc,CreatorTime desc',
+			sortname: 'SO_DT desc',
             viewrecords: true
         });
         $("#btn_search").click(function () {
@@ -36,48 +61,16 @@
             }).trigger('reloadGrid');
         });
     }
-    function btn_add() {
-        $.modalOpen({
-            id: "Form",
-            title: "新增",
-            url: "/SaleService/SRM02/Form",
-            width: "640px",
-            height: "400px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
-            }
-        });
-    }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
-        $.modalOpen({
-            id: "Form",
-            title: "修改",
-            url: "/SaleService/SRM02/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
-            }
-        });
-    }
-    function btn_delete() {
-        $.deleteForm({
-            url: "/SaleService/SRM02/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().SID },
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
-    }
+
+
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var keyValue = $("#gridList").jqGridRowValue().PROD_NO;
         $.modalOpen({
             id: "Details",
             title: "查看",
             url: "/SaleService/SRM02/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
+            width: "940px",
+            height: "500px",
             btn: null,
         });
     }

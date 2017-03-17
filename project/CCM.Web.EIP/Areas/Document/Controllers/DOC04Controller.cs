@@ -8,6 +8,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+/// <summary>
+/// 收文附件管理
+/// </summary>
+/// <remarks>
+/// 紀錄接收公文的附加檔案
+/// </remarks>
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
 

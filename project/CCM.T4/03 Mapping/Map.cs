@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: V_HR_TICKET
-	public class V_HR_TICKETMap : EntityTypeConfiguration<V_HR_TICKETEntity>
+	//mapping table name: V_SRVPRODMT_CCM
+	public class V_SRVPRODMT_CCMMap : EntityTypeConfiguration<V_SRVPRODMT_CCMEntity>
     {
-        public V_HR_TICKETMap()
+        public V_SRVPRODMT_CCMMap()
         {
-            this.ToTable("V_HR_TICKET");
+            this.ToTable("V_SRVPRODMT_CCM");
             this.HasKey(t => t.SID);
         }
     }

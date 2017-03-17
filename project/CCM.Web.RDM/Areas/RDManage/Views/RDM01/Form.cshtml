@@ -20,11 +20,18 @@
     });
     function initControl() {
         // 機台編號
-        $("#Machine_Id").bindSelect({
-            url: "/RDManage/RDM00/GetSrvProd",
-            id: "M_ITEM_NO",
-            text: "ITEM_DESCRIPT"
-        });
+        //$("#Machine_Id").bindSelect({
+        //    url: "/RDManage/RDM00/GetSrvProd",
+        //    id: "M_ITEM_NO",
+        //    text: "ITEM_DESCRIPT"
+        //});
+
+        // 機台編號
+        //$("#ITEM_NO").bindSelect({
+        //    url: "/RDManage/RDM00/GetITEM",
+        //    id: "ITEM_NO",
+        //    text: "DESCR"
+        //});
 
         // 客戶
         $("#CS_NO").bindSelect({
@@ -74,13 +81,14 @@
     <input id="HD_Fireware" name="HD_Fireware" type="hidden" value="" />
     <input id="HD_Moduleno" name="HD_Moduleno" type="hidden" value="" />
 
+    <input id="COMPANY" name="COMPANY" type="hidden" value="" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">機台編號</th>
+                <th class="formTitle">機台品號</th>
                 <td class="formValue" colspan="3">
-                    <select id="Machine_Id" name="Machine_Id" class="form-control required" disabled="disabled">
-                    </select>
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" disabled="disabled" />
+                   
                 </td>
             </tr>
             <tr>

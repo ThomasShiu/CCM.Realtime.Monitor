@@ -9,30 +9,44 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/RDManage/RDM03/GetGridJson",
+            url: "/SaleService/SRM03/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-			                    { label: "SID", name: "SID", width: 80, align: 'left' },
+			                    { label: "PROD_NO", name: "PROD_NO", width: 80, align: 'left' },
+				                     { label: "PROD_TY", name: "PROD_TY", width: 80, align: 'left' },
+				                     { label: "ITEM_NO", name: "ITEM_NO", width: 80, align: 'left' },
+				                     { label: "ITEM_NM", name: "ITEM_NM", width: 80, align: 'left' },
+				                     { label: "ITEM_SP", name: "ITEM_SP", width: 80, align: 'left' },
+				                     { label: "M_ITEM_NO", name: "M_ITEM_NO", width: 80, align: 'left' },
+				                     { label: "M_ITEM_ID", name: "M_ITEM_ID", width: 80, align: 'left' },
+				                     { label: "SO_DT", name: "SO_DT", width: 80, align: 'left' },
+				                     { label: "SO_TY", name: "SO_TY", width: 80, align: 'left' },
+				                     { label: "SO_NO", name: "SO_NO", width: 80, align: 'left' },
+				                     { label: "SO_SR", name: "SO_SR", width: 80, align: 'left' },
+				                     { label: "SO_CS_NO", name: "SO_CS_NO", width: 80, align: 'left' },
+				                     { label: "SO_CS_NM", name: "SO_CS_NM", width: 80, align: 'left' },
+				                     { label: "FA_NO", name: "FA_NO", width: 80, align: 'left' },
 				                     { label: "CS_NO", name: "CS_NO", width: 80, align: 'left' },
-				                     { label: "SHORT_NM", name: "SHORT_NM", width: 80, align: 'left' },
-				                     { label: "Remark", name: "Remark", width: 80, align: 'left' },
-				                     { label: "Version", name: "Version", width: 80, align: 'left' },
-				                     { label: "Machine_Id", name: "Machine_Id", width: 80, align: 'left' },
-				                     { label: "oldFileName", name: "oldFileName", width: 80, align: 'left' },
-				                     { label: "newFileName", name: "newFileName", width: 80, align: 'left' },
-				                     { label: "UploadPath", name: "UploadPath", width: 80, align: 'left' },
-				                     { label: "DownloadPath", name: "DownloadPath", width: 80, align: 'left' },
-				                     { label: "CPU_SN", name: "CPU_SN", width: 80, align: 'left' },
-				                     { label: "HD_SN", name: "HD_SN", width: 80, align: 'left' },
-				                     { label: "HD_Fireware", name: "HD_Fireware", width: 80, align: 'left' },
-				                     { label: "HD_Moduleno", name: "HD_Moduleno", width: 80, align: 'left' },
-				                     { label: "Enable", name: "Enable", width: 80, align: 'left' },
-				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
-				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
-				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
-				                     { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
-				                     { label: "LastModifyUserId", name: "LastModifyUserId", width: 80, align: 'left' },
+				                     { label: "CS_NM", name: "CS_NM", width: 80, align: 'left' },
+				                     { label: "TO_ADDR", name: "TO_ADDR", width: 80, align: 'left' },
+				                     { label: "PROD_GUAR_MM", name: "PROD_GUAR_MM", width: 80, align: 'left' },
+				                     { label: "PROD_GUAR_DT", name: "PROD_GUAR_DT", width: 80, align: 'left' },
+				                     { label: "M_ITEM_GUAR_MM", name: "M_ITEM_GUAR_MM", width: 80, align: 'left' },
+				                     { label: "M_ITEM_GUAR_DT", name: "M_ITEM_GUAR_DT", width: 80, align: 'left' },
+				                     { label: "REMK", name: "REMK", width: 80, align: 'left' },
+				                     { label: "CO_TY", name: "CO_TY", width: 80, align: 'left' },
+				                     { label: "CO_NO", name: "CO_NO", width: 80, align: 'left' },
+				                     { label: "CO_SR", name: "CO_SR", width: 80, align: 'left' },
+				                     { label: "CS_VCH_NO", name: "CS_VCH_NO", width: 80, align: 'left' },
+				                     { label: "QT_TY", name: "QT_TY", width: 80, align: 'left' },
+				                     { label: "QT_NO", name: "QT_NO", width: 80, align: 'left' },
+				                     { label: "QT_SR", name: "QT_SR", width: 80, align: 'left' },
+				                     { label: "OWNER_USR_NO", name: "OWNER_USR_NO", width: 80, align: 'left' },
+				                     { label: "OWNER_GRP_NO", name: "OWNER_GRP_NO", width: 80, align: 'left' },
+				                     { label: "ADD_DT", name: "ADD_DT", width: 80, align: 'left' },
+				                     { label: "IP_NM", name: "IP_NM", width: 80, align: 'left' },
+				                     { label: "CP_NM", name: "CP_NM", width: 80, align: 'left' },
 				 				
             ],
 			pager: "#gridPager",
@@ -49,7 +63,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/RDManage/RDM03/Form",
+            url: "/SaleService/SRM03/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -62,7 +76,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/RDManage/RDM03/Form?keyValue=" + keyValue,
+            url: "/SaleService/SRM03/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -72,7 +86,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/RDManage/RDM03/DeleteForm",
+            url: "/SaleService/SRM03/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -84,7 +98,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/RDManage/RDM03/Details?keyValue=" + keyValue,
+            url: "/SaleService/SRM03/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

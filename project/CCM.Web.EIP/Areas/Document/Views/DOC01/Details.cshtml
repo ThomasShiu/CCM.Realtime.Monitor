@@ -223,10 +223,14 @@
     function InitBootGrid() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
-        if(vport!=80){
-            vport=':@Request.Url.Port';
+        var pathlink ='';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
         }
-        var pathlink = 'http://' + vhost + vport + '/';
+        else {
+            pathlink = 'http://' + vhost + '/';
+        }
 
         // BootGrid test
         $("#grid-attachfile").on("load.rs.jquery.bootgrid", function () {
@@ -271,7 +275,7 @@
                 window.open(pathlink + $(this).data("row-id"), '_blank');
             }).end().find(".command-delete").on("click", function(e)
             {
-               
+
             });
         });
 

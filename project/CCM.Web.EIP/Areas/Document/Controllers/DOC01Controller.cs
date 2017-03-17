@@ -14,7 +14,12 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
+/// <summary>
+/// 發文管理
+/// </summary>
+/// <remarks>
+/// 紀錄發佈公文，可附加檔案
+/// </remarks>
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
     

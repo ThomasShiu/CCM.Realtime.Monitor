@@ -20,11 +20,11 @@
     });
     function initControl() {
         // 機台編號
-        $("#Machine_Id").bindSelect({
-            url: "/RDManage/RDM00/GetSrvProd",
-            id: "M_ITEM_NO",
-            text: "ITEM_DESCRIPT"
-        });
+        //$("#Machine_Id").bindSelect({
+        //    url: "/RDManage/RDM00/GetSrvProd",
+        //    id: "M_ITEM_NO",
+        //    text: "ITEM_DESCRIPT"
+        //});
 
         // 客戶
         $("#CS_NO").bindSelect({
@@ -32,6 +32,8 @@
             id: "CS_NO",
             text: "SHORT_NM"
         });
+
+        
     }
     function submitForm() {
         var FileUploadPath = $('input[name=FileUpload1]').val();
@@ -122,6 +124,15 @@
             $('input[name=SHORT_NM]').val(short_nm);
         });
 
+        var keyValue = $('#ITEM_NO').val();
+
+        // 售服機台資料
+        $("#M_ITEM_NO").bindSelect({
+            url: "/RDManage/RDM00/GetSRVPRODdata?keyValue=" + keyValue,
+            id: "PROD_NO",
+            text: "ITEM_DESCRIPT"
+        });
+
     });
 </script>
 
@@ -137,39 +148,24 @@
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
-                <th class="formTitle">機台編號</th>
-                <td class="formValue" colspan="3">
-                    <select id="Machine_Id" name="Machine_Id" class="form-control required" disabled="disabled">
+                <th class="formTitle">機台品號</th>
+                <td class="formValue" >
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" disabled="disabled" />
+                </td>
+                <th class="formTitle">出機編號</th>
+                <td class="formValue">
+                    <select id="PROD_NO" name="PROD_NO" class="form-control">
+                        <option></option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">客戶</th>
-                <td class="formValue" colspan="3" >
-                    
+                <td class="formValue" >
                     <select id="CS_NO" name="CS_NO" class="form-control required">
                         <option></option>
                     </select>
                 </td>
-
-            </tr>  
-            <tr>
-                <th class="formTitle">檔案</th>
-                <td class="formValue">
-                    
-                    @*<div>
-                        <label class="btn btn-default btn-file">
-                            <input type="file" id="FileUpload1" />
-                            <button type="button" id="btnUpload" class="btn btn-info">上傳檔案</button>
-                        </label>
-                    </div>*@
-                    <div class="input-group">
-                        <input type="file" id="FileUpload1" class="form-control" aria-label="..." >
-                        <span class="input-group-btn">
-                            <button type="button" id="btnUpload" class="btn btn-info" onclick="UploadFile()">上傳檔案</button>
-                        </span>
-                    </div>
-                 </td>
                 <th class="formTitle">版本</th>
                 <td class="formValue">
                     <select id="newold" name="newold" class="form-control required">
@@ -178,6 +174,25 @@
                     </select>
 
                 </td>
+            </tr>  
+            <tr>
+                <th class="formTitle">檔案</th>
+                <td class="formValue" colspan="3">
+                    
+                    @*<div>
+                        <label class="btn btn-default btn-file">
+                            <input type="file" id="FileUpload1" />
+                            <button type="button" id="btnUpload" class="btn btn-info">上傳檔案</button>
+                        </label>
+                    </div>*@
+                    <div class="input-group">
+                        <input type="file" id="FileUpload1" class="form-control input-md" aria-label="..." >
+                        <span class="input-group-btn">
+                            <button type="button" id="btnUpload" class="btn btn-info" onclick="UploadFile()">上傳檔案</button>
+                        </span>
+                    </div>
+                 </td>
+                
             </tr>
             <tr>
                 <th class="formTitle">已上傳</th>

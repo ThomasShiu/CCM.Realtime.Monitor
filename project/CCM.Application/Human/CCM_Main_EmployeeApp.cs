@@ -56,17 +56,22 @@ namespace CCM.Application
                 DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
                 switch (timeType)
                 {
-                    case "1":  //到職日，全部
-                        startTime = DateTime.Now.AddYears(-100);
-                        break;
-                    case "2": //到職日，三個月內
+                    case "1": //到職日，三個月內
                         startTime = DateTime.Now.AddMonths(-3);
                         break;
+                    case "2":  //到職日，全部
+                        startTime = DateTime.Now.AddYears(-100);
+                        break;
+
                     default:
                         startTime = DateTime.Now.AddMonths(-3);
                         break;
                 }
-                expression = expression.And(t => t.CreatorTime >= startTime && t.CreatorTime <= endTime);
+                expression = expression.And(t => t.CreatorTime >= startTime );
+            }
+            else {
+                DateTime startTime = DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd").ToDate();
+                expression = expression.And(t => t.CreatorTime >= startTime);
             }
 
             return service.FindList(expression, pagination);

@@ -7,12 +7,12 @@
         gridList();
     })
     function gridList() {
-        var vhost = '@Request.Url.Host';
+        @*var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
         if (vport != 80) {
             vport = ':@Request.Url.Port';
         }
-        var pathlink = 'http://' + vhost + vport + '/';
+        var pathlink = 'http://' + vhost + vport + '/';*@
 
         var $gridList = $("#gridList");
         $gridList.dataGrid({

@@ -745,6 +745,7 @@
     <Content Include="Areas\RDManage\Views\RDM03\Details.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM03\Form.cshtml" />
     <Content Include="Areas\RDManage\Views\RDM03\Index.cshtml" />
+    <Content Include="Areas\RDManage\Views\RDM02\ResetFile.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

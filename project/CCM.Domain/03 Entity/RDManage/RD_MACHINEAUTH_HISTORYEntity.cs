@@ -25,7 +25,9 @@ namespace CCM.Domain
 
         public String Version { get; set; }
 
-        public String Machine_Id { get; set; }
+        public String ITEM_NO { get; set; }
+        public String M_ITEM_NO { get; set; }
+        public String PROD_NO { get; set; }
 
         public String oldFileName { get; set; }
 

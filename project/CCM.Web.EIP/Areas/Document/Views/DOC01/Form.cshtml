@@ -235,7 +235,7 @@
             id: "DEPID",
             text: "DEPNM"
         });
-        // 員工 
+        // 員工
         $("#EMPID").bindSelect({
             url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
@@ -343,7 +343,7 @@
                             window.setTimeout(function () {
                                 $.modalMsg(msg, "success");
                             }, 500);
-                            
+
                         }
                         else {
                             msg = "上傳失敗，原因：" + res.Message;
@@ -351,7 +351,7 @@
                                 $.modalMsg(msg, "error");
                             }, 500);
                         }
-                        
+
                         //重新整理附件列表
                         $('#grid-attachfile').bootgrid('reload');
                     }
@@ -371,10 +371,16 @@
     function InitBootGrid() {
         var vhost = '@Request.Url.Host';
         var vport = '@Request.Url.Port';
-        if (vport != 80) {
+        var pathlink ='';
+        if (vport != '80') {
             vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+            //alert(pathlink);
         }
-        var pathlink = 'http://' + vhost + vport + '/';
+        else {
+            pathlink = 'http://' + vhost + '/';
+            //alert(pathlink);
+        }
 
         // BootGrid test
         $("#grid-attachfile").on("load.rs.jquery.bootgrid", function () {

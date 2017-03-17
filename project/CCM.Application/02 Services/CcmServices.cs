@@ -30,6 +30,7 @@ namespace CCM.Application
     {
         public static string v_EIPContext = "EIPContext";
         public static string v_HRSContext = "HRSContext";
+        public static string v_ERPContext = "ERPContext";
         public static string v_HR_OVRTM = "HRSDBR53.dbo.HR_OVRTM";    // 測試用，轉正式時將_TEST拿掉 
         public static string v_V_WF_SIGNROUTE = "V_WF_SIGNROUTE";     // 簽核途程清單
         public static string v_SP_GEN_SIGNROUTE = "SP_GEN_SIGNROUTE"; // 產生簽核途程
@@ -521,7 +522,43 @@ namespace CCM.Application
                 db.Close();
             }
 
-            return "0";
+        }
+        #endregion
+
+        #region  取得公務車最近預約
+        public JArray GetCarBooking(string keyword)
+        {
+
+            string v_sql = "  SELECT TOP 1  AttendEmp,Subject, CONVERT(varchar(16),BookingStartTime,121) BookingStartTime, CONVERT(varchar(16),BookingEndTime,121) BookingEndTime " +
+                             " FROM PO_PUBLIC_OBJECT_BOOKING " +
+                             " WHERE ObjectSID = '"+ keyword + "' AND Status = '鎖定' " +
+                             " ORDER BY BookingStartTime ASC ";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             AttendEmp = p.Field<string>("AttendEmp"),
+                             Subject = p.Field<string>("Subject"),
+                             BookingStartTime = p.Field<string>("BookingStartTime"),
+                             BookingEndTime = p.Field<string>("BookingEndTime")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"AttendEmp",col.AttendEmp },
+                    {"Subject",col.Subject },
+                    {"BookingStartTime",col.BookingStartTime },
+                    {"BookingEndTime",col.BookingEndTime}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
         }
         #endregion
 
@@ -682,7 +719,7 @@ namespace CCM.Application
             v_sql += " AND A.STATUS = 'SN' AND B.STATUS = 'SN' ";
             v_sql += " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) ";
             v_sql += " AND(A.DOCID LIKE '%" + keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%' OR U.DEPM_NM LIKE '%" + keyword + "%') ";
-            v_sql += " ORDER BY M.MRDT,A.STATUS DESC ";
+            v_sql += " ORDER BY M.MRDT ASC ";
 
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
@@ -900,6 +937,56 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得員工通訊資料
+        public JArray getEmpContact(string emplyid)
+        {
+            string v_sql = "";
+            v_sql += "SELECT EMPLYID, EMPLYNM, C_STA, DEPID, PIDNO, SEX, CONVERT(VARCHAR(10),BRTHDT,111) BRTHDT, MARY, REGADRS, HP, CONTEL ";
+            v_sql += " FROM EIP.dbo.V_HR_EMPLYM WHERE C_STA = 'A' ";
+            if (!string.IsNullOrEmpty(emplyid))
+            {
+                v_sql += " AND EMPLYID='"+ emplyid + "' ";
+
+            }
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             EMPLYNM = p.Field<string>("EMPLYNM"),
+                             PIDNO = p.Field<string>("PIDNO"),
+                             SEX = p.Field<string>("SEX"),
+                             BRTHDT = p.Field<string>("BRTHDT"),
+                             MARY = p.Field<string>("MARY"),
+                             REGADRS = p.Field<string>("REGADRS"),
+                             HP = p.Field<string>("HP"),
+                             CONTEL = p.Field<string>("CONTEL")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+                var colObject = new JObject
+                {
+                    {"EMPLYID",col.EMPLYID },
+                    {"EMPLYNM",col.EMPLYNM },
+                    {"PIDNO",col.PIDNO },
+                    {"SEX",col.SEX},
+                    {"BRTHDT",col.BRTHDT },
+                    {"MARY",col.MARY },
+                    {"REGADRS",col.REGADRS },
+                    {"HP",col.HP },
+                    {"CONTEL",col.CONTEL },
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+        
         #region 送出簽核作業
         public string SetSign(string v_ovrtno, string v_action)
         {
@@ -1214,6 +1301,52 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得缺勤人員清單
+        public JArray getAbsentList(string lunchdate, string location, string mode)
+        {
+            var v_sql = " SELECT DISTINCT A.LOCATION,A.EMPLYID,dbo.SF_GETEMPNAME(A.EMPLYID) EMPLYNM  " +
+                        " FROM BU_LUNCH_SETTING A " +
+                        " LEFT JOIN V_HR_TICKET T ON A.EMPLYID = T.EMPLYID COLLATE Chinese_Taiwan_Stroke_CI_AS AND T.YYMMDD = '" + lunchdate + "' AND T.TKT_HH >= 4 AND T.TKT_HH < 23 " +
+                        " LEFT JOIN HRSDBR53..HR_EMPSFT T1 ON A.EMPLYID = T1.FLNO COLLATE Chinese_Taiwan_Stroke_CI_AS AND(T1.DDAY =  '" + lunchdate + "') AND SFT_NO = 'D' " +
+                        " LEFT JOIN V_HR_TICKET T2 ON A.EMPLYID = T2.EMPLYID COLLATE Chinese_Taiwan_Stroke_CI_AS AND T2.YYMMDD =  '" + lunchdate + "'  AND T2.TKT_HH >= 8 AND T2.TKT_NN > 0 AND T2.TKT_HH <= 9 AND A.DEPID IN('K30') " +
+                        " WHERE A.LOCATION = '"+ location + "' AND(T.YYMMDD IS NULL OR(T.YYMMDD IS NOT NULL AND T1.DDAY IS NOT NULL) OR T2.YYMMDD IS NOT NULL) ";
+
+            if (mode.Equals("meat")) { 
+                v_sql += " AND A.MEAT > 0";
+            }
+            else
+            {
+                v_sql += " AND A.VEGETABLE > 0";
+            }
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             LOCATION = p.Field<string>("LOCATION"),
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             EMPLYNM = p.Field<string>("EMPLYNM")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"LOCATION",col.LOCATION },
+                    {"EMPLYID",col.EMPLYID },
+                    {"EMPLYNM",col.EMPLYNM}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
         #region 取得公務車、會議室借用狀態
         public JArray getPubObjectList(string keyword)
         {
@@ -1261,6 +1394,54 @@ namespace CCM.Application
                     {"BookingStartTime",col.BookingStartTime},
                     {"BookingEndTime",col.BookingEndTime},
                     {"Status",col.Status }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
+
+        #region 取得公務車行事曆
+        public JArray getPubObjectCal(string keyword)
+        {
+            var UserId = LoginInfo.UserCode; //B050502
+            var UserDep = LoginInfo.DeptId; // C00
+
+            var v_sql = " SELECT B.ObjectNM AS id,'('+dbo.SF_GETEMPNAME(A.EmployeeID)+') '+A.Subject AS title,CASE WHEN A.Status='取消' THEN '#999999' ELSE A.BgColor END AS BgColor,";
+            v_sql += "           B.ObjectNM+'<br/>'+'('+dbo.SF_GETEMPNAME(A.EmployeeID)+') '+A.Subject+'<br/>事由:'+A.[Description]+'<br/>時間:'+";
+            v_sql += "            CONVERT(VARCHAR(5), A.BookingStartTime, 108)+'~'+CONVERT(VARCHAR(5), A.BookingEndTime, 108) AS description,  ";
+            v_sql += "           CONVERT(VARCHAR(16), A.BookingStartTime, 120) BookingStartTime, CONVERT(VARCHAR(16), A.BookingEndTime, 120) AS BookingEndTime ";
+            v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
+            v_sql += " WHERE B.Enable = 'Y' AND B.ObjectType = '公務車輛'  ";
+            v_sql += " AND GETDATE() BETWEEN A.BookingStartTime - 2 AND A.BookingEndTime + 4 ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             id = p.Field<string>("id"),
+                             title = p.Field<string>("title"),
+                             description = p.Field<string>("description"),
+                             start = p.Field<string>("BookingStartTime"),
+                             end = p.Field<string>("BookingEndTime"),
+                             color = p.Field<string>("BgColor")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"id",col.id },
+                    {"title",col.title },
+                    {"description",col.description },
+                    {"start",col.start},
+                    {"end",col.end},
+                    {"color",col.color}
                 };
                 MixArray.Add(colObject);
             }
@@ -1411,6 +1592,38 @@ namespace CCM.Application
                 MixArray.Add(colObject);
             }
             return MixArray;
+        }
+        #endregion
+
+        #region  變更ERP密碼
+        
+        public void changeERPPW(string keyvalue,string password)
+        {
+            string v_sql = " UPDATE CCM_Main.dbo.USRNO SET USR_PW = @USR_PW,PW_DT=getdate() WHERE USR_NO = @USR_NO ";
+            //1.引用SqlConnection物件連接資料庫
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_ERPContext].ConnectionString))
+            {
+                //2.開啟資料庫
+                conn.Open();
+                //3.引用SqlCommand物件
+                using (SqlCommand command = new SqlCommand(v_sql, conn))
+                {
+                    try
+                    {
+                        command.Parameters.AddWithValue("@USR_NO", keyvalue);
+                        command.Parameters.AddWithValue("@USR_PW", password);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex.GetBaseException();
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
         }
         #endregion
 
@@ -1592,6 +1805,7 @@ namespace CCM.Application
         }
 
         #endregion
+        
         #region 修改圖片解析度
         public int ImgUploadResize(HttpPostedFileBase file,string directoryPath,string fileNewName)
         {

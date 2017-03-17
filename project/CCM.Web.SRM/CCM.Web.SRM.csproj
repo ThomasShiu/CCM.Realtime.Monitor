@@ -163,6 +163,7 @@
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
     <Compile Include="Areas\ReportManage\ReportManageAreaRegistration.cs" />
     <Compile Include="Areas\SaleService\Controllers\SRM01Controller.cs" />
+    <Compile Include="Areas\SaleService\Controllers\SRM03Controller.cs" />
     <Compile Include="Areas\SaleService\Controllers\SRM02Controller.cs" />
     <Compile Include="Areas\SaleService\SaleServiceAreaRegistration.cs" />
     <Compile Include="Areas\SystemManage\Controllers\AreaController.cs" />
@@ -797,6 +798,9 @@
     <Content Include="Areas\SaleService\Views\SRM01\Details.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM01\Form.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM01\Index.cshtml" />
+    <Content Include="Areas\SaleService\Views\SRM03\Details.cshtml" />
+    <Content Include="Areas\SaleService\Views\SRM03\Form.cshtml" />
+    <Content Include="Areas\SaleService\Views\SRM03\Index.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM02\Details.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM02\Form.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM02\Index.cshtml" />

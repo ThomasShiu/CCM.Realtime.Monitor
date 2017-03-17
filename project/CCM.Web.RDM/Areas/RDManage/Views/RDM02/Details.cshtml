@@ -16,8 +16,8 @@
                 $("#form1").formSerialize(data);
                 $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
                 $("#form1").find('div.ckbox label').attr('for', '');
-                $('#UploadPathLink').append('<a href="' + pathlink + $('#UploadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
-                $('#DownloadPathLink').append('<a href="' + pathlink + $('#DownloadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
+                //$('#UploadPathLink').append('<a href="' + pathlink + $('#UploadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
+                //$('#DownloadPathLink').append('<a href="' + pathlink + $('#DownloadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
             }
         });
     });
@@ -68,9 +68,9 @@
                 <td class="formValue">
                     <input id="Version" name="Version" type="text" class="form-control required" />
                 </td>
-                <th class="formTitle">機台編號</th>
+                <th class="formTitle">品號</th>
                 <td class="formValue">
-                    <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" />
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
                 </td>
             </tr>
 
@@ -84,7 +84,7 @@
                     <input id="newFileName" name="newFileName" type="text" class="form-control required" />
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <th class="formTitle">原檔下載</th>
                 <td class="formValue">
                     <div id="UploadPathLink"></div>
@@ -93,7 +93,7 @@
                 <td class="formValue">
                     <div id="DownloadPathLink"></div>
                 </td>
-            </tr>
+            </tr>*@
             <tr>
                 <th class="formTitle">啟用</th>
                 <td class="formValue">
@@ -105,7 +105,27 @@
             <tr>
                 <th class="formTitle">備註</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 60px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CPU_SN</th>
+                <td class="formValue">
+                    <input id="CPU_SN" name="CPU_SN" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">HD_SN</th>
+                <td class="formValue">
+                    <input id="HD_SN" name="HD_SN" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">HD_Fireware</th>
+                <td class="formValue">
+                    <input id="HD_Fireware" name="CPU_SN" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">HD_Moduleno</th>
+                <td class="formValue">
+                    <input id="HD_Moduleno" name="HD_Moduleno" type="text" class="form-control required" />
                 </td>
             </tr>
         </table>

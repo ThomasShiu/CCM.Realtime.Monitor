@@ -10,7 +10,12 @@ using CCM.Domain;
 using CCM.Web.EIP.App_Start;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
+/// <summary>
+/// 發文附件管理
+/// </summary>
+/// <remarks>
+/// 紀錄發文的附加檔案
+/// </remarks>
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
 

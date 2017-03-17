@@ -22,6 +22,8 @@
             if (depid != 'G20' & depid != 'C00') {
                 $("#BookingStartTime").attr("disabled", "disabled");
                 $("#BookingEndTime").attr("disabled", "disabled");
+                $("#DepartmentID").attr("disabled", "disabled");
+                $("#EmployeeID").attr("disabled", "disabled");
             }
         }
     });
@@ -115,8 +117,7 @@
                 });
 
             });
-            $("#DepartmentID").attr("disabled", "disabled");
-            $("#EmployeeID").attr("disabled", "disabled");
+            
 
         }
 
@@ -150,8 +151,8 @@
                     @*<input id="UseReason" name="UseReason" type="text" class="form-control required" placeholder="請輸入標題" />*@
                     <select id="ObjectType" name="ObjectType" class="form-control required">
                         <option value="會議室" selected="selected">會議室</option>
-                        <option value="公務車輛">公務車輛</option>
-                        <option value="其他物品">其他物品</option>
+                        @*<option value="公務車輛">公務車輛</option>
+                        <option value="其他物品">其他物品</option>*@
                     </select>
                 </td>
                 <th class="formTitle">預約原因</th>

@@ -1,0 +1,105 @@
+﻿
+
+<!DOCTYPE html>
+<html style="overflow: hidden;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,hight=1000px,initial-scale=1,maximum-scale=1,user-scalable=yes">
+    <title>精湛 通訊錄</title>
+    <link href='/Content/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <link href="/Content/js/jquerymobile/css/themes/default/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <link href="/Content/js/jquerymobile/_assets/css/jqm-demos.css" rel="stylesheet" />
+
+    <script src="/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="/Content/js/jquerymobile/_assets/js/index.js"></script>
+    <script src="/Content/js/jquerymobile/js/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+        .listCont {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            max-height: 87vh;
+        }
+    </style>
+    <script>
+        var depid = 'C00';
+
+        //window.addEventListener("load", function () {
+        //    setTimeout(function () {
+
+        //        window.scrollTo(0, 1000);
+
+        //    }, 10);
+        //});
+
+        $(function () {
+            if (depid == 'C00' | depid == 'G00' | depid == 'G10') {
+                GenEmpContart();
+            }
+        })
+
+        //$(document).ready(function () {
+        //    // 員工通訊錄
+        //    GenEmpContart();
+        //});
+
+        // 員工通訊錄
+        function GenEmpContart() {
+            // 顯示已選取幾筆
+            setTimeout(function () {
+                $.ajax({
+                    type: "get",
+                    url: "/Mobile/GetEmpContact",
+                    data: {},
+                    dataType: "json",
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                        var trHTML = '';
+                        $.each(data.EmpContact, function (i, item) {
+                            trHTML +='<li data-role="collapsible" data-iconpos="right" data-shadow="false" data-corners="false">';
+                            trHTML += '  <h2>' + data.EmpContact[i].EMPLYID + '-' + data.EmpContact[i].EMPLYNM +',手機:<a href="tel:' + data.EmpContact[i].HP + '">' + data.EmpContact[i].HP + '</a></h2> ';
+                            trHTML += '  <ul data-role="listview" data-shadow="false" data-inset="true" data-corners="false"> ';
+                            trHTML += '    <li>生日:' + data.EmpContact[i].BRTHDT + '</li> ';
+                            trHTML += '    <li>電話:' + data.EmpContact[i].CONTEL + '</li> ';
+                            trHTML += '    <li>地址:' + data.EmpContact[i].REGADRS + '</li> ';
+                            trHTML += '  </ul> </li> ';
+                        });
+
+
+                        $('#empcontact').append(trHTML);
+                        $('#empcontact').trigger('create');
+                        //$('#empcontact').listview('refresh');
+                    },
+                    error: function (msg) {
+                        //alert(msg.responseText);
+
+                    }
+                });
+            }, 500);
+
+
+        }
+    </script>
+</head>
+<body>
+    <form id="form1">
+        <div data-role="header" data-position="fixed" data-theme="b">
+            <h1>精湛 通訊錄</h1>
+            <!--<a href="m_index.aspx" data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a>-->
+            <!--<a href="#" onclick="window.location.reload()" data-icon="back" data-iconpos="notext">Refresh</a> -->
+        </div><!-- /header -->
+        <div class="listCont">
+            <ul id="empcontact" data-role="listview" data-filter="true" data-filter-placeholder="快速查詢..." data-inset="false"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" onclick="window.history.back()" data-icon="back" data-iconpos="top">上一頁</a></li>
+                    <li><a href="/Mobile/Index" data-rel="home" data-icon="home" data-iconpos="top">首頁</a></li>
+                    <li><a href="#" onclick="window.location.reload()" data-icon="refresh" data-iconpos="top">重整</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->
+    </form>
+</body>
+</html>

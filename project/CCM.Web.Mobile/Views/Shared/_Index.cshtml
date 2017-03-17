@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/framework-font.css" rel="stylesheet" />
+    <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/js/bootstrap/bootstrap.js"></script>
+    <link href="~/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/Content/js/select2/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/js/select2/select2.min.js"></script>*@
+    <script src="~/Content/js/jqgrid/jqgrid.min.js"></script>
+    <link href="~/Content/js/jqgrid/jqgrid.css" rel="stylesheet" />
+    <script src="~/Content/js/jqgrid/grid.locale-tw.js"></script>
+    <link href="~/Content/css/framework-ui.css" rel="stylesheet" />
+    <script src="~/Content/js/framework-ui.js"></script>
+    <script>
+
+        function GetNow() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var hh = today.getHours();
+            //hh = hh % 12;
+            //hh = hh ? hh : 12; // the hour '0' should be '12'
+            hh = hh < 10 ? '0' + hh : hh;
+            var mi = today.getMinutes();
+            mi = mi < 10 ? '0' + mi : mi;
+            var ss = today.getSeconds();
+            var sss = today.getMilliseconds;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var now = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + mi + ':' + ss;
+            return now;
+        }
+
+        function GetToday() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var hh = today.getHours();
+            //hh = hh % 12;
+            //hh = hh ? hh : 12; // the hour '0' should be '12'
+            hh = hh < 10 ? '0' + hh : hh;
+            var mi = today.getMinutes();
+            mi = mi < 10 ? '0' + mi : mi;
+            var ss = today.getSeconds();
+            var sss = today.getMilliseconds;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var now = yyyy + '-' + mm + '-' + dd;
+            return now;
+        }
+    </script>
+</head>
+
+<body>
+    @RenderBody()
+    @Html.AntiForgeryToken()
+</body>
+</html>

@@ -59,6 +59,19 @@
 
     }
     function submitForm() {
+        var MileageLast = parseInt($('#MileageLast').val());
+        var Mileage = parseInt($('#Mileage').val());
+
+        if (MileageLast > Mileage) {
+
+            msg = "出廠里程不可大於回廠里程，請修正!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+            return;
+
+        }
+
         if (!$('#form1').formValid()) {
             return false;
         }
@@ -78,20 +91,22 @@
     }
 
     function showPublicObject(keyword) {
-        // 顯示公共物件資料
-        $.ajax({
-            url: "/PublicObject/PUB00/GetPublicObjectSID",
-            data: { keyword: keyword },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                var PhotoUrl = data[0].PhotoUrl;
-                //PhotoUrl = PhotoUrl.replace("~/", "");
-                $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
-                $("#ObjectNM").text(data[0].ObjectNM);
-                $("#ObjectDescr").text(data[0].Description);
-            }
-        });
+       
+            // 顯示公共物件資料
+            $.ajax({
+                url: "/PublicObject/PUB00/GetPublicObjectSID",
+                data: { keyword: keyword },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var PhotoUrl = data[0].PhotoUrl;
+                    //PhotoUrl = PhotoUrl.replace("~/", "");
+                    $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
+                    $("#ObjectNM").text(data[0].ObjectNM);
+                    $("#ObjectDescr").text(data[0].Description);
+                }
+            });
+      
     }
 
     function getMileageLast() {
@@ -108,13 +123,12 @@
         });
     }
     function getLeaveBackTime() {
-        // 開始加班
+        // 出廠時間
         var d1 = $('input[name=BookingStartTime]').val();
         var fd1 = new Date(d1);
-        // 結束加班
+        // 回廠時間
         var d2 = $('input[name=BookingEndTime]').val();
         var fd2 = new Date(d2);
-
 
         // 出廠年月日
         $('#LeaveYMD').val(fd1.getFullYear() + '/' + (fd1.getMonth() + 1) + '/' + fd1.getDate());
@@ -173,7 +187,7 @@
                 </td>
                 <th class="formTitle">預約原因</th>
                 <td class="formValue">
-                    <select id="UseReason" name="UseReason" class="form-control required" disabled="disabled">
+                    <select id="UseReason" name="UseReason" class="form-control required" >
                         <option >內部需求</option>
                         <option >客戶來訪</option>
                         <option >廠商來訪</option>
@@ -187,12 +201,11 @@
             <tr>
                 <th class="formTitle">申請部門</th>
                 <td class="formValue">
-                    <select id="DepartmentID" name="DepartmentID" class="form-control required" disabled="disabled"></select>
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required" ></select>
                 </td>
                 <th class="formTitle">申請人員</th>
                 <td class="formValue">
-                    <select id="EmployeeID" name="EmployeeID" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    <select id="EmployeeID" name="EmployeeID" class="form-control required" >
                     </select>
                 </td>
                 
@@ -207,14 +220,14 @@
             <tr>
                 <th class="formTitle">用途說明</th>
                 <td class="formValue" colspan="3">
-                    <input id="Subject" name="Subject" type="text" class="form-control required" disabled="disabled" />
+                    <input id="Subject" name="Subject" type="text" class="form-control required"  />
                 </td>
 
             </tr>
             <tr>
                 <th class="formTitle">詳細說明</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Description" name="Description" class="form-control required" style="height: 50px;" disabled="disabled"></textarea>
+                    <textarea id="Description" name="Description" class="form-control required" style="height: 50px;" ></textarea>
                 </td>
             </tr>
             <tr>

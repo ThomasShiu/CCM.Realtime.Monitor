@@ -11,29 +11,77 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: V_HR_TICKET
-			public class V_HR_TICKETEntity  : IEntityCcm<V_HR_TICKETEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: V_SRVPRODMT_CCM
+			public class V_SRVPRODMT_CCMEntity  : IEntityCcm<V_SRVPRODMT_CCMEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public DateTime YYMMDD  { get; set; }                                        
+				public String PROD_NO  { get; set; }                                        
 				          
-				public String EMPLYID  { get; set; }                                        
+				public String PROD_TY  { get; set; }                                        
 				          
-				public Decimal TKT_HH  { get; set; }                                        
+				public String ITEM_NO  { get; set; }                                        
 				          
-				public Decimal TKT_NN  { get; set; }                                        
+				public String ITEM_NM  { get; set; }                                        
 				          
-				public Decimal TKT_SS  { get; set; }                                        
+				public String ITEM_SP  { get; set; }                                        
 				          
-				public DateTime BL_DT  { get; set; }                                        
+				public String M_ITEM_NO  { get; set; }                                        
 				          
-				public String C_UPDATE  { get; set; }                                        
+				public String M_ITEM_ID  { get; set; }                                        
 				          
-				public String C_FUNC  { get; set; }                                        
+				public DateTime SO_DT  { get; set; }                                        
 				          
-				public String REMARK  { get; set; }                                        
+				public String SO_TY  { get; set; }                                        
 				          
-				public String SN  { get; set; }                                        
+				public String SO_NO  { get; set; }                                        
+				          
+				public Int32 SO_SR  { get; set; }                                        
+				          
+				public String SO_CS_NO  { get; set; }                                        
+				          
+				public String SO_CS_NM  { get; set; }                                        
+				          
+				public String FA_NO  { get; set; }                                        
+				          
+				public String CS_NO  { get; set; }                                        
+				          
+				public String CS_NM  { get; set; }                                        
+				          
+				public String TO_ADDR  { get; set; }                                        
+				          
+				public Int32 PROD_GUAR_MM  { get; set; }                                        
+				          
+				public DateTime PROD_GUAR_DT  { get; set; }                                        
+				          
+				public Int32 M_ITEM_GUAR_MM  { get; set; }                                        
+				          
+				public DateTime M_ITEM_GUAR_DT  { get; set; }                                        
+				          
+				public String REMK  { get; set; }                                        
+				          
+				public String CO_TY  { get; set; }                                        
+				          
+				public String CO_NO  { get; set; }                                        
+				          
+				public Int32 CO_SR  { get; set; }                                        
+				          
+				public String CS_VCH_NO  { get; set; }                                        
+				          
+				public String QT_TY  { get; set; }                                        
+				          
+				public String QT_NO  { get; set; }                                        
+				          
+				public Int32 QT_SR  { get; set; }                                        
+				          
+				public String OWNER_USR_NO  { get; set; }                                        
+				          
+				public String OWNER_GRP_NO  { get; set; }                                        
+				          
+				public DateTime ADD_DT  { get; set; }                                        
+				          
+				public String IP_NM  { get; set; }                                        
+				          
+				public String CP_NM  { get; set; }                                        
 				                                
 			}                            
 }

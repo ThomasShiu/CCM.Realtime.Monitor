@@ -167,7 +167,7 @@
             }
         });
     }
-
+    // 修改(一般)
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
@@ -204,7 +204,7 @@
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var status = $("#gridList").jqGridRowValue().Status;
         //var guid = $("#gridList").jqGridRowValue().GUID;
-        if (status != '結束') {
+        //if (status != '結束') {
             $.modalOpen({
                 id: "Form",
                 title: "修改資料",
@@ -215,12 +215,12 @@
                     top.frames[iframeId].submitForm();
                 }
             });
-        } else {
-            msg = "此單據已結束，不可修改。";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-        }
+        //} else {
+        //    msg = "此單據已結束，不可修改。";
+        //    window.setTimeout(function () {
+        //        $.modalMsg(msg, "warning");
+        //    }, 500);
+        //}
     }
     // 修改(管理)
     function btn_edit_admin() {
@@ -242,11 +242,12 @@
 
         var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+        var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId'
         var status = $("#gridList").jqGridRowValue().Status;
         //var guid = $("#gridList").jqGridRowValue().GUID;
         if (status != '結束') {
             //var guid = $("#gridList").jqGridRowValue().GUID;
-            if (CreatorUserId == usercode | usercode == 'admin') {
+            if (CreatorUserId == usercode | usercode == 'admin' | depid == 'C00' | depid=='G20') {
                 $.deleteForm({
                     url: "/PublicObject/PUB02/DeleteForm",
                     param: { keyValue: $("#gridList").jqGridRowValue().SID },
@@ -279,6 +280,19 @@
             btn: null,
         });
     }
+
+    function btn_calendar() {
+        var keyValue ='';
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/PublicObject/PUB02/Form4",
+            width: "900px",
+            height: "650px",
+            btn: null,
+        });
+    }
+
 
     // 報表列印，每日里程
     function btn_print() {
@@ -319,6 +333,7 @@
             //location.reload();
             //return false;
             $("#gridList").trigger("reloadGrid");
+            
         }, 0, true);
     });
 </script>
@@ -348,6 +363,7 @@
         <div class="btn-group">
             <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>
         </div>
+
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已選中<span>1</span>項</li>

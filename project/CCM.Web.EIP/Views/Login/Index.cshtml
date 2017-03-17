@@ -27,7 +27,7 @@
 </head>
 <body>
     @*<div style="position: absolute; z-index: 999; top: 20px; left: 20px; color: #fff; font-size: 13px; line-height: 22px;">
-        請使用員工編號登入
+        請使用員工編號登入，密碼會與ERP同步(每30分鐘)
     </div>*@
     <div class="wrapper">
         <div class="container">
@@ -86,20 +86,38 @@
     <div class="copyright">
         <a href="http://www.ccm3s.com" target="_blank" style="text-decoration:none;color:#fff;">CCM 資訊部製作與維護。問題反映 #218 徐世宇 (B050502)</a>
         <br>
-        適用流覽器：IE8以上、FireFox、Chrome、Safari、Opera.
+        適用流覽器：FireFox、Chrome、Safari、Opera.
     </div>
     <div id="abgne_float_ad">
-        <a href="http://192.168.100.13/EIPContent/Content/HomeFiles/%E7%A8%BB%E7%9B%9B%E5%92%8C%E5%A4%AB%E7%B6%93%E7%87%9F%E8%A1%93.pdf" target="_blank" style="text-decoration:none;color:#fff;">
+        <a href="~/EIPContent/Content/HomeFiles/%E7%A8%BB%E7%9B%9B%E5%92%8C%E5%A4%AB%E7%B6%93%E7%87%9F%E8%A1%93.pdf" target="_blank" style="text-decoration:none;color:#fff;">
             <img src="~/Content/img/tau_pic.jpg" width="120px" alt="稻盛和夫經營術"/>
         </a>
-        <a href="http://192.168.100.13/EIPContent/Content/HomeFiles/%E9%98%BF%E7%B1%B3%E5%B7%B4%E7%B6%93%E7%87%9F%E6%B3%95.pdf" target="_blank" style="text-decoration:none;color:#fff;">
+        <a href="~/EIPContent/Content/HomeFiles/%E9%98%BF%E7%B1%B3%E5%B7%B4%E7%B6%93%E7%87%9F%E6%B3%95.pdf" target="_blank" style="text-decoration:none;color:#fff;">
 
             <img src="~/Content/img/tau2_pic.jpg"  width="120px" alt="阿米巴經營法"/>
         </a>
     </div>
+    <script src="~/Content/js/isMobile.js"></script>
     <script type="text/javascript">
+
         // 當網頁載入完
         $(window).load(function () {
+            var MOBILE_SITE = '/Mobile/Login', // site to redirect to
+                NO_REDIRECT = 'noredirect'; // cookie to prevent redirect
+
+            // I only want to redirect iPhones, Android phones and a handful of 7" devices
+            if (isMobile.apple.phone || isMobile.android.phone || isMobile.seven_inch) {
+
+                // Only redirect if the user didn't previously choose
+                // to explicitly view the full site. This is validated
+                // by checking if a "noredirect" cookie exists
+                if (document.cookie.indexOf(NO_REDIRECT) === -1) {
+                    document.location = MOBILE_SITE;
+                    //window.location.href = "./Home/Index";
+                }
+            }
+
+            // 稻盛和夫廣告
             var $win = $(window),
                 $ad = $('#abgne_float_ad').css('opacity', 0).show(),	// 讓廣告區塊變透明且顯示出來
                 _width = $ad.width(),

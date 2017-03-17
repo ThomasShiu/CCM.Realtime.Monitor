@@ -82,6 +82,7 @@
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYApp.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLApp.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_CCMApp.cs" />
     <Compile Include="SystemManage\ItemsApp.cs" />
     <Compile Include="SystemManage\ItemsDetailApp.cs" />
     <Compile Include="SystemManage\ModuleApp.cs" />

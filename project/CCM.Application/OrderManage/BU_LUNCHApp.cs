@@ -23,8 +23,11 @@ namespace CCM.Application
             var expression = ExtLinq.True<BU_LUNCHEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.FROM_YEAR.Contains(keyword));
+                expression = expression.And(t => t.EMPLYID.Contains(keyword));
+                expression = expression.Or(t => t.FROM_YEAR.Contains(keyword));
                 expression = expression.Or(t => t.FROM_MONTH.Contains(keyword));
+                expression = expression.Or(t => t.TO_YEAR.Contains(keyword));
+                expression = expression.Or(t => t.TO_MONTH.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
@@ -36,8 +39,11 @@ namespace CCM.Application
             if (!queryParam["keyword"].IsEmpty())
             {
                 string keyword = queryParam["keyword"].ToString();
-                expression = expression.And(t => t.FROM_YEAR.Contains(keyword));
+                expression = expression.And(t => t.EMPLYID.Contains(keyword));
+                expression = expression.Or(t => t.FROM_YEAR.Contains(keyword));
                 expression = expression.Or(t => t.FROM_MONTH.Contains(keyword));
+                expression = expression.Or(t => t.TO_YEAR.Contains(keyword));
+                expression = expression.Or(t => t.TO_MONTH.Contains(keyword));
             }
             // 物件分類
             if (!queryParam["objectType"].IsEmpty())

@@ -11,11 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.RDManage.Controllers
+namespace CCM.Web.EIP.Areas.SaleService.Controllers
 {
-    public class RDM03Controller : ControllerBase
+    public class SRM03Controller : ControllerBase
     {
-        private RD_MACHINEAUTH_HISTORYApp tableApp = new RD_MACHINEAUTH_HISTORYApp();
+        private V_SRVPRODMT_CCMApp tableApp = new V_SRVPRODMT_CCMApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -47,9 +47,9 @@ namespace CCM.Web.EIP.Areas.RDManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(RD_MACHINEAUTH_HISTORYEntity RD_MACHINEAUTH_HISTORYEntity, string keyValue)
+        public ActionResult SubmitForm(V_SRVPRODMT_CCMEntity V_SRVPRODMT_CCMEntity, string keyValue)
         {
-            tableApp.SubmitForm(RD_MACHINEAUTH_HISTORYEntity, keyValue);
+            tableApp.SubmitForm(V_SRVPRODMT_CCMEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

@@ -51,6 +51,8 @@ namespace CCM.Domain
 
         public String GuardEMPID { get; set; }
 
+        public String BgColor { get; set; }
+
         public String OrganizeId { get; set; }
 
         public DateTime? CreatorTime { get; set; }

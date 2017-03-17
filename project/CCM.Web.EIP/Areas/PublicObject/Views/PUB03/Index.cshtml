@@ -166,7 +166,7 @@
             }, 500);
         }
     }
-    
+
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         var status = $("#gridList").jqGridRowValue().Status;
@@ -206,11 +206,12 @@
     function btn_delete() {
         var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
         var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+        var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId'
         var status = $("#gridList").jqGridRowValue().Status;
         //var guid = $("#gridList").jqGridRowValue().GUID;
         if (status != '結束') {
             //var guid = $("#gridList").jqGridRowValue().GUID;
-            if (CreatorUserId == usercode | usercode == 'admin') {
+            if (CreatorUserId == usercode | usercode == 'admin' | depid == 'C00' | depid == 'G20') {
                 $.deleteForm({
                     url: "/PublicObject/PUB03/DeleteForm",
                     param: { keyValue: $("#gridList").jqGridRowValue().SID },

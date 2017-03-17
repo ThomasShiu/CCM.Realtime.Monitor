@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: V_HR_TICKET
-	public class V_HR_TICKETRepository : RepositoryBase<V_HR_TICKETEntity>, IV_HR_TICKETRepository
+	//mapping table name: V_SRVPRODMT_CCM
+	public class V_SRVPRODMT_CCMRepository : RepositoryBase<V_SRVPRODMT_CCMEntity>, IV_SRVPRODMT_CCMRepository
     {
     }
 }

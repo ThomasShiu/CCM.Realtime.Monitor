@@ -14,7 +14,12 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
+/// <summary>
+/// 收文管理
+/// </summary>
+/// <remarks>
+/// 紀錄接收的公文，可附加檔案
+/// </remarks>
 namespace CCM.Web.EIP.Areas.Document.Controllers
 {
     public class DOC03Controller : ControllerBase

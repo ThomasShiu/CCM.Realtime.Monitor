@@ -73,7 +73,16 @@
                     <input id="Machine_Id" name="Machine_Id" type="text" class="form-control required" />
                 </td>
             </tr>
-
+            <tr>
+                <th class="formTitle">品號</th>
+                <td class="formValue">
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">主件</th>
+                <td class="formValue">
+                    <input id="M_ITEM_NO" name="M_ITEM_NO" type="text" class="form-control required" />
+                </td>
+            </tr>
             <tr>
                 <th class="formTitle">原檔名</th>
                 <td class="formValue">
@@ -84,16 +93,16 @@
                     <input id="newFileName" name="newFileName" type="text" class="form-control required" />
                 </td>
             </tr>
-            <tr>
-                <th class="formTitle">原檔下載</th>
-                <td class="formValue">
-                    <div id="UploadPathLink"></div>
-                </td>
-                <th class="formTitle">認證檔下載</th>
-                <td class="formValue">
-                    <div id="DownloadPathLink"></div>
-                </td>
-            </tr>
+            @*<tr>
+                    <th class="formTitle">原檔下載</th>
+                    <td class="formValue">
+                        <div id="UploadPathLink"></div>
+                    </td>
+                    <th class="formTitle">認證檔下載</th>
+                    <td class="formValue">
+                        <div id="DownloadPathLink"></div>
+                    </td>
+                </tr>*@
             <tr>
                 <th class="formTitle">啟用</th>
                 <td class="formValue">
@@ -105,12 +114,31 @@
             <tr>
                 <th class="formTitle">備註</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 60px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">CPU_SN</th>
+                <td class="formValue">
+                    <input id="CPU_SN" name="CPU_SN" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">HD_SN</th>
+                <td class="formValue">
+                    <input id="HD_SN" name="HD_SN" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">HD_Fireware</th>
+                <td class="formValue">
+                    <input id="HD_Fireware" name="CPU_SN" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">HD_Moduleno</th>
+                <td class="formValue">
+                    <input id="HD_Moduleno" name="HD_Moduleno" type="text" class="form-control required" />
                 </td>
             </tr>
         </table>
     </div>
 </form>
-
 
 

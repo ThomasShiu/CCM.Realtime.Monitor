@@ -8,27 +8,34 @@ using CCM.Application;
 using CCM.Code;
 using CCM.Domain;
 using CCM.Domain.Entity;
+using System;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
+/// <summary>
+/// 售服機台資料
+/// </summary>
 namespace CCM.Web.SRM.Areas.SaleService.Controllers
 {
     public class SRM02Controller : ControllerBase
     {
-        private SRM_ALBUMDLApp tableApp = new SRM_ALBUMDLApp();
+        private V_SRVPRODMT_CCMApp tableApp = new V_SRVPRODMT_CCMApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
-            var data = new
-            {
-                rows = tableApp.GetList(pagination, keyword),
-                total = pagination.total,
-                page = pagination.page,
-                records = pagination.records
-            };
-            return Content(data.ToJson());
+
+                var data = new
+                {
+                    rows = tableApp.GetList(pagination, keyword),
+                    total = pagination.total,
+                    page = pagination.page,
+                    records = pagination.records
+                };
+
+                return Content(data.ToJson());
+
+            
         }
 
         public ActionResult GetGridJson(string keyword)
@@ -44,23 +51,7 @@ namespace CCM.Web.SRM.Areas.SaleService.Controllers
             var data = tableApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
-        [HttpPost]
-        [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(SRM_ALBUMDLEntity SRM_ALBUMDLEntity, string keyValue)
-        {
-            tableApp.SubmitForm(SRM_ALBUMDLEntity, keyValue);
-            return Success("操作成功。");
-        }
-        [HttpPost]
-        [HandlerAjaxOnly]
-        [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteForm(string keyValue)
-        {
-            tableApp.DeleteForm(keyValue);
-            return Success("删除成功。");
-        }
+       
     }
 
 

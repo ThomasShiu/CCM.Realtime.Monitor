@@ -21,7 +21,10 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
-				    { label: "日期", name: "LUNCHDATE", width: 80, align: 'left' },
+				    {
+				        label: "日期", name: "LUNCHDATE", width: 80, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				    },
 				    { label: "LOCATION", name: "LOCATION", hidden: true, width: 80, align: 'left' },
                     {
                         label: "地點", name: "", width: 60, align: 'left',
@@ -41,8 +44,26 @@
                     },
 				    { label: "設定葷食數", name: "MEATPEOPLES", width: 65, align: 'right' },
 				    { label: "設定素食數", name: "VEGEPEOPLES", width: 65, align: 'right' },
-				    { label: "缺勤葷食數", name: "AbsentMEATPEOPLES", width: 65, align: 'right' },
-				    { label: "缺勤素食數", name: "AbsentVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "缺勤葷食數", name: "AbsentMEATPEOPLES", hidden: true, width: 65, align: 'right' },
+                    {
+                        label: "缺勤葷食數", name: "", width: 65, align: 'right',
+                        formatter: function (cellvalue, options, rowObject) {
+                            var AbsentMEATPEOPLES = rowObject.AbsentMEATPEOPLES;
+                            var LUNCHDATE = rowObject.LUNCHDATE;
+                            var LOCATION = rowObject.LOCATION;
+                            return ' <button  class=\'btn btn-default btn-xs\' onclick=\'btn_absent(\"' + LUNCHDATE + '\",\"' + LOCATION + '\","meat")\'>' + AbsentMEATPEOPLES + '</button>';
+                        }
+                    },
+				    { label: "缺勤素食數", name: "AbsentVEGEPEOPLES", hidden: true, width: 65, align: 'right' },
+                    {
+                        label: "缺勤素食數", name: "", width: 65, align: 'right',
+                        formatter: function (cellvalue, options, rowObject) {
+                            var AbsentVEGEPEOPLES = rowObject.AbsentVEGEPEOPLES;
+                            var LUNCHDATE = rowObject.LUNCHDATE;
+                            var LOCATION = rowObject.LOCATION;
+                            return ' <button  class=\'btn btn-default btn-xs\' onclick=\'btn_absent(\"' + LUNCHDATE + '\",\"' + LOCATION + '\","vegetable")\'>' + AbsentVEGEPEOPLES + '</button>';
+                        }
+                    },
 				    { label: "登記葷食數", name: "ChangeMEATPEOPLES", width: 65, align: 'right' },
 				    { label: "登記素食數", name: "ChangeVEGEPEOPLES", width: 65, align: 'right' },
 				    { label: "調整葷食數", name: "TuneMEATPEOPLES", width: 65, align: 'right' },
@@ -79,6 +100,7 @@
             }
         });
     }
+
     // 計算用餐人數
     function btn_computlunch() {
         var today = GetToday();
@@ -115,6 +137,7 @@
 
 
     }
+
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
@@ -137,6 +160,7 @@
             }
         })
     }
+
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
         $.modalOpen({
@@ -149,6 +173,23 @@
         });
     }
 
+    // 顯示缺勤人員
+    function btn_absent() {
+        var lunchdate = arguments[0].substring(0, 10);
+        var loca = arguments[1];
+        var mode = arguments[2];
+        $.modalOpen({
+            id: "Form2",
+            title: "缺勤人員",
+            url: '/OrderManage/ORD07/Form2?lunchdate=' + lunchdate + '&loca=' + loca + '&mode=' + mode,
+            width: "350px",
+            height: "500px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
     // 報表列印，午餐登記統計
     function btn_print() {
         var pdate = $('#pdate').val();
