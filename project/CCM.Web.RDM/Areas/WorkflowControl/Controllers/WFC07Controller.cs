@@ -24,7 +24,6 @@ namespace CCM.Web.RDM.Areas.WorkflowControl.Controllers
         // 會簽
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Signwith()
         {
             return View();

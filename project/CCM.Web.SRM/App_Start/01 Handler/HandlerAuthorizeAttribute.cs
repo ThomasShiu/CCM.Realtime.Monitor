@@ -21,6 +21,20 @@ namespace CCM.Web.SRM
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ActionLogApp app = new ActionLogApp();
+            var LoginInfo = OperatorProvider.Provider.GetCurrent(); // 登錄資訊
+            ActionLogEntity NewLog = new ActionLogEntity()
+            {
+                Refer = filterContext.HttpContext.Request.UrlReferrer.AbsolutePath,
+                Destination = filterContext.HttpContext.Request.Url.AbsolutePath,
+                Method = filterContext.HttpContext.Request.HttpMethod,
+                RequestTime = DateTime.Now,
+                IPAddress = filterContext.HttpContext.Request.UserHostAddress,
+                Operator = LoginInfo.UserCode,  // 工號
+                Browser = filterContext.HttpContext.Request.Browser.Browser
+            };
+            app.SubmitForm(NewLog, "");
+
             //ActionLog(filterContext);
             // admin 系統用戶，不檢查
             if (OperatorProvider.Provider.GetCurrent().IsSystem)

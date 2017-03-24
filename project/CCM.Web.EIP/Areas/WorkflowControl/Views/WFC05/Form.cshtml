@@ -175,10 +175,10 @@
                     var result = data;
                     if (data == 'Y') {
                         //假日
-                        $('#OTTP option[value=H]').attr('selected', 'selected');
+                        $("#OTTP").val("H");
                     } else {
                         //平日
-                        $('#OTTP option[value=S]').attr('selected', 'selected');
+                        $("#OTTP").val("S");
                     }
                 }
             });

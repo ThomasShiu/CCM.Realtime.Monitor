@@ -48,14 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Document\FR_OFFIDOC_ISSUEMap.cs" />
-    <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEMap.cs" />
-    <Compile Include="Document\FR_OFFIDOC_RECEMap.cs" />
-    <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILEMap.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_ISSUEMap.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_ISSUE_ATTACH_FILEMap.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_RECEMap.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_RECE_ATTACH_FILEMap.cs" />
+    <Compile Include="ERPManage\ERP_ITEM_ATTACHFILEMap.cs" />
     <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
     <Compile Include="Human\HR_DEPMap.cs" />
     <Compile Include="Human\HR_EMPLYMMap.cs" />
     <Compile Include="Human\V_EMP_EIPMap.cs" />
+    <Compile Include="Human\V_HR_EMPPAYMTMap.cs" />
     <Compile Include="Human\V_HR_OVRTMMap.cs" />
     <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="Human\V_HR_TICKETMap.cs" />
@@ -74,10 +76,18 @@
     <Compile Include="PublicObject\BU_FEEDBACKMISMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
+    <Compile Include="PublicObject\PU_ATTACH_FILEMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_DACMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_NGBMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_KSCMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_CCMMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_DACMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_NGBMap.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_KSCMap.cs" />
     <Compile Include="SaleService\V_SRVPRODMT_CCMMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />

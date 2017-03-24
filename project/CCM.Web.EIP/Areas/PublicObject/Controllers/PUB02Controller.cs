@@ -24,7 +24,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private ReportService rs = new ReportService();
 
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult IndexPub()
         {
             return View();
@@ -33,7 +32,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         #region 警衛專用畫面
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public  ActionResult Form2()
         {
             return View();
@@ -42,7 +40,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 
         #region 首頁預約公務車
         [HttpGet]
-        [ActionTraceLog]
         public virtual ActionResult Form3()
         {
             return View();
@@ -51,7 +48,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 
         #region 預約公務車行事曆
         [HttpGet]
-        [ActionTraceLog]
         public virtual ActionResult Form4()
         {
             return View();
@@ -128,20 +124,21 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
                 }
             }
 
-            if (!OperatorProvider.Provider.GetCurrent().DeptId.Equals("G00") &
-                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G10") &
-                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G20") &
-                    !OperatorProvider.Provider.GetCurrent().DeptId.Equals("C00"))
+
+            if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複，修改模式有鎖定時間不可修改
             {
-                //if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
-                //{
+                if (!OperatorProvider.Provider.GetCurrent().DeptId.Equals("G00") &
+                   !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G10") &
+                   !OperatorProvider.Provider.GetCurrent().DeptId.Equals("G20") &
+                   !OperatorProvider.Provider.GetCurrent().DeptId.Equals("C00"))
+                {
                     // 判斷該時段是否已有預約
                     string v_message = cs.chkPubObjExistBooking(tableEntity);
                     if (!string.IsNullOrEmpty(v_message))
                     {
                         return Error(v_message);
                     }
-                //}
+                }
             }
 
             // 判斷起始時間不可大於結束時間

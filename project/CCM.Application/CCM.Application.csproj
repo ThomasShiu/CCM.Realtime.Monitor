@@ -31,6 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="itextsharp">
+      <HintPath>..\CCM.Web.EIP\bin\itextsharp.xfaworker-dll-5.5.10\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xfaworker">
+      <HintPath>..\CCM.Web.EIP\bin\itextsharp.xfaworker-dll-5.5.10\itextsharp.xfaworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -50,15 +56,18 @@
   <ItemGroup>
     <Compile Include="01 Infrastructure\DbLogType.cs" />
     <Compile Include="02 Services\CcmServices.cs" />
+    <Compile Include="02 Services\SRMService.cs" />
     <Compile Include="02 Services\RDService.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECEApp.cs" />
     <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILEApp.cs" />
+    <Compile Include="ERPManage\ERP_ITEM_ATTACHFILEApp.cs" />
     <Compile Include="Human\CCM_Main_EmployeeApp.cs" />
     <Compile Include="Human\HR_DEPApp.cs" />
     <Compile Include="Human\HR_EMPLYMApp.cs" />
     <Compile Include="Human\V_EMP_EIPApp.cs" />
+    <Compile Include="Human\V_HR_EMPPAYMTApp.cs" />
     <Compile Include="Human\V_HR_OVRTMApp.cs" />
     <Compile Include="Human\HR_OVRTMApp.cs" />
     <Compile Include="Human\V_HR_TICKETApp.cs" />
@@ -77,11 +86,19 @@
     <Compile Include="PublicObject\BU_FEEDBACKMISApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTApp.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
+    <Compile Include="PublicObject\PU_ATTACH_FILEApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHApp.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYApp.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLApp.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_DACApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_NGBApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_KSCApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_CCMApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_DACApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_NGBApp.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_KSCApp.cs" />
     <Compile Include="SaleService\V_SRVPRODMT_CCMApp.cs" />
     <Compile Include="SystemManage\ItemsApp.cs" />
     <Compile Include="SystemManage\ItemsDetailApp.cs" />

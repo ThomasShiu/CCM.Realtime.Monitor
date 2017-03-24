@@ -73,7 +73,6 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         #region 缺勤人員
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form2()
         {
             return View();

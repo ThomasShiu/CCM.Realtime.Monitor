@@ -25,6 +25,13 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         private HR_OVRTMApp tableApp = new HR_OVRTMApp();
         private CcmServices cs = new CcmServices();
 
+        [HttpGet]
+        [HandlerAuthorize]
+        //[ActionTraceLog]
+        public virtual ActionResult Edit()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -100,6 +107,31 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
                 tableApp.SubmitForm(tableEntity, keyValue);
             }
             
+            return Success("操作成功。");
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitEdit(HR_OVRTMEntity tableEntity, string keyValue)
+        {
+            var chkovrtm = cs.chkOverTime(tableEntity);
+            // 加班規則檢查
+            if (chkovrtm.Length > 0 & chkovrtm[0] != null)
+            {
+                return Error("錯誤碼:" + chkovrtm[0] + " : " + chkovrtm[1]);
+            }
+            // 新建模式才判斷時段是否重複
+            if (string.IsNullOrEmpty(keyValue))
+            {
+                // 判斷該加班時段是否已有預約
+                string v_message = cs.chkOverTimeDup(tableEntity);
+                if (!string.IsNullOrEmpty(v_message))
+                {
+                    return Error(v_message);
+                }
+            }
+            tableApp.SubmitForm(tableEntity, keyValue);
             return Success("操作成功。");
         }
 

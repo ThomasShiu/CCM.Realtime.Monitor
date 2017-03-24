@@ -23,7 +23,6 @@ namespace CCM.Web.RDM.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult IndexEmp()
         {
             return View();

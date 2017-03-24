@@ -132,15 +132,16 @@ namespace CCM.Application
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
+                // 修改
                 tableEntity.Modify(keyValue);
                 service.Update(tableEntity);
             }
             else
             {
-                
+                // 新建
                 tableEntity.OVRTNO = cs.GetOrdNo("OVERTIME", "OT", 1);
                 tableEntity.DEPID = cs.GetDeptByEmplyid(tableEntity.EMPLYID, "DEPID");
-                tableEntity.APPDATE = DateTime.Now;
+                //tableEntity.APPDATE = DateTime.Now;
                 tableEntity.EXC_INSDATE= DateTime.Now;
 
                 tableEntity.Create();

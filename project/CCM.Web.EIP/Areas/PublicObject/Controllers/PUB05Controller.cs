@@ -24,14 +24,12 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private BU_BULLETIN_ATTACH_FILEEntity tableEntity = new BU_BULLETIN_ATTACH_FILEEntity();
 
         [HttpGet]
-        [ActionTraceLog]
         public virtual ActionResult IndexPub()
         {
             return View();
         }
 
         [HttpGet]
-        [ActionTraceLog]
         public virtual ActionResult DetailsPub()
         {
             return View();

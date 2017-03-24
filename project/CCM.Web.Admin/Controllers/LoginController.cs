@@ -20,6 +20,8 @@ namespace CCM.Web.Admin.Controllers
 {
     public class LoginController : Controller
     {
+        private CcmServices cs = new CcmServices();
+
         [HttpGet]
         public virtual ActionResult Index()
         {
@@ -65,17 +67,24 @@ namespace CCM.Web.Admin.Controllers
                 UserEntity userEntity = new UserApp().CheckLogin(username, password);
                 if (userEntity != null)
                 {
+                    // 帳號登入設定
+                    UserLogOnEntity userLogOnEntity = new UserLogOnApp().GetForm(userEntity.F_Id);
+
                     OperatorModel operatorModel = new OperatorModel();
                     operatorModel.UserId = userEntity.F_Id;
                     operatorModel.UserCode = userEntity.F_Account;
                     operatorModel.UserName = userEntity.F_RealName;
                     operatorModel.CompanyId = userEntity.F_OrganizeId;
                     operatorModel.DepartmentId = userEntity.F_DepartmentId;
+                    operatorModel.DeptId = cs.GetDeptByEmplyid(userEntity.F_Account, "DEPID");
+                    operatorModel.DeptName = cs.GetDeptByEmplyid(userEntity.F_Account, "DEPNM");
                     operatorModel.RoleId = userEntity.F_RoleId;
                     operatorModel.LoginIPAddress = Net.Ip;
                     operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
                     operatorModel.LoginTime = DateTime.Now;
                     operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
+                    operatorModel.Language = userLogOnEntity.F_Language;
+                    operatorModel.Theme = userLogOnEntity.F_Theme;
                     if (userEntity.F_Account == "admin")
                     {
                         operatorModel.IsSystem = true;

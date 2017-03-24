@@ -23,7 +23,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult IndexEmp()
         {
             return View();

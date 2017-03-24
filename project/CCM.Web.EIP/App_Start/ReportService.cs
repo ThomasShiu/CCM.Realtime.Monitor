@@ -15,13 +15,26 @@ namespace CCM.Web.EIP
         #region 公文發文報表
         public LocalReport DOC01_R01(string keyValue, string type, string path)
         {
-            string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
+            string v_sqlstr = " SELECT (ISSUEID+'號') ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR,"+
+                             "    CASE WHEN (AttachFIle='Y') THEN '有' ELSE '無' END AttachFIle, EMPID, DEPID, STATUS, " +
+                             "    CASE WHEN (DOCTYPE ='1') THEN '普通件'  WHEN (DOCTYPE ='2') THEN '速件'   WHEN (DOCTYPE ='3') THEN '最速件' END AS DOCTYPE,"+
+                             "    CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
                              " FROM FR_OFFIDOC_ISSUE " +
                              " WHERE  SID = '" + keyValue + "' ";
 
             //資料集
             DataTable dt = cs.GetDataSet(v_sqlstr);
-
+            if (dt.Rows[0]["COMPANY"].ToString().Equals("0"))
+            {
+                path += "DOC01_R01.rdlc";
+            }
+            else if (dt.Rows[0]["COMPANY"].ToString().Equals("1"))
+            {
+                path += "DOC01_R02.rdlc";
+            }
+            else if (dt.Rows[0]["COMPANY"].ToString().Equals("2")) {
+                path += "DOC01_R03.rdlc";
+            }
             LocalReport localReport = new LocalReport();
             localReport.ReportPath = path;
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);

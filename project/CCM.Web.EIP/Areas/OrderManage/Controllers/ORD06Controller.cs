@@ -24,7 +24,6 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form2()
         {
             return View();

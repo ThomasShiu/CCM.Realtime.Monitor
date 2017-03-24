@@ -46,13 +46,13 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         #endregion
 
         #region 取得料件基本資料
-        [HttpGet]
-        [HandlerAjaxOnly]
-        public ActionResult GetITEMDdata(string company)
-        {
-            var result = rs.GetITEMList(company);
-            return Content(result.ToJson());
-        }
+        //[HttpGet]
+        //[HandlerAjaxOnly]
+        //public ActionResult GetITEMDdata(string company)
+        //{
+        //    var result = rs.GetITEMList(company);
+        //    return Content(result.ToJson());
+        //}
         #endregion
 
         #region 取得售服機台資料
@@ -61,6 +61,16 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
         public ActionResult GetSRVPRODdata(string keyValue)
         {
             var result = rs.GetSRVPRODList(keyValue);
+            return Content(result.ToJson());
+        }
+        #endregion
+
+        #region 取得客戶資料
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCSNAME(string keyValue)
+        {
+            var result = rs.GetCSNAME(keyValue);
             return Content(result.ToJson());
         }
         #endregion

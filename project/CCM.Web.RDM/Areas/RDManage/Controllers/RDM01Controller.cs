@@ -28,7 +28,6 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form2()
         {
             return View();

@@ -20,7 +20,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         private CcmServices cs = new CcmServices();
 
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult IndexPub()
         {
             return View();

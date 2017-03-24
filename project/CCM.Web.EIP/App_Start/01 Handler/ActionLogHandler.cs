@@ -1,4 +1,5 @@
-﻿using CCM.Code;
+﻿using CCM.Application.SystemSecurity;
+using CCM.Code;
 using CCM.Domain.Entity.SystemSecurity;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace CCM.Web.EIP.App_Start._01_Handler
      /// <param name="module">操作模組</param>
         public static void WriteServiceLog(string oper, string mes, string result, string type, string module)
         {
+            
             //LogEntity entity = new LogEntity();
             //var LoginInfo = OperatorProvider.Provider.GetCurrent();
             //entity.SID = Common.GuId();

@@ -12,9 +12,9 @@ namespace CCM.Web.RDM
         {
             get { return LogFactory.GetLogger(this.GetType().ToString()); }
         }
+
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Index()
         {
             return View();
@@ -22,7 +22,6 @@ namespace CCM.Web.RDM
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form()
         {
             return View();
@@ -30,7 +29,6 @@ namespace CCM.Web.RDM
         
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Details()
         {
             return View();

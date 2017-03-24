@@ -14,7 +14,6 @@ namespace CCM.Web.SRM
         }
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Index()
         {
             return View();
@@ -22,7 +21,6 @@ namespace CCM.Web.SRM
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form()
         {
             return View();
@@ -30,7 +28,6 @@ namespace CCM.Web.SRM
         
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Details()
         {
             return View();

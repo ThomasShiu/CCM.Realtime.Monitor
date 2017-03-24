@@ -22,7 +22,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         //[HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult IndexEmpTest()
         {
             return View();
@@ -30,7 +29,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
 
         [HttpGet]
         //[HandlerAuthorize]
-        //[ActionTraceLog]
         public virtual ActionResult FormTest()
         {
             return View();

@@ -150,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\01 Handler\ActionLogHandler.cs" />
-    <Compile Include="App_Start\01 Handler\ActionTraceLog.cs" />
     <Compile Include="App_Start\01 Handler\ControllerCCM.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAjaxOnlyAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAuthorizeAttribute.cs" />
@@ -159,6 +158,9 @@
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="App_Start\ReportService.cs" />
     <Compile Include="App_Start\SendMailTask.cs" />
+    <Compile Include="Areas\ERPManage\Controllers\ERP00Controller.cs" />
+    <Compile Include="Areas\ERPManage\Controllers\ERP01Controller.cs" />
+    <Compile Include="Areas\ERPManage\ERPManageAreaRegistration.cs" />
     <Compile Include="Areas\ReportManage\Controllers\EchartsController.cs" />
     <Compile Include="Areas\ReportManage\Controllers\HighchartsController.cs" />
     <Compile Include="Areas\ReportManage\ReportManageAreaRegistration.cs" />
@@ -804,6 +806,13 @@
     <Content Include="Areas\SaleService\Views\SRM02\Details.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM02\Form.cshtml" />
     <Content Include="Areas\SaleService\Views\SRM02\Index.cshtml" />
+    <Content Include="Areas\ERPManage\Views\Web.config" />
+    <Content Include="Areas\ERPManage\Views\ERP01\Details2.cshtml" />
+    <Content Include="Areas\ERPManage\Views\ERP01\Form.cshtml" />
+    <Content Include="Areas\ERPManage\Views\ERP01\Index.cshtml" />
+    <Content Include="Areas\ERPManage\Views\ERP01\Details.cshtml" />
+    <Content Include="Areas\SaleService\Views\SRM02\Details2.cshtml" />
+    <Content Include="Areas\SaleService\Views\SRM03\Details2.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -983,6 +992,8 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ERPManage\Models\" />
+    <Folder Include="Areas\ERPManage\Views\Shared\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
     <Folder Include="Areas\SaleService\Models\" />
     <Folder Include="Areas\SaleService\Views\Shared\" />

@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: V_SRVPRODMT_CCM
-	public interface IV_SRVPRODMT_CCMRepository : IRepositoryBase<V_SRVPRODMT_CCMEntity>
+	//mapping table name: V_SRVPRODDL_CCM
+	public interface IV_SRVPRODDL_CCMRepository : IRepositoryBase<V_SRVPRODDL_CCMEntity>
     {
     }
 			 		                               

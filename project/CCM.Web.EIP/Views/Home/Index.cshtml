@@ -18,6 +18,7 @@
     <script src="~/Content/js/framework-ui.js"></script>
     @*  取得所屬角色的選單，預載 Id 對應的參數，職位、公司別等等...可修改ClientsDataController.js & framework-clientdata.js*@
     <script src="~/Content/js/framework-clientdata.js"></script>
+    <script src="~/Content/js/chkBrowser.js"></script>
     
 </head>
 <body style="overflow: hidden;">
@@ -270,12 +271,12 @@
         $(document).ready(function () {
             //每十分鐘執行，無限次，並命名計時器名稱為 TimerRefresh 36hs
             //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
-            $('body').everyTime('600s', 'TimerRefresh', function () {
-                location.reload();
-                return false;
-                //$("#gridList").trigger("reloadGrid");
+            //$('body').everyTime('600s', 'TimerRefresh', function () {
+            //    location.reload();
+            //    return false;
+            //    //$("#gridList").trigger("reloadGrid");
 
-            }, 0, true);
+            //}, 0, true);
         });
     </script>
 </body>

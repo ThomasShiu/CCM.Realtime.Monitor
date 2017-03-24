@@ -29,7 +29,6 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         // 會簽
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Signwith()
         {
             return View();

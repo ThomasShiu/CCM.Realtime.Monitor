@@ -3,12 +3,16 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
+
+        // 昆山
         $.ajax({
-            url: "/SaleService/SRM02/GetFormJson",
+            url: "/SaleService/SRM03/GetFormJsonKSC",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
@@ -18,96 +22,459 @@
                 $("#form1").find('div.ckbox label').attr('for', '');
             }
         });
+
+        // 寧波
+        $.ajax({
+            url: "/SaleService/SRM03/GetFormJsonNGB",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form2").formSerialize(data);
+                $("#form2").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form2").find('div.ckbox label').attr('for', '');
+            }
+        });
+
+        // 東莞
+        $.ajax({
+            url: "/SaleService/SRM03/GetFormJsonDAC",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form3").formSerialize(data);
+                $("#form3").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form4").find('div.ckbox label').attr('for', '');
+            }
+        });
+
+        // 初始化列表
+        InitBootGrid();
     });
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
+
+    }
+
+    // 初始化簽核途程列表
+    function InitBootGrid() {
+
+
+        $("#grid-ksc").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/SaleService/SRM03/getSRVPRODDLListKSC?keyValue=' + keyValue,
+            formatters: {
+
+            }
+        });
+
+        $("#grid-ngb").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/SaleService/SRM03/getSRVPRODDLListNGB?keyValue=' + keyValue,
+            formatters: {
+
+            }
+        });
+
+        $("#grid-dac").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/SaleService/SRM03/getSRVPRODDLListDAC?keyValue=' + keyValue,
+            formatters: {
+
+            }
         });
     }
 </script>
 
-<form id="form1">
-    <div style="padding-top: 20px; margin-right: 20px;">
+
+<div style="padding-top: 10px; margin-right: 10px;">
+    <form id="form1">
         <table class="form">
             <tr>
-                <th class="formTitle">COL_SAMPLE</th>
-                <td class="formValue">
-                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
-                    <select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
-                    <input id="GUID" name="GUID" type="hidden" value="" />
+                <th class="formTitle">產品號碼<br /><br />型式</th>
+                <td class="formValue" colspan="2">
+                    <input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" />
+                    <input id="PROD_TY" name="PROD_TY" type="text" class="form-control required" />
+                    <input id="ITEM_SP" name="ITEM_SP" type="text" class="form-control required" />
                 </td>
 
-            </tr>
-            <tr>
-                <th class="formTitle">SID</th>
+                <th class="formTitle">產品品號<br /><br />產品品名</th>
+                <td class="formValue" colspan="2">
+                    <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
+                    <input id="ITEM_NM" name="ITEM_NM" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">主件品號<br /><br />主件號碼</th>
                 <td class="formValue">
-                    <input id="SID" name="SID" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="M_ITEM_NO" name="M_ITEM_NO" type="text" class="form-control required" />
+                    <input id="M_ITEM_ID" name="M_ITEM_ID" type="text" class="form-control required" />
+                </td>
+                <td colspan="3" rowspan="4">
+                    <table id="grid-ksc" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="PROD_NO" data-width="7%" data-visible="false">ID</th>
+                                <th data-column-id="PROD_SR" data-width="7%">序號</th>
+                                <th data-column-id="ENTRY" data-width="15%">項目</th>
+                                <th data-column-id="DSCP_1" data-width="15%">描述一</th>
+                                @*<th data-column-id="DSCP_2" data-width="20%">描述二</th>
+                                    <th data-column-id="DSCP_3" data-width="20%">描述三</th>*@
+                            </tr>
+                        </thead>
+                    </table>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">parentId</th>
+                <th class="formTitle">使用客戶<br /><br />客戶名稱</th>
                 <td class="formValue">
-                    <input id="parentId" name="parentId" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="CS_NO" name="CS_NO" type="text" class="form-control required" />
+                    <input id="CS_NM" name="CS_NM" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">經銷客戶<br /><br />客戶名稱</th>
+                <td class="formValue">
+                    <input id="SO_CS_NO" name="SO_CS_NO" type="text" class="form-control required" />
+                    <input id="SO_CS_NM" name="SO_CS_NM" type="text" class="form-control required" />
+                </td>
+
+                <th class="formTitle">出貨單別<br /><br />出貨單號</th>
+                <td class="formValue">
+                    <input id="SO_TY" name="SO_TY" type="text" class="form-control required" />
+                    <input id="SO_NO" name="SO_NO" type="text" class="form-control required" />
+                </td>
+
+                <th class="formTitle">出貨序號<br /><br />出貨日</th>
+                <td class="formValue">
+                    <input id="SO_SR" name="SO_SR" type="text" class="form-control required" />
+                    <input id="SO_DT" name="SO_DT" type="text" class="form-control required" />
                 </td>
             </tr>
             <tr>
-                <th class="formTitle">FileName</th>
+                <th class="formTitle">送貨地址</th>
+                <td class="formValue" colspan="3">
+                    <input id="TO_ADDR" name="TO_ADDR" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">保固截止日<br /><br />保固月數</th>
                 <td class="formValue">
-                    <input id="FileName" name="FileName" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="PROD_GUAR_DT" name="PROD_GUAR_DT" type="text" class="form-control required" />
+                    <input id="PROD_GUAR_MM" name="PROD_GUAR_MM" type="text" class="form-control required" />
+                </td>
+                <th class="formTitle">主件保固截止日<br /><br />主件保固月數</th>
+                <td class="formValue">
+                    <input id="M_ITEM_GUAR_DT" name="M_ITEM_GUAR_DT" type="text" class="form-control required" />
+                    <input id="M_ITEM_GUAR_MM" name="M_ITEM_GUAR_MM" type="text" class="form-control required" />
                 </td>
             </tr>
+            @*<tr>
+                    <th class="formTitle">備註</th>
+                    <td class="formValue" colspan="7">
+                        <input id="REMK" name="REMK" type="text" class="form-control required" />
+                    </td>
+                </tr>*@
             <tr>
-                <th class="formTitle">Size</th>
+
+                <th class="formTitle">訂單單別</th>
                 <td class="formValue">
-                    <input id="Size" name="Size" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="CO_TY" name="CO_TY" type="text" class="form-control required" />
                 </td>
-            </tr>
-            <tr>
-                <th class="formTitle">Descript</th>
+                <th class="formTitle">單號</th>
                 <td class="formValue">
-                    <input id="Descript" name="Descript" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="CO_NO" name="CO_NO" type="text" class="form-control required" />
                 </td>
-            </tr>
-            <tr>
-                <th class="formTitle">ImgPath</th>
+                <th class="formTitle">序號</th>
                 <td class="formValue">
-                    <input id="ImgPath" name="ImgPath" type="text" class="form-control required" placeholder="請輸入標題" />
+                    <input id="CO_SR" name="CO_SR" type="text" class="form-control required" />
                 </td>
-            </tr>
-            <tr>
-                <th class="formTitle">OrganizeId</th>
-                <td class="formValue">
-                    <input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorTime</th>
-                <td class="formValue">
-                    <input id="CreatorTime" name="CreatorTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">CreatorUserId</th>
-                <td class="formValue">
-                    <input id="CreatorUserId" name="CreatorUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyTime</th>
-                <td class="formValue">
-                    <input id="LastModifyTime" name="LastModifyTime" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">LastModifyUserId</th>
-                <td class="formValue">
-                    <input id="LastModifyUserId" name="LastModifyUserId" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
+
             </tr>
 
         </table>
+    </form>
+</div>
+<!-- 分頁籤 -->
+<div class="wrapper">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#b" data-toggle="tab">寧波</a></li>
+        <li><a href="#c" data-toggle="tab">東莞</a></li>
+    </ul>
+    <div class="tab-content" style="padding-top: 5px;">
+        @*寧波*@
+        <div id="b" class="tab-pane" style="padding: 15px;">
+            <form id="form2">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">產品號碼<br /><br />型式</th>
+                        <td class="formValue" colspan="2">
+                            <input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" />
+                            <div class="input-group">
+                                <input id="PROD_TY" name="PROD_TY" type="text" class="form-control required" />
+                                <input id="ITEM_SP" name="ITEM_SP" type="text" class="form-control required" />
+                            </div>
+
+                        </td>
+                        <th class="formTitle">產品品號<br /><br />產品品名</th>
+                        <td class="formValue" colspan="2">
+                            <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
+                            <input id="ITEM_NM" name="ITEM_NM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">主件品號<br /><br />主件號碼</th>
+                        <td class="formValue">
+                            <input id="M_ITEM_NO" name="M_ITEM_NO" type="text" class="form-control required" />
+                            <input id="M_ITEM_ID" name="M_ITEM_ID" type="text" class="form-control required" />
+
+                        </td>
+                        <td colspan="3" rowspan="4">
+                            <table id="grid-ngb" class="table table-condensed table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th data-column-id="PROD_NO" data-width="7%" data-visible="false">ID</th>
+                                        <th data-column-id="PROD_SR" data-width="7%">序號</th>
+                                        <th data-column-id="ENTRY" data-width="15%">項目</th>
+                                        <th data-column-id="DSCP_1" data-width="15%">描述一</th>
+                                        @*<th data-column-id="DSCP_2" data-width="20%">描述二</th>
+                                            <th data-column-id="DSCP_3" data-width="20%">描述三</th>*@
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">使用客戶<br /><br />客戶名稱</th>
+                        <td class="formValue">
+                            <input id="CS_NO" name="CS_NO" type="text" class="form-control required" />
+                            <input id="CS_NM" name="CS_NM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">經銷客戶<br /><br />客戶名稱</th>
+                        <td class="formValue">
+                            <input id="SO_CS_NO" name="SO_CS_NO" type="text" class="form-control required" />
+                            <input id="SO_CS_NM" name="SO_CS_NM" type="text" class="form-control required" />
+                        </td>
+
+                        <th class="formTitle">出貨單別<br /><br />出貨單號</th>
+                        <td class="formValue">
+                            <input id="SO_TY" name="SO_TY" type="text" class="form-control required" />
+                            <input id="SO_NO" name="SO_NO" type="text" class="form-control required" />
+                        </td>
+
+                        <th class="formTitle">出貨序號<br /><br />出貨日</th>
+                        <td class="formValue">
+                            <input id="SO_SR" name="SO_SR" type="text" class="form-control required" />
+                            <input id="SO_DT" name="SO_DT" type="text" class="form-control required" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">送貨地址</th>
+                        <td class="formValue" colspan="3">
+                            <input id="TO_ADDR" name="TO_ADDR" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">保固截止日<br /><br />保固月數</th>
+                        <td class="formValue">
+                            <input id="PROD_GUAR_DT" name="PROD_GUAR_DT" type="text" class="form-control required" />
+                            <input id="PROD_GUAR_MM" name="PROD_GUAR_MM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">主件保固截止日<br /><br />主件保固月數</th>
+                        <td class="formValue">
+                            <input id="M_ITEM_GUAR_DT" name="M_ITEM_GUAR_DT" type="text" class="form-control required" />
+                            <input id="M_ITEM_GUAR_MM" name="M_ITEM_GUAR_MM" type="text" class="form-control required" />
+                        </td>
+                    </tr>
+                    @*<tr>
+                            <th class="formTitle">備註</th>
+                            <td class="formValue" colspan="7">
+                                <input id="REMK" name="REMK" type="text" class="form-control required" />
+                            </td>
+                        </tr>*@
+                    <tr>
+
+                        <th class="formTitle">訂單單別</th>
+                        <td class="formValue">
+                            <input id="CO_TY" name="CO_TY" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">單號</th>
+                        <td class="formValue">
+                            <input id="CO_NO" name="CO_NO" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">序號</th>
+                        <td class="formValue">
+                            <input id="CO_SR" name="CO_SR" type="text" class="form-control required" />
+                        </td>
+
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        @*東莞*@
+        <div id="c" class="tab-pane" style="padding: 15px;">
+            <form id="form3">
+                <table class="form">
+
+                    <tr>
+                        <th class="formTitle">產品號碼<br /><br />型式</th>
+                        <td class="formValue" colspan="2">
+                            <input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" />
+                            <div class="input-group">
+                                <input id="PROD_TY" name="PROD_TY" type="text" class="form-control required" />
+                                <input id="ITEM_SP" name="ITEM_SP" type="text" class="form-control required" />
+                            </div>
+
+                        </td>
+
+                        <th class="formTitle">產品品號<br /><br />產品品名</th>
+                        <td class="formValue" colspan="2">
+                            <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
+                            <input id="ITEM_NM" name="ITEM_NM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">主件品號<br /><br />主件號碼</th>
+                        <td class="formValue">
+                            <input id="M_ITEM_NO" name="M_ITEM_NO" type="text" class="form-control required" />
+                            <input id="M_ITEM_ID" name="M_ITEM_ID" type="text" class="form-control required" />
+
+                        </td>
+                        <td colspan="3" rowspan="4">
+                            <table id="grid-dac" class="table table-condensed table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th data-column-id="PROD_NO" data-width="7%" data-visible="false">ID</th>
+                                        <th data-column-id="PROD_SR" data-width="7%">序號</th>
+                                        <th data-column-id="ENTRY" data-width="15%">項目</th>
+                                        <th data-column-id="DSCP_1" data-width="15%">描述一</th>
+                                        @*<th data-column-id="DSCP_2" data-width="20%">描述二</th>
+                                            <th data-column-id="DSCP_3" data-width="20%">描述三</th>*@
+                                    </tr>
+                                </thead>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">使用客戶<br /><br />客戶名稱</th>
+                        <td class="formValue">
+                            <input id="CS_NO" name="CS_NO" type="text" class="form-control required" />
+                            <input id="CS_NM" name="CS_NM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">經銷客戶<br /><br />客戶名稱</th>
+                        <td class="formValue">
+                            <input id="SO_CS_NO" name="SO_CS_NO" type="text" class="form-control required" />
+                            <input id="SO_CS_NM" name="SO_CS_NM" type="text" class="form-control required" />
+                        </td>
+
+                        <th class="formTitle">出貨單別<br /><br />出貨單號</th>
+                        <td class="formValue">
+                            <input id="SO_TY" name="SO_TY" type="text" class="form-control required" />
+                            <input id="SO_NO" name="SO_NO" type="text" class="form-control required" />
+                        </td>
+
+                        <th class="formTitle">出貨序號<br /><br />出貨日</th>
+                        <td class="formValue">
+                            <input id="SO_SR" name="SO_SR" type="text" class="form-control required" />
+                            <input id="SO_DT" name="SO_DT" type="text" class="form-control required" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="formTitle">送貨地址</th>
+                        <td class="formValue" colspan="3">
+                            <input id="TO_ADDR" name="TO_ADDR" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">保固截止日<br /><br />保固月數</th>
+                        <td class="formValue">
+                            <input id="PROD_GUAR_DT" name="PROD_GUAR_DT" type="text" class="form-control required" />
+                            <input id="PROD_GUAR_MM" name="PROD_GUAR_MM" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">主件保固截止日<br /><br />主件保固月數</th>
+                        <td class="formValue">
+                            <input id="M_ITEM_GUAR_DT" name="M_ITEM_GUAR_DT" type="text" class="form-control required" />
+                            <input id="M_ITEM_GUAR_MM" name="M_ITEM_GUAR_MM" type="text" class="form-control required" />
+                        </td>
+                    </tr>
+                    @*<tr>
+                            <th class="formTitle">備註</th>
+                            <td class="formValue" colspan="7">
+                                <input id="REMK" name="REMK" type="text" class="form-control required" />
+                            </td>
+                        </tr>*@
+                    <tr>
+
+                        <th class="formTitle">訂單單別</th>
+                        <td class="formValue">
+                            <input id="CO_TY" name="CO_TY" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">單號</th>
+                        <td class="formValue">
+                            <input id="CO_NO" name="CO_NO" type="text" class="form-control required" />
+                        </td>
+                        <th class="formTitle">序號</th>
+                        <td class="formValue">
+                            <input id="CO_SR" name="CO_SR" type="text" class="form-control required" />
+                        </td>
+
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+
     </div>
-</form>
+</div>
+
 
 
 

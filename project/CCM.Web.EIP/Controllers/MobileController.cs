@@ -20,14 +20,12 @@ namespace CCM.Web.EIP.Controllers
         private CcmServices cs = new CcmServices();
 
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult Index()
         {
             return View();
@@ -35,7 +33,6 @@ namespace CCM.Web.EIP.Controllers
 
         #region 通訊錄
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult page_01()
         {
             return View();
@@ -60,13 +57,11 @@ namespace CCM.Web.EIP.Controllers
 
         #region 待簽核
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult page_02()
         {
             return View();
         }
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult page_02_1()
         {
             return View();
@@ -75,7 +70,6 @@ namespace CCM.Web.EIP.Controllers
 
         #region 其他下載
         [HttpGet]
-        [ActionTraceLog]
         public ActionResult page_03()
         {
             return View();

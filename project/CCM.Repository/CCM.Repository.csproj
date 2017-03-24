@@ -39,14 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Document\FR_OFFIDOC_ISSUERepository.cs" />
-    <Compile Include="Document\FR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
-    <Compile Include="Document\FR_OFFIDOC_RECERepository.cs" />
-    <Compile Include="Document\FR_OFFIDOC_RECE_ATTACH_FILERepository.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_ISSUERepository.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_RECERepository.cs" />
+    <Compile Include="DocManage\FR_OFFIDOC_RECE_ATTACH_FILERepository.cs" />
+    <Compile Include="ERPManage\ERP_ITEM_ATTACHFILERepository.cs" />
     <Compile Include="Human\CCM_Main_EmployeeRepository.cs" />
     <Compile Include="Human\HR_DEPRepository.cs" />
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
     <Compile Include="Human\V_EMP_EIPRepository.cs" />
+    <Compile Include="Human\V_HR_EMPPAYMTRepository.cs" />
     <Compile Include="Human\V_HR_OVRTMRepository.cs" />
     <Compile Include="Human\HR_OVRTMRepository.cs" />
     <Compile Include="Human\V_HR_TICKETRepository.cs" />
@@ -66,10 +68,18 @@
     <Compile Include="OrderManage\BU_ORDERS_SOTRERepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTRepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
+    <Compile Include="PublicObject\PU_ATTACH_FILERepository.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHRepository.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMMTRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_DACRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_NGBRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_KSCRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODDL_CCMRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_DACRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_NGBRepository.cs" />
+    <Compile Include="SaleService\V_SRVPRODMT_KSCRepository.cs" />
     <Compile Include="SaleService\V_SRVPRODMT_CCMRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />
     <Compile Include="SystemManage\ItemsRepository.cs" />

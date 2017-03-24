@@ -86,21 +86,28 @@
         <table class="form">
             <tr>
                 <th class="formTitle">機台品號</th>
-                <td class="formValue" colspan="3">
+                <td class="formValue">
                     <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" disabled="disabled" />
-                   
+                </td>
+                <th class="formTitle">出機編號</th>
+                <td class="formValue">
+                    <input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" disabled="disabled" />
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">客戶</th>
                 <td class="formValue">
-                    <select id="CS_NO" name="CS_NO" class="form-control required" >
+                    <select id="CS_NO" name="CS_NO" class="form-control required">
                         <option></option>
                     </select>
-                  
                 </td>
-                <td class="formValue" colspan="2">
-                    <input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" disabled="disabled"/>
+                <th class="formTitle">版本</th>
+                <td class="formValue">
+                    <select id="newold" name="newold" class="form-control required">
+                        <option value="new">新版</option>
+                        <option value="old">舊版</option>
+                    </select>
+
                 </td>
             </tr>  
             

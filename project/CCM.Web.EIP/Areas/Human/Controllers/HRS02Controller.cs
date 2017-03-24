@@ -1,20 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*******************************************************************************
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM,MIS 快速開發平臺
+ * Website：http://www.ccm3s.com
+*********************************************************************************/
+using CCM.Application;
+using CCM.Code;
+using CCM.Domain;
+using CCM.Domain.Entity;
 using System.Web.Mvc;
 
+//todo: 請修改對應的namespace
 namespace CCM.Web.EIP.Areas.Human.Controllers
 {
-    public class HRS02Controller : Controller
+    public class HRS02Controller : ControllerBase
     {
-        //
-        // GET: /Human/HRS02/
+        private V_HR_EMPPAYMTApp tableApp = new V_HR_EMPPAYMTApp();
 
-        public ActionResult Index()
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
-            return View();
+            var data = new
+            {
+                rows = tableApp.GetListEmp(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
         }
 
+        public ActionResult GetGridJson(string keyword)
+        {
+            var data = tableApp.GetList(keyword);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetFormJson(string keyValue)
+        {
+            var data = tableApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
+       
     }
+
+
 }

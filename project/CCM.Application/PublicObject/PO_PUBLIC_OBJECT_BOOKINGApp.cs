@@ -42,13 +42,13 @@ namespace CCM.Application
                 expression = expression.And(t => t.Subject.Contains(keyword));
                 expression = expression.Or(t => t.Description.Contains(keyword));
             }
-
             // 關鍵字2
             if (!queryParam["keyword2"].IsEmpty())
             {
-                string keyword = queryParam["keyword2"].ToString();
-                expression = expression.And(t => t.ObjectSID.Contains(keyword));
+                string keyword2 = queryParam["keyword2"].ToString();
+                expression = expression.And(t => t.ObjectSID.Contains(keyword2));
             }
+
             // 日期條件
             if (!queryParam["timeType"].IsEmpty())
             {
@@ -60,8 +60,8 @@ namespace CCM.Application
                     case "1":  //今日內
                         startTime = DateTime.Now.ToString("yyyy-MM-dd  23:59:00").ToDate().AddDays(-1);
                         endTime = DateTime.Now.ToString("yyyy-MM-dd  23:59:00").ToDate();
-                        expression = expression.And(t => t.BookingStartTime > startTime && t.BookingStartTime < endTime);
-                        expression = expression.Or(t =>  t.BookingEndTime > startTime  &&  t.BookingEndTime < endTime);
+                        expression = expression.And(t => (t.BookingStartTime > startTime && t.BookingStartTime < endTime) ||
+                                                        (t.BookingEndTime > startTime && t.BookingEndTime < endTime));
                         break;
                     case "2": //一周內
                         startTime = DateTime.Now.AddDays(-7);
@@ -85,7 +85,8 @@ namespace CCM.Application
                 expression = expression.And(t => t.BookingStartTime > startTime && t.BookingStartTime < endTime);
                 expression = expression.Or(t => t.BookingEndTime > startTime && t.BookingEndTime < endTime);
             }
-            expression = expression.And(t => t.ObjectType == "公務車輛");
+            
+            expression = expression.And(t => t.ObjectType == "公務車輛" || t.ObjectType == "私人車輛");
             return service.FindList(expression, pagination);
         }
 

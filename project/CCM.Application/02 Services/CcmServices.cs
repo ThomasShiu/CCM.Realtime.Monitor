@@ -105,7 +105,7 @@ namespace CCM.Application
                             {
                                 v_message = "公務車輛:[" + dr["ObjectNM"].ToString() + "]已有:<br/>" + dr["Empnm"].ToString() +
                                     "申請使用[" + dr["Subject"].ToString() + "]<br/>使用時間:[" + dr["BookingStartTime"].ToString() + "]至[" +
-                                    dr["BookingEndTime"].ToString() + "]<br/>請重新調整時間再存檔。";
+                                    dr["BookingEndTime"].ToString() + "]<br/>請重新調整時間再存檔。<br/>變更時間可請管理部前台人員(#101)協助，謝謝~";
                             }
                             return v_message;
                         }
@@ -1412,7 +1412,7 @@ namespace CCM.Application
             v_sql += "            CONVERT(VARCHAR(5), A.BookingStartTime, 108)+'~'+CONVERT(VARCHAR(5), A.BookingEndTime, 108) AS description,  ";
             v_sql += "           CONVERT(VARCHAR(16), A.BookingStartTime, 120) BookingStartTime, CONVERT(VARCHAR(16), A.BookingEndTime, 120) AS BookingEndTime ";
             v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
-            v_sql += " WHERE B.Enable = 'Y' AND B.ObjectType = '公務車輛'  ";
+            v_sql += " WHERE B.Enable = 'Y' AND (B.ObjectType = '公務車輛' or B.ObjectType = '私人車輛')  AND A.Status <> '取消' ";
             v_sql += " AND GETDATE() BETWEEN A.BookingStartTime - 2 AND A.BookingEndTime + 4 ";
 
             //得到一個DataTable物件
@@ -1897,5 +1897,7 @@ namespace CCM.Application
             return saveCnt;
         }
         #endregion
+
+        
     }
 }

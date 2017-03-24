@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "查看明細-料件照片:" + Request.QueryString["keyValue"];
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<link href="~/Content/js/Imagegallery/css/demo.css" rel="stylesheet" />
+<link href="~/Content/js/Imagegallery/css/style.css" rel="stylesheet" />
+<link href="~/Content/js/Imagegallery/css/elastislide.css" rel="stylesheet" />
+<script>
+    var keyValue = $.request("keyValue");
+    var keyword = $.request("keyword");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/ERPManage/ERP01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+            parentID = $('input[name=GUID]').val();
+
+            $("#CLAS_NO").attr("disabled", "disabled");
+            $("#CLAS_NM").attr("disabled", "disabled");
+            $("#ITEM_NO").attr("disabled", "disabled");
+            $("#ITEM_NM").attr("disabled", "disabled");
+        } else {
+            // 新建模式,取得GUID作為附件檔案使用
+            $('input[name="GUID"]').val(GetNow() + '-' + GetGuid());
+            parentID = $('input[name=GUID]').val();
+        }
+
+        // 產生圖片
+        GetImgList();
+
+        var itemno = $("#ITEM_NO").val();
+        document.title = "查看明細-料件照片:" + itemno;
+    });
+    function initControl() {
+        // 料件分類
+        $("#CLAS_NO").bindSelect({
+            url: "/ERPManage/ERP00/GetITCLASList",
+            id: "CLAS_NO",
+            text: "DESCR"
+        });
+
+        // 依據料件分類代出料件
+        $("#ITEM_NO").bindSelect({
+            url: "/ERPManage/ERP00/GetITEMList?keyword=" + keyword,
+            id: "ITEM_NO",
+            text: "DESCR"
+        });
+    }
+
+    // 照片清單
+    function GetImgList() {
+        var guid = $('input[name=GUID]').val();
+        $.ajax({
+            type: "GET",
+            url: '/ERPManage/ERP01/GetGridJsonDownload2',
+            data: { keyword: guid },
+            dataType: "json",
+            cache: false,
+            async: false,
+            success: function (data) {
+                var trHTML = '';
+                $.each(data.ImgList, function (i, item) {
+                    trHTML += '<li><a href="#"><img src="../../' + data.ImgList[i].DownloadPath + '" data-large="../../' + data.ImgList[i].DownloadPath + '" alt="' + data.ImgList[i].OldFileName + '" data-description="' + data.ImgList[i].OldFileName + '" /></a></li>';
+                    //<li><a href="#"><img src="~/EIPContent/Content/PublicShare/VibrationPlate/thumbs/1.jpg" data-large="../../EIPContent/Content/PublicShare/VibrationPlate/1.jpg" alt="image01" data-description="From off a hill whose concave womb reworded" /></a></li>
+                });
+                $('#imagelist').append(trHTML);
+            },
+            error: function (msg) {
+                //alert(msg.responseText);
+                window.setTimeout(function () {
+                    $.modalMsg(msg.responseText, "warning");
+                }, 500);
+            }
+        });
+    }
+</script>
+
+<noscript>
+    <style>
+        .es-carousel ul {
+            display: block;
+        }
+    </style>
+</noscript>
+<script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">
+    <div class="rg-image-wrapper">
+        {{if itemsCount > 1}}
+        <div class="rg-image-nav">
+            <a href="#" class="rg-image-nav-prev">Previous Image</a>
+            <a href="#" class="rg-image-nav-next">Next Image</a>
+        </div>
+        {{/if}}
+        <div class="rg-image"></div>
+        <div class="rg-loading"></div>
+        <div class="rg-caption-wrapper">
+            <div class="rg-caption" style="display:none;">
+                <p></p>
+            </div>
+        </div>
+    </div>
+</script><form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="GUID" name="GUID" type="hidden" value="" />
+    <input id="ITEM_SP" name="ITEM_SP" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+
+            <tr>
+                <th class="formTitle">料件分類</th>
+                <td class="formValue">
+                    <select id="CLAS_NO" name="CLAS_NO" class="form-control required">
+                        <option></option>
+                    </select>
+                </td>
+                <th class="formTitle">分類名稱</th>
+                <td class="formValue">
+                    <input id="CLAS_NM" name="CLAS_NM" type="text" class="form-control required" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">料件品號</th>
+                <td class="formValue">
+                    <select id="ITEM_NO" name="ITEM_NO" class="form-control required"><option></option></select>
+                </td>
+                <th class="formTitle">料件名稱</th>
+                <td class="formValue">
+                    <input id="ITEM_NM" name="ITEM_NM" type="text" class="form-control required" />
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+</form>
+<div class="content">
+    <div id="rg-gallery" class="rg-gallery">
+        <div class="rg-thumbs">
+            <!-- Elastislide Carousel Thumbnail Viewer -->
+            <div class="es-carousel-wrapper">
+                <div class="es-nav">
+                    <span class="es-nav-prev">Previous</span>
+                    <span class="es-nav-next">Next</span>
+                </div>
+                <div class="es-carousel">
+                    <ul id="imagelist"></ul>
+
+                </div>
+            </div>
+            <!-- End Elastislide Carousel Thumbnail Viewer -->
+        </div><!-- rg-thumbs -->
+    </div><!-- rg-gallery -->
+</div><!-- content -->
+		</div><!-- container -->
+<script src="~/Content/js/Imagegallery/js/jquery.tmpl.min.js"></script>
+<script src="~/Content/js/Imagegallery/js/jquery.easing.1.3.js"></script>
+<script src="~/Content/js/Imagegallery/js/jquery.elastislide.js"></script>
+<script src="~/Content/js/Imagegallery/js/gallery.js"></script>

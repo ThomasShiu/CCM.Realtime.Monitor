@@ -11,11 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.SaleService.Controllers
+namespace CCM.Web.EIP.Areas.ERPManage.Controllers
 {
-    public class SRM03Controller : ControllerBase
+    public class ERP01Controller : ControllerBase
     {
-        private V_SRVPRODMT_CCMApp tableApp = new V_SRVPRODMT_CCMApp();
+        private ERP_ITEM_ATTACHFILEApp tableApp = new ERP_ITEM_ATTACHFILEApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -47,9 +47,9 @@ namespace CCM.Web.EIP.Areas.SaleService.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(V_SRVPRODMT_CCMEntity V_SRVPRODMT_CCMEntity, string keyValue)
+        public ActionResult SubmitForm(ERP_ITEM_ATTACHFILEEntity ERP_ITEM_ATTACHFILEEntity, string keyValue)
         {
-            tableApp.SubmitForm(V_SRVPRODMT_CCMEntity, keyValue);
+            tableApp.SubmitForm(ERP_ITEM_ATTACHFILEEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

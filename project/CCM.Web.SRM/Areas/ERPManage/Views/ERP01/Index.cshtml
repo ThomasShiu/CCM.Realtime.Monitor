@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/ERPManage/ERP01/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				    { label: "品號", name: "ITEM_NO", width: 90, align: 'left' },
+				    { label: "品名", name: "ITEM_NM", width: 240, align: 'left' },
+				    { label: "規格", name: "ITEM_SP", hidden: true, width: 80, align: 'left' },
+				    { label: "分類碼", name: "CLAS_NO", width: 50, align: 'left' },
+				    { label: "分類名稱", name: "CLAS_NM", width: 60, align: 'left' },
+                     {
+                         label: "執行", name: "", width: 60, align: 'left',
+                         formatter: function (cellvalue, options, rowObject) {
+                             var sid = rowObject.SID;
+                             var itemno = rowObject.ITEM_NO;
+                             return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_showimg(\"' + sid + '\",\"' + itemno + '\")\'>查看</button>';
+                         }
+                     },
+				    { label: "GUID", name: "GUID", hidden: true, width: 80, align: 'left' },
+				    { label: "OrganizeId", name: "OrganizeId", hidden: true, width: 80, align: 'left' },
+				    { label: "CreatorTime", name: "CreatorTime", hidden: true, width: 80, align: 'left' },
+				    { label: "CreatorUserId", name: "CreatorUserId", hidden: true, width: 80, align: 'left' },
+				    { label: "LastModifyTime", name: "LastModifyTime", hidden: true, width: 80, align: 'left' },
+				    { label: "LastModifyUserId", name: "LastModifyUserId", hidden: true, width: 80, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+            sortname: 'SID asc,CreatorTime desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增",
+            url: "/ERPManage/ERP01/Form",
+            width: "840px",
+            height: "700px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var keyword = $("#gridList").jqGridRowValue().ITEM_NO;
+        $.modalOpen({
+            id: "Form",
+            title: "修改",
+            url: "/ERPManage/ERP01/Form?keyValue=" + keyValue + "&keyword=" + keyword,
+            width: "840px",
+            height: "700px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/ERPManage/ERP01/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看",
+            url: "/ERPManage/ERP01/Details?keyValue=" + keyValue,
+            width: "740px",
+            height: "800px",
+            btn: null,
+        });
+    }
+
+    // 查看
+    function btn_showimg() {
+        var keyValue = arguments[0];
+        var keyword = arguments[1];
+        window.open("/ERPManage/ERP01/Details?keyValue=" + keyValue + "&keyword=" + keyword);
+
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
+                @*<li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>*@
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="關鍵字" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

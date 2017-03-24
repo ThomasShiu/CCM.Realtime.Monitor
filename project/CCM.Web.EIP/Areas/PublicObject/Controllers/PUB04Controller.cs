@@ -21,7 +21,6 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Reply()
         {
             return View();

@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class V_SRVPRODMT_CCMApp
+public class V_SRVPRODDL_CCMApp
     {
-        private IV_SRVPRODMT_CCMRepository service = new V_SRVPRODMT_CCMRepository();     
+        private IV_SRVPRODDL_CCMRepository service = new V_SRVPRODDL_CCMRepository();     
 
-	public List<V_SRVPRODMT_CCMEntity> GetList(string keyword = "")
+	public List<V_SRVPRODDL_CCMEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<V_SRVPRODMT_CCMEntity>();
+            var expression = ExtLinq.True<V_SRVPRODDL_CCMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class V_SRVPRODMT_CCMApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<V_SRVPRODMT_CCMEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<V_SRVPRODDL_CCMEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<V_SRVPRODMT_CCMEntity>();
+            var expression = ExtLinq.True<V_SRVPRODDL_CCMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class V_SRVPRODMT_CCMApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public V_SRVPRODMT_CCMEntity GetForm(string keyValue)
+        public V_SRVPRODDL_CCMEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class V_SRVPRODMT_CCMApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(V_SRVPRODMT_CCMEntity tableEntity, string keyValue)
+        public void SubmitForm(V_SRVPRODDL_CCMEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

@@ -20,14 +20,14 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         private BU_ORDERS_SOTREApp tableApp = new BU_ORDERS_SOTREApp();
 
         [HttpGet]
-        [ActionTraceLog]
+        //[ActionTraceLog]
         public virtual ActionResult IndexPub()
         {
             return View();
         }
 
         [HttpGet]
-        [ActionTraceLog]
+        //[ActionTraceLog]
         public virtual ActionResult DetailsPub()
         {
             return View();

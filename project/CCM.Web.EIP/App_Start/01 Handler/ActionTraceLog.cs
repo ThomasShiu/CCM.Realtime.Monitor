@@ -13,22 +13,22 @@ namespace CCM.Web.EIP.App_Start._01_Handler
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Request.UrlReferrer == null)
-                return;
+            //if (filterContext.HttpContext.Request.UrlReferrer == null)
+            //    return;
 
-            var LoginInfo = OperatorProvider.Provider.GetCurrent(); // 登錄資訊
-            ActionLogEntity NewLog = new ActionLogEntity()
-            {
-                Refer = filterContext.HttpContext.Request.UrlReferrer.AbsolutePath,
-                Destination = filterContext.HttpContext.Request.Url.AbsolutePath,
-                Method = filterContext.HttpContext.Request.HttpMethod,
-                RequestTime = DateTime.Now,
-                IPAddress = filterContext.HttpContext.Request.UserHostAddress,
-                Operator = LoginInfo.UserCode,  // 工號
-                Browser = filterContext.HttpContext.Request.Browser.Browser
-            };
-            app.SubmitForm(NewLog, "");
-            base.OnActionExecuting(filterContext);
+            //var LoginInfo = OperatorProvider.Provider.GetCurrent(); // 登錄資訊
+            //ActionLogEntity NewLog = new ActionLogEntity()
+            //{
+            //    Refer = filterContext.HttpContext.Request.UrlReferrer.AbsolutePath,
+            //    Destination = filterContext.HttpContext.Request.Url.AbsolutePath,
+            //    Method = filterContext.HttpContext.Request.HttpMethod,
+            //    RequestTime = DateTime.Now,
+            //    IPAddress = filterContext.HttpContext.Request.UserHostAddress,
+            //    Operator = LoginInfo.UserCode,  // 工號
+            //    Browser = filterContext.HttpContext.Request.Browser.Browser
+            //};
+            //app.SubmitForm(NewLog, "");
+            //base.OnActionExecuting(filterContext);
         }
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {

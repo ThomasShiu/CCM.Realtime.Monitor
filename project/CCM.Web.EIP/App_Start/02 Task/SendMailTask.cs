@@ -66,6 +66,8 @@ namespace CCM.Web.EIP
                             }
                             v_message_all += "</table><br><br> 注意:此郵件由系統自動發送，請勿直接回覆。 <a href='http://192.168.100.13/Home/Index'>點我進入EIP</a>";
                             SendMail("b050502@ccm3s.com", vSubject, v_message_all);
+                            SendMail("a970202@ccm3s.com", vSubject, v_message_all);
+                            SendMail("b060207 @ccm3s.com", vSubject, v_message_all);
 
                             string msg = String.Format("DoSendMail_WaitSign() at {0:yyyy/MM/dd HH:mm:ss} - 192.168.100.13", DateTime.Now);
                             Log(msg);
@@ -128,6 +130,7 @@ namespace CCM.Web.EIP
                             v_message_all += "</table><br><br> 注意:此郵件由系統自動發送，請勿直接回覆。 <a href='http://192.168.100.13/Home/Index'>點我進入EIP</a>";
                             var vSubject = "[通知] 加班時數統計 " + DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                             SendMail("b020503@ccm3s.com", vSubject, v_message_all);
+                            SendMail("b050502@ccm3s.com", vSubject, v_message_all);
 
                             string msg = String.Format("DoSendMail_OverTime() at {0:yyyy/MM/dd HH:mm:ss} - 192.168.100.13", DateTime.Now);
                             Log(msg);
@@ -143,7 +146,7 @@ namespace CCM.Web.EIP
 
         public void SendMail(string mailto,string vSubject,string vBody) {
             string[] _mailAddress = { mailto  };
-            string[] _mailBcc = { "b050502@ccm3s.com" };
+            //string[] _mailBcc = { "b050502@ccm3s.com" };
             string _subject, _body;
             //ArrayList _AttachfilePathlist = new ArrayList();
             _subject = vSubject; // "[通知] 加班時數統計 " +  DateTime.Now.ToString("yyyy-MM-dd HH:mm");
@@ -168,11 +171,11 @@ namespace CCM.Web.EIP
                     mm.To.Add(new MailAddress(s));
                
             }
-            foreach (string s in _mailBcc)
-            {
-                if (s != null)
-                    mm.Bcc.Add(new MailAddress(s));
-            }
+            //foreach (string s in _mailBcc)
+            //{
+            //    if (s != null)
+            //        mm.Bcc.Add(new MailAddress(s));
+            //}
 
             mm.Subject = _subject;
             mm.Body = _body;

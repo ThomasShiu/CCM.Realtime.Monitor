@@ -92,7 +92,7 @@
                         {
                             label: "修改", name: "", width: 80, align: 'left',
                             formatter: function (cellvalue, options, rowObject) {
-                                if (rowObject.Status == '結束') {
+                                if (rowObject.Status == '結束' | rowObject.Status == '取消') {
                                     return '';
                                 }else{
                                     if (rowObject.EmployeeID == usercode | rowObject.CreatorUserId == usercode | usercode == 'admin')
@@ -173,7 +173,7 @@
         var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
         var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
         var status = $("#gridList").jqGridRowValue().Status;
-        if (status != '結束') {
+        if (status != '結束' & status != '取消') {
             //var guid = $("#gridList").jqGridRowValue().GUID;
             if (EmployeeID == usercode | CreatorUserId == usercode | usercode == 'admin') {
                 $.modalOpen({
@@ -193,7 +193,7 @@
                 }, 500);
             }
         } else {
-            msg = "此單據已結束，不可修改。";
+            msg = "此單據已結束(取消)，不可修改。";
             window.setTimeout(function () {
                 $.modalMsg(msg, "warning");
             }, 500);

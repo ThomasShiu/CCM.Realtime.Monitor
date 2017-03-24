@@ -23,12 +23,12 @@ namespace CCM.Application
             var expression = ExtLinq.True<V_SRVPRODMT_CCMEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.ITEM_NO.Contains(keyword));
+                expression = expression.And(t => t.PROD_NO.Contains(keyword));
+                expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
                 expression = expression.Or(t => t.ITEM_NM.Contains(keyword));
                 expression = expression.Or(t => t.ITEM_SP.Contains(keyword));
                 expression = expression.Or(t => t.M_ITEM_NO.Contains(keyword)); 
                 expression = expression.Or(t => t.M_ITEM_ID.Contains(keyword));
-                expression = expression.Or(t => t.PROD_NO.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.SO_DT).ToList();
@@ -40,12 +40,13 @@ namespace CCM.Application
                 var expression = ExtLinq.True<V_SRVPRODMT_CCMEntity>();
                 if (!string.IsNullOrEmpty(keyword))
                 {
-                    expression = expression.And(t => t.ITEM_NO.Contains(keyword));
+                    expression = expression.And(t => t.PROD_NO.Contains(keyword));
+                    expression = expression.Or(t => t.ITEM_NO.Contains(keyword));
                     expression = expression.Or(t => t.ITEM_NM.Contains(keyword));
                     expression = expression.Or(t => t.ITEM_SP.Contains(keyword));
                     expression = expression.Or(t => t.M_ITEM_NO.Contains(keyword));
                     expression = expression.Or(t => t.M_ITEM_ID.Contains(keyword));
-                    expression = expression.Or(t => t.PROD_NO.Contains(keyword));
+                    
                 }
                 //expression = expression.And(t => t.F_Category == 2);
                 //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();

@@ -14,7 +14,7 @@ namespace CCM.Web.EIP
         }
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
+        //[ActionTraceLog]
         public virtual ActionResult Index()
         {
             return View();
@@ -22,7 +22,7 @@ namespace CCM.Web.EIP
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
+        //[ActionTraceLog]
         public virtual ActionResult Form()
         {
             return View();
@@ -30,7 +30,7 @@ namespace CCM.Web.EIP
         
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
+        //[ActionTraceLog]
         public virtual ActionResult Details()
         {
             return View();

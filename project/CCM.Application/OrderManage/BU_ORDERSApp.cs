@@ -69,6 +69,8 @@ namespace CCM.Application
                 tableEntity.Create();
                 service.Insert(tableEntity);
             }
+
+            
         }
 
     }

@@ -21,8 +21,9 @@
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                    { label: "客戶", name: "COMPANY", hidden: true, width: 120, align: 'left' },
                     { label: "品號", name: "ITEM_NO", width: 120, align: 'left' },
-                    { label: "出機編號", name: "M_ITEM_NO", width: 80, align: 'left' },
+                    { label: "出機編號", name: "PROD_NO", width: 80, align: 'left' },
                     //{
                     //    label: "機台編號", name: "", width: 80, align: 'left',
                     //    formatter: function (cellvalue, options, rowObject) {
@@ -47,10 +48,10 @@
                     { label: "客戶編號", name: "CS_NO", width: 60, align: 'left' },
 				    { label: "客戶名稱", name: "SHORT_NM", width: 90, align: 'left' },
                     { label: "原檔名", name: "oldFileName", width: 100, align: 'left' },
-                    { label: "CPU Serial Number", name: "CPU_SN",  width: 140, align: 'left' },
-                    { label: "HD Serial Number", name: "HD_SN",  width: 110, align: 'left' },
+                    { label: "CPU S/N", name: "CPU_SN",  width: 140, align: 'left' },
+                    { label: "HD S/N", name: "HD_SN",  width: 110, align: 'left' },
                     { label: "HD Firmware", name: "HD_Fireware",  width: 90, align: 'left' },
-                    { label: "HD Module Number", name: "HD_Moduleno",  width: 140, align: 'left' },
+                    { label: "HD M/N", name: "HD_Moduleno",  width: 140, align: 'left' },
 				    { label: "原檔下載", name: "UploadPath", hidden: true, width: 80, align: 'left' },
                     {
                         label: "原檔下載", name: "", width: 70, align: 'center',
@@ -89,7 +90,7 @@
                         label: "修改時間", name: "LastModifyTime", width: 120, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                     },
-                    { label: "", name: "", width: 180, align: 'left' },
+                    { label: "", name: "", width: 1, align: 'left' },
             ],
 			pager: "#gridPager",
 			sortname: 'CreatorTime desc,LastModifyTime desc',
@@ -115,10 +116,11 @@
     }
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
+        var company = $("#gridList").jqGridRowValue().COMPANY;
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/RDManage/RDM02/Form?keyValue=" + keyValue,
+            url: "/RDManage/RDM02/Form?keyValue=" + keyValue + "&company=" + company,
             width: "640px",
             height: "380px",
             callBack: function (iframeId) {

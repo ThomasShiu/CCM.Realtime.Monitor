@@ -36,12 +36,12 @@ namespace CCM.Web.EIP
             {
                 case "1":case "2":case "3":case "4":
                     SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor) " +
-                          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B030306', 'G20', '24', '"+ today + " 17:00', '"+ tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
+                          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:00', '"+ tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
                     ExecuteSQL(SQL);
                     break;
                 case "5":
                     SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor) " +
-                         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B030306', 'G20', '24', '" + today + " 17:00', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
+                         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:00', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
                     ExecuteSQL(SQL);
                     break;
             }

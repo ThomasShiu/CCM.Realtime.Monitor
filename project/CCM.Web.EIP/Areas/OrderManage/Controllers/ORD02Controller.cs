@@ -25,7 +25,6 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
 
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form2()
         {
             return View();
@@ -86,6 +85,8 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         public ActionResult SubmitForm(BU_ORDERSEntity BU_ORDERSEntity, string keyValue)
         {
             tableApp.SubmitForm(BU_ORDERSEntity, keyValue);
+            // 更新訂便當主檔加總 
+            cs.refreshOrderDetail(keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
@@ -95,6 +96,8 @@ namespace CCM.Web.EIP.Areas.OrderManage.Controllers
         public ActionResult DeleteForm(string keyValue)
         {
             tableApp.DeleteForm(keyValue);
+            // 更新訂便當主檔加總 
+            cs.refreshOrderDetail(keyValue);
             return Success("删除成功。");
         }
         

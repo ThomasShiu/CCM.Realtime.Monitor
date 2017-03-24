@@ -156,12 +156,6 @@
 
     // 初始化附件列表
     function InitBootGrid() {
-        var vhost = '@Request.Url.Host';
-        var vport = '@Request.Url.Port';
-        if (vport != 80) {
-            vport = ':@Request.Url.Port';
-        }
-        var pathlink = 'http://' + vhost + vport + '/';
 
         // BootGrid test
         $("#grid-orderlist").on("load.rs.jquery.bootgrid", function () {

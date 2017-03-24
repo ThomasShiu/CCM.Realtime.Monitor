@@ -14,15 +14,15 @@ namespace CCM.Web.EIP
         public void Configuration(IAppBuilder app)
         {
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage("EIPContext");
+            //GlobalConfiguration.Configuration.UseSqlServerStorage("EIPContext");
 
             //BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget!"));
 
             //BackgroundJob.Enqueue(() => StartMyTask("", "", ""));
 
 
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
+            //app.UseHangfireDashboard();
+            //app.UseHangfireServer();
 
         }
 

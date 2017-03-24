@@ -88,6 +88,9 @@
       <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>bin\itextsharp.xfaworker-dll-5.5.10\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -191,7 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\01 Handler\ActionLogHandler.cs" />
-    <Compile Include="App_Start\01 Handler\ActionTraceLog.cs" />
     <Compile Include="App_Start\01 Handler\ControllerCCM.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAjaxOnlyAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerAuthorizeAttribute.cs" />
@@ -203,13 +205,13 @@
     <Compile Include="App_Start\ReportService.cs" />
     <Compile Include="App_Start\02 Task\SendMailTask.cs" />
     <Compile Include="App_Start\02 Task\SyncErpPwTask.cs" />
-    <Compile Include="Areas\Document\Controllers\DOC05Controller.cs" />
-    <Compile Include="Areas\Document\Controllers\DOC01Controller.cs" />
-    <Compile Include="Areas\Document\Controllers\DOC02Controller.cs" />
-    <Compile Include="Areas\Document\Controllers\DOC03Controller.cs" />
-    <Compile Include="Areas\Document\Controllers\DOC04Controller.cs" />
-    <Compile Include="Areas\Document\DocumentAreaRegistration.cs" />
-    <Compile Include="Areas\Document\Models\FileTreeViewModel.cs" />
+    <Compile Include="Areas\DocManage\Controllers\DOC05Controller.cs" />
+    <Compile Include="Areas\DocManage\Controllers\DOC01Controller.cs" />
+    <Compile Include="Areas\DocManage\Controllers\DOC02Controller.cs" />
+    <Compile Include="Areas\DocManage\Controllers\DOC03Controller.cs" />
+    <Compile Include="Areas\DocManage\Controllers\DOC04Controller.cs" />
+    <Compile Include="Areas\DocManage\DocumentAreaRegistration.cs" />
+    <Compile Include="Areas\DocManage\Models\FileTreeViewModel.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SendMailController.cs" />
@@ -289,6 +291,7 @@
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -303,6 +306,7 @@
     <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme.css" />
     <Content Include="Content\css\framework-about.css" />
+    <Content Include="Content\css\jenkins-material-theme.css" />
     <Content Include="Content\css\jquery.bootstrap-touchspin.css" />
     <Content Include="Content\css\jquery.bootstrap-touchspin.min.css" />
     <Content Include="Content\css\shopitem.css" />
@@ -527,6 +531,7 @@
     <Content Include="Content\js\bootstrap\bootstrap.min.css" />
     <Content Include="Content\js\charts\Chart.js" />
     <Content Include="Content\js\charts\Chart.min.js" />
+    <Content Include="Content\js\chkBrowser.js" />
     <Content Include="Content\js\ColourPicker\colorPicker.css" />
     <Content Include="Content\js\ColourPicker\ColorPicker.js" />
     <Content Include="Content\js\ColourPicker\jquery.colourPicker.css" />
@@ -1362,8 +1367,8 @@
     <Content Include="Content\js\jquerymobile\_assets\js\jqm-demos.js" />
     <Content Include="Content\js\jquerymobile\_assets\js\view-source.js" />
     <Content Include="Content\js\jquery\jquery-2.1.2.min.js" />
-    <Content Include="Areas\Document\Views\Web.config" />
-    <Content Include="Areas\Document\Views\DOC01\Index.cshtml" />
+    <Content Include="Areas\DocManage\Views\Web.config" />
+    <Content Include="Areas\DocManage\Views\DOC01\Index.cshtml" />
     <Content Include="Areas\ExampleManage\Views\BarCode\Index.cshtml" />
     <Content Include="Areas\ExampleManage\Views\Print\Index.cshtml" />
     <Content Include="Areas\ExampleManage\Views\SendMail\Index.cshtml" />
@@ -1426,12 +1431,12 @@
     <Content Include="Areas\SystemSecurity\Views\Log\RemoveLog.cshtml" />
     <Content Include="Areas\SystemSecurity\Views\ServerMonitoring\Index.cshtml" />
     <Content Include="Areas\SystemSecurity\Views\Web.config" />
-    <Content Include="Areas\Document\Views\DOC01\Form.cshtml" />
-    <Content Include="Areas\Document\Views\DOC01\Details.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC01\Form.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC01\Details.cshtml" />
     <Content Include="Areas\Human\Views\Web.config" />
-    <Content Include="Areas\Document\Views\DOC03\Details.cshtml" />
-    <Content Include="Areas\Document\Views\DOC03\Form.cshtml" />
-    <Content Include="Areas\Document\Views\DOC03\Index.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC03\Details.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC03\Form.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC03\Index.cshtml" />
     <Content Include="Areas\Human\Views\HRS01\Index.cshtml" />
     <Content Include="Areas\Human\Views\HRS01\Form.cshtml" />
     <Content Include="Areas\Human\Views\HRS01\Details.cshtml" />
@@ -1533,12 +1538,12 @@
     <Content Include="Content\js\filetree\connectors\jqueryFileTree.rb" />
     <Content Include="Content\js\filetree\connectors\jqueryFileTree_huck.lasso" />
     <Content Include="Content\js\filetree\connectors\jqueryFileTree_sabourdin.lasso" />
-    <Content Include="Areas\Document\Views\DOC05\GetFiles.cshtml" />
-    <Content Include="Areas\Document\Views\DOC05\Details.cshtml" />
-    <Content Include="Areas\Document\Views\DOC05\Form.cshtml" />
-    <Content Include="Areas\Document\Views\DOC05\Index.cshtml" />
-    <Content Include="Areas\Document\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Document\Views\DOC05\Index2.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC05\GetFiles.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC05\Details.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC05\Form.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC05\Index.cshtml" />
+    <Content Include="Areas\DocManage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\DocManage\Views\DOC05\Index2.cshtml" />
     <Content Include="Content\js\elFinder\bower.json" />
     <Content Include="Content\js\elFinder\Changelog" />
     <Content Include="Content\js\elFinder\composer.json" />
@@ -1591,6 +1596,10 @@
     <Content Include="Content\js\bootstrap-colorpicker\README.md" />
     <Content Include="Content\js\bootstrap-colorpicker\src\less\colorpicker.less" />
     <Content Include="Content\js\bootstrap-colorpicker\src\sass\_colorpicker.scss" />
+    <Content Include="Areas\Human\Views\HRS02\Index.cshtml" />
+    <Content Include="Areas\Human\Views\HRS02\Form.cshtml" />
+    <Content Include="Areas\Human\Views\HRS02\Details.cshtml" />
+    <Content Include="Areas\WorkflowControl\Views\WFC05\Edit.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -1856,6 +1865,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reports\ORD02_R01.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\DOC01_R02.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\DOC01_R03.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
