@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: V_SRVPRODDL_CCM
-	public class V_SRVPRODDL_CCMRepository : RepositoryBase<V_SRVPRODDL_CCMEntity>, IV_SRVPRODDL_CCMRepository
+	//mapping table name: PO_PUBLIC_OBJECT_ATTEND_EMP
+	public class PO_PUBLIC_OBJECT_ATTEND_EMPRepository : RepositoryBase<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>, IPO_PUBLIC_OBJECT_ATTEND_EMPRepository
     {
     }
 }

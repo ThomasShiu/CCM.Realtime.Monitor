@@ -50,17 +50,17 @@ namespace CCM.Web.EIP
               .Build();
 
             ITrigger trigger2 = TriggerBuilder.Create()
-              .WithCronSchedule("0 0 9 * * ?")
+              .WithCronSchedule("0 0 9 * * ?")  // 9:00 執行
               .WithIdentity("ComputOrderTrigger")
               .Build();
 
             ITrigger trigger3 = TriggerBuilder.Create()
-             .WithCronSchedule("0 7,22 * * * ?") 
+             .WithCronSchedule("0 30 9-16 * * ?") 
              .WithIdentity("SyncErpTrigger")
              .Build();
 
             ITrigger trigger4 = TriggerBuilder.Create()
-             .WithCronSchedule("0 0 9 * * ?")  // 周一至周五 9:00 執行
+             .WithCronSchedule("0 0 9 * * ?")  // 9:00 執行
              .WithIdentity("BookingCarTrigger")
              .Build();
 

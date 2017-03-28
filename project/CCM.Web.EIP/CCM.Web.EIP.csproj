@@ -974,8 +974,8 @@
     <Content Include="Content\js\indextab.js" />
     <Content Include="Content\js\framework-ui.js" />
     <Content Include="Content\js\isMobile.js" />
-    <Content Include="Content\js\jqgrid\grid.locale-tw.js" />
     <Content Include="Content\js\jqgrid\grid.locale-cn.js" />
+    <Content Include="Content\js\jqgrid\grid.locale-tw.js" />
     <Content Include="Content\js\jqgrid\jqgrid - 複製.css" />
     <Content Include="Content\js\jqgrid\jqgrid.css" />
     <Content Include="Content\js\jqgrid\jqgrid.min.js" />
@@ -1565,7 +1565,6 @@
     <Content Include="Content\js\JQTouch\README.md" />
     <Content Include="Content\js\JQTouch\VERSIONS.md" />
     <Content Include="Areas\OrderManage\Views\ORD07\Form2.cshtml" />
-    <Content Include="Areas\PublicObject\Views\PUB02\Form4.cshtml" />
     <Content Include="Content\js\bootstrap-colorpicker\.editorconfig" />
     <Content Include="Content\js\bootstrap-colorpicker\.jshintrc" />
     <Content Include="Content\js\bootstrap-colorpicker\.travis.yml" />
@@ -1600,6 +1599,8 @@
     <Content Include="Areas\Human\Views\HRS02\Form.cshtml" />
     <Content Include="Areas\Human\Views\HRS02\Details.cshtml" />
     <Content Include="Areas\WorkflowControl\Views\WFC05\Edit.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB02\Form_old.cshtml" />
+    <Content Include="Areas\PublicObject\Views\PUB02\Form4.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -1875,6 +1876,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Reports\DOC01_R03.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\PUB02_R03.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\PUB02_R04.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -171,10 +171,10 @@
                     var counter = 0;
                     $.each(data.CarList, function (i, item) {
                         if (data.CarList[i].BookingStartTime != '') {
-                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="menuItem">  ' +
+                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub?keyword2=' + data.CarList[i].SID + '\"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="menuItem">  ' +
                                 data.CarList[i].BookingStartTime + '~' + data.CarList[i].BookingEndTime + '</span><span class="time"><a class="menuItem" href="javascript:;"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
                         } else {
-                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time"><a class="menuItem" href="javascript:;"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
+                            trHTML += '<li><a class="menuItem" href="/PublicObject/PUB02/IndexPub?keyword2=' + data.CarList[i].SID + '\"  target="_blank">【公務車】' + data.CarList[i].ObjectNM + '</a><span class="time"><a class="menuItem" href="javascript:;"  onclick="btn_addCarBooking(\'' + data.CarList[i].SID + '\',\'' + data.CarList[i].ObjectNM + '\')">' + data.CarList[i].Status + '</a></span></li>';
                         }
                         if (data.CarList[i].Status != '可借用') {
                             counter++;
@@ -267,7 +267,7 @@
                     var trHTML = '';
                     var counter = 0;
                     $.each(data.OutdoorEmpList, function (i, item) {
-                        trHTML += '<li><a class="menuItem" href="#top" >' + data.OutdoorEmpList[i].AttendEmp + ' : ' + data.OutdoorEmpList[i].Subject + ' - ' + data.OutdoorEmpList[i].BookingStartTime + '~' + data.OutdoorEmpList[i].BookingEndTime + '</a></li>';
+                        trHTML += '<li><a class="menuItem" href="#top" ><b>' + data.OutdoorEmpList[i].AttendEmp + '</b> : ' + data.OutdoorEmpList[i].Subject + ' - ' + data.OutdoorEmpList[i].BookingStartTime + '~' + data.OutdoorEmpList[i].BookingEndTime + '</a></li>';
                         counter++;
                     });
 

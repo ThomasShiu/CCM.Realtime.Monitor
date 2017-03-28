@@ -167,28 +167,7 @@
         }
     }
 
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
-        var status = $("#gridList").jqGridRowValue().Status;
-        //var guid = $("#gridList").jqGridRowValue().GUID;
-        if (status != '結束') {
-            $.modalOpen({
-                id: "Form",
-                title: "修改資料",
-                url: "/PublicObject/PUB03/Form?keyValue=" + keyValue,
-                width: "800px",
-                height: "680px",
-                callBack: function (iframeId) {
-                    top.frames[iframeId].submitForm();
-                }
-            });
-        } else {
-            msg = "此單據已結束，不可修改。";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-        }
-    }
+
     function btn_edit_admin() {
         var keyValue = $("#gridList").jqGridRowValue().SID;
 

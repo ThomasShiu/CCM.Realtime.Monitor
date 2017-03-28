@@ -1,163 +1,333 @@
 ﻿@{
-    ViewBag.Title = "IndexEmp";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
-
 <script>
-    //AddAntiForgeryToken = function (data) {
-    //    data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
-    //    return data;
-    //};
-
     $(function () {
         gridList();
-
     })
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/WorkflowControl/WFC08/GetGridJsonEmp",
-            height: $(window).height() - 128,
+            //treeGrid: true,
+            //treeGridModel: "adjacency",
+            url: "/WorkflowControl/WFC08/GetGridJsonList",
+            height: $(window).height() - 100,
             colModel: [
-				    { label: "加班單號", name: "OVRTNO", key: true, width: 80, align: 'left' },
-                     { label: "工號", name: "EMPLYID", width: 80, align: 'left' },
-				    {
-				        label: "出勤人員", name: "", width: 80, align: 'left',
-				        formatter: function (cellvalue, options, rowObject) {
-				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
-				        }
-				    },
-                    { label: "部門代碼", name: "DEPID", hidden: true, width: 40, align: 'left' },
+				    { label: "SID", name: "SID", key: true, hidden: true, width: 80, align: 'left' },
+                    { label: "FLOWID", name: "FLOWID", hidden: true, width: 80, align: 'left' },
+                     {
+                         label: "簽核", name: "", width: 40, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             var usercode = rowObject.EMPLYID;
+                             var ovrtno = rowObject.DOCID;
+                             var sid = rowObject.SID;
+                             var signdate = rowObject.SIGNDATE;
+                             var status = rowObject.STATUS;
+                             var overt46 = rowObject.OVRT46;
+                             //alert(signdate);
+                             if (status == 'SN' | signdate == null) {
+                                 return ' <button id="NF-signwith" class=\'btn btn-success btn-xs\' onclick=\'btn_signwith(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\",\"' + overt46 + '\")\'>簽核</button>';
+                             } else {
+                                 return ''
+                             }
+                         }
+                     },
+                    { label: "單別", name: "FLOWNM", width: 50, align: 'left' },
+                    { label: "單號", name: "DOCID", width: 80, align: 'left' },
                     {
-                        label: "部門", name: "", width: 120, align: 'left',
-                        formatter: function (cellvalue, options, rowObject) {
-                            return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
-                        }
+                       label: "加班日", name: "MRDT", width: 70, align: 'left',
+                       formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                     },
-                     { label: "加班原因", name: "DEREASON", width: 150, align: 'left' },
-                     { label: "STATUS", name: "STATUS", hidden: true, width: 50, align: 'left' },
-
-
-				    {
-				        label: "預計加班-起", name: "FETB", width: 120, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-
-				    },
-				    {
-				        label: "預計加班-迄", name: "FETE", width: 120, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-				    },
-				    { label: "實際加班-起", name: "DETB", hidden: true, width: 80, align: 'left' },
-				    { label: "實際加班-迄", name: "DETE", hidden: true, width: 80, align: 'left' },
-				    { label: "申請時數", name: "DEMIN", width: 80, align: 'center' },
-				    { label: "人資時數", name: "REHRS1", width: 80, align: 'center' },
-				    { label: "費用別", name: "OVRTP", hidden: true, width: 80, align: 'left' },
-				   {
-				       label: "送簽日", name: "APPDATE", width: 80, align: 'left',
-				       formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-				   },
-				    {
-				        label: "完簽日", name: "EXC_UPDDATE", width: 80, align: 'left',
-				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-				    },
-
-				    { label: "記薪月份", name: "OWMON", hidden: true, width: 80, align: 'left' },
-                      {
-                          label: "狀態", name: "", width: 50, align: 'left',
-                          formatter: function (cellvalue, options, rowObject) {
-                              //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
-                              if (rowObject.STATUS == 'OP') {
-                                  return '<span class=\"label label-default\">未送簽</span>';
-                              } else if (rowObject.STATUS == 'SN') {
-                                  return '<span class=\"label label-primary\">簽核中</span>';
-                              } else if (rowObject.STATUS == 'CF') {
-                                  return '<span class=\"label label-success\">已核准</span>';
-                              } else if (rowObject.STATUS == 'CL') {
-                                  return '<span class=\"label label-warning\">已退回</span>';
-                              } else if (rowObject.STATUS == 'NL') {
-                                  return '<span class=\"label label-danger\">已作廢</span>';
-                              } else if (rowObject.STATUS == 'PB') {
-                                  return '<span class=\"label label-default\">已撤簽</span>';
-                              }
-                          }
-                      },
+                    { label: "預計加班", name: "DEMIN", width: 50, align: 'center' },
+                    { label: "加班原因", name: "SUBJECT", width: 200, align: 'left' },
+                    { label: "部門代號", name: "DEPID", hidden: true, width: 60, align: 'left' },
+                    { label: "部門名稱", name: "DEPM_NM", width: 120, align: 'left' },
+                    { label: "申請人員", name: "EMP_NM", width: 60, align: 'left' },
+                    { label: "STATUS", name: "STATUS", hidden: true, width: 60, align: 'left' },
                     {
-                        label: "執行", name: "",  width: 80, align: 'center',
+                        label: "簽核狀態", name: "", width: 60, align: 'left',
                         formatter: function (cellvalue, options, rowObject) {
-                            var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
-                            var ovrtno = rowObject.OVRTNO;
-                            //alert(ovrtno);
-                            if (rowObject.EMPLYID == usercode & (rowObject.STATUS == 'OP' | rowObject.STATUS == 'PB')) {
-                                return '<button class=\'btn btn-success btn-xs\' onclick=\'submitSN(\"' + ovrtno + '\")\'>送簽</button> <button class=\'btn btn-danger btn-xs\' onclick=\'invalidSN(\"' + ovrtno + '\",\"NL\")\'>作廢</button>';
-                            } else if (rowObject.EMPLYID == usercode & rowObject.STATUS == 'SN') {
-                                return '<button class=\'btn btn-danger btn-xs\' onclick=\'rejectSN(\"' + ovrtno + '\",\"PB\")\'>撤簽</button>';
-                            } else {
-                                return '';
+                            //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                            if (rowObject.STATUS == 'OP') {
+                                return '<h5><span class=\"label label-default\">未送簽</span></h5>';
+                            } else if (rowObject.STATUS == 'SN') {
+                                return '<h5><span class=\"label label-primary\">簽核中</span></h5>';
+                            } else if (rowObject.STATUS == 'CF') {
+                                return '<h5><span class=\"label label-success\">已核准</span></h5>';
+                            } else if (rowObject.STATUS == 'CL') {
+                                return '<h5><span class=\"label label-warning\">已退回</span></h5>';
+                            } else if (rowObject.STATUS == 'NL') {
+                                return '<h5><span class=\"label label-danger\">已作廢</span></h5>';
+                            } else if (rowObject.STATUS == 'PB') {
+                                return '<h5><span class=\"label label-default\">已撤簽</span></h5>';
                             }
+
                         }
                     },
+                    { label: "送簽日", name: "SENDDATE", width: 80, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                    },
+                    { label: "簽核日", name: "SIGNDATE", width: 80, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                    },
+
+                     { label: "簽核人員", name: "EMPLYID", hidden: true, width: 80, align: 'left' },
+                     {
+                          label: "查看", name: "", width: 40, align: 'center',
+                          formatter: function (cellvalue, options, rowObject) {
+                              var usercode = rowObject.EMPLYID;
+                              var ovrtno = rowObject.DOCID;
+                              var sid = rowObject.SID;
+                              var signdate = rowObject.SIGNDATE;
+                              //alert(signdate);
+                              var v_button = '<button class=\'btn btn-default btn-xs\' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';
+                              return v_button;
+                          }
+                     },
+                     //{
+                     //    label: "簽核", name: "", width: 40, align: 'center',
+                     //    formatter: function (cellvalue, options, rowObject) {
+                     //        var usercode = rowObject.EMPLYID;
+                     //        var ovrtno = rowObject.DOCID;
+                     //        var sid = rowObject.SID;
+                     //        var signdate = rowObject.SIGNDATE;
+                     //        var status = rowObject.STATUS;
+                     //        //alert(signdate);
+
+                     //        if (signdate == '' | signdate == null) {
+                     //            return ' <button class=\'btn btn-info btn-xs\' onclick=\'btn_sign(\"' + ovrtno + '\",\"' + sid + '\",\"' + usercode + '\")\'>核准</button>';
+                     //        } else {
+                     //            return ''
+                     //        }
+                     //    }
+                     //},
+                     
+                       //{
+                       //    label: "退回", name: "", width: 40, align: 'center',
+                       //    formatter: function (cellvalue, options, rowObject) {
+                       //        var usercode = rowObject.EMPLYID;
+                       //        var ovrtno = rowObject.DOCID;
+                       //        var sid = rowObject.SID;
+                       //        var signdate = rowObject.SIGNDATE;
+                       //        var status = rowObject.STATUS;
+                       //        //alert(signdate);
+                       //        if (status == 'SN' | signdate == null) {
+                       //            return ' <button class=\'btn btn-danger btn-xs\' onclick=\'rejectSN(\"' + ovrtno + '\",\"CL\")\'>退回</button>';
+                       //        } else {
+                       //            return ''
+                       //        }
+                       //    }
+                       //},
+                      {
+                          label: "OVRT46", name: "OVRT46", hidden: true, width: 50, align: 'center'
+                      },
+                      {
+                          label: "", name: "",  width: 50, align: 'center'
+                      },
 
             ],
-			pager: "#gridPager",
-			sortname: 'OVRTNO asc,APPDATE desc',
-			viewrecords: true,
-			loadComplete: function () {
-			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
-			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
-			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
-			}
+            //pager: "#gridPager",
+            rowNum: 10000,
+            viewrecords: true,
+            multiselect: true,
+            loadComplete: function () {
+                //$("#cb_" + this.id).click(); //全選
+                //var cbs = $("tr.jqgrow > td > input.cbox:even", grid[0]);
+                //cbs.attr("style", "vertical-align:middle;");
+
+                $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+                var rowIds = $('#gridList').jqGrid('getDataIDs');
+                for (i = 0; i < rowIds.length; i++) {//iterate over each row
+                    rowData = $('#gridList').jqGrid('getRowData', rowIds[i]);
+                    //set background style if ColValue === true\
+                    if (rowData['OVRT46'] === "Y") {
+                        $('#gridList').jqGrid('setRowData', rowIds[i], false, "myAltRowClassLock");
+                    }
+                }
+            },
+            rowattr: function (item, rd, rowid) {
+                //$('.cbox').attr('checked', true);
+                return { "onclick": "showChoiceCount()" };
+            }
+            //sortname: 'DOCID asc,SENDDATE desc',
+            //viewrecords: true
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
                 postData: { keyword: $("#txt_keyword").val() },
             }).trigger('reloadGrid');
         });
+
     }
-    function btn_add() {
-        $.modalOpen({
-            id: "Form",
-            title: "新增資料",
-            url: "/WorkflowControl/WFC08/Form",
-            width: "900px",
-            height: "600px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
+
+    function showChoiceCount() {
+       // 顯示已選取幾筆
+        setTimeout(function () {
+            var grid = $("#gridList");
+            var rowKey = grid.getGridParam("selrow");
+            if (rowKey) {
+                var selectedIDs = grid.getGridParam("selarrrow");
+                var result = "";
+                var count = 0;
+                for (var i = 0; i < selectedIDs.length; i++) {
+                    result += selectedIDs[i] + ",";
+                    count += 1;
+                }
             }
-        });
+            $('#choiceCount').text(count);
+            //alert(result);
+        }, 200);
+
     }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
-        var status = $("#gridList").jqGridRowValue().STATUS;
-        if (status == 'SN' | status == 'NL' | status == 'CF' ) {
-            msg = "此單據不可修改。";
+    // 批次簽核功能
+    function batchSign() {
+        var grid = $("#gridList");
+        var rowKey = grid.getGridParam("selrow");
+
+        if (!rowKey) {
+            //alert("No rows are selected");
+            msg = "沒有選取到任何資料列!";
             window.setTimeout(function () {
                 $.modalMsg(msg, "warning");
             }, 500);
-            return;
         }
+        else {
+            var selectedIDs = grid.getGridParam("selarrrow");
 
-        $.modalOpen({
-            id: "Form",
-            title: "修改資料",
-            url: "/WorkflowControl/WFC08/Form?keyValue=" + keyValue,
-            width: "900px",
-            height: "640px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
+            var result = "";
+            var count = 0;
+            for (var i = 0; i < selectedIDs.length; i++) {
+                result += selectedIDs[i] + ","; // 簽核途程明細 SID(已選取的)
+                count += 1;
+            }
+            $('#choiceCount').text(count);
+            //alert(result + ',' + emplyid);
+
+            $.modalConfirm("注：您確定要批次核准加班單嗎？", function (r) {
+                if (r) {
+                    $.ajax({
+                        url: "/WorkflowControl/WFC00/ConfirmSign",
+                        data: { signids: result },
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            msg = "簽核成功!";
+                            window.setTimeout(function () {
+                                $.modalMsg(msg, "success");
+                            }, 500);
+                            $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        },
+                        error: function (data) {
+                            msg = "簽核發生異常!";
+                            window.setTimeout(function () {
+                                $.modalMsg(msg, "warning");
+                            }, 500);
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    // 批次簽核
+    function btn_batch() {
+        batchSign();
+    }
+    // 單筆簽核
+    function btn_sign() {
+        var keyValue = arguments[0];  // 加班單號
+        var keyValue1 = arguments[1]; // 簽核途程明細 SID
+        var keyValue2 = arguments[2]; // 簽核人員工號
+        //alert(keyValue + ',' + keyValue1 + ',' + keyValue2);
+
+        $.modalConfirm("注：您確定要單筆核准加班單嗎？", function (r) {
+            if (r) {
+               $.ajax({
+                url: "/WorkflowControl/WFC00/ConfirmSign",
+                data: { signids: keyValue1, emplyid: keyValue2 },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    msg = "簽核成功!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "success");
+                    }, 500);
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                },
+                error: function (data) {
+                    msg = "簽核發生異常!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+                }
+            });
             }
         });
     }
-    function btn_delete() {
-        $.deleteForm({
-            url: "/WorkflowControl/WFC08/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().OVRTNO },
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
+
+    // 退回加班單
+    function rejectSN() {
+        var keyValue = arguments[0];  // 加班單號
+        var keyValue1 = arguments[1]; // 退回 : CL
+        //alert('加班單號:' + keyValue + ',ACT:' + keyValue1);
+        $.modalConfirm("注：您確定要退回此加班單嗎？", function (r) {
+            if (r) {
+                $.ajax({
+                    url: "/WorkflowControl/WFC00/RejectSign",
+                    data: { keyValue: keyValue, act: keyValue1 },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        msg = "退回成功!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    },
+                    error: function (data) {
+                        msg = "退回加班單發生異常!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "warning");
+                        }, 500);
+                    }
+                });
             }
-        })
+        });
     }
+
+    // 會簽
+    function btn_signwith() {
+
+        var keyValue = arguments[0];  // 加班單號
+        var keyValue1 = arguments[1]; // 簽核途程明細 SID
+        var keyValue2 = arguments[2]; // 簽核人員工號
+        var keyValue3 = arguments[3]; // OVRT46
+        if (keyValue3 === "Y") {
+            msg = "該員已達法定每月最高加班時數46小時!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+        
+
+        //alert(keyValue);
+        $.modalOpen({
+            id: "Form2",
+            title: "簽核作業",
+            url: "/WorkflowControl/WFC08/Signwith?keyValue=" + keyValue + "&keyValue1=" + keyValue1,
+            width: "940px",
+            height: "640px",
+            btn: null,
+        });
+    }
+
+    // 查看
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        //var keyValue = $("#gridList").jqGridRowValue().SID;
+        var keyValue = arguments[0];
+        //alert(keyValue);
         $.modalOpen({
             id: "Details",
             title: "查看資料",
@@ -167,97 +337,24 @@
             btn: null,
         });
     }
-    function submitSN() {
-        //alert('加班單號:'+arguments[0]);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/SendSign",
-            data: { keyValue: arguments[0] },
-            //headers: { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "送簽成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function (data) {
-                msg = "送簽發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
-            }
-        });
-    }
-
-    function rejectSN() {
-        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
-        $.ajax({
-            url: "/WorkflowControl/WFC00/RejectSign",
-            data: { keyValue: arguments[0], act: arguments[1] },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                msg = "撤簽成功!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "success");
-                }, 500);
-            },
-            error: function (data) {
-                msg = "撤簽發生異常!";
-                window.setTimeout(function () {
-                    $.modalMsg(msg, "warning");
-                }, 500);
-            }
-        });
-    }
-
-    function invalidSN() {
-        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
-        if (confirm('確定要作廢此筆加班單嗎?\r\n加班單號:'+ arguments[0])) {
-            $.ajax({
-                url: "/WorkflowControl/WFC00/RejectSign",
-                data: { keyValue: arguments[0], act: arguments[1] },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
-                    msg = "作廢成功!";
-                    window.setTimeout(function () {
-                        $.modalMsg(msg, "success");
-                    }, 500);
-                },
-                error: function (data) {
-                    msg = "作廢發生異常!";
-                    window.setTimeout(function () {
-                        $.modalMsg(msg, "warning");
-                    }, 500);
-                }
-            });
-        } else {
-            // Do nothing!
-        }
-
-    }
-
-
 </script>
+
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
-        <div class="btn-group">
+        @*<div class="btn-group">
             <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+        </div>*@
+        <div class="btn-group">
+            <a id="NF-batch2" class="btn btn-danger dropdown-text" onclick="btn_batch()"><i class="fa fa-pencil-square-o "></i>批次簽核</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
-                <li class="first">已選中<span>1</span>項</li>
-                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
-                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
-                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+                <li class="first">已選中<span id="choiceCount">1</span>項</li>
+                @*<li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>*@
+                <li><a id="NF-batch" authorize="yes" onclick="btn_batch()"><i class="fa fa-pencil-square-o "></i>批次簽核</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>
@@ -268,18 +365,19 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="單號/姓名/部門" style="width: 200px;">
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </td>
+
             </tr>
         </table>
     </div>
 </div>
 <div class="gridPanel">
     <table id="gridList"></table>
-    <div id="gridPager"></div>
+    @*<div id="gridPager"></div>*@
 </div>
 

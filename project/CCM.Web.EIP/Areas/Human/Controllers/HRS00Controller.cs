@@ -109,8 +109,8 @@ namespace CCM.Web.EIP.Areas.Human.Controllers
                 "    0 LAK_MON_AMT,0 OVT1_HR_FT,0 OVT2_HR_FT,0 HLD_HR_FT,0 OVT_HR,0 HR_AMT1,0 HR_AMT2,0 FT_HLD_AMT,0 IT_HLD_AMT,0 FFRE_OVT,0 FTAX_OVT,0 FAMT,0 LATE_EXP "+
                 " FROM EIP.dbo.V_HR_EMPPAYMT "+
                 " WHERE SID = @SID ";
-            string YYYYMM = "", EMPLYID = "", EMPLYNM = "", PIDNO="", DEPNM="",AMT="", CP_LIS_EXP="", CP_EIS_EXP="", CP_HIS_EXP="", CP_LPS_EXP="",
-                LIS_SLY="", EIS_SLY="", HIS_SLY="", LPS_SLY="",LIS_EXP="", EIS_EXP="", HIS_EXP="", ADD_EXP="", OVT1_HR="", OVT2_HR="", OVT3_HR="", HLD_HR="";
+            string YYYYMM = "", EMPLYID = "", EMPLYNM = "", PIDNO = "", DEPNM = "", AMT = "", CP_LIS_EXP = "", CP_EIS_EXP = "", CP_HIS_EXP = "", CP_LPS_EXP = "",
+                LIS_SLY = "", EIS_SLY = "", HIS_SLY = "", LPS_SLY = "", LIS_EXP = "", EIS_EXP = "", HIS_EXP = "", ADD_EXP = "";//, OVT1_HR="", OVT2_HR="", OVT3_HR="", HLD_HR="";
 
             //1.引用SqlConnection物件連接資料庫
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString))

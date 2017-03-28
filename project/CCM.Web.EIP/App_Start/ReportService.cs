@@ -74,6 +74,56 @@ namespace CCM.Web.EIP
         }
         #endregion
 
+        #region 公務車每日里程統計表-NEW 2017-03-27
+        public LocalReport PUB01_R03(string keyValue, string type, string path)
+        {
+            string v_sqlstr = " SELECT A.SID, A.ObjectType,B.ObjectNM, A.UseReason, A.Subject, A.[Description], A.EmployeeID, A.DepartmentID, A.ObjectSID,  " +
+                            "          A.BookingStartTime, A.BookingEndTime, A.AttendEmp, A.ProjectSID, A.Mileage, A.MileageLast,(A.Mileage - A.MileageLast) ttlmile, " +
+                            "          A.Status, A.LeaveTime, A.BackTime, A.GuardEMPID,C.USR_NM,A.GUID " +
+                            "  FROM PO_PUBLIC_OBJECT_BOOKING A LEFT JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID " +
+                            "  LEFT JOIN PO_GUARDNO C ON A.GuardEMPID = C.USR_NO " +
+                            "  WHERE CONVERT(VARCHAR(10), A.BookingEndTime, 120) = '" + keyValue + "' " +
+                            "  AND A.ObjectType = '公務車輛' AND A.Status = '結束' " +
+                            "  ORDER BY B.ObjectNM,A.GuardEMPID ";
+            
+            //資料集
+            DataTable dt = cs.GetDataSet(v_sqlstr);
+
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = path;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", dt);
+            localReport.DataSources.Add(reportDataSource);
+            localReport.EnableExternalImages = true;
+
+            ReportParameter p_1 = new ReportParameter("P_date", keyValue);
+            localReport.SetParameters(new ReportParameter[] { p_1 });
+
+            localReport.SubreportProcessing += new SubreportProcessingEventHandler(SetSubReportData);
+
+            localReport.Refresh();
+
+            
+            return localReport;
+        }
+        public void SetSubReportData(object sender, SubreportProcessingEventArgs e)
+        {
+            try
+            {
+                string psid = (e.Parameters["ParentSID"].Values[0]); //子表傳遞參數值
+
+                string v_sqlstr = " SELECT SID, ParentSID, DEPID, dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM, EMP_NO,dbo.SF_GETEMPNAME(EMP_NO) EMP_NM " +
+                                  " FROM PO_PUBLIC_OBJECT_ATTEND_EMP WHERE ParentSID = '" + psid + "' ";
+
+                //資料集
+                DataTable dt = cs.GetDataSet(v_sqlstr);
+                e.DataSources.Add(new ReportDataSource("SubDataSet1", dt));  //設定來源
+            }
+            catch (Exception ex) {
+                throw ex.InnerException;
+            }
+        }
+        #endregion
+
         #region 公務車每月里程統計表
         public LocalReport PUB01_R02(string keyValue, string type, string path)
         {

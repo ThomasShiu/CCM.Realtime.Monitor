@@ -6,9 +6,10 @@
 <script src="~/Content/js/jqtimers/jquery.timers.js"></script>
 <script>
     var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
+    var keyword2 = $.request("keyword2");
     $(function () {
         gridList();
-
+        
         // 公共物件
         $("#PublicObject").bindSelect2({
             url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
@@ -16,10 +17,13 @@
             text: "ObjectNM"
         });
         
+
     })
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
+            treeGrid: true,
+            treeGridModel: "adjacency",
             url: "/PublicObject/PUB02/GetCarGridJson",
             height: 350,
             colModel: [
@@ -127,7 +131,7 @@
             var timeType = $("#time_horizon a.active").attr('data-value');
             var queryJson = {
                 keyword: $("#txt_keyword").val(),
-                keyword2: $('#PublicObject').val(),
+                keyword2: $("#PublicObject").val(),
                 timeType: timeType,
             }
             $gridList.jqGrid('setGridParam', {
@@ -257,6 +261,11 @@
     }
 
     $(document).ready(function () {
+        
+        setTimeout(function () {
+            $("#PublicObject").val(keyword2)
+            $("#btn_search").click();
+        }, 800);
         //每5分鐘執行，無限次，並命名計時器名稱為 Timer1 30das
         //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
         $('body').everyTime('30das', 'TimerCarBooking', function () {
@@ -360,8 +369,7 @@
                     url: '/PublicObject/PUB02/GetCalendarJson',
                     type: 'Get',
                     data: {
-                        custom_param1: 'something',
-                        custom_param2: 'somethingelse'
+                        keyword: keyword2
                     },
                     error: function() {
                         alert('there was an error while fetching events!');

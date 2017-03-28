@@ -46,7 +46,7 @@ namespace CCM.Application
             if (!queryParam["keyword2"].IsEmpty())
             {
                 string keyword2 = queryParam["keyword2"].ToString();
-                expression = expression.And(t => t.ObjectSID.Contains(keyword2));
+                 expression = expression.And(t => t.ObjectSID.Contains(keyword2));
             }
 
             // 日期條件
@@ -86,6 +86,27 @@ namespace CCM.Application
                 expression = expression.Or(t => t.BookingEndTime > startTime && t.BookingEndTime < endTime);
             }
             
+            expression = expression.And(t => t.ObjectType == "公務車輛" || t.ObjectType == "私人車輛");
+            return service.FindList(expression, pagination);
+        }
+
+        // 公務車
+        public List<PO_PUBLIC_OBJECT_BOOKINGEntity> GetList_BookingCar2(Pagination pagination, string keyword = "")
+        {
+            var expression = ExtLinq.True<PO_PUBLIC_OBJECT_BOOKINGEntity>();
+            // 關鍵字
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.ObjectSID.Contains(keyword));
+            }
+
+            DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd 23:59:00").ToDate().AddDays(-1);
+            DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd 23:59:00").ToDate();
+            //startTime = DateTime.Now.AddDays(-1);
+            expression = expression.And(t => t.BookingStartTime > startTime && t.BookingStartTime < endTime);
+            expression = expression.Or(t => t.BookingEndTime > startTime && t.BookingEndTime < endTime);
+
+
             expression = expression.And(t => t.ObjectType == "公務車輛" || t.ObjectType == "私人車輛");
             return service.FindList(expression, pagination);
         }

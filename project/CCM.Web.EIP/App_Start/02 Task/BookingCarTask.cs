@@ -31,20 +31,26 @@ namespace CCM.Web.EIP
             string today = DateTime.Now.ToString("yyyy-MM-dd");
             string tomorrow = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
             string holiday = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd");
+            string guid = DateTime.Now.ToString("yyyyMMdd")+"-"+CommonCCm.GuId();
             string SQL = "";
             switch (day)
             {
                 case "1":case "2":case "3":case "4":
-                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor) " +
-                          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:00', '"+ tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
+                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '"+ tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','"+ guid + "','CISERVER')";
                     ExecuteSQL(SQL);
+                    
                     break;
                 case "5":
-                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor) " +
-                         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:00', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000')";
+                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
                     ExecuteSQL(SQL);
                     break;
             }
+            // 外出人員
+            SQL = " INSERT INTO PO_PUBLIC_OBJECT_ATTEND_EMP(ParentSID, DEPID, EMP_NO,CreatorUserId) " +
+                         "  VALUES('" + guid + "','H00','B060309','CISERVER')";
+            ExecuteSQL(SQL);
         }
         #endregion
 
@@ -63,9 +69,9 @@ namespace CCM.Web.EIP
                     string msg = String.Format("BookingCar() at {0:yyyy/MM/dd HH:mm:ss}", DateTime.Now);
                     Log(msg);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
+                        throw ex.GetBaseException();
                     }
                     finally{
                         conn.Close();

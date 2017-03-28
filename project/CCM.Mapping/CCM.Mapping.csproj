@@ -75,6 +75,7 @@
     <Compile Include="OrderManage\BU_ORDERS_SOTREMap.cs" />
     <Compile Include="PublicObject\BU_FEEDBACKMISMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
+    <Compile Include="PublicObject\PO_PUBLIC_OBJECT_ATTEND_EMPMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
     <Compile Include="PublicObject\PU_ATTACH_FILEMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />

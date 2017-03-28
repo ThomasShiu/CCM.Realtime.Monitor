@@ -46,6 +46,8 @@ namespace CCM.Web.EIP.App_Data {
         
         private BU_ORDER_4DataTable tableBU_ORDER_4;
         
+        private PO_PUBLIC_OBJECT_ATTEND_EMPDataTable tablePO_PUBLIC_OBJECT_ATTEND_EMP;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -106,6 +108,9 @@ namespace CCM.Web.EIP.App_Data {
                 }
                 if ((ds.Tables["BU_ORDER_4"] != null)) {
                     base.Tables.Add(new BU_ORDER_4DataTable(ds.Tables["BU_ORDER_4"]));
+                }
+                if ((ds.Tables["PO_PUBLIC_OBJECT_ATTEND_EMP"] != null)) {
+                    base.Tables.Add(new PO_PUBLIC_OBJECT_ATTEND_EMPDataTable(ds.Tables["PO_PUBLIC_OBJECT_ATTEND_EMP"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -237,6 +242,16 @@ namespace CCM.Web.EIP.App_Data {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PO_PUBLIC_OBJECT_ATTEND_EMPDataTable PO_PUBLIC_OBJECT_ATTEND_EMP {
+            get {
+                return this.tablePO_PUBLIC_OBJECT_ATTEND_EMP;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -334,6 +349,9 @@ namespace CCM.Web.EIP.App_Data {
                 }
                 if ((ds.Tables["BU_ORDER_4"] != null)) {
                     base.Tables.Add(new BU_ORDER_4DataTable(ds.Tables["BU_ORDER_4"]));
+                }
+                if ((ds.Tables["PO_PUBLIC_OBJECT_ATTEND_EMP"] != null)) {
+                    base.Tables.Add(new PO_PUBLIC_OBJECT_ATTEND_EMPDataTable(ds.Tables["PO_PUBLIC_OBJECT_ATTEND_EMP"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -434,6 +452,12 @@ namespace CCM.Web.EIP.App_Data {
                     this.tableBU_ORDER_4.InitVars();
                 }
             }
+            this.tablePO_PUBLIC_OBJECT_ATTEND_EMP = ((PO_PUBLIC_OBJECT_ATTEND_EMPDataTable)(base.Tables["PO_PUBLIC_OBJECT_ATTEND_EMP"]));
+            if ((initTable == true)) {
+                if ((this.tablePO_PUBLIC_OBJECT_ATTEND_EMP != null)) {
+                    this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -466,6 +490,8 @@ namespace CCM.Web.EIP.App_Data {
             base.Tables.Add(this.tableBU_ORDER_3);
             this.tableBU_ORDER_4 = new BU_ORDER_4DataTable();
             base.Tables.Add(this.tableBU_ORDER_4);
+            this.tablePO_PUBLIC_OBJECT_ATTEND_EMP = new PO_PUBLIC_OBJECT_ATTEND_EMPDataTable();
+            base.Tables.Add(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -531,6 +557,12 @@ namespace CCM.Web.EIP.App_Data {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeBU_ORDER_4() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializePO_PUBLIC_OBJECT_ATTEND_EMP() {
             return false;
         }
         
@@ -621,6 +653,9 @@ namespace CCM.Web.EIP.App_Data {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void BU_ORDER_4RowChangeEventHandler(object sender, BU_ORDER_4RowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEventHandler(object sender, PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1841,6 +1876,12 @@ namespace CCM.Web.EIP.App_Data {
             
             private global::System.Data.DataColumn columnUSR_NM;
             
+            private global::System.Data.DataColumn columnLeaveTime1;
+            
+            private global::System.Data.DataColumn columnBackTime1;
+            
+            private global::System.Data.DataColumn columnGUID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public PO_PUBLIC_OBJECT_BOOKINGDataTable() {
@@ -2044,6 +2085,30 @@ namespace CCM.Web.EIP.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LeaveTime1Column {
+                get {
+                    return this.columnLeaveTime1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BackTime1Column {
+                get {
+                    return this.columnBackTime1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn GUIDColumn {
+                get {
+                    return this.columnGUID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2100,7 +2165,10 @@ namespace CCM.Web.EIP.App_Data {
                         string GuardEMPID, 
                         int ttlmile, 
                         string ObjectNM, 
-                        string USR_NM) {
+                        string USR_NM, 
+                        System.DateTime LeaveTime1, 
+                        System.DateTime BackTime1, 
+                        string GUID) {
                 PO_PUBLIC_OBJECT_BOOKINGRow rowPO_PUBLIC_OBJECT_BOOKINGRow = ((PO_PUBLIC_OBJECT_BOOKINGRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         SID,
@@ -2123,7 +2191,10 @@ namespace CCM.Web.EIP.App_Data {
                         GuardEMPID,
                         ttlmile,
                         ObjectNM,
-                        USR_NM};
+                        USR_NM,
+                        LeaveTime1,
+                        BackTime1,
+                        GUID};
                 rowPO_PUBLIC_OBJECT_BOOKINGRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPO_PUBLIC_OBJECT_BOOKINGRow);
                 return rowPO_PUBLIC_OBJECT_BOOKINGRow;
@@ -2174,6 +2245,9 @@ namespace CCM.Web.EIP.App_Data {
                 this.columnttlmile = base.Columns["ttlmile"];
                 this.columnObjectNM = base.Columns["ObjectNM"];
                 this.columnUSR_NM = base.Columns["USR_NM"];
+                this.columnLeaveTime1 = base.Columns["LeaveTime1"];
+                this.columnBackTime1 = base.Columns["BackTime1"];
+                this.columnGUID = base.Columns["GUID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2221,6 +2295,12 @@ namespace CCM.Web.EIP.App_Data {
                 base.Columns.Add(this.columnObjectNM);
                 this.columnUSR_NM = new global::System.Data.DataColumn("USR_NM", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUSR_NM);
+                this.columnLeaveTime1 = new global::System.Data.DataColumn("LeaveTime1", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveTime1);
+                this.columnBackTime1 = new global::System.Data.DataColumn("BackTime1", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBackTime1);
+                this.columnGUID = new global::System.Data.DataColumn("GUID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGUID);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnSID}, true));
                 this.columnSID.AllowDBNull = false;
@@ -2243,6 +2323,9 @@ namespace CCM.Web.EIP.App_Data {
                 this.columnttlmile.ReadOnly = true;
                 this.columnObjectNM.MaxLength = 50;
                 this.columnUSR_NM.MaxLength = 12;
+                this.columnLeaveTime1.Caption = "LeaveTime";
+                this.columnBackTime1.Caption = "BackTime";
+                this.columnGUID.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5235,6 +5318,342 @@ namespace CCM.Web.EIP.App_Data {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class PO_PUBLIC_OBJECT_ATTEND_EMPDataTable : global::System.Data.TypedTableBase<PO_PUBLIC_OBJECT_ATTEND_EMPRow> {
+            
+            private global::System.Data.DataColumn columnSID;
+            
+            private global::System.Data.DataColumn columnParentSID;
+            
+            private global::System.Data.DataColumn columnDEPID;
+            
+            private global::System.Data.DataColumn columnEMP_NO;
+            
+            private global::System.Data.DataColumn columnDEPNM;
+            
+            private global::System.Data.DataColumn columnEMP_NM;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPDataTable() {
+                this.TableName = "PO_PUBLIC_OBJECT_ATTEND_EMP";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal PO_PUBLIC_OBJECT_ATTEND_EMPDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected PO_PUBLIC_OBJECT_ATTEND_EMPDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SIDColumn {
+                get {
+                    return this.columnSID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ParentSIDColumn {
+                get {
+                    return this.columnParentSID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DEPIDColumn {
+                get {
+                    return this.columnDEPID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EMP_NOColumn {
+                get {
+                    return this.columnEMP_NO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DEPNMColumn {
+                get {
+                    return this.columnDEPNM;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EMP_NMColumn {
+                get {
+                    return this.columnEMP_NM;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRow this[int index] {
+                get {
+                    return ((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEventHandler PO_PUBLIC_OBJECT_ATTEND_EMPRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEventHandler PO_PUBLIC_OBJECT_ATTEND_EMPRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEventHandler PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEventHandler PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddPO_PUBLIC_OBJECT_ATTEND_EMPRow(PO_PUBLIC_OBJECT_ATTEND_EMPRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRow AddPO_PUBLIC_OBJECT_ATTEND_EMPRow(string SID, string ParentSID, string DEPID, string EMP_NO, string DEPNM, string EMP_NM) {
+                PO_PUBLIC_OBJECT_ATTEND_EMPRow rowPO_PUBLIC_OBJECT_ATTEND_EMPRow = ((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        SID,
+                        ParentSID,
+                        DEPID,
+                        EMP_NO,
+                        DEPNM,
+                        EMP_NM};
+                rowPO_PUBLIC_OBJECT_ATTEND_EMPRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowPO_PUBLIC_OBJECT_ATTEND_EMPRow);
+                return rowPO_PUBLIC_OBJECT_ATTEND_EMPRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRow FindBySID(string SID) {
+                return ((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(this.Rows.Find(new object[] {
+                            SID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                PO_PUBLIC_OBJECT_ATTEND_EMPDataTable cln = ((PO_PUBLIC_OBJECT_ATTEND_EMPDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new PO_PUBLIC_OBJECT_ATTEND_EMPDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnSID = base.Columns["SID"];
+                this.columnParentSID = base.Columns["ParentSID"];
+                this.columnDEPID = base.Columns["DEPID"];
+                this.columnEMP_NO = base.Columns["EMP_NO"];
+                this.columnDEPNM = base.Columns["DEPNM"];
+                this.columnEMP_NM = base.Columns["EMP_NM"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnSID = new global::System.Data.DataColumn("SID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSID);
+                this.columnParentSID = new global::System.Data.DataColumn("ParentSID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnParentSID);
+                this.columnDEPID = new global::System.Data.DataColumn("DEPID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDEPID);
+                this.columnEMP_NO = new global::System.Data.DataColumn("EMP_NO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEMP_NO);
+                this.columnDEPNM = new global::System.Data.DataColumn("DEPNM", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDEPNM);
+                this.columnEMP_NM = new global::System.Data.DataColumn("EMP_NM", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEMP_NM);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnSID}, true));
+                this.columnSID.AllowDBNull = false;
+                this.columnSID.Unique = true;
+                this.columnSID.MaxLength = 50;
+                this.columnParentSID.MaxLength = 50;
+                this.columnDEPID.MaxLength = 50;
+                this.columnEMP_NO.MaxLength = 10;
+                this.columnDEPNM.ReadOnly = true;
+                this.columnDEPNM.MaxLength = 250;
+                this.columnEMP_NM.ReadOnly = true;
+                this.columnEMP_NM.MaxLength = 250;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRow NewPO_PUBLIC_OBJECT_ATTEND_EMPRow() {
+                return ((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new PO_PUBLIC_OBJECT_ATTEND_EMPRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(PO_PUBLIC_OBJECT_ATTEND_EMPRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PO_PUBLIC_OBJECT_ATTEND_EMPRowChanged != null)) {
+                    this.PO_PUBLIC_OBJECT_ATTEND_EMPRowChanged(this, new PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent(((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PO_PUBLIC_OBJECT_ATTEND_EMPRowChanging != null)) {
+                    this.PO_PUBLIC_OBJECT_ATTEND_EMPRowChanging(this, new PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent(((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleted != null)) {
+                    this.PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleted(this, new PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent(((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleting != null)) {
+                    this.PO_PUBLIC_OBJECT_ATTEND_EMPRowDeleting(this, new PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent(((PO_PUBLIC_OBJECT_ATTEND_EMPRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemovePO_PUBLIC_OBJECT_ATTEND_EMPRow(PO_PUBLIC_OBJECT_ATTEND_EMPRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                EIPDataSet ds = new EIPDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "PO_PUBLIC_OBJECT_ATTEND_EMPDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class FR_OFFIDOC_ISSUERow : global::System.Data.DataRow {
@@ -6771,6 +7190,54 @@ namespace CCM.Web.EIP.App_Data {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime LeaveTime1 {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablePO_PUBLIC_OBJECT_BOOKING.LeaveTime1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_BOOKING\' 中資料行 \'LeaveTime1\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_BOOKING.LeaveTime1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime BackTime1 {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablePO_PUBLIC_OBJECT_BOOKING.BackTime1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_BOOKING\' 中資料行 \'BackTime1\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_BOOKING.BackTime1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string GUID {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_BOOKING.GUIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_BOOKING\' 中資料行 \'GUID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_BOOKING.GUIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsObjectTypeNull() {
                 return this.IsNull(this.tablePO_PUBLIC_OBJECT_BOOKING.ObjectTypeColumn);
             }
@@ -6983,6 +7450,42 @@ namespace CCM.Web.EIP.App_Data {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUSR_NMNull() {
                 this[this.tablePO_PUBLIC_OBJECT_BOOKING.USR_NMColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsLeaveTime1Null() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_BOOKING.LeaveTime1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetLeaveTime1Null() {
+                this[this.tablePO_PUBLIC_OBJECT_BOOKING.LeaveTime1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBackTime1Null() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_BOOKING.BackTime1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBackTime1Null() {
+                this[this.tablePO_PUBLIC_OBJECT_BOOKING.BackTime1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsGUIDNull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_BOOKING.GUIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetGUIDNull() {
+                this[this.tablePO_PUBLIC_OBJECT_BOOKING.GUIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -8859,6 +9362,172 @@ namespace CCM.Web.EIP.App_Data {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class PO_PUBLIC_OBJECT_ATTEND_EMPRow : global::System.Data.DataRow {
+            
+            private PO_PUBLIC_OBJECT_ATTEND_EMPDataTable tablePO_PUBLIC_OBJECT_ATTEND_EMP;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal PO_PUBLIC_OBJECT_ATTEND_EMPRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePO_PUBLIC_OBJECT_ATTEND_EMP = ((PO_PUBLIC_OBJECT_ATTEND_EMPDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SID {
+                get {
+                    return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.SIDColumn]));
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.SIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ParentSID {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.ParentSIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_ATTEND_EMP\' 中資料行 \'ParentSID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.ParentSIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DEPID {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_ATTEND_EMP\' 中資料行 \'DEPID\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EMP_NO {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_ATTEND_EMP\' 中資料行 \'EMP_NO\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DEPNM {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPNMColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_ATTEND_EMP\' 中資料行 \'DEPNM\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPNMColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string EMP_NM {
+                get {
+                    try {
+                        return ((string)(this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NMColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'PO_PUBLIC_OBJECT_ATTEND_EMP\' 中資料行 \'EMP_NM\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NMColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsParentSIDNull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.ParentSIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetParentSIDNull() {
+                this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.ParentSIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDEPIDNull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDEPIDNull() {
+                this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEMP_NONull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEMP_NONull() {
+                this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDEPNMNull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPNMColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDEPNMNull() {
+                this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.DEPNMColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEMP_NMNull() {
+                return this.IsNull(this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NMColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEMP_NMNull() {
+                this[this.tablePO_PUBLIC_OBJECT_ATTEND_EMP.EMP_NMColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -9218,6 +9887,40 @@ namespace CCM.Web.EIP.App_Data {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BU_ORDER_4Row Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent : global::System.EventArgs {
+            
+            private PO_PUBLIC_OBJECT_ATTEND_EMPRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRowChangeEvent(PO_PUBLIC_OBJECT_ATTEND_EMPRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PO_PUBLIC_OBJECT_ATTEND_EMPRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -10734,12 +11437,13 @@ namespace CCM.Web.EIP.App_Data.EIPDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Mileage", "Mileage");
             tableMapping.ColumnMappings.Add("MileageLast", "MileageLast");
             tableMapping.ColumnMappings.Add("Status", "Status");
-            tableMapping.ColumnMappings.Add("LeaveTime", "LeaveTime");
-            tableMapping.ColumnMappings.Add("BackTime", "BackTime");
             tableMapping.ColumnMappings.Add("GuardEMPID", "GuardEMPID");
             tableMapping.ColumnMappings.Add("ttlmile", "ttlmile");
             tableMapping.ColumnMappings.Add("ObjectNM", "ObjectNM");
             tableMapping.ColumnMappings.Add("USR_NM", "USR_NM");
+            tableMapping.ColumnMappings.Add("LeaveTime", "LeaveTime1");
+            tableMapping.ColumnMappings.Add("BackTime", "BackTime1");
+            tableMapping.ColumnMappings.Add("GUID", "GUID");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -10758,7 +11462,7 @@ namespace CCM.Web.EIP.App_Data.EIPDataSetTableAdapters {
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT A.SID, A.ObjectType,B.ObjectNM, A.UseReason, A.Subject, A.[Description], A.EmployeeID, A.DepartmentID, A.ObjectSID, 
 A.BookingStartTime, A.BookingEndTime, A.AttendEmp, A.ProjectSID, A.Mileage, A.MileageLast,(A.Mileage-A.MileageLast ) ttlmile,
-A.Status, A.LeaveTime, A.BackTime, A.GuardEMPID,C.USR_NM
+A.Status, A.LeaveTime, A.BackTime, A.GuardEMPID,C.USR_NM,A.GUID
  FROM PO_PUBLIC_OBJECT_BOOKING A LEFT JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID=B.SID
  LEFT JOIN PO_GUARDNO C ON A.GuardEMPID = C.USR_NO
  WHERE CONVERT(VARCHAR(10), A.BookingStartTime, 120) = '2017-02-10'
@@ -12316,6 +13020,365 @@ ORDER BY 1,2,3,4";
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class PO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public PO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "PO_PUBLIC_OBJECT_ATTEND_EMP";
+            tableMapping.ColumnMappings.Add("SID", "SID");
+            tableMapping.ColumnMappings.Add("ParentSID", "ParentSID");
+            tableMapping.ColumnMappings.Add("DEPID", "DEPID");
+            tableMapping.ColumnMappings.Add("EMP_NO", "EMP_NO");
+            tableMapping.ColumnMappings.Add("DEPNM", "DEPNM");
+            tableMapping.ColumnMappings.Add("EMP_NM", "EMP_NM");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [EIP].[dbo].[PO_PUBLIC_OBJECT_ATTEND_EMP] WHERE (([SID] = @Original_S" +
+                "ID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [EIP].[dbo].[PO_PUBLIC_OBJECT_ATTEND_EMP] ([SID], [ParentSID], [DEPID" +
+                "], [EMP_NO]) VALUES (@SID, @ParentSID, @DEPID, @EMP_NO)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ParentSID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ParentSID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DEPID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DEPID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EMP_NO", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EMP_NO", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE [EIP].[dbo].[PO_PUBLIC_OBJECT_ATTEND_EMP] SET [SID] = @SID, [ParentSID] = " +
+                "@ParentSID, [DEPID] = @DEPID, [EMP_NO] = @EMP_NO WHERE (([SID] = @Original_SID))" +
+                "";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ParentSID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ParentSID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DEPID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DEPID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EMP_NO", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EMP_NO", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EIPContext"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT SID, ParentSID, DEPID, dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM, EMP_NO,dbo.SF_GE" +
+                "TEMPNAME(EMP_NO) EMP_NM\r\nFROM EIP.dbo.PO_PUBLIC_OBJECT_ATTEND_EMP";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(EIPDataSet.PO_PUBLIC_OBJECT_ATTEND_EMPDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual EIPDataSet.PO_PUBLIC_OBJECT_ATTEND_EMPDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            EIPDataSet.PO_PUBLIC_OBJECT_ATTEND_EMPDataTable dataTable = new EIPDataSet.PO_PUBLIC_OBJECT_ATTEND_EMPDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(EIPDataSet.PO_PUBLIC_OBJECT_ATTEND_EMPDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(EIPDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "PO_PUBLIC_OBJECT_ATTEND_EMP");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(string Original_SID) {
+            if ((Original_SID == null)) {
+                throw new global::System.ArgumentNullException("Original_SID");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((string)(Original_SID));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string SID, string ParentSID, string DEPID, string EMP_NO) {
+            if ((SID == null)) {
+                throw new global::System.ArgumentNullException("SID");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(SID));
+            }
+            if ((ParentSID == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ParentSID));
+            }
+            if ((DEPID == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(DEPID));
+            }
+            if ((EMP_NO == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(EMP_NO));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string SID, string ParentSID, string DEPID, string EMP_NO, string Original_SID) {
+            if ((SID == null)) {
+                throw new global::System.ArgumentNullException("SID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(SID));
+            }
+            if ((ParentSID == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ParentSID));
+            }
+            if ((DEPID == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(DEPID));
+            }
+            if ((EMP_NO == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(EMP_NO));
+            }
+            if ((Original_SID == null)) {
+                throw new global::System.ArgumentNullException("Original_SID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_SID));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string ParentSID, string DEPID, string EMP_NO, string Original_SID) {
+            return this.Update(Original_SID, ParentSID, DEPID, EMP_NO, Original_SID);
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -12332,6 +13395,8 @@ ORDER BY 1,2,3,4";
         private FR_OFFIDOC_RECETableAdapter _fR_OFFIDOC_RECETableAdapter;
         
         private BU_LUNCH_AMOUNTTableAdapter _bU_LUNCH_AMOUNTTableAdapter;
+        
+        private PO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter _pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -12392,6 +13457,20 @@ ORDER BY 1,2,3,4";
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public PO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter PO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter {
+            get {
+                return this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter;
+            }
+            set {
+                this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -12421,6 +13500,10 @@ ORDER BY 1,2,3,4";
                             && (this._bU_LUNCH_AMOUNTTableAdapter.Connection != null))) {
                     return this._bU_LUNCH_AMOUNTTableAdapter.Connection;
                 }
+                if (((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null) 
+                            && (this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection != null))) {
+                    return this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -12441,6 +13524,9 @@ ORDER BY 1,2,3,4";
                     count = (count + 1);
                 }
                 if ((this._bU_LUNCH_AMOUNTTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -12481,6 +13567,15 @@ ORDER BY 1,2,3,4";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PO_PUBLIC_OBJECT_ATTEND_EMP.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             return result;
         }
         
@@ -12515,6 +13610,14 @@ ORDER BY 1,2,3,4";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PO_PUBLIC_OBJECT_ATTEND_EMP.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             return result;
         }
         
@@ -12525,6 +13628,14 @@ ORDER BY 1,2,3,4";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(EIPDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
+            if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PO_PUBLIC_OBJECT_ATTEND_EMP.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._bU_LUNCH_AMOUNTTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.BU_LUNCH_AMOUNT.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -12600,6 +13711,10 @@ ORDER BY 1,2,3,4";
                         && (this.MatchTableAdapterConnection(this._bU_LUNCH_AMOUNTTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("所有以 TableAdapterManager 管理的 TableAdapters 必須使用相同的連接字串。");
             }
+            if (((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("所有以 TableAdapterManager 管理的 TableAdapters 必須使用相同的連接字串。");
+            }
             global::System.Data.IDbConnection workConnection = this.Connection;
             if ((workConnection == null)) {
                 throw new global::System.ApplicationException("TableAdapterManager 未包含連接資訊。請將每個 TableAdapterManager 的 TableAdapter 屬性設成有效的 Table" +
@@ -12656,6 +13771,15 @@ ORDER BY 1,2,3,4";
                     if (this._bU_LUNCH_AMOUNTTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._bU_LUNCH_AMOUNTTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._bU_LUNCH_AMOUNTTableAdapter.Adapter);
+                    }
+                }
+                if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
+                    revertConnections.Add(this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter, this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection);
+                    this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -12727,6 +13851,10 @@ ORDER BY 1,2,3,4";
                 if ((this._bU_LUNCH_AMOUNTTableAdapter != null)) {
                     this._bU_LUNCH_AMOUNTTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bU_LUNCH_AMOUNTTableAdapter]));
                     this._bU_LUNCH_AMOUNTTableAdapter.Transaction = null;
+                }
+                if ((this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter != null)) {
+                    this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter]));
+                    this._pO_PUBLIC_OBJECT_ATTEND_EMPTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

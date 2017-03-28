@@ -11,21 +11,27 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: V_SRVPRODDL_CCM
-			public class V_SRVPRODDL_CCMEntity  : IEntityCcm<V_SRVPRODDL_CCMEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: PO_PUBLIC_OBJECT_ATTEND_EMP
+			public class PO_PUBLIC_OBJECT_ATTEND_EMPEntity  : IEntityCcm<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public String PROD_NO  { get; set; }                                        
+				public String SID  { get; set; }                                        
 				          
-				public Int32 PROD_SR  { get; set; }                                        
+				public String ParentSID  { get; set; }                                        
 				          
-				public String ENTRY  { get; set; }                                        
+				public String DEPID  { get; set; }                                        
 				          
-				public String DSCP_1  { get; set; }                                        
+				public String EMP_NO  { get; set; }                                        
 				          
-				public String DSCP_2  { get; set; }                                        
+				public String OrganizeId  { get; set; }                                        
 				          
-				public String DSCP_3  { get; set; }                                        
+				public DateTime CreatorTime  { get; set; }                                        
+				          
+				public String CreatorUserId  { get; set; }                                        
+				          
+				public DateTime LastModifyTime  { get; set; }                                        
+				          
+				public String LastModifyUserId  { get; set; }                                        
 				                                
 			}                            
 }

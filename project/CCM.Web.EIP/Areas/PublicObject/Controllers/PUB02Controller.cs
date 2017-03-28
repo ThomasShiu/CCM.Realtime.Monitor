@@ -20,6 +20,8 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
     public class PUB02Controller : ControllerBase
     {
         private PO_PUBLIC_OBJECT_BOOKINGApp tableApp = new PO_PUBLIC_OBJECT_BOOKINGApp();
+        private PO_PUBLIC_OBJECT_ATTEND_EMPApp attendEmpApp = new PO_PUBLIC_OBJECT_ATTEND_EMPApp();
+
         private CcmServices cs = new CcmServices();
         private ReportService rs = new ReportService();
 
@@ -86,9 +88,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         // 公務車行事曆
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetCalendarJson(string keyValue)
+        public ActionResult GetCalendarJson(string keyword)
         {
-            var data = cs.getPubObjectCal(keyValue);
+            var data = cs.getPubObjectCal(keyword);
             return Content(data.ToJson());
         }
 
@@ -182,6 +184,34 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             return Success("删除成功。");
         }
 
+        #region 新增外出人員
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult SubmitAttendEmp(string submitJson)
+        {
+            var result = cs.addattendEmp(submitJson);
+            if (result)
+            {
+                return Success("操作成功。");
+            }
+            else
+            {
+                return Error("操作失敗。");
+            }
+        }
+        #endregion
+
+        #region 刪除外出人員
+        [HttpPost]
+        [HandlerAjaxOnly]
+        public ActionResult DeleteAttendEmp(string keyValue, string keyValue2)
+        {
+            attendEmpApp.DeleteForm(keyValue, keyValue2);
+            return Success("删除成功。");
+        }
+        #endregion
+
+
         #region 公務車最近預約
         [HttpGet]
         [HandlerAjaxOnly]
@@ -203,8 +233,9 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         public ActionResult Print(string keyValue, string type = "PDF")
         {
 
-            var path = Server.MapPath("~/Reports/PUB02_R01.rdlc");
-            LocalReport localReport = rs.PUB01_R01(keyValue,type,path);
+            var path = Server.MapPath("~/Reports/PUB02_R03.rdlc");
+            //LocalReport localReport = rs.PUB01_R01(keyValue,type,path);
+            LocalReport localReport = rs.PUB01_R03(keyValue, type, path);
 
             string paper = "A4";
             string reportType = type;

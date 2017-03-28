@@ -95,11 +95,11 @@
 
 				    { label: "記薪月份", name: "OWMON", hidden: true, width: 80, align: 'left' },
                      {
-                         label: "查看", name: "", width: 40, align: 'center',
+                         label: "查看", name: "", width: 50, align: 'center',
                          formatter: function (cellvalue, options, rowObject) {
                              var ovrtno = rowObject.OVRTNO;
                              //alert(signdate);
-                             var v_button = '<button class=\'btn btn-default btn-xs\' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';
+                             var v_button = '<button class=\'btn btn-default \' onclick=\'btn_details(\"' + ovrtno + '\")\'>查看</button> ';
                              return v_button;
                          }
                      },
@@ -400,6 +400,7 @@
                     <div id="status_horizon" class="btn-group">
                         <a class="btn btn-default active" data-value="OP">未送簽</a>
                         <a class="btn btn-default" data-value="SN">簽核中</a>
+                        <a class="btn btn-default" data-value="CF">已核准</a>
                         @*<a class="btn btn-default" data-value="2">全部</a>*@
                     </div>
                 </td>

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Form";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
     $(function () {
         initControl();
         $.ajax({
-            url: "/WorkflowControl/WFC08/GetFormJson",
+            url: "/WorkflowControl/WFC06/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
@@ -29,26 +29,26 @@
             id: "DEPID",
             text: "DEPNM"
         });
-        // 部門
+        // 申請加班人員 部門
         $("#DEPIDAPP").bindSelect({
             url: "/Human/HRS00/GetHR_DEP",
             id: "DEPID",
             text: "DEPNM"
         });
-        // 員工
-        //$("#EMPLYID").bindSelect({
-        //    url: "/Human/HRS00/GetHR_EMPLY",
-        //    id: "EMPLYID",
-        //    text: "EMPLYNM"
-        //});
-        // 員工
+        // 申請加班人員
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+        // 簽核人員
         $("#EXC_INSDBID").bindSelect({
             url: "/Human/HRS00/GetHR_EMPLY_ALL",
             id: "EMPLYID",
             text: "EMPLYNM"
         });
 
-        // 員工 by 部門
+        // 簽核人員 by 部門
         $("#EMPLYID").bindSelect({
             url: "/Human/HRS00/GetHR_EMPLY_ALL?keyword=" + $('#DEPID').children('option:selected').val(),
             id: "EMPLYID",
@@ -70,6 +70,7 @@
             //alert('before load data');
         }).bootgrid({
             ajax: true,
+            navigation: 2,
             ajaxSettings: {
                 method: "GET",
                 cache: false
@@ -112,7 +113,7 @@
                 </td>
                 <th class="formTitle">狀態</th>
                 <td class="formValue">
-                    <select id="STATUS" name="STATUS" class="form-control required" disabled="disabled">
+                    <select id="STATUS" name="STATUS" class="form-control " disabled="disabled">
                         <option value="OP">未送簽</option>
                         <option value="SN">簽核中</option>
                         <option value="CF">已核准</option>
@@ -123,7 +124,7 @@
                 </td>
                 <th class="formTitle"><span style="color:red">是否用餐?</span></th>
                 <td class="formValue">
-                    <select id="LNO" name="LNO" class="form-control required" onchange="chkOvertime()">
+                    <select id="LNO" name="LNO" class="form-control "  disabled="disabled">
                         <option value="0">N</option>
                         <option value="1">Y</option>
                     </select>
@@ -132,28 +133,13 @@
             <tr>
                 <th class="formTitle">建立部門</th>
                 <td class="formValue">
-                    <select id="DEPIDAPP" name="DEPIDAPP" class="form-control required" disabled="disabled">
+                    <select id="DEPIDAPP" name="DEPIDAPP" class="form-control " disabled="disabled">
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
                     </select>
                 </td>
                 <th class="formTitle">建立人員</th>
                 <td class="formValue">
-                    <select id="EXC_INSDBID" name="EXC_INSDBID" class="form-control required" disabled="disabled">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
-                    </select>
-                </td>
-
-            </tr>
-            <tr>
-                <th class="formTitle">出勤人員部門</th>
-                <td class="formValue">
-                    <select id="DEPID" name="DEPID" class="form-control required">
-                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
-                    </select>
-                </td>
-                <th class="formTitle">出勤人員</th>
-                <td class="formValue">
-                    <select id="EMPLYID" name="EMPLYID" class="form-control required" >
+                    <select id="EXC_INSDBID" name="EXC_INSDBID" class="form-control " disabled="disabled">
                         <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
                     </select>
                 </td>
@@ -164,6 +150,21 @@
                         <option value="Y">Y</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出勤人員部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control " disabled="disabled">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+                <th class="formTitle">出勤人員</th>
+                <td class="formValue">
+                    <select id="EMPLYID" name="EMPLYID" class="form-control" disabled="disabled" >
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+
             </tr>
             @*<tr>
                     <th class="formTitle">申請日期</th>
@@ -179,13 +180,13 @@
                 <th class="formTitle">加班時間-起</th>
                 <td class="formValue">
                     @*<input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
-                    <input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                    <input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker " disabled="disabled"
                            onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請選擇開始時間" />
                 </td>
                 <th class="formTitle">加班時間-迄</th>
                 <td class="formValue">
                     @*<input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
-                    <input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                    <input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker" disabled="disabled"
                            onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg:{H: [1, 6], m: [30, 6]},qsEnabled: true, quickSel: ['%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00', '%y-%M-%d 23:00'], lang: 'zh-tw' })" placeholder="請選擇結束時間" />
                 </td>
                 <th class="formTitle">加班別</th>
@@ -199,27 +200,28 @@
             <tr>
                 <th class="formTitle">預計加班時數</th>
                 <td class="formValue">
-                    <input id="DEMIN" name="DEMIN" type="text" class="form-control required" readonly="readonly" />
+                    <input id="DEMIN" name="DEMIN" type="text" class="form-control required" disabled="disabled" />
                 </td>
                 <th class="formTitle">實際加班時數</th>
                 <td class="formValue">
-                    <input id="REHRS" name="REHRS" type="text" class="form-control required" readonly="readonly" />
+                    <input id="REHRS" name="REHRS" type="text" class="form-control required" disabled="disabled" />
                 </td>
                 <th class="formTitle">人資時數</th>
                 <td class="formValue">
-                    <input id="REHRS1" name="REHRS1" type="text" class="form-control required" readonly="readonly" />
+                    <input id="REHRS1" name="REHRS1" type="text" class="form-control required" disabled="disabled" />
                 </td>
             </tr>
             <tr>
                 <th class="formTitle">加班原因</th>
                 <td class="formValue" colspan="5">
-                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 60px;"></textarea>
+                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 60px;" disabled="disabled"></textarea>
                 </td>
 
             </tr>
+           
             <tr>
                 <th class="formTitle">簽核途程</th>
-                <td colspan="5">
+                <td colspan="5" style="background-color:paleturquoise">
                     <table id="grid-signroute" class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>

@@ -23,6 +23,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Web;
 using System.Net.Mime;
+using OfficeOpenXml;
 
 namespace CCM.Application
 {
@@ -72,14 +73,15 @@ namespace CCM.Application
         // 檢查公共物件是否被預約
         public string chkPubObjExistBooking(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity)
         {
+            var sid = tableEntity.SID;
             string SQL = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
                          " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID AND ((@StartTime  BETWEEN  A.BookingStartTime AND A.BookingEndTime ) OR (@EndTime  BETWEEN A.BookingStartTime AND A.BookingEndTime)) "+
-                         " AND A.Status = '鎖定'  "+
+                         " AND A.Status = '鎖定'  AND A.SID <> '"+ sid + "' " +
                          " UNION "+
                          " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A, PO_PUBLIC_OBJECT B " +
                          " WHERE A.ObjectSID = B.SID  AND A.ObjectSID = @ObjectSID " +
                          " AND((A.BookingStartTime  BETWEEN  @StartTime AND @EndTime) OR(A.BookingEndTime   BETWEEN @StartTime AND @EndTime)) " +
-                         " AND A.Status = '鎖定' ";
+                         " AND A.Status = '鎖定'  AND A.SID <> '" + sid + "' ";
             //string SQL2 = " SELECT A.SID, A.ObjectSID,B.ObjectNM,dbo.SF_EMP_NAME(A.EmployeeID) Empnm,A.Subject,A.BookingStartTime, A.BookingEndTime FROM PO_PUBLIC_OBJECT_BOOKING A,PO_PUBLIC_OBJECT B " +
             //            " WHERE A.ObjectSID = B.SID  AND ObjectSID = '" + tableEntity.ObjectSID + "' AND (('" + tableEntity.BookingStartTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN  BookingStartTime AND BookingEndTime ) OR ('" + tableEntity.BookingEndTime.ToString("yyyy/MM/dd HH:mm") + "'  BETWEEN BookingStartTime AND BookingEndTime))";
             string v_message = "";
@@ -117,6 +119,66 @@ namespace CCM.Application
             return v_message;
         }
         #endregion
+
+        private PO_PUBLIC_OBJECT_ATTEND_EMPApp attendEmpapp = new PO_PUBLIC_OBJECT_ATTEND_EMPApp();
+        #region 新增公務外出人員明細
+        public bool addattendEmp(string submitJson)
+        {
+            bool v_YN = false;
+            var data = submitJson.ToJObject();
+            PO_PUBLIC_OBJECT_ATTEND_EMPEntity entity = new PO_PUBLIC_OBJECT_ATTEND_EMPEntity();
+
+            if (data.Count > 0)
+            {
+                entity.DEPID = data["DepID"].ToString();
+                entity.EMP_NO = data["EmpID"].ToString();
+                entity.ParentSID = data["ParentSID"].ToString();
+                attendEmpapp.SubmitForm(entity, "");
+                v_YN = true;
+            }
+            return v_YN;
+        }
+        #endregion
+     
+            #region 取得外出人員明細
+            public JArray GetAttendEmpList(string keyword)
+        {
+            string v_sql = "   SELECT SID, ParentSID, DEPID, dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM, EMP_NO,dbo.SF_GETEMPNAME(EMP_NO) EMP_NM "+
+                          " FROM EIP.dbo.PO_PUBLIC_OBJECT_ATTEND_EMP "+
+                          " WHERE ParentSID = '"+ keyword + "' ";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SID = p.Field<string>("SID"),
+                             ParentSID = p.Field<string>("ParentSID"),
+                             DEPID = p.Field<string>("DEPID"),
+                             DEPNM = p.Field<string>("DEPNM"),
+                             EMP_NO = p.Field<string>("EMP_NO"),
+                             EMP_NM = p.Field<string>("EMP_NM"),
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SID",col.SID },
+                    {"ParentSID",col.ParentSID },
+                    {"DEPID",col.DEPID },
+                    {"DEPNM",col.DEPNM },
+                    {"EMP_NO",col.EMP_NO },
+                    {"EMP_NM",col.EMP_NM },
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+#endregion
 
         #region 取得特約廠商
         public JArray GetVendorList()
@@ -816,6 +878,80 @@ namespace CCM.Application
         }
         #endregion
 
+        #region 取得已簽核加班單清單
+        public JArray getWaitSignedList(string keyword)
+        {
+            var UserId = LoginInfo.UserCode; //A970701
+            var UserDep = LoginInfo.DeptId; // H00
+
+            var v_sql = "SELECT DISTINCT B.SID,A.FLOWID,'加班單' FLOWNM,A.DOCID,A.SUBJECT,M.DEPID,A.EMP_ID,U.USR_NM AS EMP_NM,U.DEPM_NM, ";
+            v_sql += "         A.STATUS,A.SENDDATE,B.SITEID,B.SIGNDATE,B.EMPLYID,M.MRDT,M.DEMIN,A.OVRT46,M.FILFRL ";
+            v_sql += " FROM WF_SIGNM A JOIN WF_SIGND B ON A.SID = B.PSID ";
+            v_sql += " JOIN VIEW_CCM_Main_ALLUSERS U ON A.EMP_ID = U.USR_NO COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += " JOIN " + v_HR_OVRTM + " M ON M.OVRTNO = A.DOCID  ";
+            v_sql += " WHERE  ( B.EMPLYID = '" + UserId + "' ";
+            v_sql += " OR B.EMPLYID IN ( ";
+            v_sql += "   SELECT H.EMPLYID  COLLATE Chinese_Taiwan_Stroke_CI_AS FROM WF_ROLED R ";
+            v_sql += "   JOIN HRSDBR53..HR_DEP H ON R.DEP_NO = H.DEPID COLLATE Chinese_Taiwan_Stroke_CI_AS ";
+            v_sql += "   WHERE ROLEID = 1 AND DEP_NO = '" + UserDep + "' AND(PROXY1 = '" + UserId + "' OR PROXY2 = '" + UserId + "' OR PROXY3 = '" + UserId + "')  )  ) ";
+            v_sql += " AND A.STATUS = 'SN' AND B.STATUS = 'CF' ";
+            v_sql += " AND B.SITEID = ( SELECT MIN(SITEID) FROM WF_SIGND BB JOIN WF_SIGNM AA ON BB.PSID = AA.SID WHERE AA.DOCID = A.DOCID AND BB.STATUS = 'SN' ) ";
+            v_sql += " AND(A.DOCID LIKE '%" + keyword + "%' OR U.USR_NM LIKE '%" + keyword + "%' OR U.DEPM_NM LIKE '%" + keyword + "%') ";
+            v_sql += " ORDER BY M.MRDT ASC ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             SID = p.Field<string>("SID"),
+                             FLOWID = p.Field<int?>("FLOWID"),
+                             FLOWNM = p.Field<string>("FLOWNM"),
+                             DOCID = p.Field<string>("DOCID"),
+                             SUBJECT = p.Field<string>("SUBJECT"),
+                             DEPID = p.Field<string>("DEPID"),
+                             EMP_NM = p.Field<string>("EMP_NM"),
+                             DEPM_NM = p.Field<string>("DEPM_NM"),
+                             STATUS = p.Field<string>("STATUS"),
+                             EMPLYID = p.Field<string>("EMPLYID"), // 簽核人員
+                             MRDT = p.Field<DateTime?>("MRDT"), // 加班日
+                             SENDDATE = p.Field<DateTime?>("SENDDATE"), //送簽日
+                             SIGNDATE = p.Field<DateTime?>("SIGNDATE"), // 簽核日
+                             DEMIN = p.Field<decimal?>("DEMIN"), // 預計加班
+                             OVRT46 = p.Field<string>("OVRT46"), // 超過46小時
+                             FILFRL = p.Field<string>("FILFRL") // 加班轉補休
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"SID",col.SID },
+                    {"FLOWID",col.FLOWID },
+                    {"FLOWNM",col.FLOWNM},
+                    {"DOCID",col.DOCID },
+                    {"SUBJECT",col.SUBJECT },
+                    {"DEPID",col.DEPID },
+                    {"EMP_NM" ,col.EMP_NM},
+                    {"DEPM_NM" ,col.DEPM_NM},
+                    {"STATUS" ,col.STATUS},
+                    {"EMPLYID" ,col.EMPLYID},
+                    {"SENDDATE" ,col.SENDDATE},
+                    {"MRDT" ,col.MRDT},
+                    {"SIGNDATE" ,col.SIGNDATE},
+                    {"DEMIN" ,col.DEMIN},
+                    {"OVRT46" ,col.OVRT46},
+                    {"FILFRL" ,col.FILFRL}
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
+        #endregion
         #region 產生簽核途程
         public string GenSign(string v_ovrtno)
         {
@@ -1407,12 +1543,13 @@ namespace CCM.Application
             var UserId = LoginInfo.UserCode; //B050502
             var UserDep = LoginInfo.DeptId; // C00
 
-            var v_sql = " SELECT B.ObjectNM AS id,'('+dbo.SF_GETEMPNAME(A.EmployeeID)+') '+A.Subject AS title,CASE WHEN A.Status='取消' THEN '#999999' ELSE A.BgColor END AS BgColor,";
-            v_sql += "           B.ObjectNM+'<br/>'+'('+dbo.SF_GETEMPNAME(A.EmployeeID)+') '+A.Subject+'<br/>事由:'+A.[Description]+'<br/>時間:'+";
+            var v_sql = " SELECT B.ObjectNM AS id,STUFF( (SELECT ', ' + dbo.SF_GETEMPNAME(C.EMP_NO) from PO_PUBLIC_OBJECT_ATTEND_EMP C WHERE C.ParentSID = A.GUID FOR XML PATH('')), 1, 1, '')+'-'+A.Subject AS title,CASE WHEN A.Status='取消' THEN '#999999' ELSE A.BgColor END AS BgColor,";
+            v_sql += "           B.ObjectNM+'<br/>'+'('+ STUFF( (SELECT ', ' + dbo.SF_GETEMPNAME(C.EMP_NO) from PO_PUBLIC_OBJECT_ATTEND_EMP C WHERE C.ParentSID = A.GUID FOR XML PATH('')), 1, 1, '')+') '+A.Subject+'<br/>事由:'+A.[Description]+'<br/>時間:'+";
             v_sql += "            CONVERT(VARCHAR(5), A.BookingStartTime, 108)+'~'+CONVERT(VARCHAR(5), A.BookingEndTime, 108) AS description,  ";
-            v_sql += "           CONVERT(VARCHAR(16), A.BookingStartTime, 120) BookingStartTime, CONVERT(VARCHAR(16), A.BookingEndTime, 120) AS BookingEndTime ";
+            v_sql += "           CONVERT(VARCHAR(16), A.BookingStartTime, 120) BookingStartTime, CONVERT(VARCHAR(16), A.BookingEndTime, 120) AS BookingEndTime, ";
+            v_sql += "           STUFF( (SELECT ', ' + dbo.SF_GETEMPNAME(C.EMP_NO) from PO_PUBLIC_OBJECT_ATTEND_EMP C WHERE C.ParentSID = A.GUID FOR XML PATH('')), 1, 1, '') AS ATTEND_EMP ";
             v_sql += " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID ";
-            v_sql += " WHERE B.Enable = 'Y' AND (B.ObjectType = '公務車輛' or B.ObjectType = '私人車輛')  AND A.Status <> '取消' ";
+            v_sql += " WHERE B.Enable = 'Y' AND (B.ObjectType = '公務車輛' or B.ObjectType = '私人車輛') AND A.ObjectSID= '"+ keyword + "' AND A.Status <> '取消' ";
             v_sql += " AND GETDATE() BETWEEN A.BookingStartTime - 2 AND A.BookingEndTime + 4 ";
 
             //得到一個DataTable物件
@@ -1507,9 +1644,10 @@ namespace CCM.Application
             var UserId = LoginInfo.UserCode; //B050502
             var UserDep = LoginInfo.DeptId; // C00
 
-            var v_sql = " SELECT replace(replace(A.AttendEmp,CHAR(10),','),CHAR(13),'') AttendEmp,A.Subject , B.SID,B.ObjectType, B.ObjectNM, "+
-                        "        CONVERT(VARCHAR(5),A.BookingStartTime,108) BookingStartTime, CONVERT(VARCHAR(5),A.BookingEndTime,108) BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status  "+
-                        " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID "+
+            var v_sql = " SELECT  A.Subject , B.SID,B.ObjectType, B.ObjectNM, "+
+                        "        CONVERT(VARCHAR(5),A.BookingStartTime,108) BookingStartTime, CONVERT(VARCHAR(5),A.BookingEndTime,108) BookingEndTime,dbo.SF_GETEMPNAME(A.EmployeeID) Status,  "+
+                        "        STUFF( (SELECT ', ' + dbo.SF_GETEMPNAME(C.EMP_NO) from PO_PUBLIC_OBJECT_ATTEND_EMP C WHERE C.ParentSID = A.GUID FOR XML PATH('')), 1, 1, '') AS AttendEmp " +
+                        " FROM PO_PUBLIC_OBJECT_BOOKING A JOIN PO_PUBLIC_OBJECT B ON A.ObjectSID = B.SID " +
                         " WHERE A.Status = '鎖定' AND B.Enable = 'Y' AND B.ObjectType = '公務車輛' AND B.Enable = 'Y' "+
                         " AND GETDATE() BETWEEN A.BookingStartTime AND A.BookingEndTime ";
 
@@ -1898,6 +2036,27 @@ namespace CCM.Application
         }
         #endregion
 
-        
+        #region 下載公務車預約 EXCEL
+        public MemoryStream Download()
+        {
+            MemoryStream memStream;
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("New Sheet");
+
+                worksheet.Cells[1, 1].Value = "ID";
+                worksheet.Cells[1, 2].Value = "Name";
+                worksheet.Cells[2, 1].Value = "1";
+                worksheet.Cells[2, 2].Value = "One";
+                worksheet.Cells[3, 1].Value = "2";
+                worksheet.Cells[3, 2].Value = "Two";
+
+                memStream = new MemoryStream(package.GetAsByteArray());
+            }
+
+            return memStream;
+        }
+        #endregion
     }
 }

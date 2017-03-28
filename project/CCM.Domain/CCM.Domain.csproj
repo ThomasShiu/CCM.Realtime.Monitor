@@ -78,6 +78,7 @@
     <Compile Include="03 Entity\OrderManage\BU_ORDERS_SOTREEntity.cs" />
     <Compile Include="03 Entity\PublicManage\BU_FEEDBACKMISEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
+    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_ATTEND_EMPEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PU_ATTACH_FILEEntity.cs" />
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKRepository.cs" />
     <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_SOTRERepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
+    <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_ATTEND_EMPRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPU_ATTACH_FILERepository.cs" />
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />

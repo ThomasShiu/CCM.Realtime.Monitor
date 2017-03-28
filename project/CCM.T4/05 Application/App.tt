@@ -31,7 +31,7 @@ namespace CCM.Application
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "V_SRVPRODDL_CCM"; 
+			restrictions[2] = "PO_PUBLIC_OBJECT_ATTEND_EMP"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 

@@ -70,6 +70,34 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
             return Content(data);
         }
         #endregion
+
+        #region 公務車預約EXCEL
+        [HttpGet]
+        public FileStreamResult DownloadExcel()
+        {
+            var memStream = cs.Download();
+            return File(memStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+
+        #endregion
+
+        #region 外出人員列表
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetAttendEmpList(string keyword)
+        {
+            var result = cs.GetAttendEmpList(keyword);
+            var data = new
+            {
+                current = 1,
+                rowCount = 10,
+                rows = result,
+                total = result.Count
+            };
+            return Content(data.ToJson());
+
+        }
+        #endregion
     }
 
 
