@@ -14,7 +14,6 @@ namespace CCM.Domain
     //mapping table name: RD_MACHINEAUTH_HISTORY
     public class RD_MACHINEAUTH_HISTORYEntity : IEntityCcm<RD_MACHINEAUTH_HISTORYEntity>, ICreationAuditedCcm, IModificationAuditedCcm
     {
-
         public String SID { get; set; }
 
         public String CS_NO { get; set; }
@@ -23,11 +22,14 @@ namespace CCM.Domain
 
         public String Remark { get; set; }
 
-        public String Version { get; set; }
+        public String COMPANY { get; set; }
 
         public String ITEM_NO { get; set; }
+
         public String M_ITEM_NO { get; set; }
         public String PROD_NO { get; set; }
+
+        public String Version { get; set; }
 
         public String oldFileName { get; set; }
 
@@ -36,7 +38,7 @@ namespace CCM.Domain
         public String UploadPath { get; set; }
 
         public String DownloadPath { get; set; }
-
+        public String DownloadPathNew { get; set; }
         public String CPU_SN { get; set; }
 
         public String HD_SN { get; set; }
@@ -45,7 +47,8 @@ namespace CCM.Domain
 
         public String HD_Moduleno { get; set; }
 
-        public Boolean Enable { get; set; }
+        public bool? Enable { get; set; }
+        public bool? EnableNew { get; set; }
 
         public String OrganizeId { get; set; }
 

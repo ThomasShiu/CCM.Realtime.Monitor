@@ -100,41 +100,6 @@
         //});
     }
     function submitForm() {
-        //檢查開始時間不可大於結束時間
-        var leavetime = $('#BookingStartTime').val();
-        var backtime = $('#BookingEndTime').val();
-
-        var newTime1 = new Date(leavetime);
-        var newTime2 = new Date(backtime);
-        var oldTime1 = new Date(vStartTime);
-        var oldTime2 = new Date(vEndTime);
-        // 新開始時間不可小於原開始時間
-        if (newTime1 > oldTime1) {
-            //$('#BookingStartTime').val('');
-            //$('#BookingEndTime').val('');
-
-            msg = "不可大於原本開始時間，請修正!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-
-            //$('#BookingStartTime').focus();
-            return false;
-        }
-        // 新結束時間不可小於原結束時間
-        if (oldTime2 > newTime2) {
-            //$('#BookingStartTime').val('');
-            //$('#BookingEndTime').val('');
-
-            msg = "不可小於原本結束時間，請修正!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-
-            //$('#BookingEndTime').focus();
-            return false;
-        }
-
 
         if (!$('#form1').formValid()) {
             return false;
@@ -377,7 +342,7 @@
             /* Executes after data is loaded and rendered */
             $("#grid-AttendEmp").find(".command-delete").on("click", function (e) {
                 var depid = '@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId';
-                if (depid == 'C00' | depid == 'G20') {
+                //if (depid == 'C00' | depid == 'G20') {
                     // 刪除檔案
                     $.ajax({
                         type: "POST",
@@ -414,12 +379,12 @@
                             }, 500);
                         }
                     });
-                } else {
-                    msg = "請管理部總務人員協助刪除!";
-                    window.setTimeout(function () {
-                        $.modalMsg(msg, "warning");
-                    }, 500);
-                }
+                //} else {
+                //    msg = "請管理部總務人員協助刪除!";
+                //    window.setTimeout(function () {
+                //        $.modalMsg(msg, "warning");
+                //    }, 500);
+                //}
             });
         });
 

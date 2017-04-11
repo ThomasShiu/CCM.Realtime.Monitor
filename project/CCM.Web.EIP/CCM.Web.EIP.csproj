@@ -221,6 +221,7 @@
     <Compile Include="Areas\Human\Controllers\HRS00Controller.cs" />
     <Compile Include="Areas\Human\Controllers\HRS01Controller.cs" />
     <Compile Include="Areas\Human\Controllers\HRS02Controller.cs" />
+    <Compile Include="Areas\Human\Controllers\HRS03Controller.cs" />
     <Compile Include="Areas\Human\HumanAreaRegistration.cs" />
     <Compile Include="Areas\OrderManage\Controllers\ORD00Controller.cs" />
     <Compile Include="Areas\OrderManage\Controllers\ORD03Controller.cs" />
@@ -1601,6 +1602,9 @@
     <Content Include="Areas\WorkflowControl\Views\WFC05\Edit.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Form_old.cshtml" />
     <Content Include="Areas\PublicObject\Views\PUB02\Form4.cshtml" />
+    <Content Include="Areas\Human\Views\HRS03\Details.cshtml" />
+    <Content Include="Areas\Human\Views\HRS03\Form.cshtml" />
+    <Content Include="Areas\Human\Views\HRS03\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />

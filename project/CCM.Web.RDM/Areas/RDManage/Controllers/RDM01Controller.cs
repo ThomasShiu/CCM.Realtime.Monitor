@@ -88,27 +88,32 @@ namespace CCM.Web.RDM.Areas.RDManage.Controllers
             var vPath = Path.GetDirectoryName(exactPath);
 
             // 產生存檔路徑
-            var TransPath = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar;
-            if (!Directory.Exists(TransPath))
+            var TransPathOld = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar+"old" + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(TransPathOld))
             {
-                Directory.CreateDirectory(TransPath);
+                Directory.CreateDirectory(TransPathOld);
             }
-
+            var TransPathNew = vPath + Path.DirectorySeparatorChar + vFilename + Path.DirectorySeparatorChar + "new" + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(TransPathNew))
+            {
+                Directory.CreateDirectory(TransPathNew);
+            }
             if (newold == "new")
             {
-                // 截取DLL內的機台資訊
-                DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "CCM");
-                // 產生認証檔(新版)
-                var transNew = m_IAU.Transform(exactPath, TransPath, 1, "CCM");
-                entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
+                entity.EnableNew = true;
             }
-            else {
-                // 截取DLL內的機台資訊
-                DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
-                // 產生認証檔(舊版)
-                var transOld = m_IAU.Transform(exactPath, TransPath, 1, "");
-                entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/CCM.dll";
-            }
+
+            // 截取DLL內的機台資訊
+            DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "CCM");
+            // 產生認証檔(新版)
+            var transNew = m_IAU.Transform(exactPath, TransPathNew, 1, "CCM");
+            entity.DownloadPathNew = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/new/CCM.dll";
+            // 截取DLL內的機台資訊
+            //DeviceInfo = m_IAU.GetDeviceInfo(exactPath, "");
+            // 產生認証檔(舊版)
+            var transOld = m_IAU.Transform(exactPath, TransPathOld, 1, "");
+            entity.DownloadPath = "EIPContent/Content/PublicObject/MachineAuth/" + vFilename + "/old/CCM.dll";
+            
             JObject json = JObject.Parse(DeviceInfo);
             entity.Version = Version;
             entity.newFileName = Path.GetFileName(exactPath);

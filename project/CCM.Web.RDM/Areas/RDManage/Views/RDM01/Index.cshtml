@@ -49,6 +49,20 @@
                              }
                          }
                      },
+                     { label: "认证档", name: "DownloadPathNew", hidden: true, width: 80, align: 'left' },
+                     {
+                         label: "新认证档", name: "", width: 90, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             var enablenew = rowObject.EnableNew;
+                             if (enablenew) {
+                                 if (rowObject.DownloadPathNew != null & rowObject.DownloadPathNew != '') {
+                                     return '<a href="' + pathlink + rowObject.DownloadPathNew + '" class="btn btn-info btn-sm">Download</a> ';
+                                 } else {
+                                     return '';
+                                 }
+                             } else { return ''; }
+                         }
+                     },
                     { label: "备注", name: "Remark", width: 120, align: 'left' },
                     {
                         label: "建立时间", name: "CreatorTime", width: 120, align: 'left',
@@ -71,6 +85,8 @@
                             return top.clients.user[rowObject.LastModifyUserId] == null ? "" : top.clients.user[rowObject.LastModifyUserId].fullname;
                         }
                     },
+                    { label: "Enable", name: "Enable", hidden: true, width: 60, align: "center" },
+                    { label: "EnableNew", name: "EnableNew", hidden: true, width: 60, align: "center" },
                     { label: "", name: "", width: 180, align: 'left' },
             ],
 			pager: "#gridPager",

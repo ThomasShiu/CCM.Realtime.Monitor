@@ -102,6 +102,8 @@ namespace CCM.Application
             entity.newFileName = "";
             entity.UploadPath = "";
             entity.DownloadPath = "";
+            entity.DownloadPathNew = "";
+            entity.EnableNew = false;
             entity.CPU_SN = "";
             entity.HD_SN = "";
             entity.HD_Moduleno = "";

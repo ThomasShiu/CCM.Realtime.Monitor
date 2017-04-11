@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		   
-public class PO_PUBLIC_OBJECT_ATTEND_EMPApp
+public class RD_DWG_EXMANAGE_MTApp
     {
-        private IPO_PUBLIC_OBJECT_ATTEND_EMPRepository service = new PO_PUBLIC_OBJECT_ATTEND_EMPRepository();     
+        private IRD_DWG_EXMANAGE_MTRepository service = new RD_DWG_EXMANAGE_MTRepository();     
 
-	public List<PO_PUBLIC_OBJECT_ATTEND_EMPEntity> GetList(string keyword = "")
+	public List<RD_DWG_EXMANAGE_MTEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>();
+            var expression = ExtLinq.True<RD_DWG_EXMANAGE_MTEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class PO_PUBLIC_OBJECT_ATTEND_EMPApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
         }     
-	 public List<PO_PUBLIC_OBJECT_ATTEND_EMPEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<RD_DWG_EXMANAGE_MTEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>();
+            var expression = ExtLinq.True<RD_DWG_EXMANAGE_MTEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class PO_PUBLIC_OBJECT_ATTEND_EMPApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public PO_PUBLIC_OBJECT_ATTEND_EMPEntity GetForm(string keyValue)
+        public RD_DWG_EXMANAGE_MTEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class PO_PUBLIC_OBJECT_ATTEND_EMPApp
                 service.Delete(t => t.SID == keyValue);
             }
         }
-        public void SubmitForm(PO_PUBLIC_OBJECT_ATTEND_EMPEntity tableEntity, string keyValue)
+        public void SubmitForm(RD_DWG_EXMANAGE_MTEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

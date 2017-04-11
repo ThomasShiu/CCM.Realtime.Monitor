@@ -112,7 +112,7 @@ namespace CCM.Web.EIP.Areas.WorkflowControl.Controllers
         #endregion
 
         #region 核準
-        [HttpGet]
+        [HttpPost]
         [HandlerAjaxOnly]
         public ActionResult ConfirmSign(string signids,string reply="")
         {

@@ -58,16 +58,18 @@ namespace CCM.Web.EIP.Areas.PublicObject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SubmitForm(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity, string keyValue)
         {
-            if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
-            {
+            //if (string.IsNullOrEmpty(keyValue)) //新建模式才判斷時段是否重複
+            //{
                 // 判斷該時段是否已有預約
                 string v_message = cs.chkPubObjExistBooking(tableEntity);
                 if (!string.IsNullOrEmpty(v_message))
                 {
                     return Error(v_message);
                 }
-            }
+            //}
             tableApp.SubmitForm(tableEntity , keyValue);
+            // 發送MAIL給預約者
+            cs.mailBookingRoom(tableEntity);
             return Success("操作成功。");
         }
         [HttpPost]

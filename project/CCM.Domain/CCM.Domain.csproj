@@ -62,6 +62,8 @@
     <Compile Include="03 Entity\Human\V_EMP_EIPEntity.cs" />
     <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
     <Compile Include="03 Entity\Human\V_HR_EMPPAYMTEntity.cs" />
+    <Compile Include="03 Entity\Human\V_HR_FRLDLEntity.cs" />
+    <Compile Include="03 Entity\Human\V_HR_FRLDL_1Entity.cs" />
     <Compile Include="03 Entity\Human\V_HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
     <Compile Include="03 Entity\Human\V_HR_TICKETEntity.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_ATTEND_EMPEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
     <Compile Include="03 Entity\PublicManage\PU_ATTACH_FILEEntity.cs" />
+    <Compile Include="03 Entity\RDManage\RD_DWG_EXMANAGE_MTEntity.cs" />
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
     <Compile Include="03 Entity\RDManage\RD_MACHINEAUTH_HISTORYEntity.cs" />
     <Compile Include="03 Entity\SaleService\SRM_ALBUMDLEntity.cs" />
@@ -118,6 +121,8 @@
     <Compile Include="04 IRepository\Human\IHR_EMPLYMRepository.cs" />
     <Compile Include="04 IRepository\Human\IV_EMP_EIPRepository.cs" />
     <Compile Include="04 IRepository\Human\IV_HR_EMPPAYMTRepository.cs" />
+    <Compile Include="04 IRepository\Human\IV_HR_FRLDLRepository.cs" />
+    <Compile Include="04 IRepository\Human\IV_HR_FRLDL_1Repository.cs" />
     <Compile Include="04 IRepository\Human\IV_HR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
     <Compile Include="04 IRepository\Human\IV_HR_TICKETRepository.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_ATTEND_EMPRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="04 IRepository\PublicObject\IPU_ATTACH_FILERepository.cs" />
+    <Compile Include="04 IRepository\RDManage\IRD_DWG_EXMANAGE_MTRepository.cs" />
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />
     <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="04 IRepository\SaleService\ISRM_ALBUMDLRepository.cs" />

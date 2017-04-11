@@ -57,7 +57,7 @@
                         label: "原檔下載", name: "", width: 70, align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
                             if (rowObject.UploadPath != null & rowObject.UploadPath != '') {
-                                return '<a href="' + pathlink + rowObject.DownloadPath + '" class="btn btn-info btn-sm">下載</a> ';
+                                return '<a href="' + pathlink + rowObject.UploadPath + '" class="btn btn-info btn-sm">下載</a> ';
                             } else {
                                 return '';
                             }
@@ -74,22 +74,49 @@
                              }
                          }
                      },
-
+                     {
+                         label: "新認證檔", name: "", width: 70, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             if (rowObject.DownloadPathNew != null & rowObject.DownloadPathNew != '') {
+                                 return '<a href="' + pathlink + rowObject.DownloadPathNew + '" class="btn btn-info btn-sm">下載</a> ';
+                             } else {
+                                 return '';
+                             }
+                         }
+                     },
                        {
                            label: "啟用", name: "Enable", width: 60, align: "center",
                            formatter: function (cellvalue) {
                                return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                            }
                        },
+                        {
+                            label: "啟用新認證檔", name: "EnableNew", width: 60, align: "center",
+                            formatter: function (cellvalue) {
+                                return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+                            }
+                        },
                     { label: "備註", name: "Remark", width: 120, align: 'left' },
                     {
                         label: "建立時間", name: "CreatorTime", width: 120, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                     },
+                     {
+                         label: "建立人員", name: "", width: 60, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             return top.clients.user[rowObject.CreatorUserId] == null ? "" : top.clients.user[rowObject.CreatorUserId].fullname;
+                         }
+                     },
                     {
                         label: "修改時間", name: "LastModifyTime", width: 120, align: 'left',
                         formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                     },
+                     {
+                         label: "修改人員", name: "", width: 60, align: 'center',
+                         formatter: function (cellvalue, options, rowObject) {
+                             return top.clients.user[rowObject.LastModifyUserId] == null ? "" : top.clients.user[rowObject.LastModifyUserId].fullname;
+                         }
+                     },
                     { label: "", name: "", width: 1, align: 'left' },
             ],
 			pager: "#gridPager",

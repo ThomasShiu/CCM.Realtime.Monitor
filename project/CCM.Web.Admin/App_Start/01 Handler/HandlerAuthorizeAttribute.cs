@@ -1,5 +1,8 @@
 ﻿using CCM.Application.SystemManage;
+using CCM.Application.SystemSecurity;
 using CCM.Code;
+using CCM.Domain.Entity.SystemSecurity;
+using System;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +21,23 @@ namespace CCM.Web.Admin
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ActionLogApp app = new ActionLogApp();
+            var LoginInfo = OperatorProvider.Provider.GetCurrent(); // 登錄資訊
+            ActionLogEntity NewLog = new ActionLogEntity()
+            {
+                Refer = filterContext.HttpContext.Request.UrlReferrer.AbsolutePath,
+                Destination = filterContext.HttpContext.Request.Url.AbsolutePath,
+                Method = filterContext.HttpContext.Request.HttpMethod,
+                RequestTime = DateTime.Now,
+                IPAddress = filterContext.HttpContext.Request.UserHostAddress,
+                Operator = LoginInfo.UserCode,  // 工號
+                Browser = filterContext.HttpContext.Request.Browser.Browser
+            };
+            app.SubmitForm(NewLog, "");
+
+            //ActionLog(filterContext);
+            // admin 系統用戶，不檢查
+
             if (OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 return;
@@ -38,7 +58,7 @@ namespace CCM.Web.Admin
         {
             var operatorProvider = OperatorProvider.Provider.GetCurrent();
             var roleId = operatorProvider.RoleId;
-            var moduleId = WebHelper.GetCookie("nfine_currentmoduleid");
+            var moduleId = WebHelper.GetCookie("admin_currentmoduleid");
             var action = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"].ToString();
             return new RoleAuthorizeApp().ActionValidate(roleId, moduleId, action);
         }

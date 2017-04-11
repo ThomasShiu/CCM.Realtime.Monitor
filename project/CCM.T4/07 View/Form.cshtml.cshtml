@@ -9,7 +9,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/ERPManage/ERP01/GetFormJson",
+                url: "/RDManage/RDM04/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -29,7 +29,7 @@
             return false;
         }
         $.submitForm({
-            url: "/ERPManage/ERP01/SubmitForm?keyValue=" + keyValue,
+            url: "/RDManage/RDM04/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -57,6 +57,24 @@
                 </td>
             </tr>
 			            <tr>
+                <th class="formTitle">ORD_NO</th>
+                <td class="formValue">
+					<input id="ORD_NO" name="ORD_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">ORD_DATE</th>
+                <td class="formValue">
+					<input id="ORD_DATE" name="ORD_DATE" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">PROD_NO</th>
+                <td class="formValue">
+					<input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
                 <th class="formTitle">ITEM_NO</th>
                 <td class="formValue">
 					<input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" placeholder="請輸入標題" />
@@ -69,21 +87,63 @@
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">ITEM_SP</th>
+                <th class="formTitle">EXPORT_DATE</th>
                 <td class="formValue">
-					<input id="ITEM_SP" name="ITEM_SP" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="EXPORT_DATE" name="EXPORT_DATE" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">CLAS_NO</th>
+                <th class="formTitle">EXPORT_QTY</th>
                 <td class="formValue">
-					<input id="CLAS_NO" name="CLAS_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="EXPORT_QTY" name="EXPORT_QTY" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">CLAS_NM</th>
+                <th class="formTitle">TO_DEPT</th>
                 <td class="formValue">
-					<input id="CLAS_NM" name="CLAS_NM" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="TO_DEPT" name="TO_DEPT" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">TO_EMP</th>
+                <td class="formValue">
+					<input id="TO_EMP" name="TO_EMP" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">FM_DEPT</th>
+                <td class="formValue">
+					<input id="FM_DEPT" name="FM_DEPT" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">FM_EMP</th>
+                <td class="formValue">
+					<input id="FM_EMP" name="FM_EMP" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">CS_NO</th>
+                <td class="formValue">
+					<input id="CS_NO" name="CS_NO" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">SHORT_NM</th>
+                <td class="formValue">
+					<input id="SHORT_NM" name="SHORT_NM" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">REMARK</th>
+                <td class="formValue">
+					<input id="REMARK" name="REMARK" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>
+            </tr>
+			            <tr>
+                <th class="formTitle">STATUS</th>
+                <td class="formValue">
+					<input id="STATUS" name="STATUS" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>
@@ -93,9 +153,9 @@
                 </td>
             </tr>
 			            <tr>
-                <th class="formTitle">OrganizeId</th>
+                <th class="formTitle">ORGANIZATION</th>
                 <td class="formValue">
-					<input id="OrganizeId" name="OrganizeId" type="text" class="form-control required" placeholder="請輸入標題" />
+					<input id="ORGANIZATION" name="ORGANIZATION" type="text" class="form-control required" placeholder="請輸入標題" />
                 </td>
             </tr>
 			            <tr>

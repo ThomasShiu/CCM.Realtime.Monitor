@@ -69,6 +69,12 @@
         $('#TO_YEAR').attr('disabled', true);
         $('#TO_MONTH').attr('disabled', true);
 
+        $('#LUDATE').val('');
+        $('#FROM_YEAR').val('');
+        $('#FROM_MONTH').val('');
+        $('#TO_YEAR').val('');
+        $('#TO_MONTH').val('');
+
         var lutype = $("#LUTYPE").children('option:selected').val();
         if (lutype == '1') { //預訂單日不用餐
             $('#LUDATE').removeAttr('disabled');
@@ -86,10 +92,10 @@
             $('#FROM_YEAR').addClass('required');
             $('#FROM_MONTH').removeAttr('disabled');
             $('#FROM_MONTH').addClass('required');
-            $('#TO_YEAR').removeAttr('disabled');
-            $('#TO_YEAR').addClass('required');
-            $('#TO_MONTH').removeAttr('disabled');
-            $('#TO_MONTH').addClass('required');
+            //$('#TO_YEAR').removeAttr('disabled');
+            //$('#TO_YEAR').addClass('required');
+            //$('#TO_MONTH').removeAttr('disabled');
+            //$('#TO_MONTH').addClass('required');
             $('#MEATPEOPLES').removeAttr('disabled');
             $('#MEATPEOPLES').addClass('required');
             $('#MEATPEOPLES').val('1');
@@ -142,6 +148,16 @@
 
         $('#LUTYPE').change(function () {
             setControl();
+        });
+        // 年份只能同一月
+        $('#FROM_YEAR').change(function () {
+            var fm_year = $('#FROM_YEAR').val();
+            $('#TO_YEAR').val(fm_year);
+        });
+        // 月份只能同一月
+        $('#FROM_MONTH').change(function () {
+            var fm_month = $('#FROM_MONTH').val();
+            $('#TO_MONTH').val(fm_month);
         });
     });
 </script>

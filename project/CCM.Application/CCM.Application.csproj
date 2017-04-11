@@ -71,6 +71,8 @@
     <Compile Include="Human\HR_EMPLYMApp.cs" />
     <Compile Include="Human\V_EMP_EIPApp.cs" />
     <Compile Include="Human\V_HR_EMPPAYMTApp.cs" />
+    <Compile Include="Human\V_HR_FRLDLApp.cs" />
+    <Compile Include="Human\V_HR_FRLDL_1App.cs" />
     <Compile Include="Human\V_HR_OVRTMApp.cs" />
     <Compile Include="Human\HR_OVRTMApp.cs" />
     <Compile Include="Human\V_HR_TICKETApp.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGApp.cs" />
     <Compile Include="PublicObject\PU_ATTACH_FILEApp.cs" />
     <Compile Include="PublicService\StoreProcedure.cs" />
+    <Compile Include="RDManage\RD_DWG_EXMANAGE_MTApp.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHApp.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYApp.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLApp.cs" />

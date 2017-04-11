@@ -143,35 +143,10 @@
             <tr>
                 <th class="formTitle">詳細說明</th>
                 <td class="formValue" colspan="3">
-                    <textarea id="Description" name="Description" class="form-control" style="height: 70px;"></textarea>
+                    <textarea id="Description" name="Description" class="form-control" style="height: 150px;"></textarea>
                 </td>
             </tr>
-            <tr>
-                <th class="formTitle">出廠時間</th>
-                <td class="formValue">
-                    @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="LeaveTime" name="BookingStartTime" type="text" class="form-control required"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入出廠時間" />
-                </td>
-                <th class="formTitle">回廠時間</th>
-                <td class="formValue">
-                    @*<input id="BackTime" name="BackTime" type="text" class="form-control required" placeholder="請輸入標題" />*@
-                    <input id="BackTime" name="BookingStartTime" type="text" class="form-control required"
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: true })" placeholder="請輸入回廠時間" />
-                </td>
-            </tr>
-        
-            <tr>
-                <th class="formTitle">守衛人員</th>
-                <td class="formValue">
-                    <select id="GuardEMPID" name="GuardEMPID" class="form-control required"></select>
-                </td>
-                <th class="formTitle">總公里數</th>
-                <td class="formValue">
-                    <span id="ttlkm" name="ttlkm" style="font-size:20px;color:red"></span>
-                </td>
-
-            </tr>
+           
             <tr>
                 <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:150px;" /></th>
                 <td class="formValue" colspan="2">

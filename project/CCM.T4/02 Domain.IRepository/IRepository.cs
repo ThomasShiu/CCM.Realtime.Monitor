@@ -11,8 +11,8 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: PO_PUBLIC_OBJECT_ATTEND_EMP
-	public interface IPO_PUBLIC_OBJECT_ATTEND_EMPRepository : IRepositoryBase<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>
+	//mapping table name: RD_DWG_EXMANAGE_MT
+	public interface IRD_DWG_EXMANAGE_MTRepository : IRepositoryBase<RD_DWG_EXMANAGE_MTEntity>
     {
     }
 			 		                               

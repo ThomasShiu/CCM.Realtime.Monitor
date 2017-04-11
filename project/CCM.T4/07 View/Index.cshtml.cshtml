@@ -9,18 +9,28 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/ERPManage/ERP01/GetGridJson",
+            url: "/RDManage/RDM04/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
 					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
 			                    { label: "SID", name: "SID", width: 80, align: 'left' },
+				                     { label: "ORD_NO", name: "ORD_NO", width: 80, align: 'left' },
+				                     { label: "ORD_DATE", name: "ORD_DATE", width: 80, align: 'left' },
+				                     { label: "PROD_NO", name: "PROD_NO", width: 80, align: 'left' },
 				                     { label: "ITEM_NO", name: "ITEM_NO", width: 80, align: 'left' },
 				                     { label: "ITEM_NM", name: "ITEM_NM", width: 80, align: 'left' },
-				                     { label: "ITEM_SP", name: "ITEM_SP", width: 80, align: 'left' },
-				                     { label: "CLAS_NO", name: "CLAS_NO", width: 80, align: 'left' },
-				                     { label: "CLAS_NM", name: "CLAS_NM", width: 80, align: 'left' },
+				                     { label: "EXPORT_DATE", name: "EXPORT_DATE", width: 80, align: 'left' },
+				                     { label: "EXPORT_QTY", name: "EXPORT_QTY", width: 80, align: 'left' },
+				                     { label: "TO_DEPT", name: "TO_DEPT", width: 80, align: 'left' },
+				                     { label: "TO_EMP", name: "TO_EMP", width: 80, align: 'left' },
+				                     { label: "FM_DEPT", name: "FM_DEPT", width: 80, align: 'left' },
+				                     { label: "FM_EMP", name: "FM_EMP", width: 80, align: 'left' },
+				                     { label: "CS_NO", name: "CS_NO", width: 80, align: 'left' },
+				                     { label: "SHORT_NM", name: "SHORT_NM", width: 80, align: 'left' },
+				                     { label: "REMARK", name: "REMARK", width: 80, align: 'left' },
+				                     { label: "STATUS", name: "STATUS", width: 80, align: 'left' },
 				                     { label: "GUID", name: "GUID", width: 80, align: 'left' },
-				                     { label: "OrganizeId", name: "OrganizeId", width: 80, align: 'left' },
+				                     { label: "ORGANIZATION", name: "ORGANIZATION", width: 80, align: 'left' },
 				                     { label: "CreatorTime", name: "CreatorTime", width: 80, align: 'left' },
 				                     { label: "CreatorUserId", name: "CreatorUserId", width: 80, align: 'left' },
 				                     { label: "LastModifyTime", name: "LastModifyTime", width: 80, align: 'left' },
@@ -41,7 +51,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增",
-            url: "/ERPManage/ERP01/Form",
+            url: "/RDManage/RDM04/Form",
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -54,7 +64,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改",
-            url: "/ERPManage/ERP01/Form?keyValue=" + keyValue,
+            url: "/RDManage/RDM04/Form?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             callBack: function (iframeId) {
@@ -64,7 +74,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/ERPManage/ERP01/DeleteForm",
+            url: "/RDManage/RDM04/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().SID },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -76,7 +86,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看",
-            url: "/ERPManage/ERP01/Details?keyValue=" + keyValue,
+            url: "/RDManage/RDM04/Details?keyValue=" + keyValue,
             width: "640px",
             height: "400px",
             btn: null,

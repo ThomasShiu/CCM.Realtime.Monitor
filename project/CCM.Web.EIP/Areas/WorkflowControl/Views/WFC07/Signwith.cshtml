@@ -68,19 +68,13 @@
 
     // 初始化簽核途程列表
     function InitBootGrid() {
-        var vhost = '@Request.Url.Host';
-        var vport = '@Request.Url.Port';
-        if (vport != 80) {
-            vport = ':@Request.Url.Port';
-        }
-        var pathlink = 'http://' + vhost + vport + '/';
 
         // BootGrid test
         $("#grid-signroute").on("load.rs.jquery.bootgrid", function () {
             //alert('before load data');
         }).bootgrid({
             ajax: true,
-            navigation: 2,
+            navigation: 0,
             ajaxSettings: {
                 method: "GET",
                 cache: false
@@ -119,7 +113,7 @@
             //alert('before load data');
         }).bootgrid({
             ajax: true,
-            navigation: 2,
+            navigation: 0,
             ajaxSettings: {
                 method: "GET",
                 cache: false
@@ -204,6 +198,7 @@
                     url: "/WorkflowControl/WFC00/ConfirmSign",
                     data: { signids: keyValue1,reply:reply },
                     dataType: "json",
+                    type: "POST",
                     async: false,
                     success: function (data) {
                         msg = "簽核成功!";

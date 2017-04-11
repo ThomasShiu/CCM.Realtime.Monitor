@@ -49,6 +49,8 @@
     <Compile Include="Human\HR_EMPLYMRepository.cs" />
     <Compile Include="Human\V_EMP_EIPRepository.cs" />
     <Compile Include="Human\V_HR_EMPPAYMTRepository.cs" />
+    <Compile Include="Human\V_HR_FRLDLRepository.cs" />
+    <Compile Include="Human\V_HR_FRLDL_1Repository.cs" />
     <Compile Include="Human\V_HR_OVRTMRepository.cs" />
     <Compile Include="Human\HR_OVRTMRepository.cs" />
     <Compile Include="Human\V_HR_TICKETRepository.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_ATTEND_EMPRepository.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
     <Compile Include="PublicObject\PU_ATTACH_FILERepository.cs" />
+    <Compile Include="RDManage\RD_DWG_EXMANAGE_MTRepository.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHRepository.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYRepository.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLRepository.cs" />

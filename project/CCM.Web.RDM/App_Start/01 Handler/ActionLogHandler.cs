@@ -20,8 +20,8 @@ namespace CCM.Web.RDM.App_Start._01_Handler
         {
             //LogEntity entity = new LogEntity();
             //var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            //entity.SID = Common.GuId();
-            //entity.Operator = LoginInfo.UserCode;
+            //entity.F_Id = Common.GuId();
+            //entity.F_Account = LoginInfo.UserCode;
             //entity.Message = mes;
             //entity.Result = result;
             //entity.Type = type;

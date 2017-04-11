@@ -11,27 +11,55 @@ using System.ComponentModel.DataAnnotations;
 namespace CCM.Domain 
 {        
 		             
-			//mapping table name: PO_PUBLIC_OBJECT_ATTEND_EMP
-			public class PO_PUBLIC_OBJECT_ATTEND_EMPEntity  : IEntityCcm<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+			//mapping table name: RD_DWG_EXMANAGE_MT
+			public class RD_DWG_EXMANAGE_MTEntity  : IEntityCcm<RD_DWG_EXMANAGE_MTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
 			{
 				          
-				public String SID  { get; set; }                                        
+				public String SID  { get; set; }                                  
 				          
-				public String ParentSID  { get; set; }                                        
+				public String ORD_NO  { get; set; }                                  
 				          
-				public String DEPID  { get; set; }                                        
+				public DateTime ORD_DATE  { get; set; }                                  
 				          
-				public String EMP_NO  { get; set; }                                        
+				public String PROD_NO  { get; set; }                                  
 				          
-				public String OrganizeId  { get; set; }                                        
+				public String ITEM_NO  { get; set; }                                  
 				          
-				public DateTime CreatorTime  { get; set; }                                        
+				public String ITEM_NM  { get; set; }                                  
 				          
-				public String CreatorUserId  { get; set; }                                        
+				public DateTime EXPORT_DATE  { get; set; }                                  
 				          
-				public DateTime LastModifyTime  { get; set; }                                        
+				public Int32 EXPORT_QTY  { get; set; }                                  
 				          
-				public String LastModifyUserId  { get; set; }                                        
+				public String TO_DEPT  { get; set; }                                  
+				          
+				public String TO_EMP  { get; set; }                                  
+				          
+				public String FM_DEPT  { get; set; }                                  
+				          
+				public String FM_EMP  { get; set; }                                  
+				          
+				public String CS_NO  { get; set; }                                  
+				          
+				public String SHORT_NM  { get; set; }                                  
+				          
+				public String REMARK  { get; set; }                                  
+				          
+				public String STATUS  { get; set; }                                  
+				          
+				public String GUID  { get; set; }                                  
+				          
+				public Boolean Enable  { get; set; }                                  
+				          
+				public String OrganizeId  { get; set; }                                  
+				          
+				public DateTime CreatorTime  { get; set; }                                  
+				          
+				public String CreatorUserId  { get; set; }                                  
+				          
+				public DateTime LastModifyTime  { get; set; }                                  
+				          
+				public String LastModifyUserId  { get; set; }                                  
 				                                
 			}                            
 }

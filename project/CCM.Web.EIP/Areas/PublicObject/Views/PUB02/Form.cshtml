@@ -98,41 +98,45 @@
         //});
     }
     function submitForm() {
-        //檢查開始時間不可大於結束時間
-        var leavetime = $('#BookingStartTime').val();
-        var backtime = $('#BookingEndTime').val();
+        if (keyValue != '') {
+            // 編輯模式
+            if (depid != 'C00' & depid != 'G20') {
+                //檢查開始時間不可大於結束時間
+                var leavetime = $('#BookingStartTime').val();
+                var backtime = $('#BookingEndTime').val();
 
-        var newTime1 = new Date(leavetime);
-        var newTime2 = new Date(backtime);
-        var oldTime1 = new Date(vStartTime);
-        var oldTime2 = new Date(vEndTime);
-        // 新開始時間不可小於原開始時間
-        if (newTime1 > oldTime1) {
-            //$('#BookingStartTime').val('');
-            //$('#BookingEndTime').val('');
+                var newTime1 = new Date(leavetime);
+                var newTime2 = new Date(backtime);
+                var oldTime1 = new Date(vStartTime);
+                var oldTime2 = new Date(vEndTime);
+                // 新開始時間不可小於原開始時間
+                if (newTime1 > oldTime1) {
+                    //$('#BookingStartTime').val('');
+                    //$('#BookingEndTime').val('');
 
-            msg = "不可大於原本開始時間，請修正!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
+                    msg = "不可大於原本開始時間，請修正!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
 
-            //$('#BookingStartTime').focus();
-            return false;
+                    //$('#BookingStartTime').focus();
+                    return false;
+                }
+                // 新結束時間不可小於原結束時間
+                if (oldTime2 > newTime2) {
+                    //$('#BookingStartTime').val('');
+                    //$('#BookingEndTime').val('');
+
+                    msg = "不可小於原本結束時間，請修正!";
+                    window.setTimeout(function () {
+                        $.modalMsg(msg, "warning");
+                    }, 500);
+
+                    //$('#BookingEndTime').focus();
+                    return false;
+                }
+            }
         }
-        // 新結束時間不可小於原結束時間
-        if (oldTime2 > newTime2) {
-            //$('#BookingStartTime').val('');
-            //$('#BookingEndTime').val('');
-
-            msg = "不可小於原本結束時間，請修正!";
-            window.setTimeout(function () {
-                $.modalMsg(msg, "warning");
-            }, 500);
-
-            //$('#BookingEndTime').focus();
-            return false;
-        }
-
         if (!$('#form1').formValid()) {
             return false;
         }
@@ -519,12 +523,12 @@
                 <th class="formTitle">預約時間起</th>
                 <td class="formValue">
                     <input id="BookingStartTime" name="BookingStartTime" type="text" class="form-control input-wdatepicker required" 
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm',qsEnabled: true, quickSel: ['%y-%M-%d 08:00', '%y-%M-%d 09:00', '%y-%M-%d 10:00', '%y-%M-%d 13:00', '%y-%M-%d 14:00', '%y-%M-%d 15:00'] })" placeholder="請輸入開始時間" />
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm',alwaysUseStartDate: false,qsEnabled: true, quickSel: ['%y-%M-%d 08:00', '%y-%M-%d 09:00', '%y-%M-%d 10:00', '%y-%M-%d 13:00', '%y-%M-%d 14:00', '%y-%M-%d 15:00'] })" placeholder="請輸入開始時間" />
                 </td>
                 <th class="formTitle">預約時間迄</th>
                 <td class="formValue">
                     <input id="BookingEndTime" name="BookingEndTime" type="text" class="form-control input-wdatepicker required"  
-                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', qsEnabled: true, quickSel: ['%y-%M-%d 12:00', '%y-%M-%d 14:00', '%y-%M-%d 15:30', '%y-%M-%d 16:00', '%y-%M-%d 17:00', '%y-%M-%d 16:00'] })" placeholder="請輸入結束時間" />
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false, qsEnabled: true, quickSel: ['%y-%M-%d 12:00', '%y-%M-%d 14:00', '%y-%M-%d 15:30', '%y-%M-%d 16:00', '%y-%M-%d 17:00', '%y-%M-%d 16:00'] })" placeholder="請輸入結束時間" />
                 </td>
 
             </tr>

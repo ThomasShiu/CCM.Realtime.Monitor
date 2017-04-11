@@ -139,13 +139,13 @@ namespace CCM.Application
             return v_YN;
         }
         #endregion
-     
-            #region 取得外出人員明細
-            public JArray GetAttendEmpList(string keyword)
+
+        #region 取得外出人員明細
+        public JArray GetAttendEmpList(string keyword)
         {
-            string v_sql = "   SELECT SID, ParentSID, DEPID, dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM, EMP_NO,dbo.SF_GETEMPNAME(EMP_NO) EMP_NM "+
-                          " FROM EIP.dbo.PO_PUBLIC_OBJECT_ATTEND_EMP "+
-                          " WHERE ParentSID = '"+ keyword + "' ";
+            string v_sql = "   SELECT SID, ParentSID, DEPID, dbo.SF_GETDEPTBYDEPT(DEPID) DEPNM, EMP_NO,dbo.SF_GETEMPNAME(EMP_NO) EMP_NM " +
+                          " FROM EIP.dbo.PO_PUBLIC_OBJECT_ATTEND_EMP " +
+                          " WHERE ParentSID = '" + keyword + "' ";
             //得到一個DataTable物件
             DataTable dt = this.queryDataTable(v_sql);
 
@@ -178,7 +178,7 @@ namespace CCM.Application
             }
             return MixArray;
         }
-#endregion
+        #endregion
 
         #region 取得特約廠商
         public JArray GetVendorList()
@@ -250,7 +250,13 @@ namespace CCM.Application
         #region 取得守衛清單
         public string getGuardList()
         {
-            string v_sql = "SELECT USR_NO, USR_NM, USR_PW, DEPM_NO, DEPM_NM, E_MAIL  FROM PO_GUARDNO";
+            string v_sql = "SELECT RTRIM(EMPLYID) USR_NO, RTRIM(EMPLYNM) USR_NM, '' USR_PW,'G00' DEPM_NO,'' DEPM_NM,'' E_MAIL " +
+                            "FROM HRSDBR53.dbo.HR_EXTERAL " +
+                            "WHERE ROLEID LIKE 'M01%' AND C_STA = 'A' " +
+                            "UNION " +
+                            "SELECT USR_NO, USR_NM, USR_PW, DEPM_NO, DEPM_NM, E_MAIL " +
+                            "FROM PO_GUARDNO " +
+                            "ORDER BY 1 DESC ";
             string result = GetJson(v_sql);
             return result;
         }
@@ -952,6 +958,7 @@ namespace CCM.Application
             return MixArray;
         }
         #endregion
+       
         #region 產生簽核途程
         public string GenSign(string v_ovrtno)
         {
@@ -1180,13 +1187,13 @@ namespace CCM.Application
             SqlCommand cmd = new SqlCommand(v_SP_SET_SIGN, db);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@SIGNID", SqlDbType.VarChar, 4000);
+            cmd.Parameters.Add("@SIGNID", SqlDbType.VarChar, -1);
             cmd.Parameters["@SIGNID"].Value = v_signid;
             cmd.Parameters.Add("@REPLY", SqlDbType.VarChar, 500);
             cmd.Parameters["@REPLY"].Value = v_reply;
             cmd.Parameters.Add("@EMPLYID", SqlDbType.VarChar, 20);
             cmd.Parameters["@EMPLYID"].Value = UserId;
-            
+
             //cmd.Parameters.Add("@returnval", System.Data.SqlDbType.VarChar, 50).Direction = System.Data.ParameterDirection.ReturnValue;
 
             try
@@ -1635,6 +1642,54 @@ namespace CCM.Application
             }
             return MixArray;
         }
+        public JArray getLeaveEmpList2()
+        {
+            var v_sql = "SELECT FMNO, SR, EMPLYID,dbo.SF_GETEMPNAME(EMPLYID) EMPLYNM, AGEMP, FRL_NO,FRL_NM, CONVERT(char(10), BL_DT, 20) AS BL_DT, SFT_NO, FRHR, REMARK, ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(B_NN AS int))) + RTRIM(CAST(B_NN AS int)) + ':' + ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(B_MM AS int))) + RTRIM(CAST(B_MM AS int)) BTIME, ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(E_NN AS int))) + RTRIM(CAST(E_NN AS int)) + ':' + ";
+            v_sql += " REPLICATE('0', 2 - LEN(CAST(E_MM AS int))) + RTRIM(CAST(E_MM AS int)) ETIME ";
+            v_sql += " FROM V_HR_FRLDL ";
+            v_sql += " WHERE cast(BL_DT As Date) = cast(GETDATE() As Date)  ";
+
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            JArray MixArray = new JArray();
+            var detail = from p in dt.AsEnumerable()
+                         select new
+                         {
+                             FMNO = p.Field<string>("FMNO"),
+                             SR = p.Field<decimal?>("SR"),
+                             EMPLYID = p.Field<string>("EMPLYID"),
+                             EMPLYNM = p.Field<string>("EMPLYNM"),
+                             FRL_NM = p.Field<string>("FRL_NM"),
+                             BL_DT = p.Field<string>("BL_DT"),
+                             BTIME = p.Field<string>("BTIME"),
+                             ETIME = p.Field<string>("ETIME"),
+                             REMARK = p.Field<string>("REMARK")
+                         };
+
+            int totalCount = detail.Count();
+            foreach (var col in detail)
+            {
+
+                var colObject = new JObject
+                {
+                    {"FMNO",col.FMNO },
+                    {"SR",col.SR },
+                    {"EMPLYID",col.EMPLYID},
+                    {"EMPLYNM",col.EMPLYNM },
+                    {"FRL_NM",col.FRL_NM },
+                    {"BL_DT",col.BL_DT },
+                    {"BTIME",col.BTIME },
+                    {"ETIME",col.ETIME },
+                    {"REMARK",col.REMARK }
+                };
+                MixArray.Add(colObject);
+            }
+            return MixArray;
+        }
         #endregion
 
 
@@ -1852,7 +1907,7 @@ namespace CCM.Application
 
         #endregion
        
-        #region 郵寄報表檔
+        #region 郵寄報表檔2
         public void mailReport2(string keyValue, string filename)
         {
             string v_sqlstr = " SELECT ISSUEID, COMPANY, EIP.dbo.SF_TWDATEFORMAT(ISSUEDATE,'yyy/mm/dd') ISSUEDATE, OFFICIAL_NM, SUBJECT, DESCR, AttachFIle, EMPID, DEPID, STATUS, DOCTYPE, CONTACT, PHONEAREACODE, PHONE, PHONEEXTENSION, FAX, Original, Duplicate" +
@@ -1943,7 +1998,77 @@ namespace CCM.Application
         }
 
         #endregion
-        
+
+        #region 郵寄會議室預約
+        public void mailBookingRoom(PO_PUBLIC_OBJECT_BOOKINGEntity tableEntity)
+        {
+            string v_sql = " SELECT SID, ObjectType, ObjectNM, [Description]" +
+                           " FROM PO_PUBLIC_OBJECT " +
+                           " WHERE SID = '" + tableEntity.ObjectSID + "' ";
+            //得到一個DataTable物件
+            DataTable dt = this.queryDataTable(v_sql);
+
+            var objectnm = dt.Rows[0]["ObjectNM"].ToString();
+
+            //EmployeeID
+            var mailto = tableEntity.EmployeeID + "@ccm3s.com";
+
+            //string[] _mailAddress = { mailto,"b050502@ccm3s.com" };
+            string[] _mailAddress = { mailto };
+            string _subject, _body;
+            ArrayList _AttachfilePathlist = new ArrayList();
+            _subject = "[通知] 已預約會議室 - " + objectnm;
+            _body = "您好:</br><blockquote>預約會議室內容如下:</blockquote><hr><b>會議室 :</b> " + objectnm +
+                "</br><b>會議時間 : </b>" + tableEntity.BookingStartTime.ToString("yyyy-MM-dd HH: mm") + " ~ " + tableEntity.BookingEndTime.ToString("yyyy-MM-dd HH: mm") +
+                "</br><b>主旨 : </b>" + tableEntity.Subject + "</br><b>會議說明 : </b></br><blockquote>" + tableEntity.Description +
+                "</blockquote><br><br> 注意:此郵件由系統自動發送，請勿直接回覆。<a href='http://192.168.100.13/Home/Index'>EIP</a><br>";
+            //MailReport(_ms, _mailAddress, _subject, _body, _AttachfilePathlist);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.Host = "ccm-ad.ccm3s.com";
+            client.EnableSsl = true;
+            client.Timeout = 60000;//1分鐘
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("erpsys@ccm3s.com", "manager");
+
+            MailMessage mm = new MailMessage();
+            mm.IsBodyHtml = true;
+            mm.From = new MailAddress("erpsys@ccm3s.com");
+            foreach (string s in _mailAddress)
+            {
+                if (s != null)
+                {
+                    mm.To.Add(new MailAddress(s));
+                    mm.Bcc.Add(new MailAddress("b050502@ccm3s.com"));
+                    mm.Bcc.Add(new MailAddress("a830901@ccm3s.com"));
+                }
+            }
+            mm.Subject = _subject;
+            mm.Body = _body;
+
+            mm.BodyEncoding = Encoding.GetEncoding("utf-8");
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+            try
+            {
+                client.Send(mm);
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+            finally
+            {
+                //_ms.Close();
+                //_ms.Flush();
+            }
+
+        }
+
+        #endregion
+
+
         #region 修改圖片解析度
         public int ImgUploadResize(HttpPostedFileBase file,string directoryPath,string fileNewName)
         {

@@ -33,24 +33,51 @@ namespace CCM.Web.EIP
             string holiday = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd");
             string guid = DateTime.Now.ToString("yyyyMMdd")+"-"+CommonCCm.GuId();
             string SQL = "";
+
             switch (day)
             {
-                case "1":case "2":case "3":case "4":
-                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
-                          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '"+ tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','"+ guid + "','CISERVER')";
-                    ExecuteSQL(SQL);
-                    
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                    // 2017-3-29 楊特助用車camary被專案借用，所以換 A3 給他開
+                    //if (today == "2017-03-29" | today == "2017-03-30" | today == "2017-03-31")
+                    //{
+                    //    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                    //          " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '18', '" + today + " 17:05', '" + tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
+                    //    ExecuteSQL(SQL);
+                    //}
+                    //else
+                    //{
+                        SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                              " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '" + tomorrow + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
+                        ExecuteSQL(SQL);
+                    //}
                     break;
+
                 case "5":
-                    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
-                         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
-                    ExecuteSQL(SQL);
+                    //if (today == "2017-03-29" | today == "2017-03-30" | today == "2017-03-31")
+                    //{
+                    //    SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                    //         " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '18', '" + today + " 17:05', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
+                    //    ExecuteSQL(SQL);
+
+                    //}
+                    //else
+                    //{
+                        SQL = " INSERT INTO PO_PUBLIC_OBJECT_BOOKING(ObjectType, UseReason, Subject, [Description], EmployeeID, DepartmentID, ObjectSID, BookingStartTime, BookingEndTime, AttendEmp, Status, Mileage, MileageLast,BgColor,GUID,CreatorUserId) " +
+                             " VALUES('公務車輛', '內部需求', '總經理特助楊登雄上下班', '總經理特助楊登雄上下班', 'B060309', 'H00', '24', '" + today + " 17:05', '" + holiday + " 08:00', '總經理室_楊登雄', '鎖定', 0, 0,'#FF0000','" + guid + "','CISERVER')";
+                        ExecuteSQL(SQL);
+
+                    //}
                     break;
             }
-            // 外出人員
-            SQL = " INSERT INTO PO_PUBLIC_OBJECT_ATTEND_EMP(ParentSID, DEPID, EMP_NO,CreatorUserId) " +
-                         "  VALUES('" + guid + "','H00','B060309','CISERVER')";
-            ExecuteSQL(SQL);
+
+                // 外出人員
+                SQL = " INSERT INTO PO_PUBLIC_OBJECT_ATTEND_EMP(ParentSID, DEPID, EMP_NO,CreatorUserId) " +
+                             "  VALUES('" + guid + "','H00','B060309','CISERVER')";
+                ExecuteSQL(SQL);
+
         }
         #endregion
 

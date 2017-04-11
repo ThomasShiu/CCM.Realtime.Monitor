@@ -17,6 +17,13 @@
                 $("#form1").find('div.ckbox label').attr('for', '');
                 $('#UploadPathLink').append('<a href="' + pathlink + $('#UploadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
                 $('#DownloadPathLink').append('<a href="' + pathlink + $('#DownloadPath').val() + '" class="btn btn-info btn-sm">Download</a>');
+                var EnableNew = $('#EnableNew').val();
+  
+                if (EnableNew=='true') {
+                    $('#DownloadPathNewLink').append('<a href="' + pathlink + $('#DownloadPathNew').val() + '" class="btn btn-info btn-sm">Download</a>');
+                } else {
+                    $('#DownloadPathNewLink').remove();
+                }
             }
         });
     });
@@ -49,6 +56,8 @@
     <input id="SID" name="SID" type="hidden" value="" />
     <input id="UploadPath" name="UploadPath" type="hidden" />
     <input id="DownloadPath" name="DownloadPath" type="hidden" />
+    <input id="DownloadPathNew" name="DownloadPathNew" type="hidden" />
+    <input id="EnableNew" name="EnableNew" type="hidden" />
     <div style="padding-top: 20px; margin-right: 20px;">
         <table class="form">
             <tr>
@@ -99,6 +108,10 @@
                     <div class="ckbox">
                         <input id="Enable" name="Enable" type="checkbox"><label for="Enable">啟用</label>
                     </div>
+                </td>
+                <th class="formTitle">新版認證檔下載</th>
+                <td class="formValue">
+                    <div id="DownloadPathNewLink"></div>
                 </td>
             </tr>
             <tr>

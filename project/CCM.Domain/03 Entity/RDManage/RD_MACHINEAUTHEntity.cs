@@ -39,7 +39,7 @@ namespace CCM.Domain
         public String UploadPath { get; set; }
 
         public String DownloadPath { get; set; }
-
+        public String DownloadPathNew { get; set; }
         public String CPU_SN { get; set; }
 
         public String HD_SN { get; set; }
@@ -49,6 +49,7 @@ namespace CCM.Domain
         public String HD_Moduleno { get; set; }
 
         public bool? Enable { get; set; }
+        public bool? EnableNew { get; set; }
 
         public String OrganizeId { get; set; }
 

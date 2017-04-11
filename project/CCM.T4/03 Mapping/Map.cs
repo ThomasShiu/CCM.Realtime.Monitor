@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: PO_PUBLIC_OBJECT_ATTEND_EMP
-	public class PO_PUBLIC_OBJECT_ATTEND_EMPMap : EntityTypeConfiguration<PO_PUBLIC_OBJECT_ATTEND_EMPEntity>
+	//mapping table name: RD_DWG_EXMANAGE_MT
+	public class RD_DWG_EXMANAGE_MTMap : EntityTypeConfiguration<RD_DWG_EXMANAGE_MTEntity>
     {
-        public PO_PUBLIC_OBJECT_ATTEND_EMPMap()
+        public RD_DWG_EXMANAGE_MTMap()
         {
-            this.ToTable("PO_PUBLIC_OBJECT_ATTEND_EMP");
+            this.ToTable("RD_DWG_EXMANAGE_MT");
             this.HasKey(t => t.SID);
         }
     }

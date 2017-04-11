@@ -20,10 +20,12 @@ namespace CCM.Application
 
         public List<V_HR_EMPPAYMTEntity> GetList(string keyword = "")
         {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
             var expression = ExtLinq.True<V_HR_EMPPAYMTEntity>();
+            expression = expression.And(t => t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.YYYYMM.Contains(keyword));
+                expression = expression.Or(t => t.YYYYMM.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }
@@ -32,10 +34,12 @@ namespace CCM.Application
         }
         public List<V_HR_EMPPAYMTEntity> GetList(Pagination pagination, string keyword = "")
         {
+            var LoginInfo = OperatorProvider.Provider.GetCurrent();
             var expression = ExtLinq.True<V_HR_EMPPAYMTEntity>();
+            expression = expression.And(t => t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.YYYYMM.Contains(keyword));
+                expression = expression.Or(t => t.YYYYMM.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }
@@ -52,7 +56,7 @@ namespace CCM.Application
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.YYYYMM.Contains(keyword));
+                expression = expression.Or(t => t.YYYYMM.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYID.Contains(keyword));
                 expression = expression.Or(t => t.EMPLYNM.Contains(keyword));
             }

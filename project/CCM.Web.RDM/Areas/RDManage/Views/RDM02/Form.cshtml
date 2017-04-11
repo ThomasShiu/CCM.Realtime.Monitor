@@ -83,7 +83,7 @@
                     async: false,
                     success: function (data) {
                         var result = data;
-                        alert(result[0].CS_NO);
+                        //alert(result[0].CS_NO);
 
                         $('input[name=CS_NO]').val(result[0].CS_NO);
                         $('input[name=SHORT_NM]').val(result[0].SHORT_NM);
@@ -111,10 +111,23 @@
                         <option value="DAC">東莞</option>
                     </select>
                 </td>
-                <th class="formTitle">開放</th>
+                <th class="formTitle">開放上傳</th>
                 <td class="formValue">
                     <div class="ckbox">
                         <input id="Enable" name="Enable" type="checkbox"><label for="Enable">啟用</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出機編號</th>
+                <td class="formValue" >
+                    <input id="PROD_NO" name="PROD_NO" class="form-control">
+
+                </td>
+                <th class="formTitle">開放新版</th>
+                <td class="formValue">
+                    <div class="ckbox">
+                        <input id="EnableNew" name="EnableNew" type="checkbox"><label for="EnableNew">啟用</label>
                     </div>
                 </td>
             </tr>
@@ -125,13 +138,7 @@
                 </td>
                 
             </tr>
-            <tr>
-                <th class="formTitle">出機編號</th>
-                <td class="formValue" colspan="3">
-                    <input id="PROD_NO" name="PROD_NO" class="form-control">
-
-                </td>
-            </tr>
+           
             <tr>
                 <th class="formTitle">備註</th>
                 <td class="formValue" colspan="3">

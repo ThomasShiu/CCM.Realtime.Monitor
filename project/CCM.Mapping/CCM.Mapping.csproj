@@ -58,6 +58,8 @@
     <Compile Include="Human\HR_EMPLYMMap.cs" />
     <Compile Include="Human\V_EMP_EIPMap.cs" />
     <Compile Include="Human\V_HR_EMPPAYMTMap.cs" />
+    <Compile Include="Human\V_HR_FRLDLMap.cs" />
+    <Compile Include="Human\V_HR_FRLDL_1Map.cs" />
     <Compile Include="Human\V_HR_OVRTMMap.cs" />
     <Compile Include="Human\HR_OVRTMMap.cs" />
     <Compile Include="Human\V_HR_TICKETMap.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_ATTEND_EMPMap.cs" />
     <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
     <Compile Include="PublicObject\PU_ATTACH_FILEMap.cs" />
+    <Compile Include="RDManage\RD_DWG_EXMANAGE_MTMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />
     <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYMap.cs" />
     <Compile Include="SaleService\SRM_ALBUMDLMap.cs" />

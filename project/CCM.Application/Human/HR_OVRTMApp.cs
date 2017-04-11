@@ -54,8 +54,8 @@ namespace CCM.Application
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.OVRTNO.Contains(keyword));
-                expression = expression.Or(t => t.DEREASON.Contains(keyword));
+                expression = expression.And(t => t.OVRTNO.Contains(keyword) & t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
+                expression = expression.Or(t => t.DEREASON.Contains(keyword) & t.EMPLYID.Trim().Equals(LoginInfo.UserCode));
             }
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
@@ -75,8 +75,8 @@ namespace CCM.Application
             if (!queryParam["keyword"].IsEmpty())
             {
                 string keyword = queryParam["keyword"].ToString();
-                expression = expression.And(t => t.OVRTNO.Contains(keyword));
-                expression = expression.Or(t => t.DEREASON.Contains(keyword));
+                expression = expression.And(t => t.OVRTNO.Contains(keyword) & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
+                expression = expression.Or(t => t.DEREASON.Contains(keyword) & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
             }
             // 關鍵字2
             if (!queryParam["statusType"].IsEmpty())
@@ -86,34 +86,34 @@ namespace CCM.Application
                 {
 
                     case "SN":
-                        expression = expression.And(t => t.STATUS == "SN");
+                        expression = expression.And(t => t.STATUS == "SN" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "OP":
-                        expression = expression.And(t => t.STATUS == "OP");
+                        expression = expression.And(t => t.STATUS == "OP" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "CL":
-                        expression = expression.And(t => t.STATUS == "CL");
+                        expression = expression.And(t => t.STATUS == "CL" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "NL":
-                        expression = expression.And(t => t.STATUS == "NL");
+                        expression = expression.And(t => t.STATUS == "NL" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "PB":
-                        expression = expression.And(t => t.STATUS == "PB");
+                        expression = expression.And(t => t.STATUS == "PB" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "CF":
-                        expression = expression.And(t => t.STATUS == "CF");
+                        expression = expression.And(t => t.STATUS == "CF" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     case "ALL":
-                        expression = expression.And(t => t.STATUS != "");
+                        expression = expression.And(t => t.STATUS != "" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                     default:
-                        expression = expression.And(t => t.STATUS == "OP");
+                        expression = expression.And(t => t.STATUS == "OP" & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
                         break;
                 }
             }
             else
             {
-                expression = expression.And(t => t.STATUS.Trim().Equals("OP"));
+                expression = expression.And(t => t.STATUS.Trim().Equals("OP") & t.EXC_INSDBID.Trim().Equals(LoginInfo.UserCode));
             }
             return service.FindList(expression, pagination);
         }

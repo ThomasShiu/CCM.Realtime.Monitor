@@ -32,7 +32,7 @@
         activeTab: function () {
             var currentId = $(this).data('id');
             if (currentId != "") {
-                top.$.cookie('nfine_currentmoduleid', currentId, { path: "/" });
+                top.$.cookie('admin_currentmoduleid', currentId, { path: "/" });
             }
             if (!$(this).hasClass('active')) {
                 $('.mainContent .NFine_iframe').each(function () {
@@ -115,7 +115,7 @@
             $("#header-nav>ul>li.open").removeClass("open");
             var dataId = $(this).attr('data-id');
             if (dataId != "") {
-                top.$.cookie('nfine_currentmoduleid', dataId, { path: "/" });
+                top.$.cookie('admin_currentmoduleid', dataId, { path: "/" });
             }
             var dataUrl = $(this).attr('href');
             var menuName = $.trim($(this).text());
@@ -140,8 +140,8 @@
                 }
             });
             if (flag) {
-                var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
-                //var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataId + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
+                //var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
+                var str = '<a href="javascript:;" class="active menuTab" data-id="' + dataId + '">' + menuName + ' <i class="fa fa-remove"></i></a>';
                 $('.menuTab').removeClass('active');
                 var str1 = '<iframe class="NFine_iframe" id="iframe' + dataId + '" name="iframe' + dataId + '"  width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataId + '" seamless></iframe>';
                 $('.mainContent').find('iframe.NFine_iframe').hide();

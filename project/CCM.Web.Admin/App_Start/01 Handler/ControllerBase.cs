@@ -1,5 +1,4 @@
 ﻿using CCM.Code;
-using CCM.Web.EIP.App_Start._01_Handler;
 using System.Web.Mvc;
 
 namespace CCM.Web.Admin
@@ -13,21 +12,18 @@ namespace CCM.Web.Admin
         }
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Index()
         {
             return View();
         }
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Form()
         {
             return View();
         }
         [HttpGet]
         [HandlerAuthorize]
-        [ActionTraceLog]
         public virtual ActionResult Details()
         {
             return View();

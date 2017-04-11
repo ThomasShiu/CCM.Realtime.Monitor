@@ -161,6 +161,7 @@
 
 
 <div style="padding-top: 10px; margin-right: 10px;">
+    <!--昆山-->
     <form id="form1">
         <table class="form">
             <tr>
@@ -270,6 +271,7 @@
     </ul>
     <div class="tab-content" style="padding-top: 5px;">
         <div id="b" class="tab-pane active" style="padding: 15px;">
+            <!--寧波-->
             <form id="form2">
                 <table class="form">
                     <tr>
@@ -284,111 +286,6 @@
 
                         </td>
 
-                        <th class="formTitle">產品品號<br /><br />產品品名</th>
-                        <td class="formValue" colspan="2">
-                            <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
-                            <input id="ITEM_NM" name="ITEM_NM" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">主件品號<br /><br />主件號碼</th>
-                        <td class="formValue">
-                            <input id="M_ITEM_NO" name="M_ITEM_NO" type="text" class="form-control required" />
-                            <input id="M_ITEM_ID" name="M_ITEM_ID" type="text" class="form-control required" />
-
-                        </td>
-                        <td colspan="2" rowspan="4"  style="background-color:paleturquoise">
-                            <table id="grid-ksc" class="table table-condensed table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th data-column-id="PROD_NO" data-width="7%" data-visible="false">ID</th>
-                                        <th data-column-id="PROD_SR" data-width="7%">序號</th>
-                                        <th data-column-id="ENTRY" data-width="15%">項目</th>
-                                        <th data-column-id="DSCP_1" data-width="20%">描述一</th>
-                                        @*<th data-column-id="DSCP_2" data-width="20%">描述二</th>
-                                            <th data-column-id="DSCP_3" data-width="20%">描述三</th>*@
-                                    </tr>
-                                </thead>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="formTitle">使用客戶<br /><br />客戶名稱</th>
-                        <td class="formValue">
-                            <input id="CS_NO" name="CS_NO" type="text" class="form-control required" />
-                            <input id="CS_NM" name="CS_NM" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">經銷客戶<br /><br />客戶名稱</th>
-                        <td class="formValue">
-                            <input id="SO_CS_NO" name="SO_CS_NO" type="text" class="form-control required" />
-                            <input id="SO_CS_NM" name="SO_CS_NM" type="text" class="form-control required" />
-                        </td>
-
-                        <th class="formTitle">出貨單別<br /><br />出貨單號</th>
-                        <td class="formValue">
-                            <input id="SO_TY" name="SO_TY" type="text" class="form-control required" />
-                            <input id="SO_NO" name="SO_NO" type="text" class="form-control required" />
-                        </td>
-
-                        <th class="formTitle">出貨序號<br /><br />出貨日</th>
-                        <td class="formValue">
-                            <input id="SO_SR" name="SO_SR" type="text" class="form-control required" />
-                            <input id="SO_DT" name="SO_DT" type="text" class="form-control required" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="formTitle">送貨地址</th>
-                        <td class="formValue" colspan="3">
-                            <input id="TO_ADDR" name="TO_ADDR" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">保固截止日<br /><br />保固月數</th>
-                        <td class="formValue">
-                            <input id="PROD_GUAR_DT" name="PROD_GUAR_DT" type="text" class="form-control required" />
-                            <input id="PROD_GUAR_MM" name="PROD_GUAR_MM" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">主件保固截止日<br /><br />主件保固月數</th>
-                        <td class="formValue">
-                            <input id="M_ITEM_GUAR_DT" name="M_ITEM_GUAR_DT" type="text" class="form-control required" />
-                            <input id="M_ITEM_GUAR_MM" name="M_ITEM_GUAR_MM" type="text" class="form-control required" />
-                        </td>
-                    </tr>
-                    @*<tr>
-                            <th class="formTitle">備註</th>
-                            <td class="formValue" colspan="7">
-                                <input id="REMK" name="REMK" type="text" class="form-control required" />
-                            </td>
-                        </tr>*@
-                    <tr>
-
-                        <th class="formTitle">訂單單別</th>
-                        <td class="formValue">
-                            <input id="CO_TY" name="CO_TY" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">單號</th>
-                        <td class="formValue">
-                            <input id="CO_NO" name="CO_NO" type="text" class="form-control required" />
-                        </td>
-                        <th class="formTitle">序號</th>
-                        <td class="formValue">
-                            <input id="CO_SR" name="CO_SR" type="text" class="form-control required" />
-                        </td>
-
-                    </tr>
-
-                </table>
-            </form>
-        </div>
-        <div id="c" class="tab-pane" style="padding: 15px;">
-            <form id="form3">
-                <table class="form">
-                    <tr>
-                        <th class="formTitle">產品號碼<br /><br />型式</th>
-                        <td class="formValue" colspan="2">
-                            <input id="PROD_NO" name="PROD_NO" type="text" class="form-control required" />
-                            <div class="input-group">
-                                <input id="PROD_TY" name="PROD_TY" type="text" class="form-control required" />
-                                <input id="ITEM_SP" name="ITEM_SP" type="text" class="form-control required" />
-                            </div>
-
-                        </td>
                         <th class="formTitle">產品品號<br /><br />產品品名</th>
                         <td class="formValue" colspan="2">
                             <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
@@ -481,11 +378,10 @@
                 </table>
             </form>
         </div>
-
-        <div id="b" class="tab-pane" style="padding: 15px;">
-            <form id="form4">
+        <div id="c" class="tab-pane" style="padding: 15px;">
+            <!--東莞-->
+            <form id="form3">
                 <table class="form">
-
                     <tr>
                         <th class="formTitle">產品號碼<br /><br />型式</th>
                         <td class="formValue" colspan="2">
@@ -496,7 +392,6 @@
                             </div>
 
                         </td>
-
                         <th class="formTitle">產品品號<br /><br />產品品名</th>
                         <td class="formValue" colspan="2">
                             <input id="ITEM_NO" name="ITEM_NO" type="text" class="form-control required" />
@@ -508,7 +403,7 @@
                             <input id="M_ITEM_ID" name="M_ITEM_ID" type="text" class="form-control required" />
 
                         </td>
-                        <td colspan="3" rowspan="4"  style="background-color:paleturquoise">
+                        <td colspan="2" rowspan="4"  style="background-color:paleturquoise">
                             <table id="grid-dac" class="table table-condensed table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -547,7 +442,6 @@
                             <input id="SO_DT" name="SO_DT" type="text" class="form-control required" />
                         </td>
                     </tr>
-
                     <tr>
                         <th class="formTitle">送貨地址</th>
                         <td class="formValue" colspan="3">

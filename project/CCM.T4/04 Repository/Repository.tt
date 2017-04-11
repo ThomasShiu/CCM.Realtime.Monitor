@@ -28,7 +28,7 @@ namespace CCM.Repository
 			string[] restrictions = new string[4];
 			restrictions[1] = "dbo";
 			//修改table名稱
-			restrictions[2] = "PO_PUBLIC_OBJECT_ATTEND_EMP"; 
+			restrictions[2] = "RD_DWG_EXMANAGE_MT"; 
 			DataTable schema = conn.GetSchema("Tables", restrictions);
 			
 			string selectQuery = "select * from  @tableName"; 

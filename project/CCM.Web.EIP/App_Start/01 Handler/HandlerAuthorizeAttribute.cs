@@ -80,7 +80,7 @@ namespace CCM.Web.EIP
         {
             var operatorProvider = OperatorProvider.Provider.GetCurrent();
             var roleId = operatorProvider.RoleId;
-            var moduleId = WebHelper.GetCookie("nfine_currentmoduleid");
+            var moduleId = WebHelper.GetCookie("srm_currentmoduleid");
             var action = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"].ToString();
             return new RoleAuthorizeApp().ActionValidate(roleId, moduleId, action);
         }
