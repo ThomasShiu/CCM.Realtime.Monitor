@@ -59,7 +59,3 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\NPOI.OpenXmlFormats.dl
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\Newtonsoft.Json.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\obj\Release\CCM.Code.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\obj\Release\CCM.Code.pdb
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\CCM.Code.dll.config
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\MySql.Data.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\MySql.Data.Entity.EF6.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Release\MySql.Web.dll

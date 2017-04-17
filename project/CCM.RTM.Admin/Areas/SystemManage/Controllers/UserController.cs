@@ -112,6 +112,20 @@ namespace CCM.RTM.Admin.Areas.SystemManage.Controllers
         }
 
         [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        //[HandlerAuthorize]
+        //[ValidateAntiForgeryToken]
+        public ActionResult SubmitResetPassword(string keyValue, string userPassword)
+        {
+            userLogOnApp.ResetPassword(userPassword);
+            return Success("修改密碼成功。");
+        }
+        [HttpGet]
         public ActionResult Info()
         {
             return View();

@@ -1,0 +1,388 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+   
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/PublicObject/PUB02/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    // 顯示公共物件資料
+                    showPublicObject($('#ObjectSID').children('option:selected').val());
+                }
+            });
+
+            // 填入出廠年月日
+            getLeaveBackTime();
+
+            // 取得最後里程
+            getMileageLast();
+        } else {
+
+        }
+    });
+    function initControl() {
+        // 部門
+        $("#DepartmentID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 員工
+        $("#EmployeeID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 公共物件
+        $("#ObjectSID").bindSelect({
+            url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
+            id: "SID",
+            text: "ObjectNM"
+        });
+
+        // 警衛名單
+        $("#GuardEMPID").bindSelect({
+            url: "/PublicObject/PUB00/GetGuardList",
+            id: "USR_NO",
+            text: "USR_NM"
+        });
+
+    }
+    function submitForm() {
+        var MileageLast = parseInt($('#MileageLast').val());
+        var Mileage = parseInt($('#Mileage').val());
+
+        if (MileageLast > Mileage) {
+
+            msg = "出廠里程不可大於回廠里程，請修正!";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+            return;
+
+        }
+
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/PublicObject/PUB02/SubmitForm2?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    function calmileage() {
+        var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
+        if (ttlmileage <= 0) { ttlmileage = 0; }
+        $("#ttlkm").text(ttlmileage);
+    }
+
+    function showPublicObject(keyword) {
+       
+            // 顯示公共物件資料
+            $.ajax({
+                url: "/PublicObject/PUB00/GetPublicObjectSID",
+                data: { keyword: keyword },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var PhotoUrl = data[0].PhotoUrl;
+                    //PhotoUrl = PhotoUrl.replace("~/", "");
+                    $("#PhotoUrl").attr("src", pathlink + PhotoUrl);
+                    $("#ObjectNM").text(data[0].ObjectNM);
+                    $("#ObjectDescr").text(data[0].Description);
+                }
+            });
+      
+    }
+
+    function getMileageLast() {
+        var ObjectSID = $('#ObjectSID').val();
+        // 顯示公共物件資料
+        $.ajax({
+            url: "/PublicObject/PUB00/GetLastMileage",
+            data: { keyValue: ObjectSID },
+            dataType: "text",
+            async: false,
+            success: function (data) {
+                $('#MileageLast').val(data);
+            }
+        });
+    }
+    function getLeaveBackTime() {
+        // 出廠時間
+        var d1 = $('input[name=BookingStartTime]').val();
+        var fd1 = new Date(d1);
+        // 回廠時間
+        var d2 = $('input[name=BookingEndTime]').val();
+        var fd2 = new Date(d2);
+
+        // 出廠年月日
+        $('#LeaveYMD').val(fd1.getFullYear() + '/' + (fd1.getMonth() + 1) + '/' + fd1.getDate());
+        // 回廠年月日
+        $('#BackYMD').val(fd2.getFullYear() + '/' + (fd2.getMonth() + 1) + '/' + fd2.getDate());
+
+    }
+
+    function changeLeave() {
+        var LeaveTime = $('#LeaveYMD').val() + ' ' + $('#LeaveHH').val() + ':' + $('#LeaveMM').val()
+        $('input[name=LeaveTime]').val(LeaveTime);
+
+        //alert($('input[name=LeaveTime]').val());
+    }
+
+    function changeBack() {
+        var BackTime = $('#BackYMD').val() + ' ' + $('#BackHH').val() + ':' + $('#BackMM').val()
+        $('input[name=BackTime]').val(BackTime);
+
+        //alert($('input[name=BackTime]').val());
+    }
+
+    $(document).ready(function () {
+        if (!!keyValue) {
+            // 編輯模式
+            $("#DepartmentID").attr("disabled", "disabled");
+            $("#EmployeeID").attr("disabled", "disabled");
+            var ttlmileage = $("#Mileage").val() - $("#MileageLast").val();
+            if (ttlmileage <= 0) { ttlmileage = 0; }
+            $("#ttlkm").text(ttlmileage);
+            //alert($("#Mileage").val() - $("#MileageLast").val());
+        }
+        $("#ObjectType").attr("disabled", "disabled");
+    });
+    
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="BookingStartTime" name="BookingStartTime" type="hidden" />
+    <input id="BookingEndTime" name="BookingEndTime" type="hidden" />
+    <input id="Status" name="Status" type="hidden" value="鎖定" />
+    @*<input id="ObjectType" name="ObjectType" type="hidden" value="公務車輛"  />*@
+
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">預約對象</th>
+                <td class="formValue">
+                    @*<input id="UseReason" name="UseReason" type="text" class="form-control required" placeholder="請輸入標題" />*@
+                    <select id="ObjectType" name="ObjectType" class="form-control required">
+                        <option value="會議室">會議室</option>
+                        <option value="公務車輛" selected="selected">公務車輛</option>
+                        <option value="其他物品">其他物品</option>
+                    </select>
+                </td>
+                <th class="formTitle">預約原因</th>
+                <td class="formValue">
+                    <select id="UseReason" name="UseReason" class="form-control required" >
+                        <option >內部需求</option>
+                        <option >客戶來訪</option>
+                        <option >廠商來訪</option>
+                        <option >訪問客戶</option>
+                        <option >訪問廠商</option>
+                        <option >廠區觀摩</option>
+                        <option >私人需求</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">申請部門</th>
+                <td class="formValue">
+                    <select id="DepartmentID" name="DepartmentID" class="form-control required" ></select>
+                </td>
+                <th class="formTitle">申請人員</th>
+                <td class="formValue">
+                    <select id="EmployeeID" name="EmployeeID" class="form-control required" >
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">車輛編號</th>
+                <td class="formValue" colspan="3">
+                    <select id="ObjectSID" name="ObjectSID" class="form-control required"disabled="disabled" ></select>
+                </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">用途說明</th>
+                <td class="formValue" colspan="3">
+                    <input id="Subject" name="Subject" type="text" class="form-control required"  />
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">詳細說明</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Description" name="Description" class="form-control required" style="height: 50px;" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出廠時間</th>
+                <td class="formValue">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input id="LeaveYMD" name="LeaveYMD" type="text" class="form-control input-md input-wdatepicker required" onchange="changeLeave()"
+                                   onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="LeaveHH" name="LeaveHH" class="form-control required" onchange="changeLeave()">
+                                <option value=""></option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="LeaveMM" name="LeaveMM" class="form-control required" onchange="changeLeave()">
+                                <option value=""></option>
+                                <option value="00">00</option>
+                                <option value="05">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                                <option value="50">50</option>
+                                <option value="55">55</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input id="LeaveTime" name="LeaveTime" type="hidden" />
+                    @*<input id="LeaveTime" name="LeaveTime" type="text" class="form-control input-lg input-wdatepicker required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入出廠時間" />*@
+                </td>
+                <th class="formTitle">回廠時間</th>
+                <td class="">
+                    <div class="row">
+                        <div class="col-sm-4" >
+                            <input id="BackYMD" name="BackYMD" type="text" class="form-control input-md input-wdatepicker required" onchange="changeBack()"
+                                   onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />
+                        </div>
+                        <div class="col-sm-4" >
+                            <select id="BackHH" name="BackHH" class="form-control required" onchange="changeBack()">
+                                <option value=""></option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="BackMM" name="BackMM" class="form-control required" onchange="changeBack()">
+                                <option value=""></option>
+                                <option value="00">00</option>
+                                <option value="05">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                                <option value="50">50</option>
+                                <option value="55">55</option>
+                            </select>
+                        </div>
+                    </div>
+
+                   
+                    <input id="BackTime" name="BackTime" type="hidden"  />
+                    @*<input id="BackTime" name="BackTime" type="text" class="form-control  input-lg input-wdatepicker required"
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d %H:%m', dateFmt: 'yyyy/MM/dd HH:mm', alwaysUseStartDate: false })" placeholder="請輸入回廠時間" />*@
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出廠里程</th>
+                <td class="formValue">
+                    <input id="MileageLast" name="MileageLast" type="text" class="form-control input-lg required" data-bind="value:replyNumber" onchange="calmileage()"/>
+                </td>
+                <th class="formTitle">回廠里程</th>
+                <td class="formValue">
+                    <input id="Mileage" name="Mileage" type="text" class="form-control input-lg required" data-bind="value:replyNumber" onchange="calmileage()"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle">守衛人員</th>
+                <td class="formValue">
+                    <select id="GuardEMPID" name="GuardEMPID" class="form-control input-lg "></select>
+                </td>
+                <th class="formTitle">總公里數</th>
+                <td class="formValue">
+                    <span id="ttlkm" name="ttlkm" style="font-size:20px;color:red"></span> 
+                </td>
+                
+            </tr>
+            <tr>
+                <th class="formTitle" colspan="2"><img src="" id="PhotoUrl" name="PhotoUrl" style="height:200px;" /></th>
+                <td class="formValue" colspan="2">
+                    <span id="ObjectNM" name="ObjectNM"></span>
+                    <br /><br /><br />
+                    <span id="ObjectDescr" name="ObjectDescr"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

@@ -1,0 +1,2 @@
+D:\Git_Source\CCM.Admin.NFine\project\CCM.T4\obj\Release\CCM.T4.csprojResolveAssemblyReference.cache
+D:\Git_Source\CCM.Web.Manage\project\CCM.T4\obj\Release\CCM.T4.csprojResolveAssemblyReference.cache

@@ -1,6 +1,7 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
- * Author: CCM * Description: CCM快速开发平台
+ * Copyright © 2016 CCM.Framework 版權所有
+ * Author: CCM.MIS
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
 using System;

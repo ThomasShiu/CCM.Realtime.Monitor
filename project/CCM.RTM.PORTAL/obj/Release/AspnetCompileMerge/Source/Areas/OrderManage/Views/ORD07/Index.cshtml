@@ -1,0 +1,254 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+
+        $("#pdate").val(GetToday());
+
+        // 是否隱藏日期欄位
+        var btnPrint = $("#NF-print").attr('authorize');
+        if (btnPrint != 'yes') {
+            $('#pdate').hide();
+        }
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/OrderManage/ORD07/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				    {
+				        label: "日期", name: "LUNCHDATE", width: 80, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				    },
+				    { label: "LOCATION", name: "LOCATION", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "地點", name: "", width: 60, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            if (rowObject.LOCATION == '1') {
+                                return '精湛總廠';
+                            } else if (rowObject.LOCATION == '2') {
+                                return '一廠';
+                            } else if (rowObject.LOCATION == '3') {
+                                return '全盈';
+                            } else if (rowObject.LOCATION == '4') {
+                                return '關廟';
+                            } else if (rowObject.LOCATION == '5') {
+                                return '柳營';
+                            }
+                        }
+                    },
+				    { label: "設定葷食數", name: "MEATPEOPLES", width: 65, align: 'right' },
+				    { label: "設定素食數", name: "VEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "缺勤葷食數", name: "AbsentMEATPEOPLES", hidden: true, width: 65, align: 'right' },
+                    {
+                        label: "缺勤葷食數", name: "", width: 65, align: 'right',
+                        formatter: function (cellvalue, options, rowObject) {
+                            var AbsentMEATPEOPLES = rowObject.AbsentMEATPEOPLES;
+                            var LUNCHDATE = rowObject.LUNCHDATE;
+                            var LOCATION = rowObject.LOCATION;
+                            return ' <button  class=\'btn btn-default btn-xs\' onclick=\'btn_absent(\"' + LUNCHDATE + '\",\"' + LOCATION + '\","meat")\'>' + AbsentMEATPEOPLES + '</button>';
+                        }
+                    },
+				    { label: "缺勤素食數", name: "AbsentVEGEPEOPLES", hidden: true, width: 65, align: 'right' },
+                    {
+                        label: "缺勤素食數", name: "", width: 65, align: 'right',
+                        formatter: function (cellvalue, options, rowObject) {
+                            var AbsentVEGEPEOPLES = rowObject.AbsentVEGEPEOPLES;
+                            var LUNCHDATE = rowObject.LUNCHDATE;
+                            var LOCATION = rowObject.LOCATION;
+                            return ' <button  class=\'btn btn-default btn-xs\' onclick=\'btn_absent(\"' + LUNCHDATE + '\",\"' + LOCATION + '\","vegetable")\'>' + AbsentVEGEPEOPLES + '</button>';
+                        }
+                    },
+				    { label: "登記葷食數", name: "ChangeMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "登記素食數", name: "ChangeVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "調整葷食數", name: "TuneMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "調整素食數", name: "TuneVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "實際葷食數", name: "REALMEATPEOPLES", width: 65, align: 'right' },
+				    { label: "實際素食數", name: "REALVEGEPEOPLES", width: 65, align: 'right' },
+				    { label: "調整數量", name: "TunePAYEMPLYS", width: 60, align: 'right' },
+				    { label: "實際數量", name: "REALPAYEMPLYS", width: 60, align: 'right' },
+				    { label: "單價", name: "UNITPRICE", width: 50, align: 'right' },
+				    { label: "費用金額", name: "TOTAL", width: 65, align: 'right' },
+				    { label: "備註", name: "REMARK", width: 80, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+			sortname: 'LOCATION desc,LUNCHDATE desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增",
+            url: "/OrderManage/ORD07/Form",
+            width: "740px",
+            height: "500px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+
+    // 計算用餐人數
+    function btn_computlunch() {
+        var today = GetToday();
+        $.modalConfirm("注：您確定要計算今日用餐人數嗎？", function (r) {
+            if (r) {
+                $.loading(true, '處理中，請稍候...');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: "/OrderManage/ORD07/ComputLunch",
+                        data: { keyValue: today },
+                        type: "get",
+                        dataType: "json",
+                        success: function (data) {
+                            msg = "計算今日用餐人數成功!";
+                            $.currentWindow().$("#gridList").trigger("reloadGrid");
+                            $.modalMsg(msg, 'success');
+                            $.modalClose();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            $.loading(false);
+                            $.modalMsg(errorThrown, "error");
+                        },
+                        beforeSend: function () {
+                            $.loading(true, '處理中，請稍候...');
+                        },
+                        complete: function () {
+                            $.loading(false);
+                        }
+                    });
+                }, 500);
+            }
+        });
+
+
+
+    }
+
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改",
+            url: "/OrderManage/ORD07/Form?keyValue=" + keyValue,
+            width: "740px",
+            height: "500px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/OrderManage/ORD07/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看",
+            url: "/OrderManage/ORD07/Details?keyValue=" + keyValue,
+            width: "740px",
+            height: "480px",
+            btn: null,
+        });
+    }
+
+    // 顯示缺勤人員
+    function btn_absent() {
+        var lunchdate = arguments[0].substring(0, 10);
+        var loca = arguments[1];
+        var mode = arguments[2];
+        $.modalOpen({
+            id: "Form2",
+            title: "缺勤人員",
+            url: '/OrderManage/ORD07/Form2?lunchdate=' + lunchdate + '&loca=' + loca + '&mode=' + mode,
+            width: "350px",
+            height: "500px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    // 報表列印，午餐登記統計
+    function btn_print() {
+        var pdate = $('#pdate').val();
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/OrderManage/ORD07/Print?keyValue=" + pdate,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <input id="pdate" name="pdate" type="date" class="form-control" placeholder="日期" style="width:120px;height:18px">
+        </div>
+        <div class="btn-group">
+            <a id="NF-print" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i>列印明細表</a>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-calcul" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_computlunch()"><i class="fa fa-plus"></i>執行計算今日用餐人數</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="關鍵字" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

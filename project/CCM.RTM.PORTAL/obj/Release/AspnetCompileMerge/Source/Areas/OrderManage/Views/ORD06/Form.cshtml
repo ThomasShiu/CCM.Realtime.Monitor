@@ -1,0 +1,301 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            get10Year();
+            $.ajax({
+                url: "/OrderManage/ORD06/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+
+        } else {
+            getYear();
+        }
+
+        setControl();
+    });
+    function initControl() {
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+    }
+
+    function getYear() {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+
+        $("#FROM_YEAR").append($("<option></option>").attr("value", yyyy).text(yyyy));
+        $("#FROM_YEAR").append($("<option></option>").attr("value", yyyy + 1).text(yyyy + 1));
+        $("#TO_YEAR").append($("<option></option>").attr("value", yyyy).text(yyyy));
+        $("#TO_YEAR").append($("<option></option>").attr("value", yyyy + 1).text(yyyy + 1));
+    }
+    function get10Year() {
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        for (i = yyyy - 10; i < yyyy + 2; i++) {
+            $("#FROM_YEAR").append($("<option></option>").attr("value", i).text(i));
+            $("#TO_YEAR").append($("<option></option>").attr("value", i).text(i));
+        }
+    }
+
+    function setControl() {
+        $('#LUDATE').attr('disabled', true);
+        $('#AMOUNT').attr('disabled', true);
+        $('#MEATPEOPLES').attr('disabled', true);
+        $('#VEGEPEOPLES').attr('disabled', true);
+        $('#FROM_YEAR').attr('disabled', true);
+        $('#FROM_MONTH').attr('disabled', true);
+        $('#TO_YEAR').attr('disabled', true);
+        $('#TO_MONTH').attr('disabled', true);
+
+        var lutype = $("#LUTYPE").children('option:selected').val();
+        if (lutype == '1') { //預訂單日不用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+
+        } else if (lutype == '2') {//預訂整月不用餐
+            $('#LUDATE').val('');
+            $('#FROM_YEAR').removeAttr('disabled');
+            $('#FROM_YEAR').addClass('required');
+            $('#FROM_MONTH').removeAttr('disabled');
+            $('#FROM_MONTH').addClass('required');
+            $('#TO_YEAR').removeAttr('disabled');
+            $('#TO_YEAR').addClass('required');
+            $('#TO_MONTH').removeAttr('disabled');
+            $('#TO_MONTH').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+        } else if (lutype == '3') {//預訂素食用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('0');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('1');
+        } else if (lutype == '4') {//預訂訪客用餐
+            $('#LUDATE').removeAttr('disabled');
+            $('#LUDATE').addClass('required');
+            $('#MEATPEOPLES').removeAttr('disabled');
+            $('#MEATPEOPLES').addClass('required');
+            $('#MEATPEOPLES').val('1');
+            $('#VEGEPEOPLES').removeAttr('disabled');
+            $('#VEGEPEOPLES').addClass('required');
+            $('#VEGEPEOPLES').val('0');
+        }
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/OrderManage/ORD06/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+    $(document).ready(function () {
+
+        $('#DEPID').change(function () {
+            // 員工 by 部門
+            $("#EMPLYID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+
+        $('#LUTYPE').change(function () {
+            setControl();
+        });
+    });
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <input id="GUID" name="GUID" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            @*<tr>
+                    <th class="formTitle">COL_SAMPLE</th>
+                    <td class="formValue">
+                        <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
+                        <select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
+                        <input id="GUID" name="GUID" type="hidden" value="" />
+                    </td>
+
+                </tr>*@
+
+            <tr>
+                <th class="formTitle">登記型態</th>
+                <td class="formValue">
+                    <select id="LUTYPE" name="LUTYPE" class="form-control required">
+                        <option></option>
+                        <option value="1">預訂單日不用餐</option>
+                        <option value="2">預訂整月不用餐</option>
+                        <option value="3">預訂素食用餐</option>
+                        <option value="4">預訂訪客用餐</option>
+                        <option value="5">新到離職扣款</option>
+                    </select>
+                </td>
+                <th class="formTitle">地點</th>
+                <td class="formValue">
+                    <select id="LOCATION" name="LOCATION" class="form-control required">
+                        <option value="1">精湛總廠</option>
+                        <option value="2">一廠</option>
+                        <option value="3">全盈</option>
+                        <option value="4">關廟</option>
+                        <option value="5">柳營</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">登記部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+                <th class="formTitle">登記人員</th>
+                <td class="formValue">
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">日期</th>
+                <td class="formValue">
+                    <input id="LUDATE" name="LUDATE" type="text" class="form-control input-wdatepicker "
+                           onfocus="WdatePicker({ startDate: '%y/%M/%d', dateFmt: 'yyyy/MM/dd', alwaysUseStartDate: true })" />
+                </td>
+
+                <th class="formTitle">用餐扣款</th>
+                <td class="formValue">
+                    <input id="AMOUNT" name="AMOUNT" type="text" class="form-control " value="0" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">葷食人數</th>
+                <td class="formValue">
+                    <input id="MEATPEOPLES" name="MEATPEOPLES" type="number" class="form-control " />
+                </td>
+                <th class="formTitle">素食人數</th>
+                <td class="formValue">
+                    <input id="VEGEPEOPLES" name="VEGEPEOPLES" type="number" class="form-control " />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">年(起)</th>
+                <td class="formValue">
+                    <select id="FROM_YEAR" name="FROM_YEAR" class="form-control ">
+                        <option></option>
+                    </select>
+                </td>
+                <th class="formTitle">月(起)</th>
+                <td class="formValue">
+                    <select id="FROM_MONTH" name="FROM_MONTH" class="form-control ">
+                        <option></option>
+                        <option value="01">1</option>
+                        <option value="02">2</option>
+                        <option value="03">3</option>
+                        <option value="04">4</option>
+                        <option value="05">5</option>
+                        <option value="06">6</option>
+                        <option value="07">7</option>
+                        <option value="08">8</option>
+                        <option value="09">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">年(迄)</th>
+                <td class="formValue">
+                    <select id="TO_YEAR" name="TO_YEAR" class="form-control ">
+                        <option></option>
+                    </select>
+                </td>
+                <th class="formTitle">月(迄)</th>
+                <td class="formValue">
+                    <select id="TO_MONTH" name="TO_MONTH" class="form-control ">
+                        <option></option>
+                        <option value="01">1</option>
+                        <option value="02">2</option>
+                        <option value="03">3</option>
+                        <option value="04">4</option>
+                        <option value="05">5</option>
+                        <option value="06">6</option>
+                        <option value="07">7</option>
+                        <option value="08">8</option>
+                        <option value="09">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="REMK" name="REMK" class="form-control " style="height: 60px;"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">注意事項</th>
+                <td class="formValue" colspan="3">
+                    <textarea class="form-control " style="height: 140px;" disabled="disabled">
+1.出差、出勤外出者不用特別來此處登記不用餐，系統會自動查核計算。
+2.選擇[預訂單日不用餐]只設定某一日不用餐，當月仍須扣款500元，唯請於每日早上九點前登記完成。
+3.選擇[預訂整月不用餐]設定整月或某幾個月不用餐，設定期間內之月份都不用扣款500元，唯必須於每月30日前設定次月不用餐，超過30日則只能設定次次月。目前只開放一次申請1個月。
+4.[預定素食用餐]提供給臨時(例如初一或十五)要吃素者臨時設定使用，唯請於每日早上九點前登記完成。
+5.長期吃素者不用來此特別設定，請直接親自向總務人員做一次性設定申請即可。
+6.[訪客用餐]葷素食數量，請於每日早上九點前於此登記完成。</textarea>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+</form>
+
+
+

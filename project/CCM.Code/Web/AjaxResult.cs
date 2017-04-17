@@ -4,7 +4,6 @@
  * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
-
 namespace CCM.Code
 {
     public class AjaxResult

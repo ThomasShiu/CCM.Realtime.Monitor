@@ -1,9 +1,10 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+
 using System;
 using System.Data;
 using System.IO;
@@ -14,11 +15,11 @@ namespace CCM.Code
 {
     public class FileHelper
     {
-        #region 检测指定目录是否存在
+        #region 檢測指定目錄是否存在
         /// <summary>
-        /// 检测指定目录是否存在
+        /// 檢測指定目錄是否存在
         /// </summary>
-        /// <param name="directoryPath">目录的绝对路径</param>
+        /// <param name="directoryPath">目錄的絕對路徑</param>
         /// <returns></returns>
         public static bool IsExistDirectory(string directoryPath)
         {
@@ -26,40 +27,40 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 检测指定文件是否存在,如果存在返回true
+        #region 檢測指定檔是否存在,如果存在返回true
         /// <summary>
-        /// 检测指定文件是否存在,如果存在则返回true。
+        /// 檢測指定檔是否存在,如果存在則返回true。
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static bool IsExistFile(string filePath)
         {
             return File.Exists(filePath);
         }
         #endregion
 
-        #region 获取指定目录中的文件列表
+        #region 獲取指定目錄中的檔清單
         /// <summary>
-        /// 获取指定目录中所有文件列表
+        /// 獲取指定目錄中所有檔清單
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>        
         public static string[] GetFileNames(string directoryPath)
         {
-            //如果目录不存在，则抛出异常
+            //如果目錄不存在，則拋出異常
             if (!IsExistDirectory(directoryPath))
             {
                 throw new FileNotFoundException();
             }
 
-            //获取文件列表
+            //獲取文件列表
             return Directory.GetFiles(directoryPath);
         }
         #endregion
 
-        #region 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
+        #region 獲取指定目錄中所有子目錄清單,若要搜索嵌套的子目錄列表,請使用重載方法.
         /// <summary>
-        /// 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
+        /// 獲取指定目錄中所有子目錄清單,若要搜索嵌套的子目錄列表,請使用重載方法.
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>        
         public static string[] GetDirectories(string directoryPath)
         {
             try
@@ -73,17 +74,17 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 获取指定目录及子目录中所有文件列表
+        #region 獲取指定目錄及子目錄中所有檔列表
         /// <summary>
-        /// 获取指定目录及子目录中所有文件列表
+        /// 獲取指定目錄及子目錄中所有檔列表
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
-        /// <param name="isSearchChild">是否搜索子目录</param>
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
+        /// <param name="searchPattern">模式字串，"*"代表0或N個字元，"?"代表1個字元。
+        /// 範例："Log*.xml"表示搜索所有以Log開頭的Xml檔。</param>
+        /// <param name="isSearchChild">是否搜索子目錄</param>
         public static string[] GetFileNames(string directoryPath, string searchPattern, bool isSearchChild)
         {
-            //如果目录不存在，则抛出异常
+            //如果目錄不存在，則拋出異常
             if (!IsExistDirectory(directoryPath))
             {
                 throw new FileNotFoundException();
@@ -107,23 +108,23 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 检测指定目录是否为空
+        #region 檢測指定目錄是否為空
         /// <summary>
-        /// 检测指定目录是否为空
+        /// 檢測指定目錄是否為空
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>        
         public static bool IsEmptyDirectory(string directoryPath)
         {
             try
             {
-                //判断是否存在文件
+                //判斷是否存在檔
                 string[] fileNames = GetFileNames(directoryPath);
                 if (fileNames.Length > 0)
                 {
                     return false;
                 }
 
-                //判断是否存在文件夹
+                //判斷是否存在資料夾
                 string[] directoryNames = GetDirectories(directoryPath);
                 if (directoryNames.Length > 0)
                 {
@@ -134,28 +135,28 @@ namespace CCM.Code
             }
             catch
             {
-                //这里记录日志
+                //這裡記錄日誌
                 //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
                 return true;
             }
         }
         #endregion
 
-        #region 检测指定目录中是否存在指定的文件
+        #region 檢測指定目錄中是否存在指定的檔
         /// <summary>
-        /// 检测指定目录中是否存在指定的文件,若要搜索子目录请使用重载方法.
+        /// 檢測指定目錄中是否存在指定的檔,若要搜索子目錄請使用重載方法.
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>        
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
+        /// <param name="searchPattern">模式字串，"*"代表0或N個字元，"?"代表1個字元。
+        /// 範例："Log*.xml"表示搜索所有以Log開頭的Xml檔。</param>        
         public static bool Contains(string directoryPath, string searchPattern)
         {
             try
             {
-                //获取指定的文件列表
+                //獲取指定的檔列表
                 string[] fileNames = GetFileNames(directoryPath, searchPattern, false);
 
-                //判断指定文件是否存在
+                //判斷指定檔是否存在
                 if (fileNames.Length == 0)
                 {
                     return false;
@@ -173,20 +174,20 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 检测指定目录中是否存在指定的文件
+        /// 檢測指定目錄中是否存在指定的檔
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param> 
-        /// <param name="isSearchChild">是否搜索子目录</param>
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
+        /// <param name="searchPattern">模式字串，"*"代表0或N個字元，"?"代表1個字元。
+        /// 範例："Log*.xml"表示搜索所有以Log開頭的Xml檔。</param> 
+        /// <param name="isSearchChild">是否搜索子目錄</param>
         public static bool Contains(string directoryPath, string searchPattern, bool isSearchChild)
         {
             try
             {
-                //获取指定的文件列表
+                //獲取指定的檔列表
                 string[] fileNames = GetFileNames(directoryPath, searchPattern, true);
 
-                //判断指定文件是否存在
+                //判斷指定檔是否存在
                 if (fileNames.Length == 0)
                 {
                     return false;
@@ -204,11 +205,11 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 创建目录
+        #region 創建目錄
         /// <summary>
-        /// 创建目录
+        /// 創建目錄
         /// </summary>
-        /// <param name="dir">要创建的目录路径包括目录名</param>
+        /// <param name="dir">要創建的目錄路徑包括目錄名</param>
         public static void CreateDir(string dir)
         {
             if (dir.Length == 0) return;
@@ -217,11 +218,11 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 删除目录
+        #region 刪除目錄
         /// <summary>
-        /// 删除目录
+        /// 刪除目錄
         /// </summary>
-        /// <param name="dir">要删除的目录路径和名称</param>
+        /// <param name="dir">要刪除的目錄路徑和名稱</param>
         public static void DeleteDir(string dir)
         {
             if (dir.Length == 0) return;
@@ -230,11 +231,11 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 删除文件
+        #region 刪除檔
         /// <summary>
-        /// 删除文件
+        /// 刪除檔
         /// </summary>
-        /// <param name="file">要删除的文件路径和名称</param>
+        /// <param name="file">要刪除的檔路徑和名稱</param>
         public static void DeleteFile(string file)
         {
             if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file))
@@ -244,12 +245,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 创建文件
+        #region 創建文件
         /// <summary>
-        /// 创建文件
+        /// 創建文件
         /// </summary>
-        /// <param name="dir">带后缀的文件名</param>
-        /// <param name="pagestr">文件内容</param>
+        /// <param name="dir">帶尾碼的檔案名</param>
+        /// <param name="pagestr">檔內容</param>
         public static void CreateFile(string dir, string pagestr)
         {
             dir = dir.Replace("/", "\\");
@@ -260,10 +261,10 @@ namespace CCM.Code
             sw.Close();
         }
         /// <summary>
-        /// 创建文件
+        /// 創建文件
         /// </summary>
-        /// <param name="path">路径</param>
-        /// <param name="content">内容</param>
+        /// <param name="path">路徑</param>
+        /// <param name="content">內容</param>
         public static void CreateFileContent(string path, string content)
         {
             FileInfo fi = new FileInfo(path);
@@ -278,12 +279,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 移动文件(剪贴--粘贴)
+        #region 移動文件(剪貼--粘貼)
         /// <summary>
-        /// 移动文件(剪贴--粘贴)
+        /// 移動文件(剪貼--粘貼)
         /// </summary>
-        /// <param name="dir1">要移动的文件的路径及全名(包括后缀)</param>
-        /// <param name="dir2">文件移动到新的位置,并指定新的文件名</param>
+        /// <param name="dir1">要移動的檔的路徑及全名(包括尾碼)</param>
+        /// <param name="dir2">檔移動到新的位置,並指定新的檔案名</param>
         public static void MoveFile(string dir1, string dir2)
         {
             dir1 = dir1.Replace("/", "\\");
@@ -293,12 +294,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 复制文件
+        #region 複製檔
         /// <summary>
-        /// 复制文件
+        /// 複製檔
         /// </summary>
-        /// <param name="dir1">要复制的文件的路径已经全名(包括后缀)</param>
-        /// <param name="dir2">目标位置,并指定新的文件名</param>
+        /// <param name="dir1">要複製的檔的路徑已經全名(包括尾碼)</param>
+        /// <param name="dir2">目標位置,並指定新的檔案名</param>
         public static void CopyFile(string dir1, string dir2)
         {
             dir1 = dir1.Replace("/", "\\");
@@ -310,9 +311,9 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 根据时间得到目录名 / 格式:yyyyMMdd 或者 HHmmssff
+        #region 根據時間得到目錄名 / 格式:yyyyMMdd 或者 HHmmssff
         /// <summary>
-        /// 根据时间得到目录名yyyyMMdd
+        /// 根據時間得到目錄名yyyyMMdd
         /// </summary>
         /// <returns></returns>
         public static string GetDateDir()
@@ -320,7 +321,7 @@ namespace CCM.Code
             return DateTime.Now.ToString("yyyyMMdd");
         }
         /// <summary>
-        /// 根据时间得到文件名HHmmssff
+        /// 根據時間得到檔案名HHmmssff
         /// </summary>
         /// <returns></returns>
         public static string GetDateFile()
@@ -329,12 +330,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 根据时间获取指定路径的 后缀名的 的所有文件
+        #region 根據時間獲取指定路徑的 尾碼名的 的所有檔
         /// <summary>
-        /// 根据时间获取指定路径的 后缀名的 的所有文件
+        /// 根據時間獲取指定路徑的 尾碼名的 的所有檔
         /// </summary>
-        /// <param name="path">文件路径</param>
-        /// <param name="Extension">后缀名 比如.txt</param>
+        /// <param name="path">檔路徑</param>
+        /// <param name="Extension">尾碼名 比如.txt</param>
         /// <returns></returns>
         public static DataRow[] GetFilesByTime(string path, string Extension)
         {
@@ -363,12 +364,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 复制文件夹
+        #region 複製資料夾
         /// <summary>
-        /// 复制文件夹(递归)
+        /// 複製資料夾(遞迴)
         /// </summary>
-        /// <param name="varFromDirectory">源文件夹路径</param>
-        /// <param name="varToDirectory">目标文件夹路径</param>
+        /// <param name="varFromDirectory">原始檔案夾路徑</param>
+        /// <param name="varToDirectory">目的檔案夾路徑</param>
         public static void CopyFolder(string varFromDirectory, string varToDirectory)
         {
             Directory.CreateDirectory(varToDirectory);
@@ -395,16 +396,16 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 检查文件,如果文件不存在则创建
+        #region 檢查檔,如果檔不存在則創建
         /// <summary>
-        /// 检查文件,如果文件不存在则创建  
+        /// 檢查檔,如果檔不存在則創建  
         /// </summary>
-        /// <param name="FilePath">路径,包括文件名</param>
+        /// <param name="FilePath">路徑,包括檔案名</param>
         public static void ExistsFile(string FilePath)
         {
             //if(!File.Exists(FilePath))    
             //File.Create(FilePath);    
-            //以上写法会报错,详细解释请看下文.........   
+            //以上寫法會報錯,詳細解釋請看下文.........   
             if (!File.Exists(FilePath))
             {
                 FileStream fs = File.Create(FilePath);
@@ -413,12 +414,12 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 删除指定文件夹对应其他文件夹里的文件
+        #region 刪除指定資料夾對應其他資料夾裡的檔
         /// <summary>
-        /// 删除指定文件夹对应其他文件夹里的文件
+        /// 刪除指定資料夾對應其他資料夾裡的檔
         /// </summary>
-        /// <param name="varFromDirectory">指定文件夹路径</param>
-        /// <param name="varToDirectory">对应其他文件夹路径</param>
+        /// <param name="varFromDirectory">指定資料夾路徑</param>
+        /// <param name="varToDirectory">對應其他資料夾路徑</param>
         public static void DeleteFolderFiles(string varFromDirectory, string varToDirectory)
         {
             Directory.CreateDirectory(varToDirectory);
@@ -448,25 +449,25 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 从文件的绝对路径中获取文件名( 包含扩展名 )
+        #region 從檔的絕對路徑中獲取檔案名( 包含副檔名 )
         /// <summary>
-        /// 从文件的绝对路径中获取文件名( 包含扩展名 )
+        /// 從檔的絕對路徑中獲取檔案名( 包含副檔名 )
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static string GetFileName(string filePath)
         {
-            //获取文件的名称
+            //獲取檔的名稱
             FileInfo fi = new FileInfo(filePath);
             return fi.Name;
         }
         #endregion
 
-        #region 复制文件参考方法,页面中引用
+        #region 複製檔參考方法,頁面中引用
         /// <summary>
-        /// 复制文件参考方法,页面中引用
+        /// 複製檔參考方法,頁面中引用
         /// </summary>
-        /// <param name="cDir">新路径</param>
-        /// <param name="TempId">模板引擎替换编号</param>
+        /// <param name="cDir">新路徑</param>
+        /// <param name="TempId">範本引擎替換編號</param>
         public static void CopyFiles(string cDir, string TempId)
         {
             //if (Directory.Exists(Request.PhysicalApplicationPath + "\\Controls"))
@@ -540,14 +541,14 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 创建一个目录
+        #region 創建一個目錄
         /// <summary>
-        /// 创建一个目录
+        /// 創建一個目錄
         /// </summary>
-        /// <param name="directoryPath">目录的绝对路径</param>
+        /// <param name="directoryPath">目錄的絕對路徑</param>
         public static void CreateDirectory(string directoryPath)
         {
-            //如果目录不存在则创建该目录
+            //如果目錄不存在則創建該目錄
             if (!IsExistDirectory(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
@@ -555,25 +556,25 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 创建一个文件
+        #region 創建一個檔
         /// <summary>
-        /// 创建一个文件。
+        /// 創建一個檔。
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
+        /// <param name="filePath">檔的絕對路徑</param>
         public static void CreateFile(string filePath)
         {
             try
             {
-                //如果文件不存在则创建该文件
+                //如果檔不存在則創建該檔
                 if (!IsExistFile(filePath))
                 {
-                    //创建一个FileInfo对象
+                    //創建一個FileInfo物件
                     FileInfo file = new FileInfo(filePath);
 
-                    //创建文件
+                    //創建文件
                     FileStream fs = file.Create();
 
-                    //关闭文件流
+                    //關閉文件流
                     fs.Close();
                 }
             }
@@ -585,27 +586,27 @@ namespace CCM.Code
         }
 
         /// <summary>
-        /// 创建一个文件,并将字节流写入文件。
+        /// 創建一個檔,並將位元組流寫入檔。
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        /// <param name="buffer">二进制流数据</param>
+        /// <param name="filePath">檔的絕對路徑</param>
+        /// <param name="buffer">二進位流資料</param>
         public static void CreateFile(string filePath, byte[] buffer)
         {
             try
             {
-                //如果文件不存在则创建该文件
+                //如果檔不存在則創建該檔
                 if (!IsExistFile(filePath))
                 {
-                    //创建一个FileInfo对象
+                    //創建一個FileInfo物件
                     FileInfo file = new FileInfo(filePath);
 
-                    //创建文件
+                    //創建文件
                     FileStream fs = file.Create();
 
-                    //写入二进制流
+                    //寫入二進位流
                     fs.Write(buffer, 0, buffer.Length);
 
-                    //关闭文件流
+                    //關閉文件流
                     fs.Close();
                 }
             }
@@ -617,39 +618,39 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 获取文本文件的行数
+        #region 獲取文字檔的行數
         /// <summary>
-        /// 获取文本文件的行数
+        /// 獲取文字檔的行數
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static int GetLineCount(string filePath)
         {
-            //将文本文件的各行读到一个字符串数组中
+            //將文字檔的各行讀到一個字串陣列中
             string[] rows = File.ReadAllLines(filePath);
 
-            //返回行数
+            //返回行數
             return rows.Length;
         }
         #endregion
 
-        #region 获取一个文件的长度
+        #region 獲取一個檔的長度
         /// <summary>
-        /// 获取一个文件的长度,单位为Byte
+        /// 獲取一個檔的長度,單位為Byte
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static long GetFileSize(string filePath)
         {
-            //创建一个文件对象
+            //創建一個檔物件
             FileInfo fi = new FileInfo(filePath);
 
-            //获取文件的大小
+            //獲取文件的大小
             return fi.Length;
         }
         #endregion
 
-        #region 获取文件大小并以B，KB，GB，TB
+        #region 獲取文件大小並以B，KB，GB，TB
         /// <summary>
-        /// 计算文件大小函数(保留两位小数),Size为字节大小
+        /// 計算檔大小函數(保留兩位元小數),Size為位元組大小
         /// </summary>
         /// <param name="size">初始文件大小</param>
         /// <returns></returns>
@@ -659,7 +660,7 @@ namespace CCM.Code
             long FactSize = 0;
             FactSize = size;
             if (FactSize < 1024.00)
-                m_strSize = FactSize.ToString("F2") + " 字节";
+                m_strSize = FactSize.ToString("F2") + " 位元組";
             else if (FactSize >= 1024.00 && FactSize < 1048576)
                 m_strSize = (FactSize / 1024.00).ToString("F2") + " KB";
             else if (FactSize >= 1048576 && FactSize < 1073741824)
@@ -670,14 +671,14 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 获取指定目录中的子目录列表
+        #region 獲取指定目錄中的子目錄清單
         /// <summary>
-        /// 获取指定目录及子目录中所有子目录列表
+        /// 獲取指定目錄及子目錄中所有子目錄列表
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
-        /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
-        /// <param name="isSearchChild">是否搜索子目录</param>
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
+        /// <param name="searchPattern">模式字串，"*"代表0或N個字元，"?"代表1個字元。
+        /// 範例："Log*.xml"表示搜索所有以Log開頭的Xml檔。</param>
+        /// <param name="isSearchChild">是否搜索子目錄</param>
         public static string[] GetDirectories(string directoryPath, string searchPattern, bool isSearchChild)
         {
             try
@@ -698,112 +699,112 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 向文本文件写入内容
+        #region 向文字檔寫入內容
 
         /// <summary>
-        /// 向文本文件中写入内容
+        /// 向文字檔中寫入內容
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        /// <param name="text">写入的内容</param>
-        /// <param name="encoding">编码</param>
+        /// <param name="filePath">檔的絕對路徑</param>
+        /// <param name="text">寫入的內容</param>
+        /// <param name="encoding">編碼</param>
         public static void WriteText(string filePath, string text, Encoding encoding)
         {
-            //向文件写入内容
+            //向檔寫入內容
             File.WriteAllText(filePath, text, encoding);
         }
         #endregion
 
-        #region 向文本文件的尾部追加内容
+        #region 向文字檔的尾部追加內容
         /// <summary>
-        /// 向文本文件的尾部追加内容
+        /// 向文字檔的尾部追加內容
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
-        /// <param name="content">写入的内容</param>
+        /// <param name="filePath">檔的絕對路徑</param>
+        /// <param name="content">寫入的內容</param>
         public static void AppendText(string filePath, string content)
         {
             File.AppendAllText(filePath, content);
         }
         #endregion
 
-        #region 将现有文件的内容复制到新文件中
+        #region 將現有檔的內容複製到新檔中
         /// <summary>
-        /// 将源文件的内容复制到目标文件中
+        /// 將原始檔案的內容複製到目的檔案中
         /// </summary>
-        /// <param name="sourceFilePath">源文件的绝对路径</param>
-        /// <param name="destFilePath">目标文件的绝对路径</param>
+        /// <param name="sourceFilePath">原始檔案的絕對路徑</param>
+        /// <param name="destFilePath">目的檔案的絕對路徑</param>
         public static void Copy(string sourceFilePath, string destFilePath)
         {
             File.Copy(sourceFilePath, destFilePath, true);
         }
         #endregion
 
-        #region 将文件移动到指定目录
+        #region 將檔移動到指定目錄
         /// <summary>
-        /// 将文件移动到指定目录
+        /// 將檔移動到指定目錄
         /// </summary>
-        /// <param name="sourceFilePath">需要移动的源文件的绝对路径</param>
-        /// <param name="descDirectoryPath">移动到的目录的绝对路径</param>
+        /// <param name="sourceFilePath">需要移動的原始檔案的絕對路徑</param>
+        /// <param name="descDirectoryPath">移動到的目錄的絕對路徑</param>
         public static void Move(string sourceFilePath, string descDirectoryPath)
         {
-            //获取源文件的名称
+            //獲取原始檔案的名稱
             string sourceFileName = GetFileName(sourceFilePath);
 
             if (IsExistDirectory(descDirectoryPath))
             {
-                //如果目标中存在同名文件,则删除
+                //如果目標中存在同名檔,則刪除
                 if (IsExistFile(descDirectoryPath + "\\" + sourceFileName))
                 {
                     DeleteFile(descDirectoryPath + "\\" + sourceFileName);
                 }
-                //将文件移动到指定目录
+                //將檔移動到指定目錄
                 File.Move(sourceFilePath, descDirectoryPath + "\\" + sourceFileName);
             }
         }
         #endregion
 
-        #region 从文件的绝对路径中获取文件名( 不包含扩展名 )
+        #region 從檔的絕對路徑中獲取檔案名( 不包含副檔名 )
         /// <summary>
-        /// 从文件的绝对路径中获取文件名( 不包含扩展名 )
+        /// 從檔的絕對路徑中獲取檔案名( 不包含副檔名 )
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static string GetFileNameNoExtension(string filePath)
         {
-            //获取文件的名称
+            //獲取檔的名稱
             FileInfo fi = new FileInfo(filePath);
             return fi.Name.Split('.')[0];
         }
         #endregion
 
-        #region 从文件的绝对路径中获取扩展名
+        #region 從檔的絕對路徑中獲取副檔名
         /// <summary>
-        /// 从文件的绝对路径中获取扩展名
+        /// 從檔的絕對路徑中獲取副檔名
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">檔的絕對路徑</param>        
         public static string GetExtension(string filePath)
         {
-            //获取文件的名称
+            //獲取檔的名稱
             FileInfo fi = new FileInfo(filePath);
             return fi.Extension;
         }
         #endregion
 
-        #region 清空指定目录
+        #region 清空指定目錄
         /// <summary>
-        /// 清空指定目录下所有文件及子目录,但该目录依然保存.
+        /// 清空指定目錄下所有檔及子目錄,但該目錄依然保存.
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
         public static void ClearDirectory(string directoryPath)
         {
             directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
             if (IsExistDirectory(directoryPath))
             {
-                //删除目录中所有的文件
+                //刪除目錄中所有的檔
                 string[] fileNames = GetFileNames(directoryPath);
                 for (int i = 0; i < fileNames.Length; i++)
                 {
                     DeleteFile(fileNames[i]);
                 }
-                //删除目录中所有的子目录
+                //刪除目錄中所有的子目錄
                 string[] directoryNames = GetDirectories(directoryPath);
                 for (int i = 0; i < directoryNames.Length; i++)
                 {
@@ -813,26 +814,26 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 清空文件内容
+        #region 清空檔內容
         /// <summary>
-        /// 清空文件内容
+        /// 清空檔內容
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>
+        /// <param name="filePath">檔的絕對路徑</param>
         public static void ClearFile(string filePath)
         {
-            //删除文件
+            //刪除檔
             File.Delete(filePath);
 
-            //重新创建该文件
+            //重新創建該檔
             CreateFile(filePath);
         }
         #endregion
 
-        #region 删除指定目录
+        #region 刪除指定目錄
         /// <summary>
-        /// 删除指定目录及其所有子目录
+        /// 刪除指定目錄及其所有子目錄
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>
+        /// <param name="directoryPath">指定目錄的絕對路徑</param>
         public static void DeleteDirectory(string directoryPath)
         {
             directoryPath = HttpContext.Current.Server.MapPath(directoryPath);
@@ -843,9 +844,9 @@ namespace CCM.Code
         }
         #endregion
 
-        #region 本地路径
+        #region 本地路徑
         /// <summary>
-        /// 本地路径
+        /// 本地路徑
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>

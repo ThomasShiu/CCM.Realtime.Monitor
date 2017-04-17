@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WorkflowControl/WFC02/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+
+        // 規則
+        $("#RULEID").bindSelect({
+            url: "/Human/HRS00/GetRULEM",
+            id: "RULEID",
+            text: "RULENM"
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/WorkflowControl/WFC02/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden"/>
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+ 
+            <tr>
+                <th class="formTitle">部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required" />
+                </td>
+                <th class="formTitle">規則</th>
+                <td class="formValue">
+                    <select id="RULEID" name="RULEID" class="form-control required" />
+                    @*<input id="RULEID" name="RULEID" type="text" class="form-control required" placeholder="請輸入標題" />*@
+                </td>
+            </tr>
+            <tr>
+                
+            </tr>
+            <tr>
+                <th class="formTitle">說明</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="DECSR" name="DECSR" type="text" class="form-control required"  style="height:50px" placeholder="請輸入標題" ></textarea>
+                </td>
+            </tr>
+            <tr>
+               
+            </tr>
+           
+
+        </table>
+    </div>
+</form>
+
+
+

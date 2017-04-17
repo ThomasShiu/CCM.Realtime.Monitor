@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_FormTest.cshtml";
+}
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
+<script>
+    var vOTTP = 'H';
+    var vEMPLYID = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/WorkflowControl/WFC06/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+
+                }
+            });
+        }
+        // 初始化簽核途程列表
+        InitBootGrid();
+    });
+
+    function initControl() {
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 部門
+        $("#DEPIDAPP").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 員工
+        //$("#EMPLYID").bindSelect({
+        //    url: "/Human/HRS00/GetHR_EMPLY",
+        //    id: "EMPLYID",
+        //    text: "EMPLYNM"
+        //});
+        // 員工
+        $("#EXC_INSDBID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL?keyword=" + $('#DEPID').children('option:selected').val(),
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+    }
+
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/WorkflowControl/WFC06/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    // 判斷 平日 假日
+    function getSFTNO() {
+        vEMPLYID = $('#EMPLYID').children('option:selected').val();
+    }
+
+    function chkOvertime() {
+        // 開始加班
+        var d1 = $('#FETB').val();
+        var fd1 = new Date(d1);
+        // 結束加班
+        var d2 = $('#FETE').val();
+        var fd2 = new Date(d2);
+        // 現在日期
+        var nowdt = new Date().Format("yyyy-MM-dd");
+        $('#APPDATE').val(nowdt);
+        // 申請日期
+        var appdt = fd1.Format("yyyy-MM-dd");
+        $('#MRDT').val(appdt);
+        // 計薪年月
+        var owmon = fd1.Format("yyyyMM");
+        $('#OWMON').val(owmon);
+        // 假日 平日
+
+        if (d1 != null & d1 != '') {
+            var queryJson = {
+                emplyid: vEMPLYID,
+                ymd: appdt,
+            }
+            $.ajax({
+                url: "/Human/HRS00/GetSFT_NO",
+                data: { queryJson: JSON.stringify(queryJson) },
+                //dataType: "json",
+                dataType: 'text',
+                async: false,
+                success: function (data) {
+                    var result = data;
+                    if (data == 'Y') {
+                        //假日
+                        $('#OTTP option[value=H]').attr('selected', 'selected');
+                    } else {
+                        //平日
+                        $('#OTTP option[value=S]').attr('selected', 'selected');
+                    }
+                }
+            });
+        }
+
+        if (fd1 > fd2) {
+            $('#FETB').val('');
+            $('#FETE').val('');
+            $('#OTTP option[value=S]').attr('selected', 'selected'); // 預設:平日
+            alert('加班開始時間不可大於結束時間，請修正!');
+            $('#DEMIN').val(0);
+            $('#REHRS').val(0);
+            $('#REHRS1').val(0);
+            $('#FETB').focus();
+            return false;
+        } else {
+            if (d1 != null & d1 != '' & d2 != null & d2 != '') {
+                var gap = (fd2.getTime() - fd1.getTime()) / 3600000;
+                var vDEPID = $('#DEPID').val();
+                var vOTTP = $('#OTTP').val();
+                var vLNO = $('#LNO').val();
+
+                if (vOTTP == "H" && parseInt(d1.substr(11, 2)) <= 12 && parseInt(d2.substr(11, 2)) >= 13)//假日且大於13點
+                {
+                    //高雄全盈扣0.5
+                    if (vDEPID == "K00" || vDEPID == "K10" || vDEPID == "K20" || vDEPID == "K30" || vDEPID == "K31" || vDEPID == "K32" || vDEPID == "K90" ||
+                         vDEPID == "Y00" || vDEPID == "Y10" || vDEPID == "Y20" || vDEPID == "Y30" || vDEPID == "Y80" || vDEPID == "Y90" ) {
+                        gap = gap - 0.5 ;
+                    }
+                    else {
+                        gap = gap - 1 ;
+                    }
+                }
+                if ((vOTTP == "S" || vOTTP == "H") && vLNO == "1" && parseInt(d1.substr(11, 2)) <= 17 && parseInt(d2.substr(11, 2)) >= 18)//無論平假日且用餐的時間跨17~18點
+                {
+                    gap = gap - 0.5;
+                }
+
+                //alert(gap);
+                $('#DEMIN').val(gap);$('#REHRS').val(gap); $('#REHRS1').val(gap);
+                $('#MRDT').val(fd1.Format("yyyy-MM-dd"));
+            }
+        }
+    }
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    // 初始化簽核途程列表
+    function InitBootGrid() {
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+        // BootGrid test
+        $("#grid-signroute").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/WorkflowControl/WFC00/getSignList?keyValue=' + keyValue,
+            formatters: {
+
+            }
+        })
+    }
+
+    $(document).ready(function () {
+
+        $('#DEPID').change(function () {
+            // 員工 by 部門
+            $("#EMPLYID").empty().bindSelect({
+                url: "/Human/HRS00/GetHR_EMPLY?keyword=" + $(this).children('option:selected').val(),
+                id: "EMPLYID",
+                text: "EMPLYNM"
+            });
+        });
+
+
+    });
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" />
+    <input id="C_SOURCE" name="C_SOURCE" type="hidden" />
+    <input id="APPDATE" name="APPDATE" type="hidden" />
+    <input id="MRDT" name="MRDT" type="hidden" />
+    <input id="OWMON" name="OWMON" type="hidden" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">加班單號</th>
+                <td class="formValue">
+                    <input id="OVRTNO" name="OVRTNO" type="text" class="form-control" placeholder="自動產生" readonly="readonly" />
+                </td>
+                <th class="formTitle">狀態</th>
+                <td class="formValue">
+                    <select id="STATUS" name="STATUS" class="form-control required" disabled="disabled">
+                        <option value="OP"  selected="selected">未送簽</option>
+                        <option value="SN">簽核中</option>
+                        <option value="CF">已核准</option>
+                        <option value="CL">已退回</option>
+                        <option value="NL">已作廢</option>
+                        <option value="PB">已撤簽</option>
+                    </select>
+                </td>
+                <th class="formTitle"><span style="color:red">是否用餐?</span></th>
+                <td class="formValue">
+                    <select id="LNO" name="LNO" class="form-control required" onchange="chkOvertime()">
+                        <option value="0">N</option>
+                        <option value="1">Y</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">建立部門</th>
+                <td class="formValue">
+                    <select id="DEPIDAPP" name="DEPIDAPP" class="form-control required" disabled="disabled">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+                <th class="formTitle">建立人員</th>
+                <td class="formValue">
+                    <select id="EXC_INSDBID" name="EXC_INSDBID" class="form-control required" disabled="disabled">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">出勤人員部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required">
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId">@CCM.Code.OperatorProvider.Provider.GetCurrent().DeptName</option>
+                    </select>
+                </td>
+                <th class="formTitle">出勤人員</th>
+                <td class="formValue">
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required" onchange="getSFTNO()" >
+                        <option value="@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode">@CCM.Code.OperatorProvider.Provider.GetCurrent().UserName</option>
+                    </select>
+                </td>
+                <th class="formTitle">加班轉補休</th>
+                <td class="formValue">
+                    <select id="FILFRL" name="FILFRL" class="form-control required" disabled="disabled">
+                        <option value="N">N</option>
+                        <option value="Y">Y</option>
+                    </select>
+                </td>
+            </tr>
+            @*<tr>
+                <th class="formTitle">申請日期</th>
+                <td class="formValue">
+                    <input id="APPDATE" name="APPDATE" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />
+                </td>
+                <th class="formTitle">出勤日期</th>
+                <td class="formValue">
+                    <input id="MRDT" name="MRDT" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />
+                </td>
+            </tr>*@
+            <tr>
+                <th class="formTitle">加班時間-起</th>
+                <td class="formValue">
+                    @*<input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
+                    <input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請選擇開始時間" />
+                </td>
+                <th class="formTitle">加班時間-迄</th>
+                <td class="formValue">
+                    @*<input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
+                    <input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg:{H: [1, 6], m: [30, 6]},qsEnabled: true, quickSel: ['%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00', '%y-%M-%d 23:00'], lang: 'zh-tw' })" placeholder="請選擇結束時間" />
+                </td>
+                <th class="formTitle">加班別</th>
+                <td class="formValue">
+                    <select id="OTTP" name="OTTP" class="form-control required" disabled="disabled">
+                        <option value="S">平日</option>
+                        <option value="H">假日</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">預計加班時數</th>
+                <td class="formValue">
+                    <input id="DEMIN" name="DEMIN" type="text" class="form-control required" readonly="readonly" />
+                </td>
+                <th class="formTitle">實際加班時數</th>
+                <td class="formValue">
+                    <input id="REHRS" name="REHRS" type="text" class="form-control required" readonly="readonly" />
+                </td>
+                <th class="formTitle">人資時數</th>
+                <td class="formValue">
+                    <input id="REHRS1" name="REHRS1" type="text" class="form-control required"  readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">加班原因</th>
+                <td class="formValue" colspan="5">
+                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 60px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                @*<th class="formTitle">計薪年月</th>
+                <td class="formValue">
+                    <input id="OWMON" name="OWMON" type="text" class="form-control required" placeholder="請輸入標題" />
+                </td>*@
+                
+            </tr>
+            <tr>
+                <th class="formTitle">注意事項</th>
+                <td class="formValue" colspan="5">
+                    <textarea class="form-control " style="height: 140px;" disabled="disabled">
+1.不論平假日加班申請扣除用餐時數後最少不得小於1小時。
+2.加班時段不可重複或是重疊。
+3.管理部有限制只能輸入往前推算2日(不含假日)內的加班單。
+4.每月1日中午後不可再輸入上月加班單。
+5.無論平日或假日有用餐(預設)且加班時間包含17點~18點時會扣除晚餐用餐0.5小時，不用餐則不扣時數。
+6.假日不論午餐用餐與否只要橫跨中午12~13點，精湛皆扣除1小時，全盈則扣除0.5小時。
+7.人事會按照實際上下班刷卡、上課、用餐紀錄核定加班時數。</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">簽核途程</th>
+                <td colspan="5">
+                    <table id="grid-signroute" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                @*<th data-column-id="SITEID" data-width="5%" data-visible="false">站點</th>*@
+                                <th data-column-id="SITEID" data-width="7%">站點</th>
+                                <th data-column-id="DEPTNM" data-width="15%">簽核者部門</th>
+                                <th data-column-id="EMPLYNM" data-width="15%">簽核者名稱</th>
+                                <th data-column-id="SIGN_STATUS" data-width="10%">簽核</th>
+                                <th data-column-id="SIGNDATE" data-width="15%">簽核日</th>
+                                <th data-column-id="REPLY" data-width="20%">批示</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

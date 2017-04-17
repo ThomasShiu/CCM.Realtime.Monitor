@@ -1,0 +1,54 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <script src="Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="Content/js/jquery/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        function load() {
+            //top.location.href = "/Login/Index";
+            return false;
+        }
+        $(function () {
+            var url = 'http://192.168.100.13/Login.aspx?logout=1&amp;TimeOut=False';
+            //$.post(url, $('#aspnetForm').serialize())
+            //$("#aspnetForm").ajaxForm({ url: 'http://192.168.100.13/Login.aspx?logout=1&amp;TimeOut=False', type: 'post' });
+        })
+       
+
+        function getParameterByName(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        var url = 'http://192.168.100.13/Login.aspx?logout=1&amp;TimeOut=False';
+        var id = getParameterByName('id'); // "lorem"
+        var pw = getParameterByName('pw'); // "" (present with empty value)
+       
+        //alert(id); alert(pw);
+        $("#ctl00_MainContent_txtID").val(id);
+        $("#ctl00$MainContent$txtPassword").val(pw);
+        //document.getElementById("ctl00_MainContent_txtID").value = id;
+        //document.getElementById("ctl00$MainContent$txtPassword").value = pw;
+
+        $(document).ready(function () {
+            $("#aspnetForm").ajaxForm({ url: 'http://192.168.100.13/Login.aspx?logout=1&amp;TimeOut=False', type: 'post' });
+        });
+    </script>
+</head>
+<body>
+    <form method="post" action="http://192.168.100.13/Login.aspx?logout=1&amp;TimeOut=False" id="aspnetForm">
+        <input name="ctl00$MainContent$txtID" type="text" id="ctl00_MainContent_txtID" value="" />
+        <input name="ctl00$MainContent$txtPassword" type="text" id="ctl00_MainContent_txtPassword" value="" />
+        <input class="dxb-hb" value="登入" type="submit" name="ctl00$MainContent$btnLogin1" />
+
+    </form>
+</body>
+</html>

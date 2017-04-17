@@ -1,0 +1,245 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script src="~/Content/js/jqprint/jquery.jqprint-0.3.js"></script>
+<link media="print" href="~/Content/js/jqprint/jquery.jqprint.css" rel="stylesheet" />
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/DocManage/DOC01/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                              { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+			                  { label: "發文編號", name: "ISSUEID", width: 150, align: 'left' },
+				              {
+				                  label: "發文公司", name: "COMPANY", width: 80, align: 'left',
+				                  formatter: function (cellvalue, options, rowObject) {
+				                      return top.clients.dataItems["COMPANY"][cellvalue] == undefined ? "" : top.clients.dataItems["COMPANY"][cellvalue]
+				                  }
+				              },
+				                {
+				                    label: "發文日期", name: "ISSUEDATE", width: 80, align: 'left',
+				                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				                },
+				                { label: "受文單位", name: "OFFICIAL_NM", width: 180, align: 'left' },
+
+				                { label: "標題", name: "SUBJECT", width: 300, align: 'left' },
+				                {
+				                    label: "附件", name: "AttachFIle", width: 50, align: 'center',
+				                    formatter: function (cellvalue) {
+				                        return cellvalue == 'Y' ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+				                    }
+				                },
+                                {
+                                    label: "速別", name: "DOCTYPE", width: 50, align: 'left',
+                                    formatter: function (cellvalue) {
+                                        return top.clients.dataItems["DOCTYPE"][cellvalue] == undefined ? "" : top.clients.dataItems["DOCTYPE"][cellvalue]
+                                    }
+
+                                },
+                                {
+                                    label: "狀態", name: "STATUS", width: 80, align: 'left',
+                                    formatter: function (cellvalue) {
+                                        return top.clients.dataItems["DOCSTATUS"][cellvalue] == undefined ? "" : top.clients.dataItems["DOCSTATUS"][cellvalue]
+                                    }
+                                },
+                                {
+                                    label: "發文部門", name: "DEPID", width: 120, align: 'left',
+                                    formatter: function (cellvalue) {
+                                        return top.clients.dept[cellvalue] == null ? "" : top.clients.dept[cellvalue].fullname;
+                                    }
+                                },
+                                 { label: "EMPID", name: "EMPID", hidden: true, width: 80, align: 'left', },
+				                {
+				                    label: "發文人員", name: "", width: 80, align: 'left',
+				                    formatter: function (cellvalue, options, rowObject) {
+				                        return top.clients.user[rowObject.EMPID] == null ? "" : top.clients.user[rowObject.EMPID].fullname;
+				                    }
+				                },
+                                 {
+                                     label: "連絡人", name: "CONTACT", hidden: true, width: 80, align: 'left'
+                                 },
+
+				                { label: "電話", name: "PHONE", hidden: true, width: 80, align: 'left' },
+				                { label: "分機", name: "PHONEEXTENSION", hidden: true, width: 50, align: 'left' },
+				                { label: "傳真", name: "FAX", hidden: true, width: 80, align: 'left' },
+                                { label: "正本", name: "Original", hidden: true, width: 100, align: 'left' },
+                                { label: "副本", name: "Duplicate", hidden: true, width: 100, align: 'left' },
+
+            ],
+            pager: "#gridPager",
+            sortname: 'ISSUEID asc,ISSUEDATE desc',
+            viewrecords: true,
+            loadComplete: function () {
+                $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+                //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+            }
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增發文紀錄",
+            url: "/DocManage/DOC01/Form",
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var guid = $("#gridList").jqGridRowValue().GUID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改發文紀錄",
+            url: "/DocManage/DOC01/Form?keyValue=" + keyValue,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/DocManage/DOC01/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看發文紀錄",
+            url: "/DocManage/DOC01/Details?keyValue=" + keyValue,
+            width: "900px",
+            height: "650px",
+            btn: null,
+        });
+    }
+
+    function btn_mailreport() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.ajax({
+            url: "/DocManage/DOC01/mailReport",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                msg = "寄送MAIL成功!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "success");
+                }, 500);
+
+            },
+            error: function (data) {
+                msg = "寄送MAIL失敗!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "warning");
+                }, 500);
+            }
+        });
+    }
+
+    function btn_print() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var empid = $("#gridList").jqGridRowValue().EMPID;
+        var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/DocManage/DOC01/Print?keyValue=" + keyValue,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+ 
+        //var guid = $("#gridList").jqGridRowValue().GUID;
+        //if (empid == usercode | usercode == 'admin') {
+        //    $.modalOpen({
+        //        id: "Form",
+        //        title: "列印",
+        //        url: "/DocManage/DOC01/Print?keyValue=" + keyValue,
+        //        width: "900px",
+        //        height: "680px",
+        //        btn: null,
+        //        callBack: function (iframeId) {
+        //            top.frames[iframeId].submitForm();
+        //        }
+        //    });
+        //} else {
+        //    msg = "只可列印自己建立的單據!";
+        //    window.setTimeout(function () {
+        //        $.modalMsg(msg, "warning");
+        //    }, 500);
+        //}
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建公文發文</a>
+        </div>
+        @*<div class="btn-group">
+            <a id="NF-export" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_export()"><i class="fa fa-file-pdf-o"></i>匯出</a>
+        </div>*@
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改發文</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除發文</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看發文</a></li>
+                <li><a id="NF-print" authorize="yes" onclick="btn_print()"><i class="fa fa-print"></i>列印</a></li>
+                <li><a id="NF-mailreport"  onclick="btn_mailreport()"><i class="fa fa-envelope-o"></i>發送MAIL通知</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

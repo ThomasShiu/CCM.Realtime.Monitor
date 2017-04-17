@@ -1,9 +1,10 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+
 using System.Configuration;
 using System.Web;
 namespace CCM.Code
@@ -11,7 +12,7 @@ namespace CCM.Code
     public class Configs
     {
         /// <summary>
-        /// 根据Key取Value值
+        /// 根據Key取Value值
         /// </summary>
         /// <param name="key"></param>
         public static string GetValue(string key)
@@ -19,10 +20,10 @@ namespace CCM.Code
             return ConfigurationManager.AppSettings[key].ToString().Trim();
         }
         /// <summary>
-        /// 根据Key修改Value
+        /// 根據Key修改Value
         /// </summary>
         /// <param name="key">要修改的Key</param>
-        /// <param name="value">要修改为的值</param>
+        /// <param name="value">要修改為的值</param>
         public static void SetValue(string key, string value)
         {
             System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
@@ -45,3 +46,4 @@ namespace CCM.Code
         }
     }
 }
+

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/OrderManage/ORD01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        // 商店
+        //$("#Name").bindSelect({
+        //    url: "/OrderManage/ORD00/GetStoreJsonList",
+        //    id: "SID",
+        //    text: "NAME"
+        //});
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/OrderManage/ORD01/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" value="" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">商店名稱</th>
+                <td class="formValue">
+                    <input id="Name" name="Name" type="text" class="form-control required" placeholder="請輸入商店名稱" />
+                </td>
+                <th class="formTitle">供應商</th>
+                <td class="formValue">
+                    <select id="ContributingVendor" name="ContributingVendor" class="form-control required">
+                        <option value="True">是</option>
+                        <option value="False">否</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">電話</th>
+                <td class="formValue">
+                    <input id="Phone" name="Phone" type="text" class="form-control required" placeholder="請輸入電話" />
+                </td>
+                <th class="formTitle">傳真</th>
+                <td class="formValue">
+                    <input id="Fax" name="Fax" type="text" class="form-control " placeholder="請輸入傳真" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">地址</th>
+                <td class="formValue">
+                    <input id="Address" name="Address" type="text" class="form-control required" placeholder="請輸入地址" />
+                </td>
+                <th class="formTitle">連絡人</th>
+                <td class="formValue">
+                    <input id="Contact" name="Contact" type="text" class="form-control " placeholder="請輸入連絡人" />
+                </td>
+            </tr>
+            <tr>
+                
+                <th class="formTitle">位址</th>
+                <td class="formValue" colspan="3">
+                    <input id="WebSiteURL" name="WebSiteURL" type="text" class="form-control " placeholder="請輸入位址" />
+                </td>
+            </tr>
+            <tr>
+                
+                <th class="formTitle">合約</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Offer" name="Offer" class="form-control" style="height: 100px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">備註</th>
+                <td class="formValue" colspan="3">
+                    <textarea id="Remark" name="Remark" class="form-control" style="height: 100px;"></textarea>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

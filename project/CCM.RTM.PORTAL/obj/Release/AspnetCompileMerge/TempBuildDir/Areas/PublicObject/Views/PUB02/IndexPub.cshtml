@@ -1,0 +1,400 @@
+﻿@{
+    // 預約公務車
+    ViewBag.Title = "公務車預約查詢-IndexPub";
+    Layout = "~/Views/Shared/_IndexPub.cshtml";
+}
+<script src="~/Content/js/jqtimers/jquery.timers.js"></script>
+<script>
+    var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
+    $(function () {
+        gridList();
+
+        // 公共物件
+        $("#PublicObject").bindSelect2({
+            url: "/PublicObject/PUB00/GetPublicObject?keyword=公務車輛",
+            id: "SID",
+            text: "ObjectNM"
+        });
+        
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/PublicObject/PUB02/GetCarGridJson",
+            height: 350,
+            colModel: [
+					    { label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+                        { label: "ObjectType", name: "ObjectType", hidden: true, width: 80, align: 'left' },
+                        { label: "預約原因", name: "UseReason", width: 80, align: 'left' },
+				        { label: "借用說明", name: "Subject", width: 150, align: 'left' },
+				        { label: "詳細說明", name: "Description", width: 150, align: 'left' },
+                        { label: "ObjectSID", name: "ObjectSID", hidden: true, width: 80, align: 'left' },
+                        {
+                            label: "車輛號碼", name: "", width: 160, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                return top.clients.pubobject[rowObject.ObjectSID] == null ? "" : top.clients.pubobject[rowObject.ObjectSID].ObjectNM;
+                            }
+                        },
+				        {
+				            label: "使用時間-起", name: "BookingStartTime", width: 100, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				        },
+				        {
+				            label: "使用時間-迄", name: "BookingEndTime", width: 100, align: 'left',
+				            formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				        },
+
+				        {
+				            label: "部門", name: "DepartmentID", width: 160, align: 'left',
+				            formatter: function (cellvalue) {
+				                return top.clients.dept[cellvalue] == null ? "" : top.clients.dept[cellvalue].fullname;
+				            }
+				        },
+                         {
+                             label: "申請者", name: "", width: 50, align: 'left',
+                             formatter: function (cellvalue, options, rowObject) {
+                                 return top.clients.user[rowObject.EmployeeID] == null ? "" : top.clients.user[rowObject.EmployeeID].fullname;
+                             }
+                         },
+                        { label: "出廠里程", name: "MileageLast",  width: 60, align: 'right' },
+				        { label: "回廠里程", name: "Mileage",  width: 60, align: 'left' },
+                        { label: "Status", name: "Status", hidden: true, width: 80, align: 'left' },
+                        {
+                            label: "狀態", name: "", width: 50, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                                if (rowObject.Status == '鎖定') {
+                                    return '<span class=\"label label-warning\">鎖定</span>';
+                                } else if (rowObject.Status == '結束') {
+                                    return '<span class=\"label label-success\">結束</span>';
+                                } else if (rowObject.Status == '取消') {
+                                    return '<span class=\"label label-default\">取消</span>';
+                                }
+                            }
+                        },
+                        {
+                            label: "修改", name: "", width: 80, align: 'left',
+                            formatter: function (cellvalue, options, rowObject) {
+                                if (rowObject.Status == '結束') {
+                                    return '';
+                                }else{
+                                    if (rowObject.EmployeeID == usercode | rowObject.CreatorUserId == usercode | usercode == 'admin')
+                                        return '<span class=\"label label-success\">可修改</span>';
+                                    else if (rowObject.Mileage == 0 & usercode == 'bmw')
+                                        return '<span class=\"label label-success\">可修改</span>';
+                                    else
+                                        return '';
+                                }
+                                }
+                        },
+                        { label: "EmployeeID", name: "EmployeeID", hidden: true, width: 80, align: 'left' },
+				        { label: "CreateTime", name: "CreateTime", hidden: true, width: 80, align: 'left' },
+				        { label: "ProjectSID", name: "ProjectSID", hidden: true, width: 80, align: 'left' },
+				        { label: "LeaveTime", name: "LeaveTime", hidden: true, width: 80, align: 'left' },
+				        { label: "BackTime", name: "BackTime", hidden: true, width: 80, align: 'left' },
+				        { label: "GuardEMPID", name: "GuardEMPID", hidden: true, width: 80, align: 'left' },
+                        { label: "CreatorUserId", name: "CreatorUserId", hidden: true, width: 80, align: 'left' },
+            ],
+			pager: "#gridPager",
+			sortname: 'ObjectType asc,BookingStartTime desc',
+			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+
+			    var rowIds = $('#gridList').jqGrid('getDataIDs');
+			    var datenow = GetNow();
+			    //alert(rowData['BookingEndTime']);
+
+			    for (i = 0; i < rowIds.length; i++) {//iterate over each row
+			        rowData = $('#gridList').jqGrid('getRowData', rowIds[i]);
+			        //set background style if ColValue === true\
+			        if (rowData['Status'] == "鎖定" & datenow > rowData['BookingEndTime'] 
+                        ) {
+			            $('#gridList').jqGrid('setRowData', rowIds[i], false, "myAltRowClassLock");
+			        } //if
+			    } //for
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
+        });
+
+        $("#time_horizon a.btn-default").click(function () {
+            $("#time_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
+        $("#btn_search").click(function () {
+            var timeType = $("#time_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                keyword2: $('#PublicObject').val(),
+                timeType: timeType,
+            }
+            $gridList.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+            }).trigger('reloadGrid');
+        });
+
+
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/PublicObject/PUB02/Form",
+            width: "900px",
+            height: "700px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var EmployeeID = $("#gridList").jqGridRowValue().EmployeeID;
+        var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
+        var status = $("#gridList").jqGridRowValue().Status;
+        if (status != '結束') {
+            //var guid = $("#gridList").jqGridRowValue().GUID;
+            if (EmployeeID == usercode | CreatorUserId == usercode | usercode == 'admin') {
+                $.modalOpen({
+                    id: "Form",
+                    title: "修改資料",
+                    url: "/PublicObject/PUB02/Form?keyValue=" + keyValue,
+                    width: "900px",
+                    height: "650px",
+                    callBack: function (iframeId) {
+                        top.frames[iframeId].submitForm();
+                    }
+                });
+            } else {
+                msg = "只可修改自己建立的單據!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "warning");
+                }, 500);
+            }
+        } else {
+            msg = "此單據已結束，不可修改。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+    }
+    function btn_edit_guard() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var status = $("#gridList").jqGridRowValue().Status;
+        //var guid = $("#gridList").jqGridRowValue().GUID;
+        if (status != '結束') {
+            $.modalOpen({
+                id: "Form",
+                title: "修改資料",
+                url: "/PublicObject/PUB02/Form2?keyValue=" + keyValue,
+                width: "900px",
+                height: "680px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        } else {
+            msg = "此單據已結束，不可修改。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+    }
+    function btn_edit_admin() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/PublicObject/PUB02/Form?keyValue=" + keyValue,
+            width: "900px",
+            height: "650px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        var CreatorUserId = $("#gridList").jqGridRowValue().CreatorUserId;
+        var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode'
+        var status = $("#gridList").jqGridRowValue().Status;
+        //var guid = $("#gridList").jqGridRowValue().GUID;
+        if (status != '結束') {
+            //var guid = $("#gridList").jqGridRowValue().GUID;
+            if (CreatorUserId == usercode | usercode == 'admin') {
+                $.deleteForm({
+                    url: "/PublicObject/PUB02/DeleteForm",
+                    param: { keyValue: $("#gridList").jqGridRowValue().SID },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            } else {
+                msg = "只可刪除自己建立的單據!";
+                window.setTimeout(function () {
+                    $.modalMsg(msg, "warning");
+                }, 500);
+            }
+        } else {
+            msg = "此單據已結束，不可刪除。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+        }
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/PublicObject/PUB02/Details?keyValue=" + keyValue,
+            width: "900px",
+            height: "650px",
+            btn: null,
+        });
+    }
+
+    $(document).ready(function () {
+        //每5分鐘執行，無限次，並命名計時器名稱為 Timer1 30das
+        //若時間間隔抵到，但函式程序仍未完成則需等待執行函式完成後再繼續計時
+        $('body').everyTime('30das', 'TimerCarBooking', function () {
+            //location.reload();
+            //return false;
+            $("#gridList").trigger("reloadGrid");
+            $('#calendar').fullCalendar('refetchEvents')
+        }, 0, true);
+    });
+</script>
+<div style="width:900px;font-size:14px;color:red"><marquee  behavior="alternate">此頁面僅供查詢，如要異動資料請從功能選單進入[PUB02 公務車預約]</marquee></div>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="說明" style="width: 100px;">
+                        <select id="PublicObject" name="PublicObject" class="form-control "  style="width: 250px;">
+                            <option value=""></option>
+                        </select>
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+                <td style="padding-left: 10px;">
+                    <div id="time_horizon" class="btn-group">
+                        <a class="btn btn-default active" data-value="1">今日內</a>
+                        <a class="btn btn-default" data-value="2">一周內</a>
+                        <a class="btn btn-default" data-value="3">一月內</a>
+                        <a class="btn btn-default" data-value="4">全部</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+
+
+<link href="~/Content/js/fullcalendar/fullcalendar.css" rel="stylesheet" />
+<script src="~/Content/js/fullcalendar/lib/moment.min.js"></script>
+<script src="~/Content/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="~/Content/js/fullcalendar/locale/zh-tw.js"></script>
+<script>
+
+    var currentLangCode = 'zh-tw';
+    // build the language selector's options
+    $.each($.fullCalendar.langs, function (langCode) {
+        $('#lang-selector').append(
+            $('<option/>')
+                .attr('value', langCode)
+                .prop('selected', langCode == currentLangCode)
+                .text(langCode)
+        );
+    });
+    // rerender the calendar when the selected option changes
+    $('#lang-selector').on('change', function () {
+        if (this.value) {
+            currentLangCode = this.value;
+            $('#calendar').fullCalendar('destroy');
+            renderCalendar();
+        }
+    });
+    $(function () {
+        var today = moment().day();
+        
+        $('#calendar').fullCalendar({
+            height: 1100,
+            defaultView: 'agendaDay',
+            nowIndicator: true,
+            header: {//設置日曆頭部資訊
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listDay'
+            },
+            firstDay: 0,//每行第一天為週一
+            editable: false,//可以拖動
+            //events: '/PublicObject/PUB02/GetCalendarJson',    //事件數據
+            eventSources: [
+            // your event source
+                {
+                    url: '/PublicObject/PUB02/GetCalendarJson',
+                    type: 'Get',
+                    data: {
+                        custom_param1: 'something',
+                        custom_param2: 'somethingelse'
+                    },
+                    error: function() {
+                        alert('there was an error while fetching events!');
+                    },
+
+                }
+
+            ],
+            eventMouseover: function (calEvent, jsEvent) {
+                var tooltip = '<div class="tooltipevent" style="font-size:13px;border-radius: 5px;padding:5px;width:280px;height:70px;background:#cceeff;position:absolute;z-index:10001;">' + calEvent.description + '</div>';
+                var $tooltip = $(tooltip).appendTo('body');
+
+                $(this).mouseover(function (e) {
+                    $(this).css('z-index', 10000);
+                    $tooltip.fadeIn('500');
+                    $tooltip.fadeTo('10', 1.9);
+                }).mousemove(function (e) {
+                    $tooltip.css('top', e.pageY + 10);
+                    $tooltip.css('left', e.pageX + 20);
+                });
+            },
+
+            eventMouseout: function (calEvent, jsEvent) {
+                $(this).css('z-index', 8);
+                $('.tooltipevent').remove();
+            },
+            //eventAfterRender: function (event, element, view) {
+            //    var bgcolor = event.color;
+            //    element.css('background-color', bgcolor);
+               
+            //},
+        });
+    });
+
+</script>
+<div id='calendar'></div> 

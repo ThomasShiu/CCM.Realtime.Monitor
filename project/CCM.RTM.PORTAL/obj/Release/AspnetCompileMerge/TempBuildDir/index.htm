@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <script src="Content/js/isMobile.js"></script>
+    <script type="text/javascript">
+        function load() {
+            top.location.href = "/Login/Index";
+            return false;
+        }
+
+        (function () {
+            var MOBILE_SITE = '/Mobile/Login', // site to redirect to
+                NO_REDIRECT = 'noredirect'; // cookie to prevent redirect
+
+            // I only want to redirect iPhones, Android phones and a handful of 7" devices
+            if (isMobile.apple.phone || isMobile.android.phone || isMobile.seven_inch) {
+
+                // Only redirect if the user didn't previously choose
+                // to explicitly view the full site. This is validated
+                // by checking if a "noredirect" cookie exists
+                if (document.cookie.indexOf(NO_REDIRECT) === -1) {
+                    document.location = MOBILE_SITE;
+                }
+            }
+            else {
+                top.location.href = "/Login/Index";
+            }
+        })();
+    </script>
+</head>
+<!--<body onload="load()">-->
+    <body></body>
+
+</html>

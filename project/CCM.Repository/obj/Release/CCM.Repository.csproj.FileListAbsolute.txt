@@ -64,6 +64,8 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\CCM.Repository.p
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\CCM.Code.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\CCM.Data.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\CCM.Domain.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\MySql.Data.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\MySql.Data.Entity.EF6.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\log4net.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\NPOI.dll
@@ -77,5 +79,3 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\EntityFramework.
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\obj\Release\CCM.Repository.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\obj\Release\CCM.Repository.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\obj\Release\CCM.Repository.pdb
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\MySql.Data.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Repository\bin\Release\MySql.Data.Entity.EF6.dll

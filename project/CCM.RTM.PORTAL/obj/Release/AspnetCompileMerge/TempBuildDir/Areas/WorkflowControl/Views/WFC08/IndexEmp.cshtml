@@ -1,0 +1,295 @@
+﻿@{
+    ViewBag.Title = "IndexEmp";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<script>
+    //AddAntiForgeryToken = function (data) {
+    //    data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+    //    return data;
+    //};
+
+    $(function () {
+        gridList();
+        
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/WorkflowControl/WFC08/GetGridJsonEmp",
+            height: $(window).height() - 128,
+            colModel: [
+				    { label: "số lẻ", name: "OVRTNO", key: true, width: 80, align: 'left' },
+                     { label: "số công việc", name: "EMPLYID", width: 80, align: 'left' },
+				    {
+				        label: "Họ và tên", name: "", width: 80, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+				        }
+				    },
+                    { label: "Mã cục", name: "DEPID", hidden: true, width: 40, align: 'left' },
+                    {
+                        label: "bộ", name: "", width: 120, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
+                        }
+                    },
+                     { label: "lý do", name: "DEREASON", width: 150, align: 'left' },
+                     { label: "STATUS", name: "STATUS", hidden: true, width: 50, align: 'left' },
+
+
+				    {
+				        label: "bắt đầu", name: "FETB", width: 120, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+
+				    },
+				    {
+				        label: "đầu", name: "FETE", width: 120, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
+				    },
+				    { label: "giờ", name: "DEMIN", width: 80, align: 'center' },
+				    { label: "Giờ HR", name: "REHRS1", width: 80, align: 'center' },
+				   {
+				       label: "Gửi ký ngày", name: "APPDATE", width: 80, align: 'left',
+				       formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				   },
+				    {
+				        label: "Sau khi ký ngày", name: "EXC_UPDDATE", width: 80, align: 'left',
+				        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+				    },
+
+				    { label: "記薪月份", name: "OWMON", hidden: true, width: 80, align: 'left' },
+                      {
+                          label: "trạng thái", name: "", width: 50, align: 'left',
+                          formatter: function (cellvalue, options, rowObject) {
+                              //return top.clients.dept[rowObject.STATUS] == null ? "" : top.clients.dept[rowObject.STATUS].fullname;
+                              if (rowObject.STATUS == 'OP') {
+                                  return '<h5><span class=\"label label-default label-lg\">未送簽</span></h5>';
+                              } else if (rowObject.STATUS == 'SN') {
+                                  return '<h5><span class=\"label label-primary label-lg\">簽核中</span></h5>';
+                              } else if (rowObject.STATUS == 'CF') {
+                                  return '<h5><span class=\"label label-success label-lg\">已核准</span></h5>';
+                              } else if (rowObject.STATUS == 'CL') {
+                                  return '<h5><span class=\"label label-warning label-lg\">已退回</span></h5>';
+                              } else if (rowObject.STATUS == 'NL') {
+                                  return '<h5><span class=\"label label-danger label-lg\">已作廢</span></h5>';
+                              } else if (rowObject.STATUS == 'PB') {
+                                  return '<h5><span class=\"label label-default label-lg\">已撤簽</span></h5>';
+                              }
+                          }
+                      },
+                    {
+                        label: "chấp hành", name: "", width: 80, align: 'center',
+                        formatter: function (cellvalue, options, rowObject) {
+                            var usercode = '@CCM.Code.OperatorProvider.Provider.GetCurrent().UserCode';
+                            var ovrtno = rowObject.OVRTNO;
+                            //alert(ovrtno);
+                            if (rowObject.EMPLYID == usercode & (rowObject.STATUS == 'OP' | rowObject.STATUS == 'PB' | rowObject.STATUS == 'CL')) {
+                                return '<button class=\'btn btn-success btn-xs\' onclick=\'submitSN(\"' + ovrtno + '\")\'>送簽</button> <button class=\'btn btn-danger btn-xs\' onclick=\'invalidSN(\"' + ovrtno + '\",\"NL\")\'>作廢</button>';
+                            } else if (rowObject.EMPLYID == usercode & rowObject.STATUS == 'SN') {
+                                return '<button class=\'btn btn-danger btn-xs\' onclick=\'rejectSN(\"' + ovrtno + '\",\"PB\")\'>撤簽</button>';
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    { label: "", name: "",  width: 10, align: 'left' },
+            ],
+			pager: "#gridPager",
+			sortname: 'OVRTNO asc,APPDATE desc',
+			viewrecords: true,
+			loadComplete: function () {
+			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:odd").addClass("myAltRowClassEven");
+			    //$(this).find(">tbody>tr.jqgrow:even").addClass("myAltRowClassEven");
+			}
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/WorkflowControl/WFC08/Form",
+            width: "900px",
+            height: "700px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        var status = $("#gridList").jqGridRowValue().STATUS;
+        if (status == 'SN' | status == 'NL' | status == 'CF' ) {
+            msg = "此單據不可修改。";
+            window.setTimeout(function () {
+                $.modalMsg(msg, "warning");
+            }, 500);
+            return;
+        }
+
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/WorkflowControl/WFC08/Form?keyValue=" + keyValue,
+            width: "900px",
+            height: "700px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/WorkflowControl/WFC08/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().OVRTNO },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().OVRTNO;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/WorkflowControl/WFC08/Details?keyValue=" + keyValue,
+            width: "800px",
+            height: "600px",
+            btn: null,
+        });
+    }
+    function submitSN() {
+        var ovrtno = arguments[0];
+        //alert('加班單號:'+arguments[0]);
+        $.modalConfirm("注：您確定要送簽此筆加班單嗎?<br/>加班單號 : " + ovrtno, function (r) {
+            if (r) {
+                $.ajax({
+                    url: "/WorkflowControl/WFC00/SendSign",
+                    data: { keyValue: ovrtno },
+                    //headers: { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        msg = "送簽成功!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    },
+                    error: function (data) {
+                        msg = "送簽發生異常!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "warning");
+                        }, 500);
+                    }
+                });
+            }
+        });
+    }
+
+    function rejectSN() {
+        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        var ovrtno = arguments[0];
+        var act = arguments[1];
+        $.modalConfirm("注：您確定要撤簽此加班單嗎？<br/>加班單號 : " + arguments[0], function (r) {
+            if (r) {
+                $.ajax({
+                    url: "/WorkflowControl/WFC00/RejectSign",
+                    data: { keyValue: ovrtno, act: act },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        msg = "撤簽成功!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+                    },
+                    error: function (data) {
+                        msg = "撤簽發生異常!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "warning");
+                        }, 500);
+                    }
+                });
+            }
+        });
+    }
+
+    function invalidSN() {
+        //alert('加班單號:' + arguments[0] + ',ACT:' + arguments[1]);
+        var ovrtno = arguments[0];
+        var act = arguments[1];
+        $.modalConfirm("注：您確定要作廢此筆加班單嗎？<br/>加班單號 : " + arguments[0], function (r) {
+            if (r) {
+                $.ajax({
+                    url: "/WorkflowControl/WFC00/RejectSign",
+                    data: { keyValue: ovrtno, act: act },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        msg = "作廢成功!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "success");
+                        }, 500);
+                    },
+                    error: function (data) {
+                        msg = "作廢發生異常!";
+                        window.setTimeout(function () {
+                            $.modalMsg(msg, "warning");
+                        }, 500);
+                    }
+                });
+            }
+        });
+
+    }
+
+   
+</script>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>mới</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">chọn<span>1</span>mục</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>sửa đổi</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>xóa bỏ</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>Duyệt</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="số lẻ" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

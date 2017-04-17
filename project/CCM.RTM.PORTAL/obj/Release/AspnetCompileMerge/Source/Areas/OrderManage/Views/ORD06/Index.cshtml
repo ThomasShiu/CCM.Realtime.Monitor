@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+
+        $("#pdate").val(GetToday());
+
+        // 是否隱藏日期欄位
+        var btnPrint = $("#NF-print").attr('authorize');
+        if (btnPrint != 'yes') {
+            $('#pdate').hide();
+        }
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/OrderManage/ORD06/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+				    {
+				        label: "登記型態", name: "LUTYPE", width: 120, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            if (rowObject.LUTYPE == '1') {
+				                return '預訂單日不用餐';
+				            } else if (rowObject.LUTYPE == '2') {
+				                return '預訂整月不用餐';
+				            } else if (rowObject.LUTYPE == '3') {
+				                return '預訂素食用餐';
+				            } else if (rowObject.LUTYPE == '4') {
+				                return '預訂訪客用餐';
+				            } else if (rowObject.LUTYPE == '5') {
+				                return '新到離職扣款';
+				            }
+				        }
+				    },
+
+                    {
+                        label: "日期", name: "LUDATE", width: 80, align: 'left',
+                        formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                    },
+                     { label: "DEPID", name: "DEPID", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "部門", name: "", width: 140, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            return top.clients.dept[rowObject.DEPID] == null ? "" : top.clients.dept[rowObject.DEPID].fullname;
+                        }
+                    },
+                    { label: "EMPLYID", name: "EMPLYID", hidden: true, width: 80, align: 'left' },
+				    {
+				        label: "員工", name: "", width: 60, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            return top.clients.user[rowObject.EMPLYID] == null ? "" : top.clients.user[rowObject.EMPLYID].fullname;
+				        }
+				    },
+
+				    {
+				        label: "地點", name: "LOCATION", width: 70, align: 'left',
+				        formatter: function (cellvalue, options, rowObject) {
+				            if (rowObject.LOCATION == '1') {
+				                return '精湛總廠';
+				            } else if (rowObject.LOCATION == '2') {
+				                return '一廠';
+				            } else if (rowObject.LOCATION == '3') {
+				                return '全盈';
+				            } else if (rowObject.LOCATION == '4') {
+				                return '關廟';
+				            } else if (rowObject.LOCATION == '5') {
+				                return '柳營';
+				            }
+				        }
+				    },
+				    { label: "年(起)", name: "FROM_YEAR", width: 80, align: 'center' },
+				    { label: "月(起)", name: "FROM_MONTH", width: 80, align: 'center' },
+				    { label: "年(迄)", name: "TO_YEAR", width: 80, align: 'center' },
+				    { label: "月(迄)", name: "TO_MONTH", width: 80, align: 'center' },
+
+				    { label: "葷食人數", name: "MEATPEOPLES", width: 60, align: 'center' },
+				    { label: "素食人數", name: "VEGEPEOPLES", width: 60, align: 'center' },
+				    { label: "扣款", name: "AMOUNT",  width: 60, align: 'right' },
+				    { label: "備註", name: "REMK",  width: 80, align: 'left' },
+            ],
+			pager: "#gridPager",
+			sortname: 'CreatorTime desc',
+            viewrecords: true
+        });
+        $("#type_horizon a.btn-default").click(function () {
+            $("#type_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
+        $("#btn_search").click(function () {
+            var timeType = $("#type_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                objectType: $("#type_horizon a.active").attr('data-value'),
+            }
+            $gridList.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增資料",
+            url: "/OrderManage/ORD06/Form",
+            width: "740px",
+            height: "600px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Form",
+            title: "修改資料",
+            url: "/OrderManage/ORD06/Form?keyValue=" + keyValue,
+            width: "740px",
+            height: "600px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/OrderManage/ORD06/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().SID;
+        $.modalOpen({
+            id: "Details",
+            title: "查看資料",
+            url: "/OrderManage/ORD06/Details?keyValue=" + keyValue,
+            width: "740px",
+            height: "600px",
+            btn: null,
+        });
+    }
+
+    // 報表列印，午餐登記明細
+    function btn_print() {
+        var pdate = $('#pdate').val();
+        $.modalOpen({
+            id: "Form",
+            title: "列印",
+            url: "/OrderManage/ORD06/Print?keyValue=" + pdate,
+            width: "900px",
+            height: "680px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <input id="pdate" name="pdate" type="date" class="form-control" placeholder="日期" style="width:120px;height:18px">
+        </div>
+        <div class="btn-group">
+            <a id="NF-print" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i>列印明細表</a>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已選中<span>1</span>項</li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改資料</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>刪除資料</a></li>
+                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看資料</a></li>
+            </ul>
+            <a href="javascript:;" class="close" alt="取消選取"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="資料名稱/資料編號" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+                <td style="padding-left: 10px;">
+                    <div id="type_horizon" class="btn-group">
+                        <a class="btn btn-default" data-value="1">單日不用餐</a>
+                        <a class="btn btn-default" data-value="2">整月不用餐</a>
+                        <a class="btn btn-default" data-value="3">素食用餐</a>
+                        <a class="btn btn-default" data-value="4">訪客用餐</a>
+                        <a class="btn btn-default active" data-value="all">全部</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

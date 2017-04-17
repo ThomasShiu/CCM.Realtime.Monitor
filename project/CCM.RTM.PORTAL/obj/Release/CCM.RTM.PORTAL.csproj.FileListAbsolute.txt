@@ -1,0 +1,5 @@
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Web.EIP\obj\Release\CCM.RTM.PORTAL.csprojResolveAssemblyReference.cache
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Web.EIP\obj\Release\RdlCompile.cache
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Web.EIP\obj\Release\RdlCompile.compiled
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Web.EIP\obj\Release\CCM.Web.EIP.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Web.EIP\obj\Release\CCM.Web.EIP.pdb

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精湛光學-EIP MOBILE</title>
+    <link href="~/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/js/jquery/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Content/js/bootstrap/bootstrap.js"></script>
+    
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("精湛 EIP MOBILE", "Index", "Mobile", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @{ var depid = CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId;
+                        if (depid == "G00" | depid == "G10" | depid == "C00")
+                        {
+                            <li><a href="~/Mobile/page_01">員工通訊錄</a></li>
+                            <li><a href="~/Mobile/page_01_1">員工通訊錄2</a></li>
+                        }
+
+                    }
+                    <li><a href="~/Mobile/page_02">待簽核</a></li>
+                    <li><a href="~/Mobile/page_03">其他下載</a></li>
+                    @*<li>@Html.ActionLink("首頁", "Index", "Home")</li>
+                        <li>@Html.ActionLink("關於", "About", "Home")</li>
+                        <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 精湛光學-EIP MOBILE</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>
+@RenderSection("scripts", required: false)

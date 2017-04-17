@@ -492,6 +492,7 @@
     <Content Include="Areas\RtmManage\Views\RTM01\Details.cshtml" />
     <Content Include="Areas\RtmManage\Views\RTM01\Form.cshtml" />
     <Content Include="Areas\RtmManage\Views\RTM01\Index.cshtml" />
+    <Content Include="Areas\SystemManage\Views\User\ResetPassword.cshtml" />
     <None Include="Content\js\jquery\jquery-2.2.4.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.js" />
     <Content Include="Content\js\jquery\jquery-2.2.4.min.js" />
@@ -787,6 +788,7 @@
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
     <Folder Include="Areas\RtmManage\Models\" />
     <Folder Include="Areas\RtmManage\Views\Shared\" />
+    <Folder Include="Resource\DbBackup\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\ReportManage\Views\Highcharts\Sample1.cshtml" />

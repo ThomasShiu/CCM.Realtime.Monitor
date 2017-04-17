@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Form-缺勤人員";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    var lunchdate = $.request("lunchdate");
+    var loca = $.request("loca");
+    var mode = $.request("mode");
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            treeGrid: true,
+            treeGridModel: "adjacency",
+            url: '/OrderManage/ORD07/GetAbsentGridJson?lunchdate=' + lunchdate + '&loca=' + loca + '&mode=' + mode,
+            height: $(window).height() - 80,
+            colModel: [
+				    { label: "LOCATION", name: "LOCATION", hidden: true, width: 80, align: 'left' },
+                    {
+                        label: "地點", name: "", width: 60, align: 'left',
+                        formatter: function (cellvalue, options, rowObject) {
+                            if (rowObject.LOCATION == '1') {
+                                return '精湛總廠';
+                            } else if (rowObject.LOCATION == '2') {
+                                return '一廠';
+                            } else if (rowObject.LOCATION == '3') {
+                                return '全盈';
+                            } else if (rowObject.LOCATION == '4') {
+                                return '關廟';
+                            } else if (rowObject.LOCATION == '5') {
+                                return '柳營';
+                            }
+                        }
+                    },
+				    { label: "員工", name: "EMPLYNM", width: 65, align: 'left' },
+
+            ],
+			pager: "#gridPager",
+			sortname: 'EMPLYNM desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            var queryJson = {
+                lunchdate: lunchdate,
+                loca: loca,
+                mode: mode
+            }
+            $gridList.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+            }).trigger('reloadGrid');
+        });
+    }
+
+</script>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
+

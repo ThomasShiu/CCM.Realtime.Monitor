@@ -1,0 +1,239 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<link href="~/Content/js/bootgrid/jquery.bootgrid.min.css" rel="stylesheet" />
+<script src="~/Content/js/bootgrid/jquery.bootgrid.min.js"></script>
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/WorkflowControl/WFC05/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('disabled', 'disabled');
+                $("#form1").find('div.ckbox label').attr('for', '');
+            }
+        });
+        // 初始化簽核途程列表
+        InitBootGrid();
+    });
+    function initControl() {
+        // 部門
+        $("#DEPID").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 部門
+        $("#DEPIDAPP").bindSelect({
+            url: "/Human/HRS00/GetHR_DEP",
+            id: "DEPID",
+            text: "DEPNM"
+        });
+        // 員工
+        //$("#EMPLYID").bindSelect({
+        //    url: "/Human/HRS00/GetHR_EMPLY",
+        //    id: "EMPLYID",
+        //    text: "EMPLYNM"
+        //});
+        // 員工
+        $("#EXC_INSDBID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+
+        // 員工 by 部門
+        $("#EMPLYID").bindSelect({
+            url: "/Human/HRS00/GetHR_EMPLY_ALL",
+            id: "EMPLYID",
+            text: "EMPLYNM"
+        });
+    }
+
+    // 初始化簽核途程列表
+    function InitBootGrid() {
+        var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+        }
+        var pathlink = 'http://' + vhost + vport + '/';
+
+        // BootGrid test
+        $("#grid-signroute").on("load.rs.jquery.bootgrid", function () {
+            //alert('before load data');
+        }).bootgrid({
+            ajax: true,
+            navigation: 2,
+            ajaxSettings: {
+                method: "GET",
+                cache: false
+            },
+            templates: {
+                search: ""
+            },
+            labels: {
+                noResults: "無任何資料",
+                infos: '顯示 {{ctx.start}} 到 {{ctx.end}} 筆，總共 {{ctx.total}} 筆'
+            },
+            rowCount: -1,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: '/WorkflowControl/WFC00/getSignList?keyValue=' + keyValue,
+            formatters: {
+
+            }
+        })
+
+    }
+</script>
+
+<form id="form1">
+    <input id="SID" name="SID" type="hidden" />
+    <input id="C_SOURCE" name="C_SOURCE" type="hidden" />
+    <input id="APPDATE" name="APPDATE" type="hidden" />
+    <input id="MRDT" name="MRDT" type="hidden" />
+    <input id="OWMON" name="OWMON" type="hidden" />
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <table class="form">
+            <tr>
+                <th class="formTitle">加班單號</th>
+                <td class="formValue">
+                    <input id="OVRTNO" name="OVRTNO" type="text" class="form-control" placeholder="自動產生" readonly="readonly" />
+                </td>
+                <th class="formTitle">狀態</th>
+                <td class="formValue">
+                    <select id="STATUS" name="STATUS" class="form-control required" disabled="disabled">
+                        <option value="OP">未送簽</option>
+                        <option value="SN">簽核中</option>
+                        <option value="CF">已核准</option>
+                        <option value="CL">已退回</option>
+                        <option value="NL">已作廢</option>
+                        <option value="PB">已撤簽</option>
+                    </select>
+                </td>
+                <th class="formTitle"><span style="color:red">是否用餐?</span></th>
+                <td class="formValue">
+                    <select id="LNO" name="LNO" class="form-control required" onchange="chkOvertime()">
+                        <option value="0">N</option>
+                        <option value="1">Y</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">建立部門</th>
+                <td class="formValue">
+                    <select id="DEPIDAPP" name="DEPIDAPP" class="form-control required" disabled="disabled">
+                    </select>
+                </td>
+                <th class="formTitle">建立人員</th>
+                <td class="formValue">
+                    <select id="EXC_INSDBID" name="EXC_INSDBID" class="form-control required" disabled="disabled">
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">出勤人員部門</th>
+                <td class="formValue">
+                    <select id="DEPID" name="DEPID" class="form-control required">
+                    </select>
+                </td>
+                <th class="formTitle">出勤人員</th>
+                <td class="formValue">
+                    <select id="EMPLYID" name="EMPLYID" class="form-control required" >
+                    </select>
+                </td>
+                <th class="formTitle">加班轉補休</th>
+                <td class="formValue">
+                    <select id="FILFRL" name="FILFRL" class="form-control required" disabled="disabled">
+                        <option value="N">N</option>
+                        <option value="Y">Y</option>
+                    </select>
+                </td>
+            </tr>
+            @*<tr>
+                    <th class="formTitle">申請日期</th>
+                    <td class="formValue">
+                        <input id="APPDATE" name="APPDATE" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />
+                    </td>
+                    <th class="formTitle">出勤日期</th>
+                    <td class="formValue">
+                        <input id="MRDT" name="MRDT" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />
+                    </td>
+                </tr>*@
+            <tr>
+                <th class="formTitle">加班時間-起</th>
+                <td class="formValue">
+                    @*<input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
+                    <input id="FETB" name="FETB" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg: { H: [1, 6], m: [30, 6] }, qsEnabled: true, quickSel: ['%y-%M-%d 17:00', '%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00'], lang: 'zh-tw' })" placeholder="請選擇開始時間" />
+                </td>
+                <th class="formTitle">加班時間-迄</th>
+                <td class="formValue">
+                    @*<input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onfocus="WdatePicker()" />*@
+                    <input id="FETE" name="FETE" type="text" class="form-control input-wdatepicker required" onchange="chkOvertime()"
+                           onfocus="WdatePicker({ startDate: '%y-%M-%d %H:%m', dateFmt: 'yyyy-MM-dd HH:mm', alwaysUseStartDate: true, hmsMenuCfg:{H: [1, 6], m: [30, 6]},qsEnabled: true, quickSel: ['%y-%M-%d 18:00', '%y-%M-%d 19:00', '%y-%M-%d 20:00', '%y-%M-%d 21:00', '%y-%M-%d 22:00', '%y-%M-%d 23:00'], lang: 'zh-tw' })" placeholder="請選擇結束時間" />
+                </td>
+                <th class="formTitle">加班別</th>
+                <td class="formValue">
+                    <select id="OTTP" name="OTTP" class="form-control required" disabled="disabled">
+                        <option value="S">平日</option>
+                        <option value="H">假日</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">預計加班時數</th>
+                <td class="formValue">
+                    <input id="DEMIN" name="DEMIN" type="text" class="form-control required" readonly="readonly" />
+                </td>
+                <th class="formTitle">實際加班時數</th>
+                <td class="formValue">
+                    <input id="REHRS" name="REHRS" type="text" class="form-control required" readonly="readonly" />
+                </td>
+                <th class="formTitle">人資時數</th>
+                <td class="formValue">
+                    <input id="REHRS1" name="REHRS1" type="text" class="form-control required" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">加班原因</th>
+                <td class="formValue" colspan="5">
+                    <textarea id="DEREASON" name="DEREASON" class="form-control required" style="height: 60px;"></textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <th class="formTitle">簽核途程</th>
+                <td colspan="5" style="background-color:paleturquoise">
+                    <table id="grid-signroute" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="SITEID" data-width="7%" >站點</th>
+                                <th data-column-id="DEPTNM" data-width="15%">簽核者部門</th>
+                                <th data-column-id="EMPLYNM" data-width="15%">簽核者名稱</th>
+                                <th data-column-id="SIGN_STATUS" data-width="10%">簽核</th>
+                                <th data-column-id="SIGNDATE" data-width="15%">簽核日</th>
+                                <th data-column-id="REPLY" data-width="20%">批示</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+

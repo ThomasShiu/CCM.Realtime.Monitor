@@ -1,9 +1,10 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,7 +16,7 @@ namespace CCM.Code
     /// </summary>
     public class DESEncrypt
     {
-        private static string DESKey = "CCM_desencrypt_2016";
+        private static string DESKey = "CCM_desencrypt_2017";
         private static MD5 md5 = MD5.Create();
 
         #region ========加密========

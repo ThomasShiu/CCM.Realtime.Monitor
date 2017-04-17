@@ -1,0 +1,3 @@
+D:\Git_Source\CCM.Web.Manage\project\CCM.Web.EIP\obj\Debug\CCM.Web.EIP.csprojResolveAssemblyReference.cache
+D:\Git_Source\CCM.Web.Manage\project\CCM.Web.EIP\obj\Debug\RdlCompile.cache
+D:\Git_Source\CCM.Web.Manage\project\CCM.Web.EIP\obj\Debug\RdlCompile.compiled

@@ -65,6 +65,7 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\Microsoft.Repor
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\log4net.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\NPOI.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\MySql.Data.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\ICSharpCode.SharpZipLib.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\CCM.Code.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\CCM.Data.pdb
@@ -75,4 +76,3 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\zh-CHT\Microsof
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.pdb
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\MySql.Data.dll

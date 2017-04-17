@@ -1,9 +1,10 @@
 ﻿/*******************************************************************************
- * Copyright © 2016 CCM.Framework 版权所有
+ * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM
- * Description: CCM快速开发平台
+ * Description: CCM快速開發平臺
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
@@ -19,7 +20,7 @@ namespace CCM.Code.Excel
         private string _filePath;
 
         /// <summary>
-        /// 导出到Excel
+        /// 匯出到Excel
         /// </summary>
         /// <param name="table"></param>
         /// <returns></returns>
@@ -30,7 +31,7 @@ namespace CCM.Code.Excel
             this._sheetName = this._sheetName.IsEmpty() ? "sheet1" : this._sheetName;
             ISheet sheet = workBook.CreateSheet(this._sheetName);
 
-            //处理表格标题
+            //處理表格標題
             IRow row = sheet.CreateRow(0);
             row.CreateCell(0).SetCellValue(this._title);
             sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, table.Columns.Count - 1));
@@ -38,14 +39,14 @@ namespace CCM.Code.Excel
 
             ICellStyle cellStyle = workBook.CreateCellStyle();
             IFont font = workBook.CreateFont();
-            font.FontName = "微软雅黑";
+            font.FontName = "微軟雅黑";
             font.FontHeightInPoints = 17;
             cellStyle.SetFont(font);
             cellStyle.VerticalAlignment = VerticalAlignment.Center;
             cellStyle.Alignment = HorizontalAlignment.Center;
             row.Cells[0].CellStyle = cellStyle;
 
-            //处理表格列头
+            //處理表格列頭
             row = sheet.CreateRow(1);
             for (int i = 0; i < table.Columns.Count; i++)
             {
@@ -54,7 +55,7 @@ namespace CCM.Code.Excel
                 sheet.AutoSizeColumn(i);
             }
 
-            //处理数据内容
+            //處理資料內容
             for (int i = 0; i < table.Rows.Count; i++)
             {
                 row = sheet.CreateRow(2 + i);
@@ -66,7 +67,7 @@ namespace CCM.Code.Excel
                 }
             }
 
-            //写入数据流
+            //寫入資料流程
             workBook.Write(fs);
             fs.Flush();
             fs.Close();
@@ -75,7 +76,7 @@ namespace CCM.Code.Excel
         }
 
         /// <summary>
-        /// 导出到Excel
+        /// 匯出到Excel
         /// </summary>
         /// <param name="table"></param>
         /// <param name="title"></param>
@@ -90,3 +91,4 @@ namespace CCM.Code.Excel
         }
     }
 }
+

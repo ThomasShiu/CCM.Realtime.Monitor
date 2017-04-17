@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var vhost = '@Request.Url.Host';
+        var vport = '@Request.Url.Port';
+        var pathlink = '';
+        if (vport != 80) {
+            vport = ':@Request.Url.Port';
+            pathlink = 'http://' + vhost + vport + '/';
+        } else {
+            pathlink = 'http://' + vhost + '/';
+        }
+
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/Human/HRS01/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                    $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                    $("#form1").find('div.ckbox label').attr('for', '');
+
+
+                }
+            });
+
+            var EmpPhotoUrl = $('input[name=PhotoUrl]').val();
+            var photourl = EmpPhotoUrl.replace("~/", "");
+            $("#EmpPhotoUrl").attr("src", pathlink + photourl);
+            //alert(pathlink + photourl);
+        }
+        
+
+    });
+    function initControl() {
+
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/Human/HRS01/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <div style="padding-top: 20px; margin-right: 20px;">
+        <div style="text-align: center">
+            <input id="PhotoUrl" name="PhotoUrl" type="hidden" value="" />
+            <img src="" id="EmpPhotoUrl" name="EmpPhotoUrl" class="rounded" style="height:500px;" />
+        </div>
+        <table class="form">
+            
+            <tr>
+                <th class="formTitle">工號</th>
+                <td class="formValue">
+                    <input id="EMP_NO" name="EMP_NO" type="text" class="form-control " />
+                </td>
+                <th class="formTitle">姓名</th>
+                <td class="formValue">
+                    <input id="EMP_NM" name="EMP_NM" type="text" class="form-control "  />
+                </td>
+            </tr>
+          
+            <tr>
+                @{ 
+                    var depid = CCM.Code.OperatorProvider.Provider.GetCurrent().DeptId;
+
+                    if (depid == "G00" | depid == "G10" | depid == "G20" | depid == "C00") {
+
+                <th class="formTitle">生日</th>
+                <td class="formValue">
+                    <input id="BRD_DT" name="BRD_DT" type="text" class="form-control "  />
+                </td>    
+                    }
+                }
+                <th class="formTitle">到職日</th>
+                <td class="formValue">
+                    <input id="ARV_DT" name="ARV_DT" type="text" class="form-control "  />
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle">職位</th>
+                <td class="formValue">
+                    <input id="JOB_NM" name="JOB_NM" type="text" class="form-control "  />
+                </td>
+                <th class="formTitle">部門</th>
+                <td class="formValue">
+                    <input id="DEPM_NM" name="DEPM_NM" type="text" class="form-control "  />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>
+
+
+

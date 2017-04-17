@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = null;
+}
+
+    <link href="~/Content/js/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <script src="~/Content/js/fullcalendar/lib/jquery.min.js"></script>
+    <script src="~/Content/js/fullcalendar/lib/moment.min.js"></script>
+    <script src="~/Content/js/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/Content/js/fullcalendar/locale/zh-tw.js"></script>
+    <style>
+        body {
+            padding: 50px;
+        }
+    </style>
+    <script>
+
+        //var currentLangCode = 'zh-tw';
+        //// build the language selector's options
+        //$.each($.fullCalendar.langs, function (langCode) {
+        //    $('#lang-selector').append(
+        //        $('<option/>')
+        //            .attr('value', langCode)
+        //            .prop('selected', langCode == currentLangCode)
+        //            .text(langCode)
+        //    );
+        //});
+        //// rerender the calendar when the selected option changes
+        //$('#lang-selector').on('change', function () {
+        //    if (this.value) {
+        //        currentLangCode = this.value;
+        //        $('#calendar').fullCalendar('destroy');
+        //        renderCalendar();
+        //    }
+        //});
+        $(function () {
+            var today = moment().day();
+            $('#calendar').fullCalendar({
+                defaultView: 'agendaDay',
+                nowIndicator: true,
+                header: {//設置日曆頭部資訊
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                firstDay: 1,//每行第一天為週一
+                editable: false,//可以拖動
+                //events: '/PublicObject/PUB02/GetCalendarJson',    //事件數據
+                eventSources: [
+                // your event source
+                    {
+                        url: '/PublicObject/PUB02/GetCalendarJson',
+                        type: 'Get',
+                        data: {
+                            custom_param1: 'something',
+                            custom_param2: 'somethingelse'
+                        },
+                        error: function () {
+                            alert('there was an error while fetching events!');
+                        },
+                        //color: '#e6e6e6',   // a non-ajax option
+                        //textColor: 'black' // a non-ajax option
+                    }
+                // any other sources...
+
+                ],
+                eventMouseover: function (calEvent, jsEvent) {
+                    var tooltip = '<div class="tooltipevent" style="font-size:13px;border-radius: 5px;padding:5px;width:250px;height:70px;background:#cceeff;position:absolute;z-index:10001;">' + calEvent.description + '</div>';
+                    var $tooltip = $(tooltip).appendTo('body');
+
+                    $(this).mouseover(function (e) {
+                        $(this).css('z-index', 10000);
+                        $tooltip.fadeIn('500');
+                        $tooltip.fadeTo('10', 1.9);
+                    }).mousemove(function (e) {
+                        $tooltip.css('top', e.pageY + 10);
+                        $tooltip.css('left', e.pageX + 20);
+                    });
+                },
+
+                eventMouseout: function (calEvent, jsEvent) {
+                    $(this).css('z-index', 8);
+                    $('.tooltipevent').remove();
+                },
+            });
+            //$('#calendar').fullCalendar('today');
+        });
+
+    </script>
+
+<div id='calendar'></div>
