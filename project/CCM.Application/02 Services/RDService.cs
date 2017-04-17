@@ -12,8 +12,7 @@ namespace CCM.Application._02_Services
 {
     public class RDService
     {
-        public static string v_EIPContext = "EIPContext";
-        public static string v_HRSContext = "HRSContext";
+        public static string v_RTDBContext = "ccm_rtdb";
 
         #region 檢查機台編號
         public string chkMachineExists(string keyValue)
@@ -31,7 +30,7 @@ namespace CCM.Application._02_Services
        
             string v_message = "";
             //1.引用SqlConnection物件連接資料庫
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_RTDBContext].ConnectionString))
             {
                 //2.開啟資料庫
                 conn.Open();
@@ -246,42 +245,7 @@ namespace CCM.Application._02_Services
         }
         #endregion
 
-        #region 品號帶出客戶-CCM
-        public JArray GetCSNAME(string keyValue)
-        {
-            //品號代出客戶
-            string v_sql = "SELECT RTRIM(A.ITEM_NO) ITEM_NO,RTRIM(B.CS_NO) CS_NO,RTRIM(C.SHORT_NM) SHORT_NM,RTRIM(C.FULL_NM) FULL_NM " +
-                         " FROM[192.168.100.19].CCM_Main.dbo.MOMT A LEFT OUTER JOIN[192.168.100.19].CCM_Main.dbo.COMT B ON A.CO_TY = B.VCH_TY AND A.CO_NO = B.VCH_NO " +
-                         "     LEFT OUTER JOIN[192.168.100.19].CCM_Main.dbo.CUSTOMER C ON B.CS_NO = C.CS_NO " +
-                         " WHERE ITEM_NO = '"+ keyValue + "' ";
-            //得到一個DataTable物件
-            DataTable dt = this.queryDataTable(v_sql);
-
-            JArray MixArray = new JArray();
-            var detail = from p in dt.AsEnumerable()
-                         select new
-                         {
-                             ITEM_NO = p.Field<string>("ITEM_NO"),
-                             CS_NO = p.Field<string>("CS_NO"),
-                             SHORT_NM = p.Field<string>("SHORT_NM"),
-                             FULL_NM = p.Field<string>("FULL_NM")
-                         };
-
-            int totalCount = detail.Count();
-            foreach (var col in detail)
-            {
-                var colObject = new JObject
-                {
-                    {"ITEM_NO",col.ITEM_NO },
-                    {"CS_NO",col.CS_NO },
-                    {"SHORT_NM",col.SHORT_NM },
-                    {"FULL_NM",col.FULL_NM }
-                };
-                MixArray.Add(colObject);
-            }
-            return MixArray;
-        }
-        #endregion
+       
 
         #region 回傳DataTable物件
         /// <summary>
@@ -292,7 +256,7 @@ namespace CCM.Application._02_Services
         public DataTable queryDataTable(string sql)
         {
             DataSet ds = new DataSet();
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_EIPContext].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings[v_RTDBContext].ConnectionString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(sql, conn);
                 da.Fill(ds);

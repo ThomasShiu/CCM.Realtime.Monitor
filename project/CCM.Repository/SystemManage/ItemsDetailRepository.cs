@@ -8,6 +8,7 @@ using CCM.Data;
 using CCM.Domain.Entity.SystemManage;
 using CCM.Domain.IRepository.SystemManage;
 using CCM.Repository.SystemManage;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -30,7 +31,7 @@ namespace CCM.Repository.SystemManage
                             ORDER BY d.F_SortCode ASC");
             DbParameter[] parameter = 
             {
-                 new SqlParameter("@enCode",enCode)
+                 new MySqlParameter("@enCode",enCode)
             };
             return this.FindList(strSql.ToString(), parameter);
         }

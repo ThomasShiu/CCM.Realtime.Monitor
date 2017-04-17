@@ -11,14 +11,14 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: RD_DWG_EXMANAGE_MT
-	public class RD_DWG_EXMANAGE_MTMap : EntityTypeConfiguration<RD_DWG_EXMANAGE_MTEntity>
+	//mapping table name: rtm_machines
+	public class rtm_machinesMap : EntityTypeConfiguration<rtm_machinesEntity>
     {
-        public RD_DWG_EXMANAGE_MTMap()
+        public rtm_machinesMap()
         {
-            this.ToTable("RD_DWG_EXMANAGE_MT");
-            this.HasKey(t => t.SID);
+            this.ToTable("rtm_machines");
+            this.HasKey(t => t.F_Id);
         }
     }
-			                  
+               
 }

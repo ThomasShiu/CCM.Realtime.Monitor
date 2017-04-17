@@ -4,6 +4,7 @@
  * Description: CCM快速开发平台
  * Website：http://www.ccm3s.com/
 *********************************************************************************/
+using CCM.Code;
 using CCM.Domain.Entity.SystemManage;
 using CCM.Domain.IRepository.SystemManage;
 using CCM.Repository.SystemManage;
@@ -21,15 +22,26 @@ namespace CCM.Application.SystemManage
         {
             return service.IQueryable().ToList();
         }
+        public List<ItemsEntity> GetItemList(string enCode)
+        {
+            var expression = ExtLinq.True<ItemsEntity>();
+            if (!string.IsNullOrEmpty(enCode))
+            {
+                expression = expression.And(t => t.F_EnCode == enCode);
+            }
+            
+            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
         public ItemsEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
+       
         public void DeleteForm(string keyValue)
         {
             if (service.IQueryable().Count(t => t.F_ParentId.Equals(keyValue)) > 0)
             {
-                throw new Exception("删除失败！操作的对象包含了下级数据。");
+                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {

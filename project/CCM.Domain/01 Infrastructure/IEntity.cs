@@ -19,7 +19,8 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.F_CreatorUserId = LoginInfo.UserId;
+                entity.F_CreatorUserId = LoginInfo.UserId; //序號
+                //entity.F_CreatorUserId = LoginInfo.UserCode; //帳號
             }
             entity.F_CreatorTime = DateTime.Now;
         }
@@ -30,7 +31,8 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.F_LastModifyUserId = LoginInfo.UserId;
+                entity.F_LastModifyUserId = LoginInfo.UserId; //序號
+                //entity.F_LastModifyUserId = LoginInfo.UserCode; //帳號
             }
             entity.F_LastModifyTime = DateTime.Now;
         }
@@ -40,7 +42,8 @@ namespace CCM.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.F_DeleteUserId = LoginInfo.UserId;
+                entity.F_DeleteUserId = LoginInfo.UserId; //序號
+                //entity.F_DeleteUserId = LoginInfo.UserCode; //帳號
             }
             entity.F_DeleteTime = DateTime.Now;
             entity.F_DeleteMark = true;

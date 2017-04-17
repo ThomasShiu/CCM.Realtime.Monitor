@@ -2,9 +2,10 @@
 <#@ output extension=".cs" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.xml" #>
+<#@ assembly name="MySql.Data" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
 /*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM.MIS
@@ -18,34 +19,34 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
  <#
 			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
-			SqlConnection conn = new SqlConnection(connectionString); 
-			conn.Open(); 
-			
-			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
-			string[] restrictions = new string[4];
-			restrictions[1] = "dbo";
-			//修改table名稱
-			restrictions[2] = "RD_DWG_EXMANAGE_MT"; 
-			DataTable schema = conn.GetSchema("Tables", restrictions);
+            string connectionString = "server=192.168.105.149;user id=ccm050606;Pwd=ccm12345678;persistsecurityinfo=True;database=ccm_rtdb";
+            //表格名稱
+            string tableName = "rtm_machines";
+	        string controller ="RTM01";
+			string areas = "rtmManage";
+            // 取得表格資訊
+            //string sqlCommand = String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ccm_rtdb' ");
+            string sqlCommand = String.Format("select COLUMN_KEY,COLUMN_NAME, IS_NULLABLE, CASE DATA_TYPE "+
+											 "   WHEN 'varchar' THEN 'string' "+
+											 "   WHEN 'longtext' THEN 'string' "+
+											 "   WHEN 'bit' THEN 'bool' "+
+											 "   WHEN 'datetime' THEN 'DateTime' "+
+											 "   ELSE DATA_TYPE END DATA_TYPE, CHARACTER_MAXIMUM_LENGTH  from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '" + tableName + "' ");
+            DataTable table = null;
 
-			string areas = "RDManage";  //區域名稱
-			string controller = "RDM04";  //控制器
-
-			string selectQuery = "select * from  @tableName"; 
-			SqlCommand command = new SqlCommand(selectQuery,conn); 
-			SqlDataAdapter ad = new SqlDataAdapter(command); 
-			System.Data.DataSet ds = new DataSet(); 
-			
-			foreach(System.Data.DataRow row in schema.Rows) 
-			{ 				
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {		
+				MySqlCommand cmd = new MySqlCommand(sqlCommand, conn);
+                conn.Open();
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {				
 			#>            
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.<#= areas #>.Controllers
+namespace CCM.RTM.Admin.Areas.<#= areas #>.Controllers
 {
     public class <#= controller #>Controller : ControllerBase
     {
-        private <#= row["TABLE_NAME"].ToString().Trim('s') #>App tableApp = new <#= row["TABLE_NAME"].ToString().Trim('s') #>App();
+        private <#= tableName #>App tableApp = new <#= tableName #>App();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -77,9 +78,9 @@ namespace CCM.Web.EIP.Areas.<#= areas #>.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity <#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, string keyValue)
+        public ActionResult SubmitForm(<#= tableName #>Entity <#= tableName #>Entity, string keyValue)
         {
-            tableApp.SubmitForm(<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity, keyValue);
+            tableApp.SubmitForm(<#= tableName #>Entity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
@@ -97,4 +98,6 @@ namespace CCM.Web.EIP.Areas.<#= areas #>.Controllers
 }
 	<#
 	}
+  }
+
 	#>

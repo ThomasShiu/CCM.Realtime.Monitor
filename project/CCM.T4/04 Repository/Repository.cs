@@ -12,8 +12,9 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: RD_DWG_EXMANAGE_MT
-	public class RD_DWG_EXMANAGE_MTRepository : RepositoryBase<RD_DWG_EXMANAGE_MTEntity>, IRD_DWG_EXMANAGE_MTRepository
+	//mapping table name: rtm_machines
+	public class rtm_machinesRepository : RepositoryBase<rtm_machinesEntity>, Irtm_machinesRepository
     {
     }
+
 }

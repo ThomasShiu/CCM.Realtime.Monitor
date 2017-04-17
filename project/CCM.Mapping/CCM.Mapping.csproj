@@ -48,51 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocManage\FR_OFFIDOC_ISSUEMap.cs" />
-    <Compile Include="DocManage\FR_OFFIDOC_ISSUE_ATTACH_FILEMap.cs" />
-    <Compile Include="DocManage\FR_OFFIDOC_RECEMap.cs" />
-    <Compile Include="DocManage\FR_OFFIDOC_RECE_ATTACH_FILEMap.cs" />
-    <Compile Include="ERPManage\ERP_ITEM_ATTACHFILEMap.cs" />
-    <Compile Include="Human\CCM_Main_EmployeeMap.cs" />
-    <Compile Include="Human\HR_DEPMap.cs" />
-    <Compile Include="Human\HR_EMPLYMMap.cs" />
-    <Compile Include="Human\V_EMP_EIPMap.cs" />
-    <Compile Include="Human\V_HR_EMPPAYMTMap.cs" />
-    <Compile Include="Human\V_HR_FRLDLMap.cs" />
-    <Compile Include="Human\V_HR_FRLDL_1Map.cs" />
-    <Compile Include="Human\V_HR_OVRTMMap.cs" />
-    <Compile Include="Human\HR_OVRTMMap.cs" />
-    <Compile Include="Human\V_HR_TICKETMap.cs" />
-    <Compile Include="MisManage\MisIpAddreMap.cs" />
-    <Compile Include="OrderManage\BU_LUNCHMap.cs" />
-    <Compile Include="OrderManage\BU_LUNCH_AMOUNTMap.cs" />
-    <Compile Include="OrderManage\BU_LUNCH_SETTINGMap.cs" />
-    <Compile Include="OrderManage\BU_ORDERSMap.cs" />
-    <Compile Include="OrderManage\BU_ORDERS_DETAILMap.cs" />
-    <Compile Include="OrderManage\BU_ORDERS_MENUMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublicObject\BU_BULLETINMap.cs" />
-    <Compile Include="PublicObject\BU_BULLETIN_ATTACH_FILEMap.cs" />
-    <Compile Include="PublicObject\BU_FEEDBACKMap.cs" />
-    <Compile Include="OrderManage\BU_ORDERS_SOTREMap.cs" />
-    <Compile Include="PublicObject\BU_FEEDBACKMISMap.cs" />
-    <Compile Include="PublicObject\PO_PUBLIC_OBJECTMap.cs" />
-    <Compile Include="PublicObject\PO_PUBLIC_OBJECT_ATTEND_EMPMap.cs" />
-    <Compile Include="PublicObject\PO_PUBLIC_OBJECT_BOOKINGMap.cs" />
-    <Compile Include="PublicObject\PU_ATTACH_FILEMap.cs" />
-    <Compile Include="RDManage\RD_DWG_EXMANAGE_MTMap.cs" />
-    <Compile Include="RDManage\RD_MACHINEAUTHMap.cs" />
-    <Compile Include="RDManage\RD_MACHINEAUTH_HISTORYMap.cs" />
-    <Compile Include="SaleService\SRM_ALBUMDLMap.cs" />
-    <Compile Include="SaleService\SRM_ALBUMMTMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODDL_DACMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODDL_NGBMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODDL_KSCMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODDL_CCMMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODMT_DACMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODMT_NGBMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODMT_KSCMap.cs" />
-    <Compile Include="SaleService\V_SRVPRODMT_CCMMap.cs" />
+    <Compile Include="rtmManage\rtm_machinesMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />
     <Compile Include="SystemManage\ItemsMap.cs" />
@@ -101,9 +58,6 @@
     <Compile Include="SystemManage\OrganizeMap.cs" />
     <Compile Include="SystemManage\RoleAuthorizeMap.cs" />
     <Compile Include="SystemManage\RoleMap.cs" />
-    <Compile Include="ERPManage\USRPMSMap.cs" />
-    <Compile Include="ERPManage\SS_CONNECT_COUNTMap.cs" />
-    <Compile Include="ERPManage\USRNOMap.cs" />
     <Compile Include="SystemManage\OrderSeqMap.cs" />
     <Compile Include="SystemSecurity\ActionLogMap.cs" />
     <Compile Include="SystemManage\UserLogOnMap.cs" />
@@ -111,16 +65,15 @@
     <Compile Include="SystemSecurity\DbBackupMap.cs" />
     <Compile Include="SystemSecurity\FilterIPMap.cs" />
     <Compile Include="SystemSecurity\LogMap.cs" />
-    <Compile Include="WorkflowManage\WF_DEPTMAPMap.cs" />
-    <Compile Include="WorkflowManage\WF_EMPADDEPTMap.cs" />
-    <Compile Include="WorkflowManage\WF_RULEMMap.cs" />
-    <Compile Include="WorkflowManage\WF_SIGNERMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCM.Domain\CCM.Domain.csproj">
       <Project>{7dc886cd-b8a0-44e8-aadd-57fcb0cfecb8}</Project>
       <Name>CCM.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

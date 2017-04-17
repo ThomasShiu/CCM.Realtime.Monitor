@@ -18,7 +18,7 @@ namespace CCM.Mapping.SystemSecurity
         public ActionLogMap()
         {
             this.ToTable("Sys_ActionLog");
-            this.HasKey(t => t.SID);
+            this.HasKey(t => t.F_Id);
         }
     }
 

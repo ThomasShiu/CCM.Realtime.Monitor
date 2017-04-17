@@ -25,7 +25,7 @@ namespace CCM.Application.SystemManage
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
-            expression = expression.And(t => t.F_Category == 2);
+            expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public RoleEntity GetForm(string keyValue)
@@ -46,7 +46,7 @@ namespace CCM.Application.SystemManage
             else
             {
                 roleEntity.Create();
-                roleEntity.F_Category = 2;
+                roleEntity.F_Category = 1;
                 service.Insert(roleEntity);
             }
         }

@@ -1,35 +1,35 @@
 ﻿<#@ template language="C#" debug="True" hostspecific="True" #>
-<#@ output extension=".cshtml" #>
+<#@ output extension=".cs" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.xml" #>
+<#@ assembly name="MySql.Data" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
 <#
 			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
-			SqlConnection conn = new SqlConnection(connectionString); 
-			conn.Open(); 
-			
-			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
-			string[] restrictions = new string[4];
-			restrictions[1] = "dbo";
-			//修改table名稱
-			restrictions[2] = "RD_DWG_EXMANAGE_MT"; //<<<修改這理
-			DataTable schema = conn.GetSchema("Tables", restrictions);
+            string connectionString = "server=192.168.105.149;user id=ccm050606;Pwd=ccm12345678;persistsecurityinfo=True;database=ccm_rtdb";
+            //表格名稱
+            string tableName = "rtm_machines";
+	        string controller ="RTM01";
+			string areas = "rtmManage";
+            // 取得表格資訊
+            //string sqlCommand = String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ccm_rtdb' ");
+            string sqlCommand = String.Format("select COLUMN_KEY,COLUMN_NAME, IS_NULLABLE,COLUMN_COMMENT, CASE DATA_TYPE "+
+											 "   WHEN 'varchar' THEN 'string' "+
+											 "   WHEN 'longtext' THEN 'string' "+
+											 "   WHEN 'bit' THEN 'bool' "+
+											 "   WHEN 'datetime' THEN 'DateTime' "+
+											 "   ELSE DATA_TYPE END DATA_TYPE, CHARACTER_MAXIMUM_LENGTH  from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '" + tableName + "' ");
+            DataTable table = null;
 
-			string areas = "RDManage";  //區域名稱
-			string controller = "RDM04";  //控制器
-
-			string selectQuery = "select * from  @tableName"; 
-			SqlCommand command = new SqlCommand(selectQuery,conn); 
-			SqlDataAdapter ad = new SqlDataAdapter(command); 
-			System.Data.DataSet ds = new DataSet(); 
-			
-			foreach(System.Data.DataRow row in schema.Rows) 
-			{ 				
-			#>  
-@{
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {		
+				MySqlCommand cmd = new MySqlCommand(sqlCommand, conn);
+                conn.Open();
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {					
+#>  @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
@@ -66,41 +66,85 @@
             }
         })
     }
+
+	$(function () {
+        $('.wrapper').height($(window).height() - 11);
+    })
 </script>
 
-<form id="form1">
-    <div style="padding-top: 20px; margin-right: 20px;">
-        <table class="form">
-			<tr>
-                <th class="formTitle">COL_SAMPLE</th>
-                <td class="formValue">
-                    <input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入標題" />
-					<select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
-					<input id="GUID" name="GUID" type="hidden" value="" />
-                </td>
+<div class="wrapper">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#a" data-toggle="tab">基本資訊</a></li>
+        <li><a href="#b" data-toggle="tab">擴展資訊</a></li>
+    </ul>
+    <div class="tab-content" style="padding-top: 5px;">
+        <div id="a" class="tab-pane active" style="padding: 5px;">
+            <div style="padding-top: 5px; margin-right: 5px;">
+			<form id="form1">
+				<div style="padding-top: 20px; margin-right: 20px;">
+					<table class="form">
+					<tr>
+							<th class="formTitle">COL_SAMPLE</th>
+							<td class="formValue">
+								<input id="COL_SAMPLE" name="COL_SAMPLE" type="text" class="form-control required" placeholder="請輸入值" />
+								<select id="COL_SAMPLE" name="COL_SAMPLE" class="form-control required"></select>
+								<input id="GUID" name="GUID" type="hidden" value="" />
+							</td>
                
-            </tr>
-			<#                 
-				command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString()); 
-				ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
-
-				foreach (DataColumn dc in ds.Tables[0].Columns)
-				{
-			#>
-            <tr>
-                <th class="formTitle"><#= dc.ColumnName #></th>
-                <td class="formValue">
-					<input id="<#= dc.ColumnName #>" name="<#= dc.ColumnName #>" type="text" class="form-control required" placeholder="請輸入標題" />
-                </td>
-            </tr>
-			<# } #>
+						</tr>
+						<#                 
+							while (reader.Read())
+							{
+						#>
+						<tr>
+							<th class="formTitle"><#= reader["COLUMN_COMMENT"].ToString() #></th>
+							<td class="formValue">
+								<input id="<#= reader["COLUMN_NAME"].ToString() #>" name="<#= reader["COLUMN_NAME"].ToString() #>" type="text" class="form-control required" placeholder="請輸入值" />
+							</td>
+						</tr>
+						<# } #>
            
-        </table>
+					</table>
+				</div>
+			</form>
+		</div>
+</div>
+<div id="b" class="tab-pane " style="padding: 5px;">
+            <div style="padding-top: 5px; margin-right: 5px;">
+                <form id="form2">
+                    <table  class="form">
+                        <tr>
+                            <th class="formTitle">創建日期</th>
+                            <td class="formValue">
+                                <input id="F_CreatorTime" name="F_CreatorTime" type="text" class="form-control "  disabled="disabled" />
+                            </td>
+                            <th class="formTitle">創建用戶主鍵</th>
+                            <td class="formValue">
+                                <select id="F_CreatorUserId" name="F_CreatorUserId" class="form-control"  disabled="disabled">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="formTitle">最後修改時間</th>
+                            <td class="formValue">
+                                <input id="F_LastModifyTime" name="F_LastModifyTime" type="text" class="form-control "  disabled="disabled" />
+                            </td>
+                            <th class="formTitle">最後修改用戶</th>
+                            <td class="formValue">
+                                <select id="F_LastModifyUserId" name="F_LastModifyUserId" class="form-control" disabled="disabled">
+                                    <option></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
-</form>
-
-
+</div>
 
 <#
+            }
             }
 #>

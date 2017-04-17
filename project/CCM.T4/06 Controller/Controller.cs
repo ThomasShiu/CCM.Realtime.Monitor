@@ -11,11 +11,11 @@ using CCM.Domain.Entity;
 using System.Web.Mvc;
              
 //todo: 請修改對應的namespace
-namespace CCM.Web.EIP.Areas.RDManage.Controllers
+namespace CCM.RTM.Admin.Areas.rtmManage.Controllers
 {
-    public class RDM04Controller : ControllerBase
+    public class RTM01Controller : ControllerBase
     {
-        private RD_DWG_EXMANAGE_MTApp tableApp = new RD_DWG_EXMANAGE_MTApp();
+        private rtm_machinesApp tableApp = new rtm_machinesApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -47,9 +47,9 @@ namespace CCM.Web.EIP.Areas.RDManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(RD_DWG_EXMANAGE_MTEntity RD_DWG_EXMANAGE_MTEntity, string keyValue)
+        public ActionResult SubmitForm(rtm_machinesEntity rtm_machinesEntity, string keyValue)
         {
-            tableApp.SubmitForm(RD_DWG_EXMANAGE_MTEntity, keyValue);
+            tableApp.SubmitForm(rtm_machinesEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

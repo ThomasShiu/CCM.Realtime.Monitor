@@ -2,9 +2,10 @@
 <#@ output extension=".cs" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.xml" #>
+<#@ assembly name="MySql.Data" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
 /*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM.MIS
@@ -20,46 +21,47 @@ using CCM.Repository;
 //todo: 請修改對應的namespace
 namespace CCM.Application 
 {        
-		<#
-			//Param vpara = new Param();
+		 <#
 			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
-			SqlConnection conn = new SqlConnection(connectionString); 
-			conn.Open(); 
-			
-			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
-			string[] restrictions = new string[4];
-			restrictions[1] = "dbo";
-			//修改table名稱
-			restrictions[2] = "RD_DWG_EXMANAGE_MT"; 
-			DataTable schema = conn.GetSchema("Tables", restrictions);
-			
-			string selectQuery = "select * from  @tableName"; 
-			SqlCommand command = new SqlCommand(selectQuery,conn); 
-			SqlDataAdapter ad = new SqlDataAdapter(command); 
-			System.Data.DataSet ds = new DataSet(); 
-			
-			foreach(System.Data.DataRow row in schema.Rows) 
-			{ 				
-			#>   
-public class <#= row["TABLE_NAME"].ToString() #>App
-    {
-        private I<#= row["TABLE_NAME"].ToString() #>Repository service = new <#= row["TABLE_NAME"].ToString() #>Repository();     
+            string connectionString = "server=192.168.105.149;user id=ccm050606;Pwd=ccm12345678;persistsecurityinfo=True;database=ccm_rtdb";
+            //表格名稱
+            string tableName = "rtm_machines";
 
-	public List<<#= row["TABLE_NAME"].ToString() #>Entity> GetList(string keyword = "")
+            // 取得表格資訊
+            //string sqlCommand = String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ccm_rtdb' ");
+            string sqlCommand = String.Format("select COLUMN_KEY,COLUMN_NAME, IS_NULLABLE, CASE DATA_TYPE "+
+											 "   WHEN 'varchar' THEN 'string' "+
+											 "   WHEN 'longtext' THEN 'string' "+
+											 "   WHEN 'bit' THEN 'bool' "+
+											 "   ELSE DATA_TYPE END DATA_TYPE, CHARACTER_MAXIMUM_LENGTH  from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '" + tableName + "' ");
+            //DataTable table = null;
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {		
+				MySqlCommand cmd = new MySqlCommand(sqlCommand, conn);
+                conn.Open();
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {		
+
+			#>     
+public class <#= tableName #>App
+    {
+        private I<#= tableName #>Repository service = new <#= tableName #>Repository();     
+
+	public List<<#= tableName #>Entity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<<#= row["TABLE_NAME"].ToString() #>Entity>();
+            var expression = ExtLinq.True<<#= tableName #>Entity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
+            return service.IQueryable(expression).OrderBy(t => t.F_CreatorTime).ToList();
         }     
-	 public List<<#= row["TABLE_NAME"].ToString() #>Entity> GetList(Pagination pagination, string  keyword = "")
+	 public List<<#= tableName #>Entity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<<#= row["TABLE_NAME"].ToString() #>Entity>();
+            var expression = ExtLinq.True<<#= tableName #>Entity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -69,22 +71,22 @@ public class <#= row["TABLE_NAME"].ToString() #>App
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public <#= row["TABLE_NAME"].ToString() #>Entity GetForm(string keyValue)
+        public <#= tableName #>Entity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)
             {
                 throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
-                service.Delete(t => t.SID == keyValue);
+                service.Delete(t => t.F_Id == keyValue);
             }
         }
-        public void SubmitForm(<#= row["TABLE_NAME"].ToString() #>Entity tableEntity, string keyValue)
+        public void SubmitForm(<#= tableName #>Entity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -97,9 +99,13 @@ public class <#= row["TABLE_NAME"].ToString() #>App
                 service.Insert(tableEntity);
             }
         }
-			 <#
-			 }
-			 #>
+			
 		                               
 }
 }
+ <#
+                    
+			 }
+        }
+
+			 #>

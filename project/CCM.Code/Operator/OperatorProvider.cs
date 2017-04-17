@@ -16,7 +16,7 @@ namespace CCM.Code
         {
             get { return new OperatorProvider(); }
         }
-        private string LoginUserKey = "CCM_loginuserkey_2016";
+        private string LoginUserKey = "CCM_loginuserkey_2017";
         private string LoginProvider = Configs.GetValue("LoginProvider");
 
         public OperatorModel GetCurrent()
@@ -40,9 +40,9 @@ namespace CCM.Code
                 string x = operatorModel.DeptId;
                 bool contains = depid.Contains(x, StringComparer.OrdinalIgnoreCase);
                 string userid = operatorModel.UserCode;
-                if (userid.Equals("bmw"))
+                if (userid.Equals("admin"))
                 {
-                    // 守衛無登入限制
+                    // 無登入限制
                     WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 525600);
                 }
                 else

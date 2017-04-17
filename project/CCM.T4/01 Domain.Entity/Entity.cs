@@ -1,4 +1,5 @@
-﻿/*******************************************************************************
+﻿
+/*******************************************************************************
  * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM.MIS
  * Description: CCM快速開發平臺
@@ -9,57 +10,29 @@ using System.ComponentModel.DataAnnotations;
 
 //todo: 請修改對應的namespace
 namespace CCM.Domain 
-{        
-		             
-			//mapping table name: RD_DWG_EXMANAGE_MT
-			public class RD_DWG_EXMANAGE_MTEntity  : IEntityCcm<RD_DWG_EXMANAGE_MTEntity>, ICreationAuditedCcm ,IModificationAuditedCcm                         
+{                    
+			public class rtm_machinesEntity  : IEntity<rtm_machinesEntity>, ICreationAudited ,IModificationAudited                         
 			{
 				          
-				public String SID  { get; set; }                                  
+				public string F_Id  { get; set; }                                        
 				          
-				public String ORD_NO  { get; set; }                                  
+				public string F_Machine_ID  { get; set; }                                        
 				          
-				public DateTime ORD_DATE  { get; set; }                                  
+				public string F_Machine_Model  { get; set; }                                        
 				          
-				public String PROD_NO  { get; set; }                                  
+				public string F_Machine_Type  { get; set; }                                        
 				          
-				public String ITEM_NO  { get; set; }                                  
+				public string F_ADC_IP_Address  { get; set; }                                        
 				          
-				public String ITEM_NM  { get; set; }                                  
+				public string F_Remark  { get; set; }                                        
 				          
-				public DateTime EXPORT_DATE  { get; set; }                                  
+				public DateTime F_CreatorTime  { get; set; }                                        
 				          
-				public Int32 EXPORT_QTY  { get; set; }                                  
+				public string F_CreatorUserId  { get; set; }                                        
 				          
-				public String TO_DEPT  { get; set; }                                  
+				public DateTime F_LastModifyTime  { get; set; }                                        
 				          
-				public String TO_EMP  { get; set; }                                  
-				          
-				public String FM_DEPT  { get; set; }                                  
-				          
-				public String FM_EMP  { get; set; }                                  
-				          
-				public String CS_NO  { get; set; }                                  
-				          
-				public String SHORT_NM  { get; set; }                                  
-				          
-				public String REMARK  { get; set; }                                  
-				          
-				public String STATUS  { get; set; }                                  
-				          
-				public String GUID  { get; set; }                                  
-				          
-				public Boolean Enable  { get; set; }                                  
-				          
-				public String OrganizeId  { get; set; }                                  
-				          
-				public DateTime CreatorTime  { get; set; }                                  
-				          
-				public String CreatorUserId  { get; set; }                                  
-				          
-				public DateTime LastModifyTime  { get; set; }                                  
-				          
-				public String LastModifyUserId  { get; set; }                                  
+				public string F_LastModifyUserId  { get; set; }                                        
 				                                
 			}                            
 }

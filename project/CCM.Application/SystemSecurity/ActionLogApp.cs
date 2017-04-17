@@ -25,24 +25,24 @@ namespace CCM.Application.SystemSecurity
             var expression = ExtLinq.True<ActionLogEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Operator.Contains(keyword));
-                expression = expression.Or(t => t.Refer.Contains(keyword));
-                expression = expression.Or(t => t.Destination.Contains(keyword));
-                expression = expression.Or(t => t.IPAddress.Contains(keyword));
+                expression = expression.And(t => t.F_Operator.Contains(keyword));
+                expression = expression.Or(t => t.F_Refer.Contains(keyword));
+                expression = expression.Or(t => t.F_Destination.Contains(keyword));
+                expression = expression.Or(t => t.F_IPAddress.Contains(keyword));
                 // expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.RequestTime).ToList();
+            return service.IQueryable(expression).OrderBy(t => t.F_RequestTime).ToList();
         }
         public List<ActionLogEntity> GetList(Pagination pagination, string keyword = "")
         {
             var expression = ExtLinq.True<ActionLogEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.Operator.Contains(keyword));
-                expression = expression.Or(t => t.Refer.Contains(keyword));
-                expression = expression.Or(t => t.Destination.Contains(keyword));
-                expression = expression.Or(t => t.IPAddress.Contains(keyword));
+                expression = expression.And(t => t.F_Operator.Contains(keyword));
+                expression = expression.Or(t => t.F_Refer.Contains(keyword));
+                expression = expression.Or(t => t.F_Destination.Contains(keyword));
+                expression = expression.Or(t => t.F_IPAddress.Contains(keyword));
                 //expression = expression.Or(t => t.SUBJECT.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 2);
@@ -55,13 +55,13 @@ namespace CCM.Application.SystemSecurity
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)
             {
                 throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
-                service.Delete(t => t.SID == keyValue);
+                service.Delete(t => t.F_Id == keyValue);
             }
         }
         public void SubmitForm(ActionLogEntity tableEntity, string keyValue)

@@ -10,6 +10,7 @@ using CCM.Domain.IRepository.SystemManage;
 using CCM.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CCM.Application.SystemManage
 {
@@ -29,6 +30,19 @@ namespace CCM.Application.SystemManage
             }
             //expression = expression.And(t => t.F_Account != "admin");
             return service.FindList(expression, pagination);
+        }
+        public List<UserEntity> GetList(string keyword)
+        {
+            var expression = ExtLinq.True<UserEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_Account.Contains(keyword));
+                expression = expression.Or(t => t.F_RealName.Contains(keyword));
+                expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
+            }
+            //expression = expression.And(t => t.F_Account != "admin");
+            return service.IQueryable(expression).OrderBy(t => t.F_Account).ToList();
+
         }
         public UserEntity GetForm(string keyValue)
         {

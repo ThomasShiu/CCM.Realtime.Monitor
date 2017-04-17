@@ -12,35 +12,31 @@ namespace CCM.Domain.Entity.SystemSecurity
 {
 
     //mapping table name: SS_ACTIONLOG
-    public class ActionLogEntity : IEntityCcm<ActionLogEntity>, ICreationAuditedCcm , IModificationAuditedCcm
+    public class ActionLogEntity : IEntity<ActionLogEntity>, ICreationAudited
     {
-        public String SID { get; set; }
+        public string F_Id { get; set; }
 
-        public String Operator { get; set; }
+        public string F_Operator { get; set; }
 
-        public String Refer { get; set; }
+        public string F_Refer { get; set; }
 
-        public String Destination { get; set; }
+        public string F_Destination { get; set; }
 
-        public String Method { get; set; }
+        public string F_Method { get; set; }
 
-        public Boolean MobleDevices { get; set; }
+        public Boolean F_MobleDevices { get; set; }
 
-        public String Browser { get; set; }
+        public string F_Browser { get; set; }
 
-        public String IPAddress { get; set; }
+        public string F_IPAddress { get; set; }
 
-        public DateTime RequestTime { get; set; }
+        public DateTime F_RequestTime { get; set; }
 
-        public String OrganizeId { get; set; }
+        public DateTime? F_CreatorTime { get; set; }
 
-        public String CreatorUserId { get; set; }
+        public string F_CreatorUserId { get; set; }
 
-        public DateTime? CreatorTime { get; set; }
-
-        public String LastModifyUserId { get; set; }
-
-        public DateTime? LastModifyTime { get; set; }
+       
 
     }
 }

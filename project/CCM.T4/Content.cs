@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,4 +13,6 @@ namespace CCM.T4
         public const string v_tablenm = "FR_OFFIDOC_ISSUE";
         public const string Add = "~/Content/Content/Images/Add.png";
     }
+
+
 }

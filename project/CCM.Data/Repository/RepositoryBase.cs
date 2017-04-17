@@ -24,7 +24,7 @@ namespace CCM.Data
     /// </summary>
     public class RepositoryBase : IRepositoryBase, IDisposable
     {
-        private EIPContext dbcontext = new EIPContext();
+        private RTDBContext dbcontext = new RTDBContext();
         private DbTransaction dbTransaction { get; set; }
         public IRepositoryBase BeginTrans()
         {

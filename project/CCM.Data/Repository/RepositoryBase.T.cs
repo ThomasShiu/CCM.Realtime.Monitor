@@ -23,7 +23,7 @@ namespace CCM.Data
     /// <typeparam name="TEntity"></typeparam>
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class,new()
     {
-        public EIPContext dbcontext = new EIPContext();
+        public RTDBContext dbcontext = new RTDBContext();
         public int Insert(TEntity entity)
         {
             dbcontext.Entry<TEntity>(entity).State = EntityState.Added;

@@ -11,10 +11,11 @@ using CCM.Domain.Entity;
 namespace CCM.Domain 
 {        
 		             
-	//mapping table name: RD_DWG_EXMANAGE_MT
-	public interface IRD_DWG_EXMANAGE_MTRepository : IRepositoryBase<RD_DWG_EXMANAGE_MTEntity>
+	//mapping table name: rtm_machines
+	public interface Irtm_machinesRepository : IRepositoryBase<rtm_machinesEntity>
     {
     }
-			 		                               
+
+		                               
 
 }

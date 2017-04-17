@@ -20,7 +20,13 @@ namespace CCM.Application.SystemManage
 
         public List<ModuleEntity> GetList()
         {
+            try { 
             return service.IQueryable().OrderBy(t => t.F_SortCode).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
         public ModuleEntity GetForm(string keyValue)
         {
@@ -30,7 +36,7 @@ namespace CCM.Application.SystemManage
         {
             if (service.IQueryable().Count(t => t.F_ParentId.Equals(keyValue)) > 0)
             {
-                throw new Exception("删除失败！操作的对象包含了下级数据。");
+                throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {

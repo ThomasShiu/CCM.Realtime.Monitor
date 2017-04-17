@@ -40,65 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="01 Infrastructure\ICreationAuditedHrs.cs" />
     <Compile Include="01 Infrastructure\ICreationAuditedCcm.cs" />
     <Compile Include="01 Infrastructure\ICreationAudited.cs" />
-    <Compile Include="01 Infrastructure\IDeleteAuditedHrs.cs" />
     <Compile Include="01 Infrastructure\IDeleteAuditedCcm.cs" />
     <Compile Include="01 Infrastructure\IDeleteAudited.cs" />
-    <Compile Include="01 Infrastructure\IEntityHrs.cs" />
     <Compile Include="01 Infrastructure\IEntityCcm.cs" />
     <Compile Include="01 Infrastructure\IEntity.cs" />
-    <Compile Include="01 Infrastructure\IModificationAuditedHrs.cs" />
     <Compile Include="01 Infrastructure\IModificationAuditedCcm.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
-    <Compile Include="03 Entity\DocManage\FR_OFFIDOC_ISSUEEntity.cs" />
-    <Compile Include="03 Entity\DocManage\FR_OFFIDOC_ISSUE_ATTACH_FILEEntity.cs" />
-    <Compile Include="03 Entity\DocManage\FR_OFFIDOC_RECEEntity.cs" />
-    <Compile Include="03 Entity\DocManage\FR_OFFIDOC_RECE_ATTACH_FILEEntity.cs" />
-    <Compile Include="03 Entity\ERPManage\ERP_ITEM_ATTACHFILEEntity.cs" />
-    <Compile Include="03 Entity\Human\CCM_Main_EmployeeEntity.cs" />
-    <Compile Include="03 Entity\Human\HR_DEPEntity.cs" />
-    <Compile Include="03 Entity\Human\V_EMP_EIPEntity.cs" />
-    <Compile Include="03 Entity\Human\HR_EMPLYMEntity.cs" />
-    <Compile Include="03 Entity\Human\V_HR_EMPPAYMTEntity.cs" />
-    <Compile Include="03 Entity\Human\V_HR_FRLDLEntity.cs" />
-    <Compile Include="03 Entity\Human\V_HR_FRLDL_1Entity.cs" />
-    <Compile Include="03 Entity\Human\V_HR_OVRTMEntity.cs" />
-    <Compile Include="03 Entity\Human\HR_OVRTMEntity.cs" />
-    <Compile Include="03 Entity\Human\V_HR_TICKETEntity.cs" />
-    <Compile Include="03 Entity\MisManage\MisIpAddressEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_LUNCHEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_LUNCH_AMOUNTEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_LUNCH_SETTINGEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_ORDERSEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_ORDERS_DETAILEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_ORDERS_MENUEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\BU_BULLETINEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\BU_BULLETIN_ATTACH_FILEEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\BU_FEEDBACKEntity.cs" />
-    <Compile Include="03 Entity\OrderManage\BU_ORDERS_SOTREEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\BU_FEEDBACKMISEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECTEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_ATTEND_EMPEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\PO_PUBLIC_OBJECT_BOOKINGEntity.cs" />
-    <Compile Include="03 Entity\PublicManage\PU_ATTACH_FILEEntity.cs" />
-    <Compile Include="03 Entity\RDManage\RD_DWG_EXMANAGE_MTEntity.cs" />
-    <Compile Include="03 Entity\RDManage\RD_MACHINEAUTHEntity.cs" />
-    <Compile Include="03 Entity\RDManage\RD_MACHINEAUTH_HISTORYEntity.cs" />
-    <Compile Include="03 Entity\SaleService\SRM_ALBUMDLEntity.cs" />
-    <Compile Include="03 Entity\SaleService\SRM_ALBUMMTEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODMT_CCMEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODMT_DACEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODMT_KSCEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODMT_NGBEntity.cs" />
+    <Compile Include="03 Entity\rtmManage\rtm_machinesEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
     <Compile Include="03 Entity\SystemManage\RoleAuthorizeEntity.cs" />
-    <Compile Include="03 Entity\ERPManage\USRPMSEntity.cs" />
-    <Compile Include="03 Entity\ERPManage\SS_CONNECT_COUNTEntity.cs" />
-    <Compile Include="03 Entity\ERPManage\USRNOEntity.cs" />
     <Compile Include="03 Entity\SystemManage\OrderSeqEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\ActionLogEntity.cs" />
     <Compile Include="03 Entity\SystemManage\UserLogOnEntity.cs" />
@@ -107,58 +61,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
-    <Compile Include="03 Entity\WorkflowManage\WF_DEPTMAPEntity.cs" />
-    <Compile Include="03 Entity\WorkflowManage\WF_EMPADDEPTEntity.cs" />
-    <Compile Include="03 Entity\WorkflowManage\WF_RULEMEntity.cs" />
-    <Compile Include="03 Entity\WorkflowManage\WF_SIGNEREntity.cs" />
-    <Compile Include="04 IRepository\DocManage\IFR_OFFIDOC_ISSUERepository.cs" />
-    <Compile Include="04 IRepository\DocManage\IFR_OFFIDOC_ISSUE_ATTACH_FILERepository.cs" />
-    <Compile Include="04 IRepository\DocManage\IFR_OFFIDOC_RECERepository.cs" />
-    <Compile Include="04 IRepository\DocManage\IFR_OFFIDOC_RECE_ATTACH_FILERepository.cs" />
-    <Compile Include="04 IRepository\ERPManage\IERP_ITEM_ATTACHFILERepository.cs" />
-    <Compile Include="04 IRepository\Human\ICCM_Main_EmployeeRepository.cs" />
-    <Compile Include="04 IRepository\Human\IHR_DEPRepository.cs" />
-    <Compile Include="04 IRepository\Human\IHR_EMPLYMRepository.cs" />
-    <Compile Include="04 IRepository\Human\IV_EMP_EIPRepository.cs" />
-    <Compile Include="04 IRepository\Human\IV_HR_EMPPAYMTRepository.cs" />
-    <Compile Include="04 IRepository\Human\IV_HR_FRLDLRepository.cs" />
-    <Compile Include="04 IRepository\Human\IV_HR_FRLDL_1Repository.cs" />
-    <Compile Include="04 IRepository\Human\IV_HR_OVRTMRepository.cs" />
-    <Compile Include="04 IRepository\Human\IHR_OVRTMRepository.cs" />
-    <Compile Include="04 IRepository\Human\IV_HR_TICKETRepository.cs" />
-    <Compile Include="04 IRepository\MisManage\IMisIpAddreRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_LUNCHRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_LUNCH_AMOUNTRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_LUNCH_SETTINGRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_ORDERSRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_DETAILRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_MENURepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IBU_BULLETINRepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IBU_BULLETIN_ATTACH_FILERepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKMISRepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IBU_FEEDBACKRepository.cs" />
-    <Compile Include="04 IRepository\OrderManage\IBU_ORDERS_SOTRERepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECTRepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_ATTEND_EMPRepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IPO_PUBLIC_OBJECT_BOOKINGRepository.cs" />
-    <Compile Include="04 IRepository\PublicObject\IPU_ATTACH_FILERepository.cs" />
-    <Compile Include="04 IRepository\RDManage\IRD_DWG_EXMANAGE_MTRepository.cs" />
-    <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTHRepository.cs" />
-    <Compile Include="04 IRepository\RDManage\IRD_MACHINEAUTH_HISTORYRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\ISRM_ALBUMDLRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\ISRM_ALBUMMTRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODDL_DACRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODDL_NGBRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODDL_KSCRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODDL_CCMRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODMT_DACRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODMT_NGBRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODMT_KSCRepository.cs" />
-    <Compile Include="04 IRepository\SaleService\IV_SRVPRODMT_CCMRepository.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODDL_NGBEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODDL_DACEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODDL_KSCEntity.cs" />
-    <Compile Include="03 Entity\SaleService\V_SRVPRODDL_CCMEntity.cs" />
+    <Compile Include="04 IRepository\rtmManage\Irtm_machinesRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />
@@ -167,9 +70,6 @@
     <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
-    <Compile Include="04 IRepository\ERPManage\IUSRPMSRepository.cs" />
-    <Compile Include="04 IRepository\ERPManage\ISS_CONNECT_COUNTRepository.cs" />
-    <Compile Include="04 IRepository\ERPManage\IUSRNORepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IOrderSeqRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IActionLogRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
@@ -177,10 +77,6 @@
     <Compile Include="04 IRepository\SystemSecurity\IDbBackupRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IFilterIPRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\ILogRepository.cs" />
-    <Compile Include="04 IRepository\WorkflowManage\IWF_DEPTMAPRepository.cs" />
-    <Compile Include="04 IRepository\WorkflowManage\IWF_EMPADDEPTRepository.cs" />
-    <Compile Include="04 IRepository\WorkflowManage\IWF_RULEMRepository.cs" />
-    <Compile Include="04 IRepository\WorkflowManage\IWF_SIGNERRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

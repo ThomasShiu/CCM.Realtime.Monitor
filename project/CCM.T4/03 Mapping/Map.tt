@@ -18,36 +18,18 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		<#
-			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
-			SqlConnection conn = new SqlConnection(connectionString); 
-			conn.Open(); 
-			
-			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
-			string[] restrictions = new string[4];
-			restrictions[1] = "dbo";
-			//修改table名稱
-			restrictions[2] = "RD_DWG_EXMANAGE_MT"; 
-			DataTable schema = conn.GetSchema("Tables", restrictions);
-			
-			string selectQuery = "select * from  @tableName"; 
-			SqlCommand command = new SqlCommand(selectQuery,conn); 
-			SqlDataAdapter ad = new SqlDataAdapter(command); 
-			System.Data.DataSet ds = new DataSet(); 
-			
-			foreach(System.Data.DataRow row in schema.Rows) 
-			{ 				
+			//表格名稱
+            string tableName = "rtm_machines";
+		
 			#>             
-	//mapping table name: <#= row["TABLE_NAME"].ToString().Trim('s') #>
-	public class <#= row["TABLE_NAME"].ToString().Trim('s') #>Map : EntityTypeConfiguration<<#= row["TABLE_NAME"].ToString().Trim('s') #>Entity>
+	//mapping table name: <#= tableName #>
+	public class <#= tableName #>Map : EntityTypeConfiguration<<#= tableName #>Entity>
     {
-        public <#= row["TABLE_NAME"].ToString().Trim('s') #>Map()
+        public <#= tableName #>Map()
         {
-            this.ToTable("<#= row["TABLE_NAME"].ToString().Trim('s') #>");
-            this.HasKey(t => t.SID);
+            this.ToTable("<#= tableName #>");
+            this.HasKey(t => t.F_Id);
         }
     }
-			 <#
-			 }
-			 #>                 
+               
 }

@@ -1,33 +1,34 @@
 ﻿<#@ template language="C#" debug="True" hostspecific="True" #>
-<#@ output extension=".cshtml" #>
+<#@ output extension=".cs" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.xml" #>
+<#@ assembly name="MySql.Data" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="MySql.Data.MySqlClient" #>
 <#
 			//修改connection string
-			string connectionString = "Server=192.168.100.11;Initial Catalog=EIP;User ID=sa;Password=6937937"; 
-			SqlConnection conn = new SqlConnection(connectionString); 
-			conn.Open(); 
-			
-			//如果需要database中全部table，則使用conn.GetSchema("Tables")即可
-			string[] restrictions = new string[4];
-			restrictions[1] = "dbo";
-			//修改table名稱
-			restrictions[2] = "RD_DWG_EXMANAGE_MT"; //<<<修改這理
-			DataTable schema = conn.GetSchema("Tables", restrictions);
+            string connectionString = "server=192.168.105.149;user id=ccm050606;Pwd=ccm12345678;persistsecurityinfo=True;database=ccm_rtdb";
+            //表格名稱
+            string tableName = "rtm_machines";
+	        string controller ="RTM01";
+			string areas = "rtmManage";
+            // 取得表格資訊
+            //string sqlCommand = String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ccm_rtdb' ");
+            string sqlCommand = String.Format("select COLUMN_KEY,COLUMN_NAME, IS_NULLABLE,COLUMN_COMMENT, CASE DATA_TYPE "+
+											 "   WHEN 'varchar' THEN 'string' "+
+											 "   WHEN 'longtext' THEN 'string' "+
+											 "   WHEN 'bit' THEN 'bool' "+
+											 "   WHEN 'datetime' THEN 'DateTime' "+
+											 "   ELSE DATA_TYPE END DATA_TYPE, CHARACTER_MAXIMUM_LENGTH  from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '" + tableName + "' ");
+            DataTable table = null;
 
-			string areas = "RDManage";  //區域名稱
-			string controller = "RDM04";  //控制器
-
-			string selectQuery = "select * from  @tableName"; 
-			SqlCommand command = new SqlCommand(selectQuery,conn); 
-			SqlDataAdapter ad = new SqlDataAdapter(command); 
-			System.Data.DataSet ds = new DataSet(); 
-			
-			foreach(System.Data.DataRow row in schema.Rows) 
-			{ 				
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {		
+				MySqlCommand cmd = new MySqlCommand(sqlCommand, conn);
+                conn.Open();
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {				
 			#>
 @{
     ViewBag.Title = "Index";
@@ -43,15 +44,16 @@
             url: "/<#= areas #>/<#= controller #>/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-					{ label: "SID", name: "SID", hidden: true, key: true, width: 80, align: 'left' },
+					{ label: "F_Id", name: "F_Id", hidden: true, key: true, width: 80, align: 'left' },
 			<#                 
-					command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString()); 
-					ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
-					foreach (DataColumn dc in ds.Tables[0].Columns)
-					{
-					#>
-                    { label: "<#= dc.ColumnName #>", name: "<#= dc.ColumnName #>", width: 80, align: 'left' },
-				 <# } #>
+			    while (reader.Read())
+                {
+			#>
+       { label: "<#= reader["COLUMN_COMMENT"].ToString() #>", name: "<#= reader["COLUMN_NAME"].ToString() #>", width: 80, align: 'left' },
+		     <# } 
+                }
+              }
+			 #>
 				
             ],
 			pager: "#gridPager",
@@ -77,7 +79,7 @@
         });
     }
     function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: "修改",
@@ -92,14 +94,14 @@
     function btn_delete() {
         $.deleteForm({
             url: "/<#= areas #>/<#= controller #>/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().SID },
+            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
     function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Details",
             title: "查看",
@@ -150,6 +152,3 @@
 	<div id="gridPager"></div>
 </div>
 
-<#
-            }
-#>

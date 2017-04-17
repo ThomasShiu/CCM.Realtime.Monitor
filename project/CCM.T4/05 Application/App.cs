@@ -13,25 +13,25 @@ using CCM.Repository;
 //todo: 請修改對應的namespace
 namespace CCM.Application 
 {        
-		   
-public class RD_DWG_EXMANAGE_MTApp
+		      
+public class rtm_machinesApp
     {
-        private IRD_DWG_EXMANAGE_MTRepository service = new RD_DWG_EXMANAGE_MTRepository();     
+        private Irtm_machinesRepository service = new rtm_machinesRepository();     
 
-	public List<RD_DWG_EXMANAGE_MTEntity> GetList(string keyword = "")
+	public List<rtm_machinesEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<RD_DWG_EXMANAGE_MTEntity>();
+            var expression = ExtLinq.True<rtm_machinesEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.CreatorTime).ToList();
+            return service.IQueryable(expression).OrderBy(t => t.F_CreatorTime).ToList();
         }     
-	 public List<RD_DWG_EXMANAGE_MTEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<rtm_machinesEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<RD_DWG_EXMANAGE_MTEntity>();
+            var expression = ExtLinq.True<rtm_machinesEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,22 +41,22 @@ public class RD_DWG_EXMANAGE_MTApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public RD_DWG_EXMANAGE_MTEntity GetForm(string keyValue)
+        public rtm_machinesEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.SID.Equals(keyValue)) > 0)
+            if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)
             {
                 throw new Exception("刪除失敗！操作的物件包含了下級資料。");
             }
             else
             {
-                service.Delete(t => t.SID == keyValue);
+                service.Delete(t => t.F_Id == keyValue);
             }
         }
-        public void SubmitForm(RD_DWG_EXMANAGE_MTEntity tableEntity, string keyValue)
+        public void SubmitForm(rtm_machinesEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -69,6 +69,8 @@ public class RD_DWG_EXMANAGE_MTApp
                 service.Insert(tableEntity);
             }
         }
-			 		                               
+			
+		                               
 }
 }
+ 

@@ -14,11 +14,15 @@ using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using CCM.Code;
+using log4net;
 
 namespace CCM.Code
 {
     public class HttpMethods
     {
+        static ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region POST
         /// <summary>
         /// HTTP POST方式請求資料
@@ -140,8 +144,9 @@ namespace CCM.Code
             }
             catch (WebException e)
             {
+                throw e;
                 //LogResult(e.Message);
-                return "";
+                //return "";
             }
             finally
             {
@@ -432,11 +437,11 @@ namespace CCM.Code
                 Stream stream2 = wresp.GetResponseStream();
                 StreamReader reader2 = new StreamReader(stream2);
                 responseStr = reader2.ReadToEnd();
-                //logger.Debug(string.Format("File uploaded, server response is: {0}", responseStr));
+                logger.Debug(string.Format("File uploaded, server response is: {0}", responseStr));
             }
             catch (Exception ex)
             {
-                //logger.Error("Error uploading file", ex);
+                logger.Error("Error uploading file", ex);
                 if (wresp != null)
                 {
                     wresp.Close();
@@ -498,11 +503,11 @@ namespace CCM.Code
                 Stream stream2 = wresp.GetResponseStream();
                 StreamReader reader2 = new StreamReader(stream2);
                 responseStr = reader2.ReadToEnd();
-                // logger.Error(string.Format("File uploaded, server response is: {0}", responseStr));
+                logger.Error(string.Format("File uploaded, server response is: {0}", responseStr));
             }
             catch (Exception ex)
             {
-                //Logger.Error("Error uploading file", ex);
+                logger.Error("Error uploading file", ex);
                 if (wresp != null)
                 {
                     wresp.Close();
