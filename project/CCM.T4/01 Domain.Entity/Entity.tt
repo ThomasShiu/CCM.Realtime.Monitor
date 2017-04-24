@@ -22,7 +22,7 @@ namespace CCM.Domain
 			//修改connection string
             string connectionString = "server=192.168.105.149;user id=ccm050606;Pwd=ccm12345678;persistsecurityinfo=True;database=ccm_rtdb";
             //表格名稱
-            string tableName = "rtm_machines";
+            string tableName = "realtime_sorting";
 
             // 取得表格資訊
             //string sqlCommand = String.Format("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='ccm_rtdb' ");

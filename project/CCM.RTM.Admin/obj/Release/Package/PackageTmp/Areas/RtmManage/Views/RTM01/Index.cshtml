@@ -17,6 +17,7 @@
 		            { label: "機型", name: "F_Machine_Model", width: 80, align: 'left' },
 		            { label: "機種", name: "F_Machine_Type", width: 80, align: 'left' },
 		            { label: "接收IP", name: "F_ADC_IP_Address", width: 120, align: 'left' },
+                    { label: "排序碼", name: "F_SortCode",  width: 50, align: 'left' },
 		            { label: "備註", name: "F_Remark", hidden: true, width: 120, align: 'left' },
 		            { label: "創建日期", name: "F_CreatorTime", hidden: true, width: 80, align: 'left' },
 		            { label: "創建用戶主鍵", name: "F_CreatorUserId", hidden: true, width: 80, align: 'left' },
@@ -24,7 +25,7 @@
 		            { label: "最後修改用戶", name: "F_LastModifyUserId", hidden: true, width: 80, align: 'left' },
             ],
 			pager: "#gridPager",
-			sortname: 'F_Machine_ID asc,F_CreatorTime desc',
+			sortname: 'F_SortCode asc',
 			viewrecords: true,
 			loadComplete: function () {
 			    $(this).find(">tbody>tr.jqgrow").addClass("myAltRowClassEven");

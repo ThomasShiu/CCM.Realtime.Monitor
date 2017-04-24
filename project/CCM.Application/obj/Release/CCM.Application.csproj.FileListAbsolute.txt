@@ -76,3 +76,4 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\zh-CHT\Microsof
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Release\CCM.Application.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Release\MySql.Data.xml

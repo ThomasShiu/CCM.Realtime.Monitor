@@ -20,7 +20,7 @@ namespace CCM.Repository
 {        
 		<#
 			//表格名稱
-            string tableName = "rtm_machines";				
+            string tableName = "realtime_sorting";				
 			#>             
 	//mapping table name: <#= tableName #>
 	public class <#= tableName #>Repository : RepositoryBase<<#= tableName #>Entity>, I<#= tableName #>Repository

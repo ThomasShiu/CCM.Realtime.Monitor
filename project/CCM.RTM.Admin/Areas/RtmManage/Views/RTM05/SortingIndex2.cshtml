@@ -1,0 +1,51 @@
+﻿@model List<string>
+@{
+    Layout = null;
+}
+@Styles.Render("~/Content/css")
+@*佑祥製作的版本*@
+<link href="~/Content/shopitem.css" rel="stylesheet" />
+<body onload="ShowTime()" style="padding-top:0px;">
+
+    <a href="~/Home/Index" title=""><img src="~/Content/Images/ccii.bmp" alt="" /></a>
+
+    <div id="RealTimeToolBar">
+
+        <div id="showTime"></div>
+
+        <div id="Image_Exp">
+            <img src="~/Content/Images/Lights.png" style="height:45px;width:350px">
+        </div>
+
+    </div>
+
+    <div id="RealTime_PlaceHolder">
+
+        @foreach (string o in Model)
+        {
+            <div calss="Div_Machine">
+                @Html.Action("RealTime_Sorting2", new { Machine_ID = o })
+            </div>
+        }
+
+    </div>
+
+</body>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/modernizr")
+
+<script language="JavaScript">
+    function ShowTime() {
+        var NowDate = new Date();
+        var y = NowDate.getFullYear();
+        var Month = NowDate.getMonth()+1;
+        var d = NowDate.getDate();
+        var h = NowDate.getHours();
+        var m = NowDate.getMinutes();
+        var s = NowDate.getSeconds();
+        var date = NowDate.getDate();
+        document.getElementById('showTime').innerHTML = y + '/' + Month + '/' + d +'日'+ '     ' + h + '時' + m + '分' + s + '秒'
+        setTimeout('ShowTime()',1000);
+    }
+</script>

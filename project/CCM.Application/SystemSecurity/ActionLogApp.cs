@@ -34,16 +34,41 @@ namespace CCM.Application.SystemSecurity
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.F_RequestTime).ToList();
         }
-        public List<ActionLogEntity> GetList(Pagination pagination, string keyword = "")
+        public List<ActionLogEntity> GetList(Pagination pagination, string queryJson)
         {
             var expression = ExtLinq.True<ActionLogEntity>();
-            if (!string.IsNullOrEmpty(keyword))
+            var queryParam = queryJson.ToJObject();
+            if (!queryParam["keyword"].IsEmpty())
             {
+                string keyword = queryParam["keyword"].ToString();
                 expression = expression.And(t => t.F_Operator.Contains(keyword));
                 expression = expression.Or(t => t.F_Refer.Contains(keyword));
                 expression = expression.Or(t => t.F_Destination.Contains(keyword));
                 expression = expression.Or(t => t.F_IPAddress.Contains(keyword));
                 //expression = expression.Or(t => t.SUBJECT.Contains(keyword));
+            }
+            if (!queryParam["timeType"].IsEmpty())
+            {
+                string timeType = queryParam["timeType"].ToString();
+                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate();
+                DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
+                switch (timeType)
+                {
+                    case "1":
+                        break;
+                    case "2":
+                        startTime = DateTime.Now.AddDays(-7);
+                        break;
+                    case "3":
+                        startTime = DateTime.Now.AddMonths(-1);
+                        break;
+                    case "4":
+                        startTime = DateTime.Now.AddMonths(-3);
+                        break;
+                    default:
+                        break;
+                }
+                expression = expression.And(t => t.F_RequestTime >= startTime && t.F_RequestTime <= endTime);
             }
             //expression = expression.And(t => t.F_Category == 2);
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
@@ -53,6 +78,27 @@ namespace CCM.Application.SystemSecurity
         {
             return service.FindEntity(keyValue);
         }
+
+        public void RemoveLog(string keepTime)
+        {
+            DateTime operateTime = DateTime.Now;
+            if (keepTime == "7")            //保留近一周
+            {
+                operateTime = DateTime.Now.AddDays(-7);
+            }
+            else if (keepTime == "1")       //保留近一个月
+            {
+                operateTime = DateTime.Now.AddMonths(-1);
+            }
+            else if (keepTime == "3")       //保留近三个月
+            {
+                operateTime = DateTime.Now.AddMonths(-3);
+            }
+            var expression = ExtLinq.True<ActionLogEntity>();
+            expression = expression.And(t => t.F_RequestTime <= operateTime);
+            service.Delete(expression);
+        }
+
         public void DeleteForm(string keyValue)
         {
             if (service.IQueryable().Count(t => t.F_Id.Equals(keyValue)) > 0)

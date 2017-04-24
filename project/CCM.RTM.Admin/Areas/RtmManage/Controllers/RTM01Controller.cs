@@ -2,6 +2,7 @@
  * Copyright © 2016 CCM.Framework 版權所有
  * Author: CCM.MIS
  * Description: CCM,MIS 快速開發平臺
+ * RTM01 機台基本資料
  * Website：http://www.ccm3s.com
 *********************************************************************************/
 using CCM.Application;
@@ -10,7 +11,6 @@ using CCM.Domain;
 using CCM.Domain.Entity;
 using System.Web.Mvc;
 
-//todo: 請修改對應的namespace
 namespace CCM.RTM.Admin.Areas.rtmManage.Controllers
 {
     public class RTM01Controller : ControllerBase

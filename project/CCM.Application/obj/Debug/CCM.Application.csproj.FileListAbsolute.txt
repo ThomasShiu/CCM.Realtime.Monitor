@@ -53,6 +53,7 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\EPPlus.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\itextsharp.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\itextsharp.xfaworker.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\MySql.Data.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\log4net.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\NPOI.dll
@@ -61,6 +62,7 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\CCM.Code.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\CCM.Data.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\CCM.Domain.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\CCM.Repository.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\MySql.Data.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\Newtonsoft.Json.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\zh-CHT\Microsoft.ReportViewer.WebForms.resources.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\obj\Debug\CCM.Application.csprojResolveAssemblyReference.cache

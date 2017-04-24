@@ -28,7 +28,7 @@ namespace CCM.Application
                 expression = expression.Or(t => t.F_Machine_Type.Contains(keyword));
             }
             //expression = expression.And(t => t.F_Category == 1);
-            return service.IQueryable(expression).OrderBy(t => t.F_CreatorTime).ToList();
+            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public List<rtm_machinesEntity> GetList(Pagination pagination, string keyword = "")
         {

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>監控系統</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body style="padding-bottom:0px;padding-top:0px">
+    <div id="div_main">
+        <div id="div_header">
+
+            <table cellpadding="0" cellspacing="0" border="0" style="width:100%" class="top">
+                <tr>
+                    <td><a href="~/Account/Index" title=""><img src="~/Content/Images/ccii.bmp" alt="" /></a></td>
+                    <td align="center">
+                        &nbsp;&nbsp;
+                        <i class="icon-off"></i><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;
+                        @Html.ActionLink("個人資料", "Personal_Information", "Account", "", new { Target = "_IndexIframe" })
+                        &nbsp;|&nbsp;
+                        <i class="icon-off"></i><span class="glyphicon glyphicon-off" aria-hieend="trus"></span>&nbsp;&nbsp;
+                        @Html.ActionLink("登出", "Logout", "Account")
+                        <br />&nbsp;　　
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div id="div_center">
+            @RenderBody()
+        </div>
+
+        <div id="div_footer">
+            <p>Copyright © @DateTime.Now.Year - Ching Chan Optical Technology Co., Ltd. All Rights Reserved</p>
+        </div>
+
+    </div>
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/modernizr")
+
+@*@RenderSection("scripts", required: false)*@
+</html>

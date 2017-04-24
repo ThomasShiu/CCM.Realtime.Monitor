@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace CCM.Data.Extensions
 {
@@ -16,9 +17,9 @@ namespace CCM.Data.Extensions
         private static string connstring = ConfigurationManager.ConnectionStrings["RTDBContext"].ConnectionString;
         public static int ExecuteSqlCommand(string cmdText)
         {
-            using (DbConnection conn = new SqlConnection(connstring))
+            using (DbConnection conn = new MySqlConnection(connstring))
             {
-                DbCommand cmd = new SqlCommand();
+                DbCommand cmd = new MySqlCommand();
                 PrepareCommand(cmd, conn, null, CommandType.Text, cmdText, null);
                 return cmd.ExecuteNonQuery();
             }

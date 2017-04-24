@@ -12,8 +12,8 @@ using CCM.Domain.Entity;
 namespace CCM.Repository
 {        
 		             
-	//mapping table name: rtm_machines
-	public class rtm_machinesRepository : RepositoryBase<rtm_machinesEntity>, Irtm_machinesRepository
+	//mapping table name: realtime_sorting
+	public class realtime_sortingRepository : RepositoryBase<realtime_sortingEntity>, Irealtime_sortingRepository
     {
     }
 

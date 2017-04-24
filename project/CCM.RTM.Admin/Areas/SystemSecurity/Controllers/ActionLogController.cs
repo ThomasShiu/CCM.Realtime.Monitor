@@ -19,12 +19,18 @@ namespace CCM.RTM.Admin.Areas.SystemSecurity.Controllers
         private ActionLogApp tableApp = new ActionLogApp();
 
         [HttpGet]
+        public ActionResult RemoveLog()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string queryJson)
         {
             var data = new
             {
-                rows = tableApp.GetList(pagination, keyword),
+                rows = tableApp.GetList(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -61,6 +67,16 @@ namespace CCM.RTM.Admin.Areas.SystemSecurity.Controllers
         {
             tableApp.DeleteForm(keyValue);
             return Success("删除成功。");
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitRemoveLog(string keepTime)
+        {
+            tableApp.RemoveLog(keepTime);
+            return Success("清空成功。");
         }
     }
 

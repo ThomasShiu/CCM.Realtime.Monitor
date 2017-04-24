@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="Div_Sorting">
+    <table style='margin-left:10px;margin-top:10px;'>
+        <tr style="height:37px">
+            <td><img src='~/Content/Images/green_light.png' class='Flicker' id="Flicker_@ViewBag.Machine_ID" /></td>
+            <td id="_Machine_Type">篩選機</td>
+            <td id='_MachineNumbering'>@ViewBag.Machine_ID</td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>良品 :</td>
+            <td class='RealTime_innerText' id="Pass_@ViewBag.Machine_ID"></td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>不良品 :</td>
+            <td class='RealTime_innerText' id="Rejected_@ViewBag.Machine_ID"></td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>良率 :</td>
+            <td class='RealTime_innerText' id="Yield_@ViewBag.Machine_ID"></td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>速度 :</td>
+            <td class='RealTime_innerText' id="Speed_@ViewBag.Machine_ID"></td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>重測 :</td>
+            <td class='RealTime_innerText' id="Retest_@ViewBag.Machine_ID"></td>
+        </tr>
+        <tr style="height:26px">
+            <td class='RealTime_TitleBlank'></td>
+            <td class='RealTime_Title'>教導檔 :</td>
+            <td class='RealTime_innerText' id="Teach_@ViewBag.Machine_ID"></td>
+        </tr>
+    </table>
+
+    <table class="_Total" id="Background_@ViewBag.Machine_ID">
+        <tr style="height:30%">
+            <td class="_Total_Title">產量</td>
+        </tr>
+        <tr class="Totalresp" id="Total_@ViewBag.Machine_ID"></tr>
+    </table>
+
+    <div class="_Footer_Alert" id="_Footer_Alert_@ViewBag.Machine_ID">
+
+    </div>
+
+</div>
+
+<script>
+    //每5秒傳送
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("GetSortingData", "RTM05", new { Area = "RtmManage",Machine_ID = @ViewBag.Machine_ID  })',   //異步請求Action
+            dataType: 'Json',                          //接收格式
+            type: "POST",                                //傳輸模式
+            cache:"false",
+            success: function (data) {
+                $("#Flicker_@ViewBag.Machine_ID").attr("src", data.Flicker);
+                $("#Pass_@ViewBag.Machine_ID").html(data.Pass);
+                $("#Rejected_@ViewBag.Machine_ID").html(data.Rejected);
+                $("#Yield_@ViewBag.Machine_ID").html(data.Yield);
+                $("#Speed_@ViewBag.Machine_ID").html(data.Speed);
+                $("#Retest_@ViewBag.Machine_ID").html(data.Retest);
+                $("#Teach_@ViewBag.Machine_ID").html(data.Teach);
+                $("#Total_@ViewBag.Machine_ID").html(data.Total);
+                $("#_Footer_Alert_@ViewBag.Machine_ID").html(data.Msg);
+                $("#Background_@ViewBag.Machine_ID").css("background-image", data.Background);
+            }
+        });
+    }, 5000);
+</script>

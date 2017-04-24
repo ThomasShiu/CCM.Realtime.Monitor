@@ -25,6 +25,7 @@ namespace CCM.Domain
         public string F_ADC_IP_Address { get; set; }
 
         public string F_Remark { get; set; }
+        public int F_SortCode { get; set; }
 
         public DateTime? F_CreatorTime { get; set; }
 

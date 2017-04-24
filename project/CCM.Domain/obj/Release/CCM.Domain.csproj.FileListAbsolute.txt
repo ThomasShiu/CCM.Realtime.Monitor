@@ -69,3 +69,5 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\bin\Release\EntityFramework.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\obj\Release\CCM.Domain.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\obj\Release\CCM.Domain.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\obj\Release\CCM.Domain.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\bin\Release\MySql.Data.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Domain\bin\Release\MySql.Data.xml

@@ -1,0 +1,140 @@
+﻿@model List<string>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='~/Content/img/favicon.ico' rel='icon' type='image/x-icon' />
+    <title>精湛光學 機台監控 RTM</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/rtm_monitor.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/js/bootstrap/bootstrap.js"></script>
+    <script src="~/Content/js/rtm_ui.js"></script>
+    <!--[if lte IE 8]>
+        <div id="errorie"><div>您還在使用老掉牙的IE，正常使用系統前請升級您的流覽器到 IE8以上版本 <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-8-worldwide-languages">點擊升級</a>&nbsp;&nbsp;強烈建議您更改換流覽器：<a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">穀歌 Chrome</a></div></div>
+    <![endif]-->
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+    </style>
+</head>
+<body onload="ShowTime()" style="padding-top:0px;background-color:gainsboro">
+
+        <!-- 導覽列 -->
+    <nav class="navbar navbar-inverse  navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/img/logo.png" height="50" />
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li id="nav_all"><a href="/RtmManage/RTM05/SortingIndex?status=all">全部</a></li>
+                    <li id="nav_1"><a href="/RtmManage/RTM05/SortingIndex?status=1">正常運作</a></li>
+                    <li id="nav_0"><a href="/RtmManage/RTM05/SortingIndex?status=0">異常</a></li>
+                    <li id="nav_2"><a href="/RtmManage/RTM05/SortingIndex?status=2">無連結</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Home/Index" target="_blank"><span class="glyphicon glyphicon-log-in"></span> 首頁</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+        <br /><br /><br />
+        <!-- 機台清單 -->
+        <div class="row">
+            <div class="col-md-12 text-center"><img src="~/Content/Images/LightsList.png" style="height:45px;width:350px"></div>
+        </div>
+        <div class="container-fliud">
+            @foreach (string o in Model)
+            {
+                @Html.Action("RealTime_Sorting", new { Machine_ID = o })
+            }
+        </div>
+        <div class="row"></div>
+        <br /><br />
+        <!-- 巡覽置底 -->
+        <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="padding:0px">
+                        <div class="col-md-12 text-center Clock"><h4><span id="showTime"></span></h4></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </nav>
+
+</body>
+</html>
+<script language="JavaScript">
+    var status = $.request('status');
+    if (status == "") { status = "all"; }
+
+    $.request = function (name) {
+        var search = location.search.slice(1);
+        var arr = search.split("&");
+        for (var i = 0; i < arr.length; i++) {
+            var ar = arr[i].split("=");
+            if (ar[0] == name) {
+                if (unescape(ar[1]) == 'undefined') {
+                    return "";
+                } else {
+                    return unescape(ar[1]);
+                }
+            }
+        }
+        return "";
+    }
+    $(function () {
+        $("#nav_0").attr('class', '');
+        $("#nav_1").attr('class', '');
+        $("#nav_2").attr('class', '');
+        $("#nav_all").attr('class', '');
+
+        if (status == "0") {
+            $("#nav_0").attr('class', 'active');
+        } else if (status == "1") {
+            $("#nav_1").attr('class', 'active');
+        } else if (status == "2") {
+            $("#nav_2").attr('class', 'active');
+        } else {
+            $("#nav_all").attr('class', 'active');
+        }
+    });
+    
+
+    //alert(status);
+    function ShowTime() {
+        var NowDate = new Date();
+        var y = NowDate.getFullYear();
+        var Month = NowDate.getMonth() + 1;
+        var d = NowDate.getDate();
+        var h = NowDate.getHours();
+        var m = NowDate.getMinutes();
+        var s = NowDate.getSeconds();
+        var date = NowDate.getDate();
+        document.getElementById('showTime').innerHTML = y + '-' + Month + '-' + d + ' ' + h + '時' + m + '分' + s + '秒'
+        setTimeout('ShowTime()', 1000);
+    }
+</script>

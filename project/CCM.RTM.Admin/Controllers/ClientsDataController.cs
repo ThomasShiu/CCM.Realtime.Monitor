@@ -32,6 +32,7 @@ namespace CCM.RTM.Admin.Controllers
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
                 user=this.GetUserList(),
+                employee = this.GetEmpList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
@@ -111,14 +112,29 @@ namespace CCM.RTM.Admin.Controllers
             {
                 var fieldItem = new
                 {
-                    encode = item.F_Id,
+                    encode = item.F_Account,
                     fullname = item.F_RealName
                 };
                 dictionary.Add(item.F_Id, fieldItem);
             }
             return dictionary;
         }
-
+        private object GetEmpList()
+        {
+            UserApp userApp = new UserApp();
+            var data = userApp.GetList("");
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (UserEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    encode = item.F_Id,
+                    fullname = item.F_RealName
+                };
+                dictionary.Add(item.F_Account, fieldItem);
+            }
+            return dictionary;
+        }
         // 產生選單
         private object GetMenuList()
         {

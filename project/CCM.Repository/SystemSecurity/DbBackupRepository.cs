@@ -30,7 +30,11 @@ namespace CCM.Repository.SystemSecurity
         }
         public void ExecuteDbBackup(DbBackupEntity dbBackupEntity)
         {
-            DbHelper.ExecuteSqlCommand(string.Format("backup database {0} to disk ='{1}'", dbBackupEntity.F_DbName, dbBackupEntity.F_FilePath));
+            // 下語法備分資料庫
+            // MS SQL
+            //DbHelper.ExecuteSqlCommand(string.Format("backup database {0} to disk ='{1}'", dbBackupEntity.F_DbName, dbBackupEntity.F_FilePath));
+            // MySql mysqldump database_name > database_name.sql
+            DbHelper.ExecuteSqlCommand(string.Format("mysqldump  {0} > '{1}'", dbBackupEntity.F_DbName, dbBackupEntity.F_FileName));
             dbBackupEntity.F_FileSize = FileHelper.ToFileSize(FileHelper.GetFileSize(dbBackupEntity.F_FilePath));
             dbBackupEntity.F_FilePath = "/Resource/DbBackup/" + dbBackupEntity.F_FileName;
             this.Insert(dbBackupEntity);

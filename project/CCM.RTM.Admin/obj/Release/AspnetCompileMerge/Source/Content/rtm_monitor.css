@@ -1,0 +1,67 @@
+﻿.Flicker{
+        margin-left:0px; 
+        margin-top:5px; 
+        width:28px;
+        height:28px;
+}
+
+._Machine_Type{
+        font-family: "微軟正黑體";
+	    font-size: 18px;
+	    font-weight: bold;
+	    color:#444444;
+    }
+
+._MachineNumbering{
+        text-align:center;
+        font-family:'微軟正黑體';
+        font-size:18px;
+        font-weight:bold;
+        Color:#ff0000;
+    }
+
+.RealTime_Title{
+        font-family: "微軟正黑體";
+        font-size: 16px;
+        font-weight: bold;
+        color: #444444;
+        height: 25px;
+    }
+
+ .RealTime_innerText{
+        font-family: "微軟正黑體";
+        font-size:16px;
+        text-align: center;
+        height: 25px;
+        margin:5px;
+    }
+
+._Total_Title{
+        font-family: "微軟正黑體";
+	    font-size: 20px;
+	    font-weight: bold;
+	    color:white;
+        width:70px; 
+        text-align:left;
+        margin-left:10px;
+    }
+
+.Totalresp{
+        font-family: "微軟正黑體";
+        font-size: 20px;
+        font-weight: bold;
+        color:white;
+        /*width: 110px;*/
+        text-align: center;
+        height:70%;
+    }
+.Clock{
+        font-family: "微軟正黑體";
+        font-size: 20px;
+        font-weight: bold;
+        color:white;
+
+    }
+
+.mt-2 {margin-top: 2px;}
+.mb-15 {margin-bottom: 15px;}

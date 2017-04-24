@@ -85,3 +85,5 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\bin\Release\Newtonsoft.Json.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.csprojResolveAssemblyReference.cache
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\obj\Release\CCM.Mapping.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\bin\Release\MySql.Data.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Mapping\bin\Release\MySql.Data.xml

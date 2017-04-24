@@ -71,8 +71,10 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.RTM.Admin.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\Antlr3.Runtime.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Application.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Code.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Data.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Domain.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Mapping.dll
+D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Repository.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\EntityFramework.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\EntityFramework.SqlServer.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\Microsoft.Web.Infrastructure.dll
@@ -89,15 +91,15 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.WebPages.Deplo
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.WebPages.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.WebPages.Razor.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\WebGrease.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Data.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Repository.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\log4net.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\NPOI.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\ICSharpCode.SharpZipLib.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Application.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Code.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Data.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Domain.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Mapping.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Repository.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\Antlr3.Runtime.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\EntityFramework.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\EntityFramework.SqlServer.xml
@@ -110,8 +112,6 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.WebPages.Razor
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Net.Http.Formatting.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.Http.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\System.Web.Http.WebHost.xml
-D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Data.pdb
-D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\CCM.Repository.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\zh-Hant\System.Web.Helpers.resources.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\zh-Hant\System.Web.WebPages.resources.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.RTM.Admin\bin\zh-Hant\System.Web.WebPages.Deployment.resources.dll

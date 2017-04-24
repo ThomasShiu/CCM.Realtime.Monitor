@@ -14,13 +14,13 @@ using CCM.Repository;
 namespace CCM.Application 
 {        
 		      
-public class rtm_machinesApp
+public class realtime_sortingApp
     {
-        private Irtm_machinesRepository service = new rtm_machinesRepository();     
+        private Irealtime_sortingRepository service = new realtime_sortingRepository();     
 
-	public List<rtm_machinesEntity> GetList(string keyword = "")
+	public List<realtime_sortingEntity> GetList(string keyword = "")
         {
-            var expression = ExtLinq.True<rtm_machinesEntity>();
+            var expression = ExtLinq.True<realtime_sortingEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
@@ -29,9 +29,9 @@ public class rtm_machinesApp
             //expression = expression.And(t => t.F_Category == 1);
             return service.IQueryable(expression).OrderBy(t => t.F_CreatorTime).ToList();
         }     
-	 public List<rtm_machinesEntity> GetList(Pagination pagination, string  keyword = "")
+	 public List<realtime_sortingEntity> GetList(Pagination pagination, string  keyword = "")
         {
-            var expression = ExtLinq.True<rtm_machinesEntity>();
+            var expression = ExtLinq.True<realtime_sortingEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.OFFICIAL_NM.Contains(keyword));
@@ -41,7 +41,7 @@ public class rtm_machinesApp
             //return service.IQueryable(expression).OrderBy(t => t.ISSUEID).ToList();
             return service.FindList(expression, pagination);
         }
-        public rtm_machinesEntity GetForm(string keyValue)
+        public realtime_sortingEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -56,7 +56,7 @@ public class rtm_machinesApp
                 service.Delete(t => t.F_Id == keyValue);
             }
         }
-        public void SubmitForm(rtm_machinesEntity tableEntity, string keyValue)
+        public void SubmitForm(realtime_sortingEntity tableEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

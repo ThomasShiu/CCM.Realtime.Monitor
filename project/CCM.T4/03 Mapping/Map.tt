@@ -19,7 +19,7 @@ namespace CCM.Mapping
 {        
 		<#
 			//表格名稱
-            string tableName = "rtm_machines";
+            string tableName = "realtime_sorting";
 		
 			#>             
 	//mapping table name: <#= tableName #>

@@ -36,3 +36,4 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Debug\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\bin\Debug\Newtonsoft.Json.xml
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\obj\Debug\CCM.Code.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\obj\Debug\CCM.Code.pdb
+D:\Git_Source\CCM.RTM.Manage\project\CCM.Code\obj\Debug\CCM.Code.csprojResolveAssemblyReference.cache

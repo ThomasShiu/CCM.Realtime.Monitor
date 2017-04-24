@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+
+    <div id="Machine_@ViewBag.Machine_ID" class="col-sm-6 col-md-2 col-lg-2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-2 col-md-2"><img src='~/Content/Images/green_light.png' class='Flicker' id="Flicker_@ViewBag.Machine_ID" /></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 "><span class="_Machine_Type">篩選機</span></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-left " ><span class="_MachineNumbering">@ViewBag.Machine_ID</span></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row" >
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 "><span class="RealTime_Title">良品 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Pass_@ViewBag.Machine_ID" class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5"><span class="RealTime_Title">不良品 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Rejected_@ViewBag.Machine_ID"  class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5"><span class="RealTime_Title">良率 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Yield_@ViewBag.Machine_ID" class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5"><span class="RealTime_Title">速度 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Speed_@ViewBag.Machine_ID" class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5"><span class="RealTime_Title">重測 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Retest_@ViewBag.Machine_ID" class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5"><span class="RealTime_Title">教導檔 :</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-center"><span id="Teach_@ViewBag.Machine_ID" class="RealTime_innerText"></span></div>
+                </div>
+                <div class="row" style="padding:5px" id="Background_@ViewBag.Machine_ID">
+                    <div >
+                        <div class="col-xs-4 col-sm-4 col-md-4"><span class="_Total_Title">產量</span></div>
+                        <div class="col-xs-7 col-sm-7 col-md-7"><h3><span id="Total_@ViewBag.Machine_ID" class="Totalresp"></span></h3></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center" id="_Footer_Alert_@ViewBag.Machine_ID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(function () {
+        // 初始化
+        $.ajax({
+            url: '@Url.Action("GetSortingData", "RTM05", new { Area = "RtmManage",Machine_ID = @ViewBag.Machine_ID  })',   //異步請求Action
+            dataType: 'Json',                          //接收格式
+            type: "POST",                                //傳輸模式
+            cache: "false",
+            success: function (data) {
+                $("#Flicker_@ViewBag.Machine_ID").attr("src", data.Flicker);
+                $("#Pass_@ViewBag.Machine_ID").html(data.Pass);
+                $("#Rejected_@ViewBag.Machine_ID").html(data.Rejected);
+                $("#Yield_@ViewBag.Machine_ID").html(data.Yield);
+                $("#Speed_@ViewBag.Machine_ID").html(data.Speed);
+                $("#Retest_@ViewBag.Machine_ID").html(data.Retest);
+                $("#Teach_@ViewBag.Machine_ID").html(data.Teach);
+                $("#Total_@ViewBag.Machine_ID").html(data.Total);
+                $("#_Footer_Alert_@ViewBag.Machine_ID").html(data.Msg);
+                $("#Background_@ViewBag.Machine_ID").css("background-image", data.Background);
+
+                if (status != "all") {
+                    // 只顯示某狀態
+                    if (data.Status == status) {
+                        //alert(data.Status);
+                        $("#Machine_@ViewBag.Machine_ID").show();
+                    } else {
+                        $("#Machine_@ViewBag.Machine_ID").hide();
+                    }
+                } else {
+                    $("#Machine_@ViewBag.Machine_ID").show();
+                }
+            }
+        });
+   });
+    //每5秒傳送
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("GetSortingData", "RTM05", new { Area = "RtmManage",Machine_ID = @ViewBag.Machine_ID  })',   //異步請求Action
+            dataType: 'Json',                          //接收格式
+            type: "POST",                                //傳輸模式
+            cache:"false",
+            success: function (data) {
+                $("#Flicker_@ViewBag.Machine_ID").attr("src", data.Flicker);
+                $("#Pass_@ViewBag.Machine_ID").html(data.Pass);
+                $("#Rejected_@ViewBag.Machine_ID").html(data.Rejected);
+                $("#Yield_@ViewBag.Machine_ID").html(data.Yield);
+                $("#Speed_@ViewBag.Machine_ID").html(data.Speed);
+                $("#Retest_@ViewBag.Machine_ID").html(data.Retest);
+                $("#Teach_@ViewBag.Machine_ID").html(data.Teach);
+                $("#Total_@ViewBag.Machine_ID").html(data.Total);
+                $("#_Footer_Alert_@ViewBag.Machine_ID").html(data.Msg);
+                $("#Background_@ViewBag.Machine_ID").css("background-image", data.Background);
+                $("#Status_@ViewBag.Machine_ID").html(data.Status);
+
+                if (status != "all") {
+                    // 只顯示某狀態
+                    if (data.Status == status) {
+                        //alert(data.Status);
+                        $("#Machine_@ViewBag.Machine_ID").show();
+                    } else {
+                        $("#Machine_@ViewBag.Machine_ID").hide();
+                    }
+                } else {
+                    $("#Machine_@ViewBag.Machine_ID").show();
+                }
+            }
+        });
+    }, 5000);
+
+</script>

@@ -17,7 +17,12 @@
 				    {
 				        label: "姓名", name: "", width: 80, align: 'left',
 				        formatter: function (cellvalue, options, rowObject) {
-				            return top.clients.user[rowObject.F_Operator] == null ? "" : top.clients.user[rowObject.F_Operator].fullname;
+				            var emp = rowObject.F_Operator;
+				            //if (emp == "admin") {
+				            //    return 'admin';
+				            //} else {
+				                return top.clients.employee[rowObject.F_Operator] == null ? "" : top.clients.employee[rowObject.F_Operator].fullname;
+				            //}
 				        }
 				    },
 				    { label: "起始頁面", name: "F_Refer", width: 200, align: 'left' },
@@ -35,55 +40,34 @@
 			sortname: 'F_Id asc,F_CreatorTime desc',
             viewrecords: true
         });
+        $("#time_horizon a.btn-default").click(function () {
+            $("#time_horizon a.btn-default").removeClass("active");
+            $(this).addClass("active");
+            $('#btn_search').trigger("click");
+        });
         $("#btn_search").click(function () {
+            var timeType = $("#time_horizon a.active").attr('data-value');
+            var queryJson = {
+                keyword: $("#txt_keyword").val(),
+                timeType: $("#time_horizon a.active").attr('data-value'),
+            }
             $gridList.jqGrid('setGridParam', {
-                postData: { keyword: $("#txt_keyword").val() },
+                postData: { queryJson: JSON.stringify(queryJson) },
             }).trigger('reloadGrid');
         });
     }
-    function btn_add() {
+    
+   
+    function btn_removelog() {
         $.modalOpen({
-            id: "Form",
-            title: "新增資料",
-            url: "/SystemSecurity/ActionLog/Form",
-            width: "640px",
-            height: "400px",
+            id: "removelog",
+            title: "清空日誌",
+            url: "/SystemSecurity/ActionLog/RemoveLog",
+            width: "400px",
+            height: "180px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
-        });
-    }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
-        $.modalOpen({
-            id: "Form",
-            title: "修改資料",
-            url: "/SystemSecurity/ActionLog/Form?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
-            }
-        });
-    }
-    function btn_delete() {
-        $.deleteForm({
-            url: "/SystemSecurity/ActionLog/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
-    }
-    function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().SID;
-        $.modalOpen({
-            id: "Details",
-            title: "查看資料",
-            url: "/SystemSecurity/ActionLog/Details?keyValue=" + keyValue,
-            width: "640px",
-            height: "400px",
-            btn: null,
         });
     }
 </script>
@@ -94,7 +78,7 @@
             <a class="btn btn-info" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-info dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建資料</a>
+            <a id="NF-removelog" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_removelog()"><i class="fa fa-eraser"></i>清空日誌</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
@@ -116,6 +100,14 @@
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-info"><i class="fa fa-search"></i></button>
                         </span>
+                    </div>
+                </td>
+                <td style="padding-left: 10px;">
+                    <div id="time_horizon" class="btn-group">
+                        <a class="btn btn-default" data-value="1">今天</a>
+                        <a class="btn btn-default active" data-value="2">近7天</a>
+                        <a class="btn btn-default" data-value="3">近1個月</a>
+                        <a class="btn btn-default" data-value="4">近3個月</a>
                     </div>
                 </td>
             </tr>

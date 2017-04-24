@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rtmManage\realtime_sortingMap.cs" />
     <Compile Include="rtmManage\rtm_machinesMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />

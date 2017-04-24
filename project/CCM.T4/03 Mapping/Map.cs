@@ -11,12 +11,12 @@ using System.Data.Entity.ModelConfiguration;
 namespace CCM.Mapping 
 {        
 		             
-	//mapping table name: rtm_machines
-	public class rtm_machinesMap : EntityTypeConfiguration<rtm_machinesEntity>
+	//mapping table name: realtime_sorting
+	public class realtime_sortingMap : EntityTypeConfiguration<realtime_sortingEntity>
     {
-        public rtm_machinesMap()
+        public realtime_sortingMap()
         {
-            this.ToTable("rtm_machines");
+            this.ToTable("realtime_sorting");
             this.HasKey(t => t.F_Id);
         }
     }
