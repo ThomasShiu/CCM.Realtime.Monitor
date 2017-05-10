@@ -52,8 +52,6 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\CCM.Repository.dl
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\EPPlus.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\itextsharp.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\itextsharp.xfaworker.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\Microsoft.ReportViewer.WebForms.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\MySql.Data.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\log4net.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Application\bin\Debug\NPOI.dll

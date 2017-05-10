@@ -40,8 +40,6 @@ D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\CCM.Data.pdb
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\CCM.Code.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\EntityFramework.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\EntityFramework.SqlServer.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\MySql.Data.dll
-D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\MySql.Web.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\Newtonsoft.Json.dll
 D:\Git_Source\CCM.RTM.Manage\project\CCM.Data\bin\Debug\log4net.dll
